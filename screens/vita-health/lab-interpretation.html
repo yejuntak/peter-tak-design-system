@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Lab interpretation · Fasting glucose — Vita Health</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../../css/tokens.css">
+  <link rel="stylesheet" href="../../css/reset.css">
+  <link rel="stylesheet" href="../../css/atoms.css">
+  <link rel="stylesheet" href="../../css/molecules.css">
+  <link rel="stylesheet" href="../../css/organisms.css">
+  <link rel="stylesheet" href="../../css/motion.css">
+  <link rel="stylesheet" href="../../css/vita-health.css">
+  <link rel="stylesheet" href="_layout.css">
+</head>
+<body>
+  <div class="v-shell">
+    <header class="v-shell-head">
+      <a class="v-shell-head-brand" href="index.html">
+        <span class="v-shell-head-brand-mark">V</span>
+        <span>Vita Health</span>
+      </a>
+      <nav class="v-shell-head-nav">
+        <a href="onboarding.html">Snapshot</a>
+        <a href="lab-interpretation.html" aria-current="page">Labs</a>
+        <a href="care-plan.html">Care plan</a>
+        <a href="progress-framing.html">Progress</a>
+        <a href="recommendation.html">Insights</a>
+      </nav>
+    </header>
+
+    <main>
+      <span class="v-screen-eyebrow">Screen 02 · Lab interpretation</span>
+      <h1 class="v-screen-title">Fasting glucose, with context.</h1>
+      <p class="v-screen-lede">A number alone is either alarming or meaningless. This is the founding pattern of the product: every lab value gets a range, a trend, and a plain-language explanation — always.</p>
+
+      <p class="v-screen-note"><strong>Design rule:</strong> no health value without interpretation. The same lab result presented as a raw number versus as range + trend + explanation produces measurably different patient responses. The interpretation is the product.</p>
+
+      <div style="height: var(--s-7);"></div>
+
+      <section class="v-screen-section">
+        <article class="m-lab-result" style="max-width: 720px;">
+          <header class="m-lab-result-head">
+            <h3 class="m-lab-result-name">Fasting glucose</h3>
+            <span class="m-lab-result-status m-lab-result-status--watch">Borderline</span>
+          </header>
+          <div class="m-lab-result-value">
+            <span class="m-lab-result-number">128</span>
+            <span class="m-lab-result-unit">mg/dL</span>
+          </div>
+          <div class="m-range-indicator" aria-label="128 mg/dL, just above normal range">
+            <div class="m-range-indicator-bar"></div>
+            <div class="m-range-indicator-marker" style="left: 44%;"></div>
+            <div class="m-range-indicator-labels">
+              <span>70</span>
+              <span>125 (normal)</span>
+              <span>200</span>
+            </div>
+          </div>
+          <div class="m-trend-arrow m-trend-arrow--up" aria-label="Up 6 from previous test 4 months ago">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 15 12 9 18 15"/>
+            </svg>
+            <span>+6 mg/dL vs. last test (4 months ago)</span>
+          </div>
+          <p class="m-lab-result-explanation">Your fasting glucose is slightly above the normal range. This can be an early sign of insulin resistance — typically addressed with diet and activity changes <em>before</em> medication is considered. A 4-month re-check is the standard next step; a structured activity increase has shown 8–14 mg/dL improvements in patients with similar trends.</p>
+        </article>
+      </section>
+
+      <section class="v-screen-section">
+        <h2 class="v-screen-section-title">What this means in plain language</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--s-4);">
+          <div style="padding: var(--s-5); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-3);">
+            <span class="t-eyebrow" style="color: var(--color-good-text);">Below 100</span>
+            <h3 style="margin: 6px 0 8px; font-size: var(--t-title-m);">Normal</h3>
+            <p style="margin: 0; color: var(--ink-soft); font-size: var(--t-body-m); line-height: var(--lh-relaxed);">Glucose levels are well-regulated by your body's insulin response.</p>
+          </div>
+          <div style="padding: var(--s-5); background: var(--accent-soft); border: 1px solid var(--accent); border-radius: var(--r-3);">
+            <span class="t-eyebrow" style="color: var(--accent-text);">100–125 · You are here</span>
+            <h3 style="margin: 6px 0 8px; font-size: var(--t-title-m);">Pre-diabetic range</h3>
+            <p style="margin: 0; color: var(--ink-soft); font-size: var(--t-body-m); line-height: var(--lh-relaxed);">An early signal worth acting on, not a diagnosis. Most people in this range can return to normal with lifestyle changes alone.</p>
+          </div>
+          <div style="padding: var(--s-5); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-3);">
+            <span class="t-eyebrow" style="color: hsl(0 70% 40%);">126+</span>
+            <h3 style="margin: 6px 0 8px; font-size: var(--t-title-m);">Diabetic range</h3>
+            <p style="margin: 0; color: var(--ink-soft); font-size: var(--t-body-m); line-height: var(--lh-relaxed);">Requires clinical evaluation. Talk to your care team about confirmatory testing.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="v-screen-section">
+        <h2 class="v-screen-section-title">Your trend</h2>
+        <div style="padding: var(--s-5); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-3); display: flex; flex-direction: column; gap: var(--s-3);">
+          <div style="display: flex; align-items: baseline; gap: var(--s-5);">
+            <div>
+              <span class="t-mono-s" style="color: var(--muted);">12 mo ago</span>
+              <div style="font-size: var(--t-title-l); font-weight: var(--w-medium); color: var(--ink);">116 <span style="font-size: var(--t-body-s); color: var(--muted);">mg/dL</span></div>
+            </div>
+            <div>
+              <span class="t-mono-s" style="color: var(--muted);">8 mo ago</span>
+              <div style="font-size: var(--t-title-l); font-weight: var(--w-medium); color: var(--ink);">119</div>
+            </div>
+            <div>
+              <span class="t-mono-s" style="color: var(--muted);">4 mo ago</span>
+              <div style="font-size: var(--t-title-l); font-weight: var(--w-medium); color: var(--ink);">122</div>
+            </div>
+            <div>
+              <span class="t-mono-s" style="color: var(--accent-text);">Today</span>
+              <div style="font-size: var(--t-title-l); font-weight: var(--w-medium); color: var(--accent-text);">128</div>
+            </div>
+          </div>
+          <p style="margin: 0; font-size: var(--t-body-m); color: var(--ink-soft); line-height: var(--lh-relaxed); padding-top: var(--s-3); border-top: 1px solid var(--hairline-faint);">Slow steady rise over 12 months — the kind of trend lifestyle interventions usually catch and reverse, especially in the pre-diabetic range. Worth acting on now.</p>
+        </div>
+      </section>
+
+      <section class="v-screen-section">
+        <h2 class="v-screen-section-title">Your next steps</h2>
+        <div class="m-cta-pair" style="justify-content: flex-start;">
+          <a class="button button-primary" href="care-plan.html">Build a care plan →</a>
+          <a class="button button-secondary" href="recommendation.html">See related recommendations</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="v-shell-foot">
+      <span>Vita Health · Reference screen built from the Peter Tak Design System</span>
+      <span><a href="../../components/molecules/lab-result.md">.m-lab-result</a> · <a href="../../CLAUDE.md">CLAUDE.md</a></span>
+    </footer>
+  </div>
+</body>
+</html>

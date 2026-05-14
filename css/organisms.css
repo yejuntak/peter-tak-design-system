@@ -1,0 +1,3290 @@
+/* ============================================================================
+   ORGANISMS
+   ============================================================================
+   Page-level compositions built from atoms + molecules. These are the
+   structural units the templates assemble in Session 5.
+
+   Naming convention: every organism starts with .o-
+
+   Inventory:
+     .o-header           Sticky glass nav (brand + nav + theme toggle)
+     .o-footer           Site footer (statement + nav + meta)
+     .o-section          Generic page section wrapper (padding + container)
+     .o-hero-home        Home page hero (status + name + lede + CTAs)
+     .o-hero-page        Generic page hero (eyebrow + h1 + lede)
+     .o-hero-case        Case study hero (breadcrumb + h1 + lede + meta + visual)
+     .o-card-work        Work listing card (visual + content)
+     .o-card-archetype   Archetype panel for home (count + title + tagline + arrow)
+     .o-case-meta        Definition list block (Role / Team / Timeline / Status)
+     .o-process          Process section in case body (label + copy + media)
+     .o-outcome          Outcome / reflection two-column section
+     .o-contact-grid     Contact cards grid
+     .o-status-pill      Live status indicator with pulsing dot
+   ============================================================================ */
+
+
+/* ============================================================================
+   .o-header — sticky glass nav
+   ============================================================================ */
+
+.o-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  /* P1 Paco product polish: 12px → 10px vertical. Linear / Vercel /
+     Cron product chrome sits in 8-10px range. 12 was "marketing-ish". */
+  padding: 10px clamp(16px, 4vw, 56px);
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--hairline);
+  /* Bring above content even with stacking quirks */
+  isolation: isolate;
+}
+
+.o-header-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.o-header-mark {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--r-full);
+  background: var(--ink);
+  color: var(--bg);
+  font-family: var(--font-text);
+  font-size: var(--t-micro);
+  font-weight: var(--w-medium);
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+
+.o-header-name {
+  font-family: var(--font-text);
+  font-size: 14px;
+  font-weight: var(--w-medium);
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.o-header-nav {
+  display: flex;
+  align-items: center;
+  /* P1: nav gap reduced from s-5 (24) to s-3 (12) since each link
+     now has horizontal padding for proper hit-target. Net visible
+     spacing stays close to original. */
+  gap: var(--s-3);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.o-header-nav-link {
+  font-family: var(--font-text);
+  font-size: 13px;
+  font-weight: var(--w-medium);
+  letter-spacing: -0.005em;
+  color: var(--ink-soft);
+  text-decoration: none;
+  /* P1: 6/2 was a 4px-wide click target horizontally. 6/10 gives a
+     proper hit area + makes the active-underline span the link
+     (not just the text glyph). Nav gap reduced to compensate for
+     visual rhythm. */
+  padding: 6px 10px;
+  position: relative;
+  transition: color var(--dur-quick) var(--ease-quick);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .o-header-nav-link:hover {
+    color: var(--ink);
+  }
+}
+
+.o-header-nav-link.is-active {
+  color: var(--ink);
+}
+
+.o-header-nav-link.is-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1.5px;
+  background: var(--accent);
+  border-radius: var(--r-full);
+}
+
+.o-header-end {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+/* Mobile menu trigger button (hidden on desktop) */
+.o-header-mobile-trigger {
+  display: none;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-full);
+  color: var(--ink);
+  cursor: pointer;
+  transition:
+    border-color var(--dur-quick) var(--ease-quick),
+    background-color var(--dur-quick) var(--ease-quick),
+    transform var(--dur-press) var(--ease-spring);
+}
+
+.o-header-mobile-trigger svg {
+  width: 16px;
+  height: 16px;
+}
+
+.o-header-mobile-trigger:active {
+  transform: scale(0.95);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .o-header-mobile-trigger:hover {
+    border-color: var(--hairline-strong);
+    background: var(--surface-2);
+  }
+}
+
+/* Mobile menu (full-width drawer below header) */
+.o-mobile-menu {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  z-index: var(--z-overlay);
+  display: none;
+  flex-direction: column;
+  padding: var(--s-3) clamp(16px, 4vw, 32px) var(--s-5);
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--hairline);
+  gap: 0;
+}
+
+.o-mobile-menu.is-open {
+  display: flex;
+  animation: o-mobile-menu-in var(--dur-base) var(--ease-out);
+}
+
+@keyframes o-mobile-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.o-mobile-menu-link {
+  display: block;
+  padding: var(--s-3) 0;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-snug);
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--hairline-faint);
+  transition: color var(--dur-quick) var(--ease-quick);
+}
+
+.o-mobile-menu-link.is-active {
+  color: var(--accent-text);
+}
+
+.o-mobile-menu-link:last-child {
+  border-bottom: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .o-mobile-menu-link:hover {
+    color: var(--accent-text);
+  }
+}
+
+body.mobile-menu-open {
+  overflow: hidden;
+}
+
+/* Mobile: collapse desktop nav, show mobile trigger */
+@media (max-width: 720px) {
+  .o-header {
+    padding: 10px 16px;
+  }
+
+  .o-header-name {
+    display: none;
+  }
+
+  .o-header-nav {
+    display: none;
+  }
+
+  .o-header-mobile-trigger {
+    display: inline-flex;
+  }
+
+  .o-header-end {
+    gap: 4px;
+  }
+}
+
+@media (min-width: 721px) {
+  /* Ensure mobile menu never shows on desktop even if state lingers */
+  .o-mobile-menu,
+  .o-mobile-menu.is-open {
+    display: none !important;
+  }
+}
+
+
+/* ============================================================================
+   .o-footer — site footer
+   ============================================================================ */
+
+.o-footer {
+  border-top: 1px solid var(--hairline);
+  /* S46 Paco pass: footer was 96/64 + 128 above. Footer is recap, not
+     finale — tighten to 48/32 + 64 above. */
+  padding: var(--s-7) clamp(20px, 4.4vw, 64px) var(--s-6);
+  margin-top: var(--s-8);
+}
+
+.o-footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: var(--s-7);
+  max-width: var(--w-default);
+  margin-inline: auto;
+}
+
+@media (max-width: 720px) {
+  .o-footer-grid {
+    grid-template-columns: 1fr;
+    gap: var(--s-5);
+  }
+}
+
+.o-footer-statement {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.o-footer-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.o-footer-line {
+  font-family: var(--font-text);
+  font-size: var(--t-body-m);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 44ch;
+  margin: 0;
+}
+
+.o-footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.o-footer-col-eyebrow {
+  font-family: var(--font-text);
+  font-size: var(--t-eyebrow);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: var(--s-2);
+}
+
+.o-footer-col a {
+  font-family: var(--font-text);
+  font-size: var(--t-body-m);
+  color: var(--ink-soft);
+  text-decoration: none;
+  transition: color var(--dur-quick) var(--ease-quick);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .o-footer-col a:hover {
+    color: var(--ink);
+  }
+}
+
+.o-footer-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  max-width: var(--w-default);
+  margin: var(--s-7) auto 0;
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--hairline-faint);
+  font-family: var(--font-mono);
+  font-size: var(--t-mono-s);
+  color: var(--muted);
+}
+
+
+/* ============================================================================
+   .o-section — generic page section wrapper
+   ============================================================================
+   Use for any content section. Provides container + consistent vertical
+   rhythm. Combine with --tinted, --dark variants for surface treatment.
+   ============================================================================ */
+
+.o-section {
+  /* S46 Paco pass: 96 → 48. Sections should feel close enough to scan
+     together. 96px is "Stripe homepage" — not portfolio. */
+  padding-block: var(--s-7);
+}
+
+.o-section-inner {
+  max-width: var(--w-default);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+.o-section--narrow .o-section-inner {
+  max-width: var(--w-narrow);
+}
+
+.o-section--wide .o-section-inner {
+  max-width: var(--w-wide);
+}
+
+.o-section--tinted {
+  background: var(--bg-tinted);
+}
+
+.o-section--bordered {
+  border-top: 1px solid var(--hairline);
+}
+
+.o-section--compact {
+  /* S49 Paco pass: default .o-section is now s-7 (48). --compact must
+     actually be tighter to mean anything — drop to s-6 (32). Used on
+     filter rows, breadcrumbs, contextual nav strips. */
+  padding-block: var(--s-6);
+}
+
+
+/* ============================================================================
+   .o-status-pill — live status indicator with pulsing dot
+   ============================================================================
+   Used on home hero. The dot pulses subtly to convey "live/active".
+   ============================================================================ */
+
+.o-status-pill {
+  display: inline-flex;
+  align-items: center;
+  /* S48 Paco pass: dot-text gap was 8px; status pills feel tighter at
+     6px (icon-text proximity rule — labels are connected to their
+     glyph, they shouldn't drift). Padding stays at 6/12 — already
+     density-correct. */
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-full);
+  font-family: var(--font-text);
+  font-size: 12px;
+  font-weight: var(--w-medium);
+  letter-spacing: -0.003em;
+  color: var(--ink-soft);
+}
+
+.o-status-pill-dot {
+  position: relative;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--r-full);
+  background: var(--accent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .o-status-pill-dot::before {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: var(--r-full);
+    background: var(--accent);
+    opacity: 0.4;
+    animation: o-pulse 2s var(--ease-out) infinite;
+  }
+}
+
+@keyframes o-pulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
+
+
+/* ============================================================================
+   .o-hero-home — home page hero
+   ============================================================================
+   Pattern: status pill + display name + lede + CTAs.
+   Centered, generous whitespace. The amber dot is the only color signal.
+   ============================================================================ */
+
+/* ─── .o-hero — unified base (v1.2) ───────────────────────────────────────
+   Common container shape across all hero variants. Modifiers handle layout
+   (display, padding-block, gap) and content composition.
+
+   Canonical:  <section class="o-hero o-hero--home">…</section>
+   Legacy:     <section class="o-hero-home">…</section>  (deprecated v2.0)
+   ─────────────────────────────────────────────────────────────────────── */
+.o-hero {
+  max-width: var(--w-default);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+/* Home variant — split layout, identity left / motion graphic right */
+.o-hero--home,
+.o-hero-home {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: var(--s-6);
+  /* S46 Paco pass: home hero was 128/96 = 224px of vertical air on a
+     14-character title. Cut to 64/48 = density-first. */
+  padding-block: var(--s-8) var(--s-7);
+  max-width: var(--w-default);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+.o-hero-home-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s-4);
+  min-width: 0;
+}
+
+@media (min-width: 880px) {
+  .o-hero--home,
+  .o-hero-home {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: var(--s-8);
+    padding-block: var(--s-8) var(--s-7);
+  }
+}
+
+.o-hero-home-name {
+  font-family: var(--font-display);
+  /* S47 Paco pass: "Peter Tak" is a name (2 words), not a marketing
+     headline. 64px shouted; 28-40px reads as confident anchor without
+     screaming. Paco's own paco.me sits in this range. */
+  font-size: var(--t-title-xl);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-tightest);
+  line-height: var(--lh-tight);
+  color: var(--ink);
+  margin: 0;
+  text-wrap: balance;
+}
+
+.o-hero-home-lede {
+  font-family: var(--font-text);
+  font-size: clamp(18px, 1.6vw, 22px);
+  font-weight: var(--w-regular);
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+  color: var(--ink-soft);
+  max-width: 56ch;
+  margin: 0;
+}
+
+.o-hero-home-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  font-family: var(--font-mono);
+  font-size: var(--t-mono-s);
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: var(--s-3);
+}
+
+.o-hero-home-meta > * + *::before {
+  content: "·";
+  margin-right: var(--s-3);
+  color: var(--ink-soft);
+}
+
+/* On narrow viewports the flex-wrap + ::before separator orphans
+   "· HOME DEPOT" at the start of a new line. Hide the 4th item so
+   the three remaining fit cleanly on one line (~230px in 335px). */
+@media (max-width: 640px) {
+  .o-hero-home-meta > span:last-child {
+    display: none;
+  }
+}
+
+
+/* ============================================================================
+   .o-hero--page — generic page hero (eyebrow + title + lede stack)
+   ============================================================================ */
+
+.o-hero--page,
+.o-hero-page {
+  display: flex;
+  flex-direction: column;
+  /* gap: 0 — child margins control spacing intentionally:
+     eyebrow→title: s-2 (8px) tight, they are one unit.
+     title→lede:    s-5 (24px) breathing. CTA pairs keep inline margin-top. */
+  gap: 0;
+  padding-block: var(--s-7) var(--s-5);
+  max-width: var(--w-default);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+.o-hero-page-eyebrow {
+  font-family: var(--font-text);
+  font-size: var(--t-eyebrow);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+}
+
+.o-hero-page-title {
+  font-family: var(--font-display);
+  font-size: var(--t-display-l);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-tighter);
+  line-height: var(--lh-tight);
+  color: var(--ink);
+  /* 8px: eyebrow hugs the title — they read as one labeled unit. */
+  margin: var(--s-2) 0 0;
+  max-width: 22ch;
+  text-wrap: balance;
+}
+
+.o-hero-page-lede {
+  font-family: var(--font-text);
+  font-size: clamp(17px, 1.4vw, 20px);
+  font-weight: var(--w-regular);
+  line-height: 1.5;
+  color: var(--ink-soft);
+  /* 24px: clear visual breath after the title block. */
+  margin: var(--s-5) 0 0;
+  max-width: 60ch;
+}
+
+
+/* ============================================================================
+   .o-hero--case — case study hero
+   ============================================================================
+   Pattern: breadcrumb + h1 + lede + (visual | meta) two-column at desktop.
+   ============================================================================ */
+
+.o-hero--case,
+.o-hero-case {
+  padding-block: var(--s-7) var(--s-5);
+  max-width: var(--w-default);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+.o-hero-case-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  margin-bottom: var(--s-7);
+}
+
+.o-hero-case-title {
+  font-family: var(--font-display);
+  font-size: var(--t-display-l);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-tighter);
+  line-height: var(--lh-tight);
+  color: var(--ink);
+  margin: 0;
+  max-width: 22ch;
+  text-wrap: balance;
+}
+
+.o-hero-case-lede {
+  font-family: var(--font-text);
+  font-size: clamp(17px, 1.4vw, 20px);
+  font-weight: var(--w-regular);
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin: 0;
+  max-width: 60ch;
+}
+
+.o-hero-case-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: var(--s-6);
+  align-items: start;
+}
+
+@media (max-width: 880px) {
+  .o-hero-case-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.o-hero-case-visual {
+  /* P5 Paco product polish: was 16/11 (591×407 at desktop). Meta dl
+     beside it is naturally ~240px tall — visual was 170px TALLER,
+     leaving empty asymmetry below the meta column. Standard 16/9
+     screen ratio drops visual to 332px — still 90px taller than
+     meta but the imbalance reads as "screen capture frame" instead
+     of "lots of empty gray". */
+  aspect-ratio: 16 / 9;
+  background: var(--surface-2);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.o-hero-case-visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.o-hero-case-visual-label {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono-s);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.o-hero-case-visual-caption {
+  margin: var(--s-2) 0 0;
+  font-family: var(--font-text);
+  font-size: var(--t-body-s);
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+
+/* ============================================================================
+   .o-case-meta — definition list (Role / Team / Timeline / Status)
+   ============================================================================ */
+
+.o-case-meta {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-4);
+  padding: 0;
+  margin: 0;
+}
+
+.o-case-meta > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.o-case-meta > div:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.o-case-meta dt {
+  font-family: var(--font-text);
+  font-size: var(--t-eyebrow);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+}
+
+.o-case-meta dd {
+  font-family: var(--font-text);
+  font-size: var(--t-body-m);
+  line-height: 1.4;
+  color: var(--ink);
+  margin: 0;
+}
+
+
+/* ============================================================================
+   .o-work-group-header — section header for each work group on /work
+   ============================================================================ */
+
+.o-work-group-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.o-work-group-tagline {
+  font-family: var(--font-text);
+  font-size: var(--t-body-m);
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin: 0;
+  max-width: 56ch;
+}
+
+
+/* ============================================================================
+   .o-card-work — work listing card (used on /work and /home work index)
+   ============================================================================ */
+
+.o-card-work {
+  display: grid;
+  /* S58 urgent: thumb 140-180 → 120-140. The placeholder gray box
+     was eating 40-60px per card with literally nothing in it. Drops
+     back up when real images land (S44). */
+  grid-template-rows: minmax(120px, 140px) auto;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-4);
+  text-decoration: none;
+  color: var(--ink);
+  overflow: hidden;
+  position: relative;
+  isolation: isolate; /* contain the glow ::after at z:-1 inside the card */
+  box-shadow: var(--shadow-card);
+  /* S40: container query context — inner queries (below) react to the
+     card's own width, so the same card lays out correctly in a 3-col,
+     2-col, or 1-col grid without depending on global breakpoints. */
+  container-type: inline-size;
+  container-name: card-work;
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    border-color var(--dur-quick) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out),
+    transform var(--dur-press) var(--ease-spring);
+}
+
+/* Tight container (<= 320px): trim padding and shrink the title so
+   the card stays balanced when squeezed into a narrow column. */
+@container card-work (max-width: 320px) {
+  .o-card-work-body {
+    padding: var(--s-3) var(--s-4);
+    gap: var(--s-1);
+  }
+  .o-card-work-title {
+    font-size: var(--t-title-m);
+  }
+  .o-card-work-thumb {
+    /* Drop the row to a tighter ratio so the body still has breathing room. */
+    min-height: 140px;
+  }
+}
+
+/* Wide container (>= 480px): give the body more room and pump up the
+   title so the card feels generous when there's space. */
+@container card-work (min-width: 480px) {
+  .o-card-work-body {
+    padding: var(--s-5) var(--s-6);
+    gap: var(--s-3);
+  }
+  .o-card-work-title {
+    font-size: var(--t-title-xl, var(--t-title-l));
+  }
+}
+
+/* Rauno detail: pointer-tracking glow. Sits BELOW children (z:-1) but ABOVE
+   the card background, so text/thumb stay crisp while accent light bleeds
+   under them. --card-mx/--card-my are set by site.js on pointermove; default
+   to dead-center so the card looks neutral until the cursor arrives. */
+.o-card-work::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--dur-instant) var(--ease-out);
+  background: radial-gradient(
+    280px circle at var(--card-mx, 50%) var(--card-my, 50%),
+    color-mix(in srgb, var(--accent) 16%, transparent) 0%,
+    transparent 60%
+  );
+  z-index: -1;
+}
+
+/* Ive's restraint preserved: hover changes border + adds glow + the
+   shadow spreads slightly. No lift, no scale on inner marks — the
+   shadow growth is the depth cue, not a Y-translate. */
+@media (hover: hover) and (pointer: fine) {
+  .o-card-work:hover {
+    border-color: var(--hairline-strong);
+    box-shadow: var(--shadow-card-hover);
+  }
+  .o-card-work:hover::after {
+    opacity: 1;
+  }
+}
+
+.o-card-work:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-color: var(--hairline-strong);
+}
+
+/* Tap response — spring-eased so the press settles with a tiny overshoot
+   instead of a flat ease-out fade. Emil detail: feels physical, not timed. */
+.o-card-work:active {
+  transform: scale(0.985);
+}
+
+.o-card-work-thumb {
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--hairline);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* When a real thumbnail image is provided, suppress the gradient/text
+   styling and let the image fill the box (cover, center). */
+.o-card-work-thumb--image {
+  background: var(--surface-2);
+}
+.o-card-work-thumb--image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.o-card-work-thumb-mark {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono-s);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+/* ─── Work card thumbnail visuals — per domain kind ───────────────────────
+   Each [data-kind] gets a distinctive gradient + pattern background.
+   The text mark scales up to act as a watermark, colour-matched per kind.
+   All colours are semi-transparent so they adapt to light / dark mode.     */
+
+.o-card-work-thumb[data-kind] .o-card-work-thumb-mark {
+  font-size: 2.75rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+  position: relative;
+  z-index: 1;
+}
+
+/* AI Products */
+.o-card-work-thumb[data-kind="ai"] {
+  background:
+    radial-gradient(ellipse 90% 65% at 25% 70%, hsl(38 95% 55% / 0.22) 0%, transparent 65%),
+    radial-gradient(ellipse 60% 80% at 80% 25%, hsl(38 80% 50% / 0.12) 0%, transparent 55%),
+    radial-gradient(circle at 0.5px 0.5px, hsl(38 90% 50% / 0.28) 0.5px, transparent 0) 0 0 / 24px 24px,
+    var(--surface-2);
+}
+.o-card-work-thumb[data-kind="ai"] .o-card-work-thumb-mark {
+  color: hsl(38 95% 50% / 0.28);
+}
+
+.o-card-work-thumb[data-kind="voice-ai"] {
+  background:
+    radial-gradient(ellipse 75% 55% at 60% 45%, hsl(214 80% 55% / 0.20) 0%, transparent 65%),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px, transparent 5px,
+      hsl(214 70% 50% / 0.09) 5px, hsl(214 70% 50% / 0.09) 6px
+    ),
+    var(--surface-2);
+}
+.o-card-work-thumb[data-kind="voice-ai"] .o-card-work-thumb-mark {
+  color: hsl(214 80% 55% / 0.28);
+}
+
+/* Enterprise SaaS */
+.o-card-work-thumb[data-kind="dashboard"] {
+  background:
+    linear-gradient(170deg, hsl(220 45% 52% / 0.12) 0%, transparent 50%),
+    repeating-linear-gradient(0deg,
+      transparent 0px, transparent 15px,
+      hsl(220 40% 50% / 0.07) 15px, hsl(220 40% 50% / 0.07) 16px),
+    repeating-linear-gradient(90deg,
+      transparent 0px, transparent 15px,
+      hsl(220 40% 50% / 0.07) 15px, hsl(220 40% 50% / 0.07) 16px),
+    var(--surface-2);
+}
+.o-card-work-thumb[data-kind="dashboard"] .o-card-work-thumb-mark {
+  color: hsl(220 60% 50% / 0.24);
+}
+
+.o-card-work-thumb[data-kind="workflow"] {
+  background:
+    radial-gradient(circle at 18% 50%, hsl(200 65% 50% / 0.14) 0%, transparent 38%),
+    radial-gradient(circle at 50% 50%, hsl(200 60% 50% / 0.09) 0%, transparent 28%),
+    radial-gradient(circle at 82% 50%, hsl(200 65% 50% / 0.14) 0%, transparent 38%),
+    var(--surface-2);
+}
+.o-card-work-thumb[data-kind="workflow"] .o-card-work-thumb-mark {
+  color: hsl(200 65% 50% / 0.26);
+}
+
+.o-card-work-thumb[data-kind="admin"] {
+  background:
+    repeating-linear-gradient(0deg,
+      transparent 0px, transparent 22px,
+      hsl(0 0% 50% / 0.07) 22px, hsl(0 0% 50% / 0.07) 23px),
+    repeating-linear-gradient(90deg,
+      transparent 0px, transparent 22px,
+      hsl(0 0% 50% / 0.07) 22px, hsl(0 0% 50% / 0.07) 23px),
+    linear-gradient(135deg, hsl(0 0% 50% / 0.05) 0%, transparent 60%),
+    var(--surface-2);
+}
+.o-card-work-thumb[data-kind="admin"] .o-card-work-thumb-mark {
+  color: hsl(0 0% 40% / 0.24);
+}
+
+.o-card-work-thumb[data-kind="ops"] {
+  background:
+    repeating-linear-gradient(0deg,
+      transparent 0px, transparent 10px,
+      hsl(240 30% 50% / 0.07) 10px, hsl(240 30% 50% / 0.07) 11px),
+    linear-gradient(180deg, hsl(240 35% 50% / 0.12) 0%, transparent 70%),
+    var(--surface-2);
+}
+.o-card-work-thumb[data-kind="ops"] .o-card-work-thumb-mark {
+  color: hsl(240 35% 50% / 0.26);
+}
+
+/* Fintech */
+.o-card-work-thumb[data-kind="banking"] {
+  background:
+    radial-gradient(ellipse 110% 70% at 50% 85%, hsl(210 65% 42% / 0.18) 0%, transparent 60%),
+    radial-gradient(circle at 0.5px 0.5px, hsl(210 55% 50% / 0.22) 0.5px, transparent 0) 0 0 / 28px 28px,
+    var(--surface-2);
+}
+.o-card-work-thumb[data-kind="banking"] .o-card-work-thumb-mark {
+  color: hsl(210 65% 50% / 0.28);
+}
+
+.o-card-work-thumb[data-kind="payments"] {
+  background:
+    radial-gradient(ellipse 90% 60% at 42% 55%, hsl(255 62% 55% / 0.20) 0%, transparent 65%),
+    repeating-linear-gradient(-45deg,
+      transparent 0px, transparent 14px,
+      hsl(255 52% 55% / 0.07) 14px, hsl(255 52% 55% / 0.07) 15px),
+    var(--surface-2);
+}
+.o-card-work-thumb[data-kind="payments"] .o-card-work-thumb-mark {
+  color: hsl(255 62% 55% / 0.28);
+}
+
+.o-card-work-thumb[data-kind="lending"] {
+  background:
+    linear-gradient(158deg, hsl(210 72% 46% / 0.14) 0%, transparent 55%),
+    repeating-linear-gradient(0deg,
+      transparent 0px, transparent 8px,
+      hsl(210 62% 50% / 0.08) 8px, hsl(210 62% 50% / 0.08) 9px),
+    var(--surface-2);
+}
+.o-card-work-thumb[data-kind="lending"] .o-card-work-thumb-mark {
+  color: hsl(210 72% 50% / 0.26);
+}
+
+.o-card-work-thumb[data-kind="wealth"] {
+  background:
+    radial-gradient(ellipse 80% 55% at 28% 72%, hsl(152 62% 38% / 0.20) 0%, transparent 65%),
+    radial-gradient(ellipse 55% 40% at 80% 28%, hsl(152 52% 48% / 0.12) 0%, transparent 55%),
+    var(--surface-2);
+}
+.o-card-work-thumb[data-kind="wealth"] .o-card-work-thumb-mark {
+  color: hsl(152 62% 40% / 0.28);
+}
+
+/* Healthcare */
+.o-card-work-thumb[data-kind="clinical"] {
+  background:
+    radial-gradient(ellipse 72% 62% at 50% 38%, hsl(200 72% 55% / 0.16) 0%, transparent 65%),
+    repeating-linear-gradient(90deg,
+      transparent 0px, transparent 19px,
+      hsl(200 62% 50% / 0.07) 19px, hsl(200 62% 50% / 0.07) 20px),
+    var(--surface-2);
+}
+.o-card-work-thumb[data-kind="clinical"] .o-card-work-thumb-mark {
+  color: hsl(200 72% 50% / 0.28);
+}
+
+.o-card-work-thumb[data-kind="health"] {
+  background:
+    radial-gradient(circle at 62% 38%, hsl(170 58% 48% / 0.18) 0%, transparent 52%),
+    radial-gradient(circle at 28% 68%, hsl(170 52% 44% / 0.12) 0%, transparent 44%),
+    var(--surface-2);
+}
+.o-card-work-thumb[data-kind="health"] .o-card-work-thumb-mark {
+  color: hsl(170 58% 44% / 0.28);
+}
+
+.o-card-work-thumb[data-kind="clinical-ai"] {
+  background:
+    radial-gradient(ellipse 82% 62% at 35% 55%, hsl(250 62% 55% / 0.20) 0%, transparent 65%),
+    radial-gradient(circle at 0.5px 0.5px, hsl(250 52% 55% / 0.18) 0.5px, transparent 0) 0 0 / 24px 24px,
+    var(--surface-2);
+}
+.o-card-work-thumb[data-kind="clinical-ai"] .o-card-work-thumb-mark {
+  color: hsl(250 62% 55% / 0.28);
+}
+
+/* Design Systems */
+.o-card-work-thumb[data-kind="system"] {
+  background:
+    radial-gradient(ellipse 72% 52% at 42% 60%, hsl(38 95% 50% / 0.18) 0%, transparent 60%),
+    repeating-linear-gradient(0deg,
+      transparent 0px, transparent 15px,
+      hsl(38 80% 50% / 0.08) 15px, hsl(38 80% 50% / 0.08) 16px),
+    repeating-linear-gradient(90deg,
+      transparent 0px, transparent 15px,
+      hsl(38 80% 50% / 0.08) 15px, hsl(38 80% 50% / 0.08) 16px),
+    var(--surface-2);
+}
+.o-card-work-thumb[data-kind="system"] .o-card-work-thumb-mark {
+  color: hsl(38 95% 50% / 0.28);
+}
+
+.o-card-work-thumb[data-kind="components"] {
+  background:
+    repeating-linear-gradient(0deg,
+      transparent 0px, transparent 18px,
+      hsl(0 0% 50% / 0.08) 18px, hsl(0 0% 50% / 0.08) 19px),
+    repeating-linear-gradient(90deg,
+      transparent 0px, transparent 18px,
+      hsl(0 0% 50% / 0.08) 18px, hsl(0 0% 50% / 0.08) 19px),
+    var(--surface-2);
+}
+.o-card-work-thumb[data-kind="components"] .o-card-work-thumb-mark {
+  color: hsl(0 0% 40% / 0.24);
+}
+
+/* Zero-to-One */
+.o-card-work-thumb[data-kind="commerce"] {
+  background:
+    radial-gradient(ellipse 82% 62% at 65% 42%, hsl(25 92% 55% / 0.20) 0%, transparent 60%),
+    radial-gradient(circle at 0.5px 0.5px, hsl(25 82% 55% / 0.22) 0.5px, transparent 0) 0 0 / 20px 20px,
+    var(--surface-2);
+}
+.o-card-work-thumb[data-kind="commerce"] .o-card-work-thumb-mark {
+  color: hsl(25 92% 55% / 0.28);
+}
+
+.o-card-work-thumb[data-kind="education"] {
+  background:
+    linear-gradient(148deg, hsl(185 72% 44% / 0.18) 0%, transparent 55%),
+    radial-gradient(circle at 0.5px 0.5px, hsl(185 62% 44% / 0.20) 0.5px, transparent 0) 0 0 / 22px 22px,
+    var(--surface-2);
+}
+.o-card-work-thumb[data-kind="education"] .o-card-work-thumb-mark {
+  color: hsl(185 72% 44% / 0.28);
+}
+
+.o-card-work-badge {
+  position: absolute;
+  top: var(--s-3);
+  right: var(--s-3);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: var(--r-full);
+  background: var(--accent-soft);
+  color: var(--accent-text);
+  font-family: var(--font-text);
+  font-size: var(--t-micro);
+  font-weight: var(--w-medium);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.o-card-work-body {
+  /* S58 urgent: body padding 16/24 → 12/16. Matches archetype card
+     density. */
+  padding: var(--s-3) var(--s-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.o-card-work-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  font-family: var(--font-text);
+  font-size: var(--t-eyebrow);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.o-card-work-meta > * + *::before {
+  content: "·";
+  margin-right: var(--s-2);
+  /* S47 Paco pass: separator was --hairline-strong (a border color
+     applied to text). Too dim to read. --ink-soft is the right token
+     for inter-word punctuation — visible but not loud. */
+  color: var(--ink-soft);
+}
+
+.o-card-work-title {
+  font-family: var(--font-display);
+  /* S47 Paco pass: card titles were 22-28px; inside a 2-col card grid
+     that competes with the hero typography. Drop to 18-20 — title
+     reads as line-3 body, not as section header. Hierarchy preserved. */
+  font-size: clamp(17px, 1.4vw, 20px);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-snug);
+  line-height: var(--lh-snug);
+  color: var(--ink);
+  margin: 0;
+}
+
+.o-card-work-teaser {
+  font-family: var(--font-text);
+  font-size: var(--t-body-m);
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+.o-card-work-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* P4 Paco product polish: removed border-top + padding-top
+     decoration. Card body's existing s-2 gap between teaser and foot
+     already creates separation. The hairline-faint divider was
+     visual noise — Paco's restraint principle: remove decorative
+     dividers when spacing already does the structural job. */
+  margin-top: var(--s-2);
+}
+
+
+/* ============================================================================
+   .o-card-archetype — archetype panel (home page work-group cards)
+   ============================================================================ */
+
+.o-card-archetype {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  /* P9: padding 16→20, internal gap 8→12. The 16/8 was too cramped
+     once title→description gap was set to 12 (P8.1). 20/12 gives
+     the card breathing room without going back to the original 24
+     "marketing" feel. */
+  gap: var(--s-3);
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-4);
+  text-decoration: none;
+  color: var(--ink);
+  position: relative;
+  /* min-height 180 → 140. Most archetype cards have 3-4 lines
+     of content; 140 fits with breathing room, taller cards stretch
+     to grid row height naturally. */
+  min-height: 140px;
+  overflow: hidden;
+  isolation: isolate;
+  box-shadow: var(--shadow-card);
+  container-type: inline-size;
+  container-name: card-archetype;
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    border-color var(--dur-quick) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out),
+    transform var(--dur-press) var(--ease-spring);
+}
+
+/* The container query can't restyle the container itself (it queries
+   its OWN size, applies to descendants). So padding stays on the
+   parent rule above; we only adjust descendant typography here. */
+@container card-archetype (max-width: 280px) {
+  .o-card-archetype-title {
+    font-size: 18px;
+  }
+  .o-card-archetype-tagline {
+    font-size: var(--t-body-s);
+  }
+}
+
+@container card-archetype (min-width: 360px) {
+  .o-card-archetype-title {
+    font-size: clamp(22px, 2vw, 28px);
+  }
+}
+
+/* Pointer-tracking glow (matches .o-card-work — see comment there). */
+.o-card-archetype::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--dur-instant) var(--ease-out);
+  background: radial-gradient(
+    280px circle at var(--card-mx, 50%) var(--card-my, 50%),
+    color-mix(in srgb, var(--accent) 16%, transparent) 0%,
+    transparent 60%
+  );
+  z-index: -1;
+}
+
+@media (max-width: 640px) {
+  .o-card-archetype {
+    min-height: auto;
+    grid-template-rows: auto auto auto;
+    padding: var(--s-4);
+  }
+}
+
+/* Restrained hover — border + additive glow + shadow spread. No lift,
+   no arrow translate. The shadow doesn't push the card up; it just
+   sinks the page-bg deeper underneath it. */
+@media (hover: hover) and (pointer: fine) {
+  .o-card-archetype:hover {
+    border-color: var(--hairline-strong);
+    box-shadow: var(--shadow-card-hover);
+  }
+  .o-card-archetype:hover::after {
+    opacity: 1;
+  }
+}
+
+.o-card-archetype:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-color: var(--hairline-strong);
+}
+
+.o-card-archetype:active {
+  transform: scale(0.985);
+}
+
+.o-card-archetype-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* P9: 8px gap so the two spans don't kiss when one wraps */
+  gap: 8px;
+  font-family: var(--font-text);
+  font-size: var(--t-eyebrow);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* P9: prevent "4 CASES" from breaking into "4 / CASES" on narrow
+   cards. The right-side count never wraps — only the longer
+   left-side label can wrap if needed. */
+.o-card-archetype-head > span:last-child {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.o-card-archetype-num {
+  font-family: var(--font-mono);
+  letter-spacing: 0;
+  color: var(--accent-text);
+}
+
+.o-card-archetype-title {
+  font-family: var(--font-display);
+  font-size: clamp(20px, 1.8vw, 26px);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-tight);
+  line-height: var(--lh-card);
+  color: var(--ink);
+  margin: 0;
+  /* P9: balance line breaks across multi-word titles so we don't get
+     a long line + 1 orphan word ("Component libraries / & governance"
+     → "Component libraries & / governance"). */
+  text-wrap: balance;
+}
+
+.o-card-archetype-tagline {
+  font-family: var(--font-text);
+  font-size: var(--t-body-m);
+  line-height: 1.4;
+  color: var(--ink-soft);
+  /* P8.1: 6px wasn't enough — when title is 2 lines and tagline is
+     3 lines, the line-height stacking absorbs most of 6px and the
+     two text blocks still read as one. 12px gives a visibly
+     separated rhythm: 8 (head→title) / 12 (title→tagline) /
+     16 (tagline→foot). */
+  margin: 12px 0 0;
+}
+
+.o-card-archetype-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-text);
+  font-size: 13px;
+  font-weight: var(--w-medium);
+  color: var(--ink);
+  margin-top: var(--s-2);
+}
+
+.o-card-archetype-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent-text);
+  transition: transform var(--dur-quick) var(--ease-out);
+}
+
+
+/* ============================================================================
+   .o-process — case study process section (label + copy + media)
+   ============================================================================ */
+
+.o-process {
+  display: grid;
+  /* P6 Paco product polish: was 120px label, but .o-process--feature
+     uses 180-220px → bodyStartX jumps 114px between regular and
+     feature blocks (jarring vertical alignment shift mid-case-study).
+     Unified to 160px on both variants so body text starts at the
+     same X coordinate down the entire case body. */
+  grid-template-columns: 160px 1fr;
+  gap: var(--s-6);
+  padding-block: var(--s-6);
+  border-top: 1px solid var(--hairline);
+}
+
+@media (max-width: 880px) {
+  .o-process {
+    grid-template-columns: 1fr;
+    gap: var(--s-3);
+  }
+}
+
+.o-process-label {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  padding-top: 6px;
+}
+
+.o-process-step {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono-s);
+  letter-spacing: 0;
+  color: var(--accent-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.o-process-eyebrow {
+  font-family: var(--font-text);
+  font-size: var(--t-eyebrow);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.o-process-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  max-width: 64ch;
+}
+
+.o-process-title {
+  font-family: var(--font-display);
+  /* S50 Paco pass: process title was t-title-xl (28-40). Inside a
+     case body — itself a sub-section header — that competed with the
+     hero h1. Drop to t-title-l (22-28) so it reads as "section
+     header" not "page header". */
+  font-size: var(--t-title-l);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-tight);
+  line-height: var(--lh-snug);
+  color: var(--ink);
+  margin: 0;
+  text-wrap: balance;
+}
+
+.o-process-body p {
+  font-family: var(--font-text);
+  font-size: var(--t-body-l);
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+.o-process-body ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.o-process-body li {
+  font-family: var(--font-text);
+  font-size: var(--t-body-l);
+  line-height: 1.6;
+  color: var(--ink-soft);
+  padding-left: var(--s-4);
+  position: relative;
+}
+
+.o-process-body li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: var(--s-3);
+  height: 1px;
+  background: var(--hairline-strong);
+}
+
+
+/* ============================================================================
+   .o-outcome — outcome / reflection two-column section
+   ============================================================================ */
+
+.o-outcome {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-7);
+  padding-block: var(--s-7);
+  border-top: 1px solid var(--hairline);
+}
+
+@media (max-width: 720px) {
+  .o-outcome {
+    grid-template-columns: 1fr;
+    gap: var(--s-5);
+  }
+}
+
+.o-outcome-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.o-outcome-col-eyebrow {
+  font-family: var(--font-text);
+  font-size: var(--t-eyebrow);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+}
+
+.o-outcome-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+.o-outcome-list li {
+  font-family: var(--font-text);
+  font-size: var(--t-body-l);
+  line-height: 1.55;
+  color: var(--ink);
+  padding-left: var(--s-4);
+  position: relative;
+}
+
+.o-outcome-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: var(--s-3);
+  height: 1px;
+  background: var(--accent);
+}
+
+
+/* ============================================================================
+   .o-feature-grid + .o-feature-card — capability panels, principle pairs, etc.
+   ============================================================================
+   Generic grid of titled body-text cards. Used on home (capability frame),
+   about (organizational impact), design-system reference.
+   ============================================================================ */
+
+.o-feature-grid {
+  display: grid;
+  /* S58 urgent: was auto-fit (orphans on odd counts). Default 2-col;
+     gives clean pairs and only orphans when count is genuinely odd. */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-3);
+}
+
+.o-feature-grid--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+@media (max-width: 720px) {
+  .o-feature-grid,
+  .o-feature-grid--2 { grid-template-columns: minmax(0, 1fr); }
+}
+
+.o-feature-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  /* R10: was 24/24/32 — normalized to 24 flat. Other cards in the
+     system use s-5 flat (.m-metric, .o-artifact-tile, .m-link-card
+     body). Asymmetric padding was an outlier without reason. */
+  padding: var(--s-5);
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-4);
+  box-shadow: var(--shadow-card);
+  transition:
+    border-color var(--dur-quick) var(--ease-quick),
+    transform var(--dur-quick) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .o-feature-card:hover {
+    border-color: var(--hairline-strong);
+    box-shadow: var(--shadow-card-hover);
+  }
+}
+
+.o-feature-card-title {
+  font-family: var(--font-display);
+  font-size: var(--t-title-l);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-snug);
+  line-height: var(--lh-snug);
+  color: var(--ink);
+  margin: 0;
+}
+
+.o-feature-card-body {
+  font-family: var(--font-text);
+  font-size: var(--t-body-s);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0;
+  max-width: 56ch;
+}
+
+/* ============================================================================
+   .o-principle-list + .o-principle — long-form principle rows with hairlines
+   ============================================================================ */
+
+.o-principle-list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* S51 Paco pass: about page uses .o-principle-list for both
+   <article class="o-principle"> grid items AND simple <p> rows.
+   Each <p> consumer was inlining padding + border-top + margin: 0 to
+   replicate the row pattern. Lift it into the system. */
+.o-principle-list > p {
+  padding: var(--s-3) 0;
+  border-top: 1px solid var(--hairline-faint);
+  margin: 0;
+  font-family: var(--font-text);
+  font-size: var(--t-body-l);
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.o-principle-list > p:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.o-principle {
+  display: grid;
+  grid-template-columns: minmax(200px, 280px) 1fr;
+  gap: var(--s-6);
+  /* S51 Paco pass: principle row padding 24/24 → 16/16. With 280px
+     title column and 1fr body, 24px around each was loose. */
+  padding: var(--s-4) 0;
+  border-top: 1px solid var(--hairline);
+}
+
+.o-principle:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+@media (max-width: 720px) {
+  .o-principle {
+    grid-template-columns: 1fr;
+    gap: var(--s-2);
+  }
+}
+
+.o-principle-title {
+  font-family: var(--font-display);
+  font-size: var(--t-title-m);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-normal);
+  line-height: 1.3;
+  color: var(--ink);
+  margin: 0;
+}
+
+.o-principle-body {
+  font-family: var(--font-text);
+  font-size: var(--t-body-s);
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 0;
+  max-width: 64ch;
+}
+
+/* ============================================================================
+   .o-cta — closing call-to-action section
+   ============================================================================
+   Tinted surface, centered content, accent primary CTA.
+   ============================================================================ */
+
+.o-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-3);
+  /* S46: 96 → 64. CTA is invitation, not monument. */
+  padding: var(--s-8) clamp(20px, 4vw, 48px);
+  background: var(--bg-tinted);
+  border-radius: var(--r-5);
+  text-align: center;
+}
+
+.o-cta-eyebrow {
+  font-family: var(--font-text);
+  font-size: var(--t-eyebrow);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 var(--s-2);
+}
+
+.o-cta-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-tighter);
+  line-height: 1.1;
+  color: var(--ink);
+  margin: 0 0 var(--s-3);
+  max-width: 30ch;
+  text-wrap: balance;
+}
+
+.o-cta-body {
+  font-family: var(--font-text);
+  font-size: var(--t-body-l);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0 0 var(--s-3);
+  max-width: 56ch;
+}
+
+/* ============================================================================
+   CASE STUDY ORGANISMS
+   ============================================================================
+   The body of /work/{slug} is rendered from a flexible Sections array with
+   layout variants. These organisms encode each layout as a composition.
+   ============================================================================ */
+
+/* ─── .o-tldr — TL;DR callout at top of case ─── */
+
+.o-tldr {
+  padding: var(--s-6) var(--s-7);
+  background: var(--bg-tinted);
+  border-radius: var(--r-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  max-width: var(--w-default);
+  margin-inline: auto;
+}
+
+.o-tldr-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: var(--w-medium);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+  margin: 0;
+}
+
+.o-tldr-text {
+  font-family: var(--font-text);
+  font-size: clamp(17px, 1.4vw, 20px);
+  line-height: 1.5;
+  color: var(--ink);
+  margin: 0;
+  max-width: 70ch;
+}
+
+@media (max-width: 720px) {
+  .o-tldr {
+    padding: var(--s-5) var(--s-5);
+  }
+}
+
+/* ─── .o-summary-grid — Project overview + Challenge two-column ─── */
+
+.o-summary-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-5);
+  max-width: var(--w-default);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+@media (min-width: 880px) {
+  .o-summary-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--s-7);
+  }
+}
+
+.o-summary-grid-lede {
+  font-family: var(--font-text);
+  font-size: clamp(18px, 1.6vw, 22px);
+  font-weight: var(--w-medium);
+  line-height: var(--lh-quote);
+  letter-spacing: -0.012em;
+  color: var(--ink);
+  margin: var(--s-2) 0 0;
+  max-width: 56ch;
+  text-wrap: balance;
+}
+
+.o-summary-grid-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+
+.o-summary-grid-body p {
+  font-family: var(--font-text);
+  font-size: var(--t-body-l);
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 0;
+  max-width: 60ch;
+}
+
+/* ─── .o-notice — confidential / disclaimer notice ─── */
+
+.o-notice {
+  padding: var(--s-3) var(--s-4);
+  background: var(--surface-2);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-2);
+  font-family: var(--font-text);
+  font-size: var(--t-body-s);
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* ─── .o-metric-grid — impact band metrics ─── */
+
+.o-metric-grid {
+  display: grid;
+  /* S58 urgent: case impact metrics typically come in 3s. Force 3-col. */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-3);
+}
+
+@media (max-width: 720px) {
+  .o-metric-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ─── .o-artifact-grid + .o-artifact-tile ─── */
+
+.o-artifact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* S70: drop the box-grid metaphor — let tiles read like editorial
+     columns separated by space + a hairline rule, not as boxed cards. */
+  column-gap: var(--s-5);
+  row-gap: 0;
+  margin-top: var(--s-3);
+}
+
+@media (max-width: 720px) {
+  .o-artifact-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ─── .o-inline-media — small inline GIF/image between copy paragraphs ─── */
+.o-inline-media {
+  margin: var(--s-3) auto var(--s-2);
+  max-width: 400px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-3);
+  overflow: hidden;
+  background: var(--surface-2);
+}
+/* Wide variant — for diagrams or schematics where text legibility matters
+   more than feeling "supplementary." Drops the 400px cap, fills column. */
+.o-inline-media--wide {
+  max-width: 100%;
+}
+.o-inline-media img,
+.o-inline-media iframe {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.o-inline-media figcaption {
+  padding: var(--s-2) var(--s-3);
+  font-family: var(--font-text);
+  font-size: var(--t-body-s);
+  color: var(--muted);
+  border-top: 1px solid var(--hairline);
+}
+
+.o-artifact-tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  padding: var(--s-4) 0 var(--s-5);
+  background: transparent;
+  border: 0;
+  border-top: 1px solid var(--hairline);
+  border-radius: 0;
+  position: relative;
+}
+
+.o-artifact-tile-kind {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  font-weight: var(--w-medium);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+  margin: 0;
+}
+
+.o-artifact-tile-title {
+  font-family: var(--font-display);
+  font-size: var(--t-title-m);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-snug);
+  line-height: var(--lh-snug);
+  color: var(--ink);
+  margin: 0;
+}
+
+/* Selector chained with element to outweigh .o-process-body p (which
+   has higher specificity than a single class). Without this, in-section
+   artifact tile bodies inherit the 17px narrative size. */
+p.o-artifact-tile-body {
+  font-family: var(--font-text);
+  font-size: var(--t-body-s);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+.o-artifact-tile-wire {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--hairline-faint);
+}
+
+.o-artifact-tile-wire span {
+  display: block;
+  height: 4px;
+  background: var(--surface-2);
+  border-radius: var(--r-0);
+}
+
+.o-artifact-tile-wire span:nth-child(1) { width: 70%; }
+.o-artifact-tile-wire span:nth-child(2) { width: 90%; }
+.o-artifact-tile-wire span:nth-child(3) { width: 50%; }
+
+/* ─── .o-process--feature — featured screen-showcase variant ─── */
+
+.o-process--feature {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-5);
+  padding-block: var(--s-7);
+  border-top: 1px solid var(--hairline);
+}
+
+.o-process--feature .o-process-label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--s-3);
+  flex-wrap: wrap;
+}
+
+.o-process--feature .o-process-tag {
+  display: inline-flex;
+  padding: 4px 10px;
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  font-weight: var(--w-medium);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+  background: var(--accent-soft);
+  border-radius: var(--r-1);
+}
+
+.o-process--feature .o-process-body {
+  max-width: var(--w-narrow);
+}
+
+@media (min-width: 880px) {
+  .o-process--feature {
+    /* P6: matches .o-process 160px so body starts at the same X. */
+    grid-template-columns: 160px 1fr;
+    gap: var(--s-6);
+  }
+  .o-process--feature .o-process-label {
+    grid-row: 1;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .o-process--feature .o-process-body {
+    grid-row: 1;
+    grid-column: 2;
+  }
+  .o-process--feature .o-media-showcase {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ─── .o-media-row + .o-media-showcase + .o-media-placeholder ─── */
+
+.o-media-row {
+  display: grid;
+  /* S58 urgent: 2-col default. Media artifacts come in pairs naturally. */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-3);
+  margin-top: var(--s-4);
+}
+/* When o-media-row is a sibling of o-process-label inside .o-process
+   (default layout), it falls into the 160px label column. Span both
+   process columns so media renders at full content width. */
+.o-process > .o-media-row {
+  grid-column: 1 / -1;
+}
+
+.o-media-showcase {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-3);
+  margin-top: var(--s-4);
+}
+
+.o-media-showcase--grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* Wide items span both columns in any grid showcase + fill the cell width */
+.o-media-showcase--grid .o-media-placeholder--wide,
+.o-media-showcase--grid .o-media-real.o-media-placeholder--wide,
+.o-media-row .o-media-placeholder--wide,
+.o-media-row .o-media-real.o-media-placeholder--wide {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+@media (max-width: 720px) {
+  .o-media-row,
+  .o-media-showcase--grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.o-media-placeholder {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-2);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-3);
+  overflow: hidden;
+  margin: 0;
+}
+
+.o-media-placeholder--wide {
+  grid-column: 1 / -1;
+}
+
+.o-media-placeholder-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  flex: 1;
+  min-height: 200px;
+  padding: var(--s-5);
+  text-align: center;
+}
+
+.o-media-placeholder-kind {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  font-weight: var(--w-medium);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+
+.o-media-placeholder-label {
+  font-family: var(--font-display);
+  font-size: var(--t-body-l);
+  font-weight: var(--w-medium);
+  color: var(--ink);
+  max-width: 30ch;
+  line-height: 1.3;
+}
+
+.o-media-real img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Expansion icon — top-right of every real image. Opens a lightbox modal.
+   Applies to both .o-media-real (showcase grid figures) and .o-inline-media
+   (inline-paired figures in the inline-media layout). */
+.o-media-real,
+.o-inline-media { position: relative; }
+.o-media-expand {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: 0;
+  background: rgba(0, 0, 0, 0.55);
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0.65;
+  transition: opacity 0.15s ease, background 0.15s ease;
+  z-index: 2;
+}
+.o-media-real:hover .o-media-expand,
+.o-inline-media:hover .o-media-expand,
+.o-media-expand:hover,
+.o-media-expand:focus-visible {
+  opacity: 1;
+}
+.o-media-expand:hover {
+  background: rgba(0, 0, 0, 0.85);
+}
+.o-media-expand:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Lightbox modal — full-viewport image viewer */
+.o-media-lightbox {
+  position: fixed;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: rgba(20, 20, 20, 0.94);
+  width: 100vw;
+  max-width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  z-index: 1000;
+}
+.o-media-lightbox:not([open]) { display: none; }
+.o-media-lightbox::backdrop {
+  background: rgba(20, 20, 20, 0.92);
+}
+.o-media-lightbox-inner {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 32px;
+  box-sizing: border-box;
+}
+.o-media-lightbox img {
+  display: block;
+  max-width: 100%;
+  max-height: calc(100vh - 96px);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  /* White surface behind the image so transparent SVGs (which use the
+     page's color scheme) remain visible regardless of the modal's dark
+     backdrop. Raster images cover this fully. */
+  background: #ffffff;
+}
+.o-media-lightbox-caption {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 90vw;
+  font-family: var(--font-text);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+  text-align: center;
+  line-height: 1.5;
+  padding: 0 16px;
+}
+.o-media-lightbox-close {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 0;
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 300;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+}
+.o-media-lightbox-close:hover { background: rgba(255, 255, 255, 0.22); }
+.o-media-lightbox-close:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.o-media-real iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  position: absolute;
+  inset: 0;
+}
+
+/* aspect-ratio + position:relative needed for iframe embeds */
+.o-media-real.media-ar--16x9 { aspect-ratio: 16/9; position: relative; }
+.o-media-real.media-ar--4x3  { aspect-ratio: 4/3;  position: relative; }
+.o-media-real.media-ar--3x2  { aspect-ratio: 3/2;  position: relative; }
+.o-media-real.media-ar--1x1  { aspect-ratio: 1/1;  position: relative; }
+.o-media-real.media-ar--21x9 { aspect-ratio: 21/9; position: relative; }
+
+.o-media-placeholder figcaption,
+.o-media-real figcaption {
+  padding: var(--s-2) var(--s-3) var(--s-3);
+  font-family: var(--font-text);
+  font-size: var(--t-body-s);
+  color: var(--muted);
+  border-top: 1px solid var(--hairline);
+  background: var(--bg);
+}
+
+/* aspect-ratio variants applied via media-ar--* class.
+   For placeholders, the ratio governs the VISUAL inner area only — caption
+   sits below in its natural height so long captions are never clipped by
+   the aspect box (and overflow:hidden on the figure doesn't truncate them). */
+.o-media-placeholder.media-ar--16x9  .o-media-placeholder-inner { aspect-ratio: 16/9; }
+.o-media-placeholder.media-ar--4x3   .o-media-placeholder-inner { aspect-ratio: 4/3; }
+.o-media-placeholder.media-ar--3x2   .o-media-placeholder-inner { aspect-ratio: 3/2; }
+.o-media-placeholder.media-ar--1x1   .o-media-placeholder-inner { aspect-ratio: 1/1; }
+.o-media-placeholder.media-ar--21x9  .o-media-placeholder-inner { aspect-ratio: 21/9; }
+.o-media-placeholder.media-ar--9x16  .o-media-placeholder-inner { aspect-ratio: 9/16; }
+.o-media-placeholder.media-ar--32x10 .o-media-placeholder-inner { aspect-ratio: 32/10; }
+.o-media-real.media-ar--32x10        { aspect-ratio: 32/10; }
+
+/* Improved placeholder — dot grid background, wireframe inner frame */
+.o-media-placeholder {
+  background-image:
+    radial-gradient(circle at 0.5px 0.5px, hsl(0 0% 50% / 0.18) 0.5px, transparent 0);
+  background-size: 20px 20px;
+  background-color: var(--surface-2);
+}
+
+.o-media-placeholder-inner {
+  border: 1px dashed hsl(0 0% 50% / 0.25);
+  border-radius: var(--r-2);
+  margin: var(--s-4);
+}
+
+.o-media-placeholder-kind::before {
+  content: "⬚ ";
+  opacity: 0.6;
+}
+
+/* ─── .o-persona-card ─── */
+
+.o-persona-grid {
+  display: grid;
+  /* Auto-fit so 2 personas render as 2-up and 3 personas render as 3-up
+     on wide screens, collapsing to 2 / 1 as space tightens. */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  /* Align to start so an expanded accordion doesn't pull its compact
+     row-mates' empty space. Each card keeps its natural height. */
+  align-items: start;
+  gap: var(--s-3);
+  margin-top: var(--s-4);
+}
+
+/* If a persona ends up alone in the last row of a 2-column layout
+   (3 personas, 5 personas, etc.), span it full width so it reads as
+   intentional rather than orphaned. */
+.o-persona-grid > .o-persona-card:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 720px) {
+  .o-persona-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .o-persona-grid > .o-persona-card:last-child:nth-child(odd) {
+    grid-column: auto;
+  }
+}
+
+.o-persona-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  padding: var(--s-5);
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  /* Rasmus discipline: cards use --card-radius (--r-4, 12px). --r-5 is
+     reserved for hero panels. Respect the system spec. */
+  border-radius: var(--card-radius);
+  /* Single easing token, two duration buckets across the whole card:
+     --persona-fast (micro feedback) and --persona-slow (state change). */
+  --persona-ease: cubic-bezier(0.23, 1, 0.32, 1);
+  --persona-fast: 160ms;
+  --persona-slow: 240ms;
+  transition:
+    border-color var(--persona-fast) var(--persona-ease),
+    background-color var(--persona-fast) var(--persona-ease);
+}
+
+/* Cascading entry — 60ms stagger, paint-time only. */
+@starting-style {
+  .o-persona-grid > .o-persona-card {
+    opacity: 0;
+  }
+}
+.o-persona-grid > .o-persona-card {
+  transition-delay: 0ms;
+  transition-property: border-color, background-color, opacity;
+  transition-duration: var(--persona-fast, 160ms);
+}
+.o-persona-grid > .o-persona-card:nth-child(2) { transition-delay: 60ms; }
+.o-persona-grid > .o-persona-card:nth-child(3) { transition-delay: 120ms; }
+.o-persona-grid > .o-persona-card:nth-child(4) { transition-delay: 180ms; }
+
+/* Rasmus restraint: ONE signal on hover. The border firms up; nothing
+   moves, nothing lifts, no shadow. The card acknowledges, it doesn't
+   perform. */
+@media (hover: hover) and (pointer: fine) {
+  .o-persona-card:hover {
+    border-color: var(--hairline-strong, rgba(0, 0, 0, 0.14));
+  }
+}
+
+.m-avatar {
+  transition: background-color var(--persona-fast, 160ms) cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .o-persona-card,
+  .o-persona-grid > .o-persona-card,
+  .m-avatar {
+    transition: border-color 160ms ease;
+  }
+  .o-persona-grid > .o-persona-card { transition-delay: 0ms; }
+}
+
+/* Avatar + name row — uses the .m-avatar molecule from the design system
+   (see molecules.css). Legacy .o-persona-card-avatar is no longer rendered. */
+.o-persona-card-head {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.o-persona-card-name {
+  font-family: var(--font-display);
+  font-size: var(--t-title-m);
+  font-weight: var(--w-medium);
+  color: var(--ink);
+  margin: 0;
+}
+
+.o-persona-card-role {
+  display: block;
+  font-family: var(--font-text);
+  font-size: var(--t-micro);
+  font-weight: var(--w-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: var(--lh-snug);
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.o-persona-card blockquote {
+  margin: 0;
+  padding: var(--s-3) 0;
+  border-top: 1px solid var(--hairline-faint);
+  border-bottom: 1px solid var(--hairline-faint);
+  font-family: var(--font-display);
+  font-size: var(--t-body-m);
+  font-style: italic;
+  color: var(--ink-soft);
+  line-height: var(--lh-normal);
+}
+
+/* ── Compact summary head ───────────────────────────────────── */
+
+.o-persona-card-summary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+}
+
+/* Specificity bump (chained classes) — beats .o-process-body p which
+   would otherwise force --t-body-l on this paragraph. */
+.o-persona-card .o-persona-card-jtbd {
+  margin: 0;
+  padding: var(--s-3) 0 0;
+  border-top: 1px solid var(--hairline-faint);
+  /* Rasmus on statement copy: display family, upright (italic is
+     decorative), one notch tighter than body — the JTBD reads as a
+     quiet claim, not a quote. */
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: var(--w-regular);
+  line-height: var(--lh-normal);
+  color: var(--ink-soft);
+  letter-spacing: -0.005em;
+}
+
+/* ── Disclosure toggle (button + animated underline + chevron) ── */
+
+.o-persona-card-toggle {
+  /* Button reset — Emil prefers semantic <button> over <a> for in-page
+     toggles, but with link-style affordance. */
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin-top: var(--s-1);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  cursor: pointer;
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: var(--t-body-s);
+  font-weight: var(--w-medium);
+  line-height: 1.2;
+  transition: transform var(--persona-fast, 160ms) var(--persona-ease, cubic-bezier(0.23, 1, 0.32, 1));
+}
+.o-persona-card-toggle:active {
+  transform: scale(0.98);
+}
+.o-persona-card-toggle:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* The link text — animated underline that slides in from left, out to
+   right. Emil's signature wipe; uses transform-origin swap. */
+.o-persona-card-link {
+  position: relative;
+  display: inline-block;
+}
+.o-persona-card-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform var(--persona-slow, 240ms) var(--persona-ease, cubic-bezier(0.23, 1, 0.32, 1));
+}
+@media (hover: hover) and (pointer: fine) {
+  .o-persona-card-toggle:hover .o-persona-card-link::after {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
+}
+.o-persona-card-toggle:focus-visible .o-persona-card-link::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+/* Chevron rotates 180° when expanded. */
+.o-persona-card-chevron {
+  flex-shrink: 0;
+  transition: transform var(--persona-slow, 240ms) var(--persona-ease, cubic-bezier(0.23, 1, 0.32, 1));
+}
+.o-persona-card[data-expanded="true"] .o-persona-card-chevron {
+  transform: rotate(180deg);
+}
+
+/* ── Accordion details (grid-rows trick for smooth height) ───── */
+
+.o-persona-card-details {
+  display: grid;
+  grid-template-rows: 0fr;
+  /* Interruptible CSS transition — toggling rapidly retargets smoothly. */
+  transition: grid-template-rows var(--persona-slow, 240ms) var(--persona-ease, cubic-bezier(0.23, 1, 0.32, 1));
+}
+.o-persona-card[data-expanded="true"] .o-persona-card-details {
+  grid-template-rows: 1fr;
+}
+.o-persona-card-details-inner {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding-top: 0;
+  /* Hairline marks the threshold between the toggle and the disclosed
+     content — the same hairline-faint pattern the JTBD already uses
+     above itself in the summary, so the card has one consistent
+     divider language. The 1px is part of the closed-state height (0px
+     visible because overflow hidden), so it animates in cleanly with
+     the grid-rows reveal. */
+  border-top: 1px solid var(--hairline-faint);
+  transition: padding-top var(--persona-slow, 240ms) var(--persona-ease, cubic-bezier(0.23, 1, 0.32, 1));
+}
+.o-persona-card[data-expanded="true"] .o-persona-card-details-inner {
+  padding-top: var(--s-4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .o-persona-card-toggle,
+  .o-persona-card-link::after,
+  .o-persona-card-chevron,
+  .o-persona-card-details,
+  .o-persona-card-details-inner {
+    transition: none;
+  }
+  .o-persona-card[data-expanded="true"] .o-persona-card-details {
+    grid-template-rows: 1fr;
+  }
+}
+
+.o-persona-card-section strong {
+  display: block;
+  font-family: var(--font-text);
+  /* Unify with .o-persona-card-role — same micro-label rhythm. The
+     section header isn't louder than the persona's own role. */
+  font-size: var(--t-micro);
+  font-weight: var(--w-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: var(--lh-snug);
+  color: var(--muted);
+  margin-bottom: var(--s-2);
+}
+
+.o-persona-card-section ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  /* Item-to-item rhythm matches the card's gap unit (s-2 = 8px). */
+  gap: var(--s-2);
+}
+
+.o-persona-card-section li {
+  font-family: var(--font-text);
+  font-size: var(--t-body-s);
+  color: var(--ink-soft);
+  /* Tighter than 1.5 — each goal/frustration reads as a discrete
+     statement, not flowing prose. */
+  line-height: 1.4;
+  letter-spacing: -0.003em;
+}
+
+/* ─── .o-competitor-table ─── */
+
+.o-competitor-table {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-3);
+  overflow: hidden;
+  margin-top: var(--s-4);
+}
+
+.o-competitor-table-head,
+.o-competitor-table-row {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1.4fr;
+  gap: var(--s-3);
+  padding: var(--s-4) var(--s-4);
+  border-top: 1px solid var(--hairline);
+}
+
+.o-competitor-table-head {
+  border-top: 0;
+  background: var(--surface-2);
+  font-family: var(--font-text);
+  font-size: var(--t-eyebrow);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.o-competitor-table-row strong {
+  font-family: var(--font-display);
+  font-size: var(--t-title-m);
+  font-weight: var(--w-medium);
+  color: var(--ink);
+}
+
+.o-competitor-table-row p {
+  font-family: var(--font-text);
+  font-size: var(--t-body-s);
+  line-height: 1.5;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  .o-competitor-table-head,
+  .o-competitor-table-row {
+    grid-template-columns: 1fr;
+    gap: var(--s-2);
+  }
+  .o-competitor-table-head {
+    display: none;
+  }
+}
+
+/* ─── .o-section-refs — external reference links list ─── */
+
+.o-section-refs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  margin-top: var(--s-4);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--hairline-faint);
+}
+
+.o-section-ref-link {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--s-2) 0;
+  text-decoration: none;
+  color: var(--ink);
+  border-bottom: 1px solid var(--hairline-faint);
+  transition: color var(--dur-quick) var(--ease-quick);
+}
+
+.o-section-ref-link:last-child { border-bottom: 0; }
+
+@media (hover: hover) and (pointer: fine) {
+  .o-section-ref-link:hover {
+    color: var(--accent-text);
+  }
+}
+
+.o-section-ref-label {
+  font-family: var(--font-text);
+  font-size: var(--t-body-m);
+  font-weight: var(--w-medium);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.o-section-ref-label::after {
+  content: "↗";
+  font-size: 13px;
+  color: var(--accent-text);
+}
+
+.o-section-ref-note {
+  font-family: var(--font-text);
+  font-size: var(--t-body-s);
+  color: var(--muted);
+}
+
+/* ─── .o-clean-list — bullet list with hairline markers (used in process body) ─── */
+
+.o-clean-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.o-clean-list li {
+  font-family: var(--font-text);
+  font-size: var(--t-body-l);
+  line-height: 1.6;
+  color: var(--ink-soft);
+  padding-left: var(--s-4);
+  position: relative;
+}
+
+.o-clean-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: var(--s-3);
+  height: 1px;
+  background: var(--hairline-strong);
+}
+
+.o-clean-list--large li {
+  font-size: clamp(17px, 1.4vw, 19px);
+  padding-left: var(--s-5);
+}
+
+.o-clean-list--accent li::before {
+  background: var(--accent);
+}
+
+/* ─── .o-hero-case-pills — read-time + platform tags row below lede ─── */
+
+.o-hero-case-pills {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+  margin-top: var(--s-4);
+}
+
+/* ─── .o-case-read-time — "8 min read" pill ─── */
+
+.o-case-read-time {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  font-family: var(--font-mono);
+  font-size: var(--t-mono-s);
+  font-weight: var(--w-regular);
+  letter-spacing: 0;
+  color: var(--muted);
+  background: var(--surface-2);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-full);
+}
+
+/* ─── .o-platform-tags — Web / Mobile / etc. tags below case h1 ─── */
+
+.o-platform-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-1);
+  margin-top: var(--s-3);
+}
+
+.o-platform-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  font-family: var(--font-text);
+  font-size: 12px;
+  font-weight: var(--w-medium);
+  letter-spacing: -0.003em;
+  background: var(--surface);
+  color: var(--ink-soft);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-full);
+}
+
+/* ============================================================================
+   .o-toast — transient notification
+   ============================================================================
+   Per Sonner principles: enter from below with translate + opacity + scale.
+   Asymmetric timing: slow entry (320ms), fast exit (160ms).
+   Uses @starting-style for the modern entry pattern (no JS mount flag).
+   ============================================================================ */
+
+.o-toast-region {
+  position: fixed;
+  bottom: var(--s-5);
+  right: var(--s-5);
+  z-index: var(--z-toast);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  pointer-events: none;
+  max-width: calc(100vw - var(--s-7));
+}
+
+.o-toast {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-3);
+  min-width: 280px;
+  max-width: 400px;
+  padding: var(--s-3) var(--s-4);
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-3);
+  box-shadow: var(--shadow-3);
+  pointer-events: auto;
+
+  /* exit/default state hidden offsets */
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+}
+
+@starting-style {
+  .o-toast {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+  }
+}
+
+.o-toast[data-state="exit"],
+.o-toast.is-exiting {
+  opacity: 0;
+  transform: translateY(8px) scale(0.97);
+  transition-duration: var(--dur-instant);
+}
+
+.o-toast-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--accent-text);
+}
+
+.o-toast-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.o-toast-title {
+  font-family: var(--font-text);
+  font-size: var(--t-body-m);
+  font-weight: var(--w-medium);
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.o-toast-description {
+  font-family: var(--font-text);
+  font-size: var(--t-body-s);
+  line-height: 1.4;
+  color: var(--ink-soft);
+}
+
+.o-toast-close {
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 0;
+  border-radius: var(--r-1);
+  color: var(--muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition:
+    background-color var(--dur-quick) var(--ease-quick),
+    color var(--dur-quick) var(--ease-quick);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .o-toast-close:hover {
+    background: var(--surface-2);
+    color: var(--ink);
+  }
+}
+
+.o-toast-close:active {
+  transform: scale(0.92);
+}
+
+
+/* ============================================================================
+   .o-dialog — modal dialog
+   ============================================================================
+   Built on the native <dialog> element so it gets focus-trap and Escape
+   handling for free. Modals stay centered (Emil's exception to origin-aware
+   scaling — they aren't anchored to a trigger).
+   ============================================================================ */
+
+dialog.o-dialog,
+.o-dialog {
+  /* Reset native dialog defaults so we control everything */
+  margin: auto;
+  padding: 0;
+  width: min(480px, calc(100vw - var(--s-6)));
+  max-height: calc(100vh - var(--s-6));
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-4);
+  box-shadow: var(--shadow-3);
+  overflow: hidden;
+  opacity: 1;
+  transform: scale(1);
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out),
+    overlay var(--dur-base) allow-discrete,
+    display var(--dur-base) allow-discrete;
+}
+
+@starting-style {
+  dialog.o-dialog[open],
+  .o-dialog[open] {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+
+dialog.o-dialog::backdrop,
+.o-dialog::backdrop {
+  background: hsl(0 0% 0% / 0.4);
+  backdrop-filter: blur(4px);
+  opacity: 1;
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    overlay var(--dur-base) allow-discrete,
+    display var(--dur-base) allow-discrete;
+}
+
+@starting-style {
+  dialog.o-dialog[open]::backdrop,
+  .o-dialog[open]::backdrop {
+    opacity: 0;
+  }
+}
+
+.o-dialog-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: var(--s-5) var(--s-5) var(--s-3);
+}
+
+.o-dialog-title {
+  font-family: var(--font-display);
+  font-size: var(--t-title-l);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-snug);
+  color: var(--ink);
+  margin: 0;
+}
+
+.o-dialog-close {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 0;
+  border-radius: var(--r-full);
+  color: var(--muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition:
+    background-color var(--dur-quick) var(--ease-quick),
+    color var(--dur-quick) var(--ease-quick),
+    transform var(--dur-press) var(--ease-spring);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .o-dialog-close:hover {
+    background: var(--surface-2);
+    color: var(--ink);
+  }
+}
+
+.o-dialog-close:active {
+  transform: scale(0.92);
+}
+
+.o-dialog-body {
+  padding: 0 var(--s-5) var(--s-4);
+  font-family: var(--font-text);
+  font-size: var(--t-body-m);
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+.o-dialog-foot {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--s-2);
+  padding: var(--s-4) var(--s-5);
+  border-top: 1px solid var(--hairline);
+  background: var(--bg);
+}
+
+
+/* ============================================================================
+   .o-comparison — before/after image comparison slider
+   ============================================================================
+   Rauno-style proof-of-craft. Pure CSS clip-path, no JS required.
+   The handle position is controlled by a range input that updates a
+   custom property the clip-path consumes.
+   ============================================================================ */
+
+.o-comparison {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: var(--surface-2);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-4);
+  overflow: hidden;
+  --comparison-pos: 50%;
+}
+
+.o-comparison-before,
+.o-comparison-after {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: var(--t-mono-s);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  padding: 0 var(--s-5);
+}
+
+@media (max-width: 480px) {
+  /* On narrow viewports, hide the body labels — corner badges still indicate state */
+  .o-comparison-before,
+  .o-comparison-after {
+    font-size: 0;
+  }
+}
+
+.o-comparison-before {
+  background: var(--surface-2);
+}
+
+.o-comparison-after {
+  background: var(--ink);
+  color: var(--bg);
+  clip-path: inset(0 0 0 var(--comparison-pos));
+}
+
+.o-comparison-label {
+  position: absolute;
+  top: var(--s-3);
+  padding: 4px 10px;
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  font-weight: var(--w-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: var(--bg);
+  color: var(--ink);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-full);
+}
+
+.o-comparison-label--before {
+  left: var(--s-3);
+}
+
+.o-comparison-label--after {
+  right: var(--s-3);
+  background: var(--ink);
+  color: var(--bg);
+  border-color: transparent;
+}
+
+.o-comparison-handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--comparison-pos);
+  width: 2px;
+  background: var(--accent);
+  pointer-events: none;
+  transform: translateX(-1px);
+}
+
+.o-comparison-handle::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 32px;
+  height: 32px;
+  background: var(--accent);
+  border-radius: var(--r-full);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 0.2);
+}
+
+.o-comparison-handle::before {
+  content: "↔";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  font-size: 14px;
+  color: var(--accent-fg);
+  font-weight: var(--w-bold);
+  pointer-events: none;
+}
+
+.o-comparison-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: ew-resize;
+  margin: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+}
+
+.o-comparison-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 32px;
+  height: 100%;
+  background: transparent;
+  cursor: ew-resize;
+}
+
+.o-comparison-input::-moz-range-thumb {
+  width: 32px;
+  height: 100%;
+  background: transparent;
+  cursor: ew-resize;
+  border: 0;
+}
+
+
+/* ============================================================================
+   .o-contact-grid — contact cards
+   ============================================================================ */
+
+.o-contact-grid {
+  display: grid;
+  /* S58 urgent: always exactly 3 (Email / LinkedIn / Location). 3-col fixed. */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-3);
+}
+
+@media (max-width: 720px) {
+  .o-contact-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.o-contact-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  padding: var(--s-5);
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-3);
+  transition: border-color var(--dur-quick) var(--ease-quick);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .o-contact-card:hover {
+    border-color: var(--hairline-strong);
+  }
+}
+
+.o-contact-card-label {
+  font-family: var(--font-text);
+  font-size: var(--t-eyebrow);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.o-contact-card-value {
+  font-family: var(--font-display);
+  font-size: var(--t-title-m);
+  font-weight: var(--w-medium);
+  color: var(--ink);
+  margin: 0;
+}
+
+.o-contact-card-value a {
+  color: inherit;
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size var(--dur-quick) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .o-contact-card-value a:hover {
+    background-size: 100% 1px;
+  }
+}
+
+.o-contact-card-note {
+  font-family: var(--font-text);
+  font-size: var(--t-body-s);
+  color: var(--muted);
+  margin: var(--s-2) 0 0;
+  line-height: 1.5;
+}
+
+
+/* ============================================================================
+   ELEMENT CHOREOGRAPHY (S43) — "one moves, others respond"
+   ============================================================================
+   When the cursor enters a card grid, the un-hovered siblings dim slightly
+   so the eye locks onto the focused card. Same for filter chips and any
+   sibling group of interactive items inside a single parent.
+   The dim is tiny (opacity 0.55) — enough to telegraph focus without
+   feeling like the rest of the UI is "broken".
+   Uses :has() so the parent reacts to its children's state without JS.
+   No-:has() browsers (Firefox before 121) skip the rule and the cards
+   keep their normal hover behavior — graceful degradation.
+   ============================================================================ */
+
+@media (hover: hover) and (pointer: fine) {
+  /* Card grids — applies to .o-card-work and .o-card-archetype groups. */
+  .ds-grid:has(> .o-card-work:hover) > .o-card-work:not(:hover),
+  .ds-grid:has(> .o-card-archetype:hover) > .o-card-archetype:not(:hover) {
+    opacity: 0.55;
+  }
+
+  /* Filter row — un-hovered chips fade, but the active one stays full
+     opacity even when something else is hovered (it's the persistent
+     selection, not the transient one). */
+  .m-filter-row:has(> .m-chip:hover) > .m-chip:not(:hover):not(.is-active) {
+    opacity: 0.55;
+  }
+
+  /* Tag clusters in case studies — same pattern, lighter dim because
+     tags are smaller and the eye reads them as a set. */
+  .m-tag-cluster:has(> .tag:hover) > .tag:not(:hover) {
+    opacity: 0.65;
+  }
+}

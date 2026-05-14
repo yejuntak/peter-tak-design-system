@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>ML recommendation · Confidence tiers — Vita Health</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../../css/tokens.css">
+  <link rel="stylesheet" href="../../css/reset.css">
+  <link rel="stylesheet" href="../../css/atoms.css">
+  <link rel="stylesheet" href="../../css/molecules.css">
+  <link rel="stylesheet" href="../../css/organisms.css">
+  <link rel="stylesheet" href="../../css/motion.css">
+  <link rel="stylesheet" href="../../css/vita-health.css">
+  <link rel="stylesheet" href="_layout.css">
+</head>
+<body>
+  <div class="v-shell">
+    <header class="v-shell-head">
+      <a class="v-shell-head-brand" href="index.html">
+        <span class="v-shell-head-brand-mark">V</span>
+        <span>Vita Health</span>
+      </a>
+      <nav class="v-shell-head-nav">
+        <a href="onboarding.html">Snapshot</a>
+        <a href="lab-interpretation.html">Labs</a>
+        <a href="care-plan.html">Care plan</a>
+        <a href="progress-framing.html">Progress</a>
+        <a href="recommendation.html" aria-current="page">Insights</a>
+      </nav>
+    </header>
+
+    <main>
+      <span class="v-screen-eyebrow">Screen 05 · ML-powered insights</span>
+      <h1 class="v-screen-title">Recommendations, with confidence.</h1>
+      <p class="v-screen-lede">Direction-not-directive copy, plain-language confidence tiers, transparent sources, and a three-action response (Accept · Modify · Dismiss) on every recommendation. Designed in 2019–2022 — same patterns I use for agentic AI today.</p>
+
+      <p class="v-screen-note"><strong>Design rule:</strong> never expose a raw confidence score. The system speaks three tiers — "Based on your results" (high), "Consider" (medium), "Ask your doctor about" (low). The phrase IS the tier — no freelancing new copy. Dismiss collects structured reasons that feed back into the model.</p>
+
+      <div style="height: var(--s-7);"></div>
+
+      <section class="v-screen-section">
+        <h2 class="v-screen-section-title">High confidence · "Based on your results"</h2>
+        <article class="o-recommendation-card" style="max-width: 720px;">
+          <header class="o-recommendation-card-head">
+            <span class="m-confidence-tier m-confidence-tier--high">Based on your results</span>
+            <span class="o-recommendation-card-meta">Updated 2 days ago</span>
+          </header>
+          <div class="o-recommendation-card-body" style="display: flex; flex-direction: column; gap: var(--s-3);">
+            <h3 class="o-recommendation-card-title">Increasing activity could help bring your fasting glucose back into range by your next test.</h3>
+            <p class="o-recommendation-card-rationale">Your fasting glucose has moved from 116 to 128 over four months — still in pre-diabetic territory. Patients with similar trends who reached 150 min/week of moderate activity saw an 8–14 mg/dL decrease at their next test, often returning to normal range without medication.</p>
+            <ul class="o-recommendation-card-sources">
+              <li>Lab trend · 12 months</li>
+              <li>Activity data · last 30 days</li>
+              <li>Age, sex</li>
+              <li>Clinical Advisory Panel guidance</li>
+            </ul>
+          </div>
+          <div class="m-action-trio" role="group" aria-label="Respond to recommendation">
+            <button type="button" class="button button-primary" data-action="accept">Accept</button>
+            <button type="button" class="button button-secondary" data-action="modify">Modify</button>
+            <button type="button" class="button button-tertiary" data-action="dismiss">Dismiss</button>
+          </div>
+        </article>
+      </section>
+
+      <section class="v-screen-section">
+        <h2 class="v-screen-section-title">Medium confidence · "Consider"</h2>
+        <article class="o-recommendation-card" style="max-width: 720px;">
+          <header class="o-recommendation-card-head">
+            <span class="m-confidence-tier m-confidence-tier--medium">Consider</span>
+            <span class="o-recommendation-card-meta">Updated today</span>
+          </header>
+          <div class="o-recommendation-card-body" style="display: flex; flex-direction: column; gap: var(--s-3);">
+            <h3 class="o-recommendation-card-title">A consistent bedtime could improve your morning blood pressure readings.</h3>
+            <p class="o-recommendation-card-rationale">Your blood pressure has been borderline-high in the morning. Sleep timing is one of several factors associated with morning BP — alongside sodium intake, activity, and stress. A 7-day sleep-consistency window often produces measurable changes for borderline values.</p>
+            <ul class="o-recommendation-card-sources">
+              <li>Sleep data · last 14 days</li>
+              <li>BP readings · last 7 days</li>
+            </ul>
+          </div>
+          <div class="m-action-trio" role="group" aria-label="Respond to recommendation">
+            <button type="button" class="button button-primary" data-action="accept">Accept</button>
+            <button type="button" class="button button-secondary" data-action="modify">Modify</button>
+            <button type="button" class="button button-tertiary" data-action="dismiss">Dismiss</button>
+          </div>
+        </article>
+      </section>
+
+      <section class="v-screen-section">
+        <h2 class="v-screen-section-title">Low confidence · "Ask your doctor about"</h2>
+        <article class="o-recommendation-card" style="max-width: 720px;">
+          <header class="o-recommendation-card-head">
+            <span class="m-confidence-tier m-confidence-tier--low">Ask your doctor about</span>
+            <span class="o-recommendation-card-meta">Updated today</span>
+          </header>
+          <div class="o-recommendation-card-body" style="display: flex; flex-direction: column; gap: var(--s-3);">
+            <h3 class="o-recommendation-card-title">Vitamin D supplementation strategy for your specific level and latitude.</h3>
+            <p class="o-recommendation-card-rationale">Your vitamin D is below sufficient (22 ng/mL). Standard supplementation (1000–2000 IU/day) is appropriate for most patients, but the right dose for you depends on factors a model can't fully resolve from app data — current medications, calcium intake, and any history of stones or hypercalcemia. This is a conversation for your care team.</p>
+            <ul class="o-recommendation-card-sources">
+              <li>Vitamin D · today's result</li>
+              <li>Geographic latitude · estimated</li>
+            </ul>
+          </div>
+          <div class="m-action-trio" role="group" aria-label="Respond to recommendation">
+            <button type="button" class="button button-primary" data-action="accept">Schedule with my doctor</button>
+            <button type="button" class="button button-secondary" data-action="modify">Save for later</button>
+            <button type="button" class="button button-tertiary" data-action="dismiss">Dismiss</button>
+          </div>
+        </article>
+      </section>
+
+      <section class="v-screen-section">
+        <h2 class="v-screen-section-title">Why three tiers, not a percentage</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--s-3); max-width: 960px;">
+          <div style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2);">
+            <span class="t-eyebrow" style="color: var(--accent-text); display: block; margin-bottom: 8px;">Patients can't act on 0.84</span>
+            <p style="margin: 0; color: var(--ink-soft); font-size: var(--t-body-s); line-height: var(--lh-relaxed);">A confidence score is technical jargon. The tier wraps the score in language a patient can use to weigh the recommendation.</p>
+          </div>
+          <div style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2);">
+            <span class="t-eyebrow" style="color: var(--accent-text); display: block; margin-bottom: 8px;">Three tiers map to three responses</span>
+            <p style="margin: 0; color: var(--ink-soft); font-size: var(--t-body-s); line-height: var(--lh-relaxed);">"Based on your results" → act. "Consider" → think. "Ask your doctor about" → escalate. The tier tells the patient what to <em>do</em> with the recommendation.</p>
+          </div>
+          <div style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2);">
+            <span class="t-eyebrow" style="color: var(--accent-text); display: block; margin-bottom: 8px;">Thresholds live in the engine, not the UI</span>
+            <p style="margin: 0; color: var(--ink-soft); font-size: var(--t-body-s); line-height: var(--lh-relaxed);">Designers don't pick which score maps to which tier — the team's recommendation engine does. The UI just consumes the tier.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="v-shell-foot">
+      <span>Vita Health · Reference screen built from the Peter Tak Design System</span>
+      <span><a href="../../components/molecules/confidence-tier.md">.m-confidence-tier</a> · <a href="../../components/molecules/action-trio.md">.m-action-trio</a> · <a href="../../CLAUDE.md">CLAUDE.md</a></span>
+    </footer>
+  </div>
+</body>
+</html>

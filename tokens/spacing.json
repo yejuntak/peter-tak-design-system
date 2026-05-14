@@ -1,0 +1,22 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "spacing": {
+    "_meta": {
+      "description": "Geometric-ish scale (4 → 128). Use --s-3 / --s-4 / --s-5 for component-internal padding; --s-6 / --s-7 / --s-8 for section padding-block.",
+      "intra-component": "s-1 to s-4",
+      "inter-component": "s-5 to s-7",
+      "section": "s-7 to s-9"
+    },
+    "s-1":  { "value": "4px",   "css": "--s-1" },
+    "s-2":  { "value": "8px",   "css": "--s-2" },
+    "s-3":  { "value": "12px",  "css": "--s-3" },
+    "s-4":  { "value": "16px",  "css": "--s-4" },
+    "s-5":  { "value": "24px",  "css": "--s-5" },
+    "s-6":  { "value": "32px",  "css": "--s-6" },
+    "s-7":  { "value": "48px",  "css": "--s-7" },
+    "s-8":  { "value": "64px",  "css": "--s-8" },
+    "s-9":  { "value": "96px",  "css": "--s-9" },
+    "s-10": { "value": "128px", "css": "--s-10" },
+    "s-11": { "value": "160px", "css": "--s-11" }
+  }
+}

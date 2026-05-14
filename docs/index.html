@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Peter Tak Design System</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/atoms.css">
+  <link rel="stylesheet" href="../css/molecules.css">
+  <link rel="stylesheet" href="../css/organisms.css">
+  <link rel="stylesheet" href="../css/motion.css">
+  <link rel="stylesheet" href="../css/vita-health.css">
+  <style>
+    body { margin: 0; font-family: var(--font-text); background: var(--bg); color: var(--ink-soft); }
+    .d-shell { max-width: 1120px; margin: 0 auto; padding: var(--s-7) var(--s-5); display: flex; flex-direction: column; gap: var(--s-7); }
+    .d-head { display: flex; align-items: center; justify-content: space-between; padding-bottom: var(--s-4); border-bottom: 1px solid var(--hairline); }
+    .d-eyebrow { font-family: var(--font-mono); font-size: var(--t-micro); text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-text); }
+    .d-title { font-family: var(--font-display); font-size: var(--t-display-l); font-weight: var(--w-medium); color: var(--ink); line-height: var(--lh-tight); margin: var(--s-2) 0 var(--s-3); letter-spacing: -0.01em; }
+    .d-lede { font-size: var(--t-body-l); line-height: var(--lh-relaxed); color: var(--ink-soft); max-width: 64ch; margin: 0 0 var(--s-6); }
+    .d-section { display: flex; flex-direction: column; gap: var(--s-4); }
+    .d-section-title { font-family: var(--font-display); font-size: var(--t-title-l); font-weight: var(--w-medium); color: var(--ink); margin: 0; }
+    .d-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--s-3); }
+    .d-tile { padding: var(--s-5); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-3); text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: var(--s-2); transition: border-color 0.15s ease, transform 0.15s ease; }
+    .d-tile:hover { border-color: var(--accent); transform: translateY(-1px); }
+    .d-tile-code { font-family: var(--font-mono); font-size: var(--t-body-s); color: var(--ink); }
+    .d-tile-name { font-family: var(--font-display); font-size: var(--t-title-m); font-weight: var(--w-medium); color: var(--ink); }
+    .d-tile-desc { font-size: var(--t-body-s); color: var(--muted); line-height: var(--lh-relaxed); }
+  </style>
+</head>
+<body>
+  <div class="d-shell">
+    <header class="d-head">
+      <span class="d-eyebrow">Peter Tak Design System</span>
+      <nav style="display: flex; gap: var(--s-4); font-family: var(--font-mono); font-size: var(--t-micro); text-transform: uppercase; letter-spacing: 0.06em;">
+        <a href="../README.md" style="color: var(--muted); text-decoration: none;">README</a>
+        <a href="../CLAUDE.md" style="color: var(--muted); text-decoration: none;">CLAUDE.md</a>
+        <a href="https://github.com/yejuntak/peter-tak-design-system" target="_blank" rel="noopener" style="color: var(--muted); text-decoration: none;">GitHub ↗</a>
+      </nav>
+    </header>
+
+    <main>
+      <h1 class="d-title">A production-grade design system,<br>optimized for humans and AI.</h1>
+      <p class="d-lede">Atomic-design organized. Plain CSS, no preprocessor. Machine-readable tokens (W3C DTCG-ish JSON). Component specs written so AI agents can produce on-system markup without seeing the rendered output. The whole system is six CSS files and a folder of markdown specs.</p>
+
+      <section class="d-section">
+        <h2 class="d-section-title">Tokens</h2>
+        <div class="d-grid">
+          <a class="d-tile" href="../tokens/color.json">
+            <span class="d-tile-code">tokens/color.json</span>
+            <span class="d-tile-name">Color</span>
+            <span class="d-tile-desc">Three-tier: primitive grays + amber, semantic aliases (bg, ink, accent), component-level (—ink-soft, —surface-2).</span>
+          </a>
+          <a class="d-tile" href="../tokens/typography.json">
+            <span class="d-tile-code">tokens/typography.json</span>
+            <span class="d-tile-name">Typography</span>
+            <span class="d-tile-desc">Aeonik display + Geist Mono. Scale from clamp(40, 5vw, 64) for hero down to 10px tiny.</span>
+          </a>
+          <a class="d-tile" href="../tokens/spacing.json">
+            <span class="d-tile-code">tokens/spacing.json</span>
+            <span class="d-tile-name">Spacing</span>
+            <span class="d-tile-desc">Geometric scale 4 → 128. Pick the closest token; don't split the difference.</span>
+          </a>
+          <a class="d-tile" href="../tokens/radius.json">
+            <span class="d-tile-code">tokens/radius.json</span>
+            <span class="d-tile-name">Radius</span>
+            <span class="d-tile-desc">r-0 (kbd) → r-full (pill). Pick by role, not size.</span>
+          </a>
+          <a class="d-tile" href="../tokens/motion.json">
+            <span class="d-tile-code">tokens/motion.json</span>
+            <span class="d-tile-name">Motion</span>
+            <span class="d-tile-desc">Two durations × two easings. Anything else needs justification.</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="d-section">
+        <h2 class="d-section-title">New components (Vita Health case)</h2>
+        <div class="d-grid">
+          <a class="d-tile" href="../components/molecules/lab-result.md">
+            <span class="d-tile-code">.m-lab-result</span>
+            <span class="d-tile-name">Lab result</span>
+            <span class="d-tile-desc">Health value with range + trend + plain-language explanation. Never a raw number.</span>
+          </a>
+          <a class="d-tile" href="../components/molecules/progress-bar.md">
+            <span class="d-tile-code">.m-progress-bar</span>
+            <span class="d-tile-name">Progress bar</span>
+            <span class="d-tile-desc">Adherence as progress, never compliance. API enforces the framing.</span>
+          </a>
+          <a class="d-tile" href="../components/molecules/confidence-tier.md">
+            <span class="d-tile-code">.m-confidence-tier</span>
+            <span class="d-tile-name">Confidence tier</span>
+            <span class="d-tile-desc">High · Medium · Low — language wrappers around model scores. Never expose the raw number.</span>
+          </a>
+          <a class="d-tile" href="../components/molecules/action-trio.md">
+            <span class="d-tile-code">.m-action-trio</span>
+            <span class="d-tile-name">Action trio</span>
+            <span class="d-tile-desc">Accept · Modify · Dismiss. Modify is first-class — partial acceptance is the common case.</span>
+          </a>
+          <a class="d-tile" href="../components/organisms/recommendation-card.md">
+            <span class="d-tile-code">.o-recommendation-card</span>
+            <span class="d-tile-name">Recommendation card</span>
+            <span class="d-tile-desc">Composes tier + direction-not-directive title + rationale + sources + action-trio.</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="d-section">
+        <h2 class="d-section-title">Reference screens</h2>
+        <div class="d-grid">
+          <a class="d-tile" href="../screens/vita-health/index.html">
+            <span class="d-tile-code">screens/vita-health/</span>
+            <span class="d-tile-name">Vita Health · Patient journey</span>
+            <span class="d-tile-desc">5 reference screens: onboarding, lab interpretation, care plan, progress framing, ML recommendation. Built entirely from this system.</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="d-section">
+        <h2 class="d-section-title">CSS files (drop in and use)</h2>
+        <pre style="margin: 0; padding: var(--s-5); background: var(--bg-tinted); border: 1px solid var(--hairline); border-radius: var(--r-3); font-family: var(--font-mono); font-size: var(--t-body-s); line-height: var(--lh-relaxed); overflow-x: auto;"><code>&lt;link rel="stylesheet" href="css/tokens.css"&gt;
+&lt;link rel="stylesheet" href="css/reset.css"&gt;
+&lt;link rel="stylesheet" href="css/atoms.css"&gt;
+&lt;link rel="stylesheet" href="css/molecules.css"&gt;
+&lt;link rel="stylesheet" href="css/organisms.css"&gt;
+&lt;link rel="stylesheet" href="css/motion.css"&gt;
+&lt;link rel="stylesheet" href="css/vita-health.css"&gt; <span style="color: var(--muted);">&lt;!-- optional, healthcare components --&gt;</span></code></pre>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

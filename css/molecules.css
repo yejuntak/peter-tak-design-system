@@ -1,0 +1,1358 @@
+/* ============================================================================
+   MOLECULES
+   ============================================================================
+   Small compositions of atoms with a specific purpose. Built on tokens +
+   atoms; consumed by organisms in Session 4.
+
+   Naming convention: every molecule starts with .m-
+
+   Inventory:
+     .m-eyebrow-title    Eyebrow + title vertical stack
+     .m-hero-lede        Title + lede paragraph (page hero)
+     .m-stat             Value + label (proof strip, metrics)
+     .m-cta-pair         Button cluster
+     .m-breadcrumb       Slash-separated breadcrumb chain
+     .m-card-header      Eyebrow + title + meta row
+     .m-metric           Metric tile (value, label, note, source)
+     .m-career-entry     Period + role + note (about page career arc)
+     .m-filter-row       Wrapping row of chip-style filter buttons
+     .m-tag-cluster      Wrapping tag list
+     .m-field            Label + input + help text (form field)
+     .m-quote            Pullquote with attribution
+     .m-avatar           Circular avatar with initials or image
+     .m-link-card        Clickable link block with title + arrow
+   ============================================================================ */
+
+
+/* ----------------------------------------------------------------------------
+   .m-eyebrow-title — the most-used molecule in the system
+   ----------------------------------------------------------------------------
+   Pattern: small uppercase eyebrow above a title. Appears in every section.
+
+   Variant: .m-eyebrow-title--numbered — eyebrow includes a step number
+            ("01 · Color") rendered in mono, eyebrow text in caps after.
+   ---------------------------------------------------------------------------- */
+
+.m-eyebrow-title {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  /* S48 Paco pass: every consumer was patching this molecule with inline
+     margin-bottom + max-width. Ship the defaults so consumers stop
+     re-inventing. 24px bottom is the right rhythm to next content;
+     60ch caps reading width on the title. */
+  margin-bottom: var(--s-5);
+  max-width: 60ch;
+}
+
+.m-eyebrow-title > .m-eyebrow-title-eyebrow {
+  /* uses .t-eyebrow if applied as a class, but provide same here for safety */
+  font-family: var(--font-text);
+  font-size: var(--t-eyebrow);
+  font-weight: var(--w-medium);
+  line-height: 1;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.m-eyebrow-title--numbered .m-eyebrow-title-eyebrow,
+/* S49 Paco pass: support standalone usage too. /work uses just
+   .m-eyebrow-title-eyebrow (no wrapper), so the rule didn't apply
+   and consumers patched with inline display + gap. The :has()
+   selector means "anywhere this eyebrow contains a num child,
+   render as inline-flex". Removes inline-style patches site-wide. */
+.m-eyebrow-title-eyebrow:has(> .m-eyebrow-title-num) {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.m-eyebrow-title--numbered .m-eyebrow-title-num {
+  font-family: var(--font-mono);
+  font-feature-settings: "tnum";
+  letter-spacing: 0;
+  color: var(--muted);
+}
+
+.m-eyebrow-title > .m-eyebrow-title-title {
+  /* let consumer choose a type role (.t-title-xl/.t-title-l/.t-display-l) */
+  margin: 0;
+  text-wrap: balance;
+}
+
+
+/* ----------------------------------------------------------------------------
+   .m-hero-lede — page hero pattern: title + descriptive paragraph
+   ---------------------------------------------------------------------------- */
+
+.m-hero-lede {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  max-width: 64ch;
+}
+
+.m-hero-lede-eyebrow + .m-hero-lede-title {
+  margin-top: var(--s-2);
+}
+
+.m-hero-lede-title {
+  margin: 0;
+  text-wrap: balance;
+}
+
+.m-hero-lede-lede {
+  /* lede paragraph: slightly larger than body, slightly heavier */
+  font-family: var(--font-text);
+  font-size: clamp(17px, 1.4vw, 20px);
+  font-weight: var(--w-regular);
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+  color: var(--ink-soft);
+  margin: 0;
+  max-width: 60ch;
+}
+
+
+/* ----------------------------------------------------------------------------
+   .m-stat — value + label (proof strip, metric counters)
+   ---------------------------------------------------------------------------- */
+
+.m-stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--hairline);
+}
+
+.m-stat-value {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-tight);
+  line-height: 1;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.m-stat-label {
+  font-family: var(--font-text);
+  font-size: var(--t-body-s);
+  font-weight: var(--w-regular);
+  line-height: 1.4;
+  color: var(--muted);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* Highlighted variant — the one stat that draws the eye */
+.m-stat--highlight .m-stat-value {
+  color: var(--accent-text);
+}
+
+
+/* ----------------------------------------------------------------------------
+   .m-cta-pair — button cluster (primary + secondary)
+   ---------------------------------------------------------------------------- */
+
+.m-cta-pair {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.m-cta-pair--centered {
+  justify-content: center;
+}
+
+
+/* ----------------------------------------------------------------------------
+   .m-breadcrumb — slash-separated chain of links/labels
+   ----------------------------------------------------------------------------
+   Used in case study top: Work · Client · Year · Read time
+   ---------------------------------------------------------------------------- */
+
+.m-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+  font-family: var(--font-text);
+  font-size: var(--t-eyebrow);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+  list-style: none;
+  padding: 0;
+  /* S55 Paco pass: breadcrumbs always sit above content, never trail.
+     Ship the bottom margin so consumers don't keep inlining s-5. */
+  margin: 0 0 var(--s-5);
+}
+
+.m-breadcrumb a,
+.m-breadcrumb-link {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color var(--dur-quick) var(--ease-quick);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .m-breadcrumb a:hover,
+  .m-breadcrumb-link:hover {
+    color: var(--ink);
+  }
+}
+
+.m-breadcrumb > * + *::before {
+  content: "·";
+  margin-right: var(--s-2);
+  /* S55 Paco pass: same separator-color fix applied site-wide
+     (m-eyebrow-title-meta in S47, o-hero-home-meta in S48). */
+  color: var(--ink-soft);
+  font-weight: var(--w-regular);
+}
+
+
+/* ----------------------------------------------------------------------------
+   .m-card-header — eyebrow + title + meta row (top of cards)
+   ---------------------------------------------------------------------------- */
+
+.m-card-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+
+.m-card-header-eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  font-family: var(--font-text);
+  font-size: var(--t-eyebrow);
+  font-weight: var(--w-medium);
+  line-height: 1;
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.m-card-header-title {
+  font-family: var(--font-display);
+  font-size: var(--t-title-l);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-snug);
+  line-height: var(--lh-snug);
+  color: var(--ink);
+  margin: 0;
+}
+
+.m-card-header-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  font-family: var(--font-text);
+  font-size: var(--t-body-s);
+  color: var(--muted);
+}
+
+.m-card-header-meta > * + *::before {
+  content: "·";
+  margin-right: var(--s-2);
+  /* S57 Paco pass: fourth + final occurrence of the hairline-strong-
+     on-text fix. Border tokens don't belong on inter-word punctuation. */
+  color: var(--ink-soft);
+}
+
+
+/* ----------------------------------------------------------------------------
+   .m-metric — metric tile with value, label, optional note + source
+   ----------------------------------------------------------------------------
+   Used in case study impact bands.
+   ---------------------------------------------------------------------------- */
+
+.m-metric {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  padding: var(--s-5);
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-3);
+  box-shadow: var(--shadow-card);
+  transition:
+    border-color var(--dur-quick) var(--ease-quick),
+    transform var(--dur-quick) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .m-metric:hover {
+    border-color: var(--hairline-strong);
+    box-shadow: var(--shadow-card-hover);
+  }
+}
+
+.m-metric-value {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 3.6vw, 48px);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-tighter);
+  line-height: 1;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.m-metric-label {
+  font-family: var(--font-text);
+  font-size: var(--t-body-m);
+  font-weight: var(--w-medium);
+  line-height: 1.3;
+  color: var(--ink);
+  margin: 0;
+}
+
+.m-metric-note {
+  font-family: var(--font-text);
+  font-size: var(--t-body-s);
+  font-weight: var(--w-regular);
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 0;
+}
+
+.m-metric-source {
+  margin-top: auto;
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--hairline-faint);
+  font-family: var(--font-mono);
+  font-size: var(--t-mono-s);
+  color: var(--muted);
+}
+
+.m-metric-source a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid var(--hairline);
+  padding-bottom: 1px;
+  transition: border-color var(--dur-quick) var(--ease-quick), color var(--dur-quick) var(--ease-quick);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .m-metric-source a:hover {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+  }
+}
+
+/* Highlight variant — the headline metric */
+.m-metric--highlight {
+  background: var(--accent-soft);
+  border-color: transparent;
+}
+
+.m-metric--highlight .m-metric-value {
+  color: var(--accent-text);
+}
+
+
+/* ----------------------------------------------------------------------------
+   .m-career-entry — period + company/role + optional note
+   ----------------------------------------------------------------------------
+   Pattern: 160px period column on the left, content on the right.
+   Stacks on mobile. Ride alongside .m-timeline for the spine + dot
+   visual (added S33).
+   ---------------------------------------------------------------------------- */
+
+.m-career-entry {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  /* P9: gap 24 → 48. Was 24px but the dot+spine sat at gap midpoint
+     (172) which left only 11.5px between dot right-edge and company
+     name first letter. Visually the dot LOOKED like it was on top
+     of the "T" / "H" / "M". 48px gap pushes content edge to 208;
+     dot is now 19.5px from the letter — clear separation. */
+  gap: 48px;
+  padding: 20px 0;
+  align-items: start;
+  position: relative;
+}
+
+@media (max-width: 640px) {
+  .m-career-entry {
+    grid-template-columns: 1fr;
+    gap: var(--s-1);
+    padding: var(--s-4) 0;
+    border-top: 1px solid var(--hairline);
+  }
+  .m-career-entry:first-child {
+    border-top: 0;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   .m-timeline — vertical spine connecting career entries (S33)
+   ----------------------------------------------------------------------------
+   Spine sits in the gap between period column (0–160) and content column.
+   Each .m-career-entry inside renders a dot on the line. Dots fill from
+   outline to accent the first time the entry crosses 10% in viewport
+   (re-uses [data-reveal] / .is-visible from site.js so no extra JS).
+   Spine + dots are desktop-only — under 640px we fall back to the
+   border-top divider on each entry.
+   ---------------------------------------------------------------------------- */
+
+.m-timeline {
+  position: relative;
+}
+
+@media (min-width: 641px) {
+  .m-timeline::before {
+    content: "";
+    position: absolute;
+    /* P9: gap widened 24→48; new midpoint between period(160) and
+       content(208) = 184. */
+    left: 184px;
+    top: var(--s-3);
+    bottom: var(--s-3);
+    width: 1px;
+    background: var(--hairline);
+    pointer-events: none;
+  }
+
+  /* Per-entry dot. Sits on the spine; outline state by default,
+     fills with accent + halo the first time the entry crosses
+     viewport (parent already wired with [data-reveal] / .is-visible
+     by the existing reveal observer in site.js). */
+  .m-career-entry::before {
+    content: "";
+    position: absolute;
+    /* P9: matches new spine at 184 (period 160 + half of 48 gap). */
+    left: 184px;
+    top: 18px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 1.5px solid var(--hairline-strong);
+    transform: translateX(-50%);
+    transition:
+      background-color var(--dur-base) var(--ease-out),
+      border-color var(--dur-base) var(--ease-out),
+      box-shadow var(--dur-base) var(--ease-out),
+      transform var(--dur-base) var(--ease-spring);
+    z-index: 1;
+  }
+
+  .m-timeline .m-career-entry.is-visible::before {
+    background-color: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);
+    transform: translateX(-50%) scale(1.1);
+  }
+}
+
+.m-career-period {
+  font-family: var(--font-mono);
+  font-size: var(--t-mono-s);
+  font-weight: var(--w-regular);
+  letter-spacing: 0;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  text-transform: uppercase;
+}
+
+.m-career-detail {
+  display: flex;
+  flex-direction: column;
+  /* P7: was s-1 (4px) — way too tight. Company name (18px) + role
+     (15px) + note (15px) all stacked with 4px between read as one
+     visual block. s-2 (8px) gives each text role its own line of
+     breathing room. .m-career-note still adds its own larger
+     margin-top below for the longer paragraph break. */
+  gap: var(--s-2);
+}
+
+.m-career-company {
+  font-family: var(--font-display);
+  font-size: var(--t-title-m);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-normal);
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.m-career-role {
+  font-family: var(--font-text);
+  font-size: var(--t-body-m);
+  color: var(--ink-soft);
+}
+
+.m-career-note {
+  margin-top: var(--s-2);
+  font-family: var(--font-text);
+  font-size: var(--t-body-m);
+  line-height: 1.55;
+  color: var(--muted);
+  max-width: 60ch;
+}
+
+
+/* ----------------------------------------------------------------------------
+   .m-filter-row — wrapping row of chip-style filter buttons
+   ----------------------------------------------------------------------------
+   Used on /work for domain filters. The active state uses ink fill instead
+   of accent — accent is reserved for a single primary action per page.
+   ---------------------------------------------------------------------------- */
+
+.m-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-1);
+  position: relative;
+}
+
+.m-filter-row .m-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  /* S49 Paco pass: chip padding 8/14 + min-height 32 was big enough to
+     read as a button. Chips are nav, not buttons — drop to 6/12 +
+     min-height 28. Hit target still meets WCAG (32×88 with margin). */
+  padding: 6px 12px;
+  font-family: var(--font-text);
+  font-size: 13px;
+  font-weight: var(--w-medium);
+  line-height: 1;
+  letter-spacing: -0.005em;
+  color: var(--ink-soft);
+  background: transparent;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-full);
+  cursor: pointer;
+  text-transform: none;
+  white-space: nowrap;
+  min-height: 28px;
+  position: relative;
+  z-index: 1;
+  transition:
+    border-color var(--dur-quick) var(--ease-quick),
+    background-color var(--dur-quick) var(--ease-quick),
+    color var(--dur-quick) var(--ease-quick),
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-press) var(--ease-spring);
+}
+
+.m-filter-row .m-chip:active {
+  transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .m-filter-row .m-chip:hover {
+    border-color: var(--hairline-strong);
+    color: var(--ink);
+  }
+}
+
+/* Default (no-JS / pre-enhanced): flat fill on the active chip itself.
+   When JS upgrades the row with [data-fr-enhanced], the indicator pill
+   becomes the visual fill and slides between chips — see below. */
+.m-filter-row .m-chip[aria-pressed="true"],
+.m-filter-row .m-chip.is-active {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+
+/* ─── Sliding indicator (S34, Linear-style FLIP) ────────────── */
+.m-filter-row-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: var(--r-full);
+  pointer-events: none;
+  opacity: 0;
+  z-index: 0;
+  /* Initial transform/size set by JS; transitions kick in once placed. */
+  transition:
+    transform 360ms var(--ease-spring),
+    width 280ms var(--ease-out),
+    height 280ms var(--ease-out),
+    opacity 200ms var(--ease-out);
+}
+.m-filter-row[data-fr-enhanced] .m-filter-row-indicator.is-positioned {
+  opacity: 1;
+}
+
+/* Once enhanced, the chip itself stops painting its own bg/border —
+   the indicator pill is the chrome. Color flips to bg so the label
+   reads against the indicator no matter where it slides. */
+.m-filter-row[data-fr-enhanced] .m-chip[aria-pressed="true"],
+.m-filter-row[data-fr-enhanced] .m-chip.is-active {
+  background: transparent;
+  border-color: transparent;
+  color: var(--bg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .m-filter-row-indicator {
+    transition: opacity 120ms linear;
+  }
+}
+
+.m-filter-row .m-chip-count {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+
+/* ----------------------------------------------------------------------------
+   .m-tag-cluster — wrapping list of static tags
+   ---------------------------------------------------------------------------- */
+
+.m-tag-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+
+/* ----------------------------------------------------------------------------
+   .m-field — form field: label + input + helper text
+   ---------------------------------------------------------------------------- */
+
+.m-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+}
+
+.m-field-label {
+  font-family: var(--font-text);
+  font-size: var(--t-body-s);
+  font-weight: var(--w-medium);
+  line-height: 1.3;
+  color: var(--ink);
+  letter-spacing: -0.003em;
+}
+
+.m-field-help {
+  font-family: var(--font-text);
+  font-size: var(--t-body-s);
+  font-weight: var(--w-regular);
+  line-height: 1.4;
+  color: var(--muted);
+  margin: 0;
+}
+
+.m-field-error {
+  font-family: var(--font-text);
+  font-size: var(--t-body-s);
+  font-weight: var(--w-regular);
+  line-height: 1.4;
+  color: var(--accent-text);
+  margin: 0;
+}
+
+.m-field--required .m-field-label::after {
+  content: " *";
+  color: var(--accent-text);
+}
+
+
+/* ----------------------------------------------------------------------------
+   .m-quote — pullquote with optional attribution
+   ----------------------------------------------------------------------------
+   Used in case studies for user-research quotes.
+   ---------------------------------------------------------------------------- */
+
+.m-quote {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  /* S54 Paco pass: quote-block padding 24/0/24/24 → 16/0/16/20.
+     Tighter top/bottom; left padding stays slightly wider so the
+     accent border has visual breathing room from the text. */
+  padding: var(--s-4) 0 var(--s-4) var(--s-4);
+  border-left: 2px solid var(--accent);
+  margin: 0;
+}
+
+.m-quote-text {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 1.6vw, 22px);
+  font-weight: var(--w-regular);
+  line-height: var(--lh-quote);
+  letter-spacing: -0.012em;
+  color: var(--ink);
+  text-wrap: balance;
+  margin: 0;
+}
+
+.m-quote-text::before {
+  content: "“";
+  margin-right: 2px;
+}
+
+.m-quote-text::after {
+  content: "”";
+  margin-left: 2px;
+}
+
+.m-quote-attribution {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: var(--font-text);
+  font-size: var(--t-body-s);
+}
+
+.m-quote-attribution-name {
+  color: var(--ink);
+  font-weight: var(--w-medium);
+}
+
+.m-quote-attribution-role {
+  color: var(--muted);
+}
+
+
+/* ----------------------------------------------------------------------------
+   .m-avatar — circular avatar with initials (or image)
+   ---------------------------------------------------------------------------- */
+
+.m-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-full);
+  background: var(--surface-2);
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: 13px;
+  font-weight: var(--w-medium);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 1px solid var(--hairline);
+}
+
+.m-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+.m-avatar--sm {
+  width: 28px;
+  height: 28px;
+  font-size: var(--t-micro);
+}
+
+.m-avatar--lg {
+  width: 56px;
+  height: 56px;
+  font-size: 17px;
+}
+
+.m-avatar--ink {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+
+.m-avatar--accent {
+  background: var(--accent);
+  color: var(--accent-fg);
+  border-color: var(--accent);
+}
+
+
+/* ----------------------------------------------------------------------------
+   .m-tooltip — text tooltip with origin-aware scale-in
+   ----------------------------------------------------------------------------
+   Per Emil's framework: scale from --transform-origin (not center), use
+   ease-out, 125-200ms, scale 0.97 not 0. Wrap a trigger to use:
+       <span class="m-tooltip">
+         <span class="m-tooltip-trigger">Trigger</span>
+         <span class="m-tooltip-content" role="tooltip">Tooltip text</span>
+       </span>
+   ---------------------------------------------------------------------------- */
+
+.m-tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.m-tooltip-content {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  z-index: var(--z-tooltip);
+  display: block;
+  /* R10: was 6/10 — normalized to 6/12 to match .o-status-pill and
+     .m-chip family. Same visual weight class (small inline pill). */
+  padding: 6px 12px;
+  font-family: var(--font-text);
+  font-size: 12px;
+  font-weight: var(--w-medium);
+  line-height: 1.3;
+  letter-spacing: -0.003em;
+  white-space: nowrap;
+  max-width: min(220px, calc(100vw - 32px));
+  color: var(--bg);
+  background: var(--ink);
+  border-radius: var(--r-1);
+  box-shadow: var(--shadow-2);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(2px) scale(0.97);
+  transform-origin: 50% 100%;
+  transition:
+    opacity var(--dur-instant) var(--ease-out),
+    transform var(--dur-instant) var(--ease-out);
+}
+
+/* On small viewports, allow tooltip text to wrap */
+@media (max-width: 480px) {
+  .m-tooltip-content {
+    white-space: normal;
+    width: max-content;
+    max-width: min(280px, calc(100vw - 24px));
+  }
+}
+
+.m-tooltip-content::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border: 4px solid transparent;
+  border-top-color: var(--ink);
+}
+
+.m-tooltip:hover > .m-tooltip-content,
+.m-tooltip:focus-within > .m-tooltip-content {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0) scale(1);
+  pointer-events: auto;
+  transition-delay: 250ms;  /* hover delay; first tooltip only */
+}
+
+/* When a sibling tooltip just opened, skip the delay (Emil's instant pattern) */
+.m-tooltip[data-instant] > .m-tooltip-content {
+  transition-delay: 0ms !important;
+  transition-duration: 0ms !important;
+}
+
+
+/* ----------------------------------------------------------------------------
+   .m-tabs — tab list with sliding active indicator
+   ---------------------------------------------------------------------------- */
+
+.m-tabs {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--s-1);
+  padding: 0;
+  margin: 0;
+  border-bottom: 1px solid var(--hairline);
+  list-style: none;
+}
+
+.m-tabs-tab {
+  position: relative;
+  /* S54 Paco pass: tabs at 10/14 read as buttons. Tabs are nav —
+     drop to 8/12. Linear's tabs sit here. */
+  padding: 8px 12px;
+  font-family: var(--font-text);
+  font-size: 13px;
+  font-weight: var(--w-medium);
+  letter-spacing: -0.005em;
+  color: var(--muted);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color var(--dur-quick) var(--ease-quick);
+}
+
+.m-tabs-tab:active {
+  transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .m-tabs-tab:hover {
+    color: var(--ink);
+  }
+}
+
+.m-tabs-tab[aria-selected="true"],
+.m-tabs-tab.is-active {
+  color: var(--ink);
+}
+
+.m-tabs-tab[aria-selected="true"]::after,
+.m-tabs-tab.is-active::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: -1px;
+  height: 1.5px;
+  background: var(--ink);
+  border-radius: var(--r-full);
+}
+
+.m-tabs-tab .m-chip-count {
+  margin-left: 6px;
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  color: var(--muted);
+}
+
+
+/* ----------------------------------------------------------------------------
+   .m-section-divider — labeled section divider
+   ----------------------------------------------------------------------------
+   Pattern: hairline rule with a label sitting on top in a small badge.
+   Used to break long pages into navigable sections.
+   ---------------------------------------------------------------------------- */
+
+.m-section-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  margin: var(--s-7) 0 var(--s-5);
+}
+
+.m-section-divider-line {
+  flex: 1;
+  height: 1px;
+  background: var(--hairline);
+}
+
+.m-section-divider-label {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  font-weight: var(--w-medium);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.m-section-divider--centered .m-section-divider-line:first-child {
+  flex: 1;
+}
+
+
+/* ----------------------------------------------------------------------------
+   .m-callout — informational note block
+   ----------------------------------------------------------------------------
+   Variants: --info (default, neutral), --accent (amber wash for important).
+   Pattern: small left icon area + body text.
+   ---------------------------------------------------------------------------- */
+
+.m-callout {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  background: var(--surface-2);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-2);
+  font-family: var(--font-text);
+  font-size: var(--t-body-m);
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.m-callout-icon {
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.m-callout-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+}
+
+.m-callout-title {
+  font-weight: var(--w-medium);
+  color: var(--ink);
+  font-size: var(--t-body-m);
+}
+
+.m-callout-body p {
+  margin: 0;
+}
+
+.m-callout--accent {
+  background: var(--accent-soft);
+  border-color: transparent;
+  color: var(--ink);
+}
+
+.m-callout--accent .m-callout-icon {
+  color: var(--accent-text);
+}
+
+
+/* ----------------------------------------------------------------------------
+   .m-empty-state — 404, no-results, filtered-empty (S37)
+   ----------------------------------------------------------------------------
+   Design notes:
+   - Solid hairline (not dashed) so it doesn't read as "broken / under
+     construction". Empty is a state, not a bug.
+   - Ambient accent radial above the icon makes the spot feel inhabited
+     instead of sterile. Sits behind everything via z-index.
+   - Icon paints in accent (not muted), framed by a circle plate that
+     reuses --shadow-card so it matches the rest of the system.
+   - One-shot entry animation on page load: container fades up,
+     icon spring-scales in. Honored prefers-reduced-motion.
+   ---------------------------------------------------------------------------- */
+
+.m-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-3);
+  padding: var(--s-9) var(--s-5);
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-4);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  box-shadow: var(--shadow-card);
+  /* R9 Rasmus foundation: empty state always sits centered with a
+     reading-width cap. /not-found and other consumers were inlining
+     these every time. Ship the defaults. */
+  max-width: 720px;
+  margin-inline: auto;
+}
+
+/* Ambient accent halo above the icon. Pure decoration, pointer-none. */
+.m-empty-state::before {
+  content: "";
+  position: absolute;
+  top: -180px;
+  left: 50%;
+  width: 520px;
+  height: 520px;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--accent) 11%, transparent) 0%,
+    transparent 55%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+.m-empty-state > * {
+  position: relative;
+  z-index: 1;
+}
+
+.m-empty-state-icon {
+  width: 56px;
+  height: 56px;
+  padding: 14px;
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: 50%;
+  color: var(--accent-text);
+  box-shadow: var(--shadow-card);
+  margin-bottom: var(--s-2);
+}
+
+.m-empty-state-title {
+  font-family: var(--font-display);
+  font-size: var(--t-title-m);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-tight);
+  color: var(--ink);
+  margin: 0;
+}
+
+.m-empty-state-body {
+  font-family: var(--font-text);
+  font-size: var(--t-body-m);
+  line-height: 1.5;
+  color: var(--ink-soft);
+  max-width: 44ch;
+  margin: 0;
+}
+
+.m-empty-state-actions {
+  display: flex;
+  gap: var(--s-2);
+  margin-top: var(--s-3);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .m-empty-state {
+    animation: m-empty-state-in 560ms var(--ease-out) both;
+  }
+  .m-empty-state-icon {
+    animation: m-empty-state-icon-in 720ms var(--ease-spring) 120ms both;
+  }
+}
+
+@keyframes m-empty-state-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes m-empty-state-icon-in {
+  from { opacity: 0; transform: scale(0.78) translateY(6px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+
+/* ----------------------------------------------------------------------------
+   .m-code-snippet — code block with language label + copy button
+   ---------------------------------------------------------------------------- */
+
+.m-code-snippet {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-2);
+  overflow: hidden;
+  background: var(--surface-2);
+}
+
+.m-code-snippet-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px var(--s-3);
+  border-bottom: 1px solid var(--hairline);
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.m-code-snippet-lang {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  letter-spacing: 0.04em;
+}
+
+.m-code-snippet-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  font-weight: var(--w-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--r-1);
+  color: var(--muted);
+  cursor: pointer;
+  transition:
+    background-color var(--dur-quick) var(--ease-quick),
+    color var(--dur-quick) var(--ease-quick),
+    border-color var(--dur-quick) var(--ease-quick),
+    transform var(--dur-press) var(--ease-spring);
+}
+
+.m-code-snippet-copy:active {
+  transform: scale(0.95);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .m-code-snippet-copy:hover {
+    background: var(--surface);
+    color: var(--ink);
+    border-color: var(--hairline);
+  }
+}
+
+.m-code-snippet-copy.is-copied {
+  color: var(--accent-text);
+  border-color: var(--accent-soft);
+}
+
+.m-code-snippet pre {
+  margin: 0;
+  padding: var(--s-4) var(--s-5);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+
+
+/* ----------------------------------------------------------------------------
+   .m-link-card — clickable link block with title + arrow
+   ----------------------------------------------------------------------------
+   Used in: "Continue" sections, related work, navigation cards.
+   ---------------------------------------------------------------------------- */
+
+.m-link-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  padding: var(--s-4) var(--s-5);
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-3);
+  text-decoration: none;
+  color: var(--ink);
+  transition:
+    border-color var(--dur-quick) var(--ease-quick),
+    background-color var(--dur-quick) var(--ease-quick),
+    transform var(--dur-press) var(--ease-spring);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .m-link-card:hover {
+    border-color: var(--hairline-strong);
+    background: var(--surface-2);
+  }
+
+  .m-link-card:hover .m-link-card-arrow {
+    transform: translateX(4px);
+  }
+}
+
+.m-link-card:active {
+  transform: scale(0.99);
+}
+
+.m-link-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-1);
+  min-width: 0;
+}
+
+.m-link-card-eyebrow {
+  font-family: var(--font-text);
+  font-size: var(--t-eyebrow);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.m-link-card-title {
+  font-family: var(--font-display);
+  font-size: var(--t-title-m);
+  font-weight: var(--w-medium);
+  letter-spacing: var(--ls-normal);
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+.m-link-card-arrow {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  transition: transform var(--dur-quick) var(--ease-out);
+}
+
+
+/* ----------------------------------------------------------------------------
+   .m-progress-indicator — sticky reading-progress hairline (S56)
+   ----------------------------------------------------------------------------
+   Paco detail: a 2px hairline at the top of the viewport that tracks
+   how far you've scrolled into a long-form page (case studies, the
+   design system page). Subtle enough to ignore, useful enough that
+   you orient yourself instantly. Wired via [data-reading-progress];
+   site.js sets --reading-progress on the :root from scroll position.
+   ---------------------------------------------------------------------------- */
+
+.m-progress-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: transparent;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.m-progress-indicator-bar {
+  height: 100%;
+  width: var(--reading-progress, 0%);
+  background: var(--accent);
+  transform-origin: left center;
+  transition: width 100ms linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .m-progress-indicator-bar {
+    transition: none;
+  }
+}
+
+
+/* ----------------------------------------------------------------------------
+   .m-keyboard-hint — labelled keyboard shortcut hint (S56)
+   ----------------------------------------------------------------------------
+   Paco detail: pairs <kbd> atoms with surrounding text, sized small
+   and muted so it sits comfortably as inline help. Used near command
+   palette triggers, search inputs, accessibility hints. The kbd atom
+   already exists; this molecule just provides the typography +
+   spacing recipe so callers don't reinvent it inline.
+   ---------------------------------------------------------------------------- */
+
+.m-keyboard-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-text);
+  font-size: 12px;
+  font-weight: var(--w-regular);
+  letter-spacing: -0.005em;
+  color: var(--muted);
+}
+
+.m-keyboard-hint kbd,
+.m-keyboard-hint .kbd {
+  /* tighter than default kbd for inline density. */
+  min-width: 18px;
+  height: 18px;
+  font-size: var(--t-tiny);
+  padding: 0 4px;
+}

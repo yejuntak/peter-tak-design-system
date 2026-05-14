@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Onboarding · Health snapshot — Vita Health</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../../css/tokens.css">
+  <link rel="stylesheet" href="../../css/reset.css">
+  <link rel="stylesheet" href="../../css/atoms.css">
+  <link rel="stylesheet" href="../../css/molecules.css">
+  <link rel="stylesheet" href="../../css/organisms.css">
+  <link rel="stylesheet" href="../../css/motion.css">
+  <link rel="stylesheet" href="../../css/vita-health.css">
+  <link rel="stylesheet" href="_layout.css">
+</head>
+<body>
+  <div class="v-shell">
+    <header class="v-shell-head">
+      <a class="v-shell-head-brand" href="index.html">
+        <span class="v-shell-head-brand-mark">V</span>
+        <span>Vita Health</span>
+      </a>
+      <nav class="v-shell-head-nav">
+        <a href="onboarding.html" aria-current="page">Snapshot</a>
+        <a href="lab-interpretation.html">Labs</a>
+        <a href="care-plan.html">Care plan</a>
+        <a href="progress-framing.html">Progress</a>
+        <a href="recommendation.html">Insights</a>
+      </nav>
+    </header>
+
+    <main>
+      <span class="v-screen-eyebrow">Screen 01 · First session</span>
+      <h1 class="v-screen-title">Your health snapshot.</h1>
+      <p class="v-screen-lede">A curated view of the 3–5 most relevant metrics from your last test. Each value is shown <em>in context</em> — a range, a trend, and what it means. Full lab panel available on demand.</p>
+
+      <p class="v-screen-note"><strong>Design rule:</strong> showing the full lab panel in the first session reduced engagement in A/B testing. Patients without a framework for understanding a number either panicked or dismissed the app. Progressive disclosure — curated first, full panel on demand — let patients build confidence before encountering complexity.</p>
+
+      <div style="height: var(--s-7);"></div>
+
+      <section class="o-health-snapshot">
+        <header class="o-health-snapshot-head">
+          <h2 class="o-health-snapshot-title">Snapshot · 5 values to know</h2>
+          <span class="o-health-snapshot-meta">Last test · 4 days ago</span>
+        </header>
+
+        <div class="o-health-snapshot-grid">
+          <article class="m-lab-result">
+            <header class="m-lab-result-head">
+              <h3 class="m-lab-result-name">Fasting glucose</h3>
+              <span class="m-lab-result-status m-lab-result-status--watch">Borderline</span>
+            </header>
+            <div class="m-lab-result-value">
+              <span class="m-lab-result-number">128</span>
+              <span class="m-lab-result-unit">mg/dL</span>
+            </div>
+            <div class="m-range-indicator" aria-label="128 mg/dL, just above normal range">
+              <div class="m-range-indicator-bar"></div>
+              <div class="m-range-indicator-marker" style="left: 44%;"></div>
+              <div class="m-range-indicator-labels">
+                <span>70</span><span>125 normal</span><span>200</span>
+              </div>
+            </div>
+            <p class="m-lab-result-explanation">Slightly above the normal range. Often improves with diet and activity changes before medication is needed.</p>
+          </article>
+
+          <article class="m-lab-result">
+            <header class="m-lab-result-head">
+              <h3 class="m-lab-result-name">HDL cholesterol</h3>
+              <span class="m-lab-result-status m-lab-result-status--ok">In range</span>
+            </header>
+            <div class="m-lab-result-value">
+              <span class="m-lab-result-number">58</span>
+              <span class="m-lab-result-unit">mg/dL</span>
+            </div>
+            <div class="m-range-indicator" aria-label="58 mg/dL, healthy range">
+              <div class="m-range-indicator-bar"></div>
+              <div class="m-range-indicator-marker" style="left: 56%;"></div>
+              <div class="m-range-indicator-labels">
+                <span>40</span><span>60+ optimal</span><span>100</span>
+              </div>
+            </div>
+            <p class="m-lab-result-explanation">Healthy. HDL is the "good" cholesterol — higher is generally better. Your current level is in the protective range.</p>
+          </article>
+
+          <article class="m-lab-result">
+            <header class="m-lab-result-head">
+              <h3 class="m-lab-result-name">Blood pressure</h3>
+              <span class="m-lab-result-status m-lab-result-status--watch">Watch</span>
+            </header>
+            <div class="m-lab-result-value">
+              <span class="m-lab-result-number">132/86</span>
+              <span class="m-lab-result-unit">mmHg</span>
+            </div>
+            <div class="m-range-indicator" aria-label="132 over 86, slightly elevated">
+              <div class="m-range-indicator-bar"></div>
+              <div class="m-range-indicator-marker" style="left: 52%;"></div>
+              <div class="m-range-indicator-labels">
+                <span>110/70</span><span>120/80</span><span>140/90</span>
+              </div>
+            </div>
+            <p class="m-lab-result-explanation">Slightly elevated. Often responsive to sleep, sodium, and activity changes. Re-check at home for a few mornings to confirm.</p>
+          </article>
+
+          <article class="m-lab-result">
+            <header class="m-lab-result-head">
+              <h3 class="m-lab-result-name">Resting heart rate</h3>
+              <span class="m-lab-result-status m-lab-result-status--ok">In range</span>
+            </header>
+            <div class="m-lab-result-value">
+              <span class="m-lab-result-number">68</span>
+              <span class="m-lab-result-unit">bpm</span>
+            </div>
+            <div class="m-range-indicator" aria-label="68 bpm, healthy">
+              <div class="m-range-indicator-bar"></div>
+              <div class="m-range-indicator-marker" style="left: 38%;"></div>
+              <div class="m-range-indicator-labels">
+                <span>50</span><span>60–80 typical</span><span>100</span>
+              </div>
+            </div>
+            <p class="m-lab-result-explanation">Healthy resting heart rate. Trending steady from your last test — a positive sign of cardiovascular fitness.</p>
+          </article>
+
+          <article class="m-lab-result">
+            <header class="m-lab-result-head">
+              <h3 class="m-lab-result-name">Vitamin D</h3>
+              <span class="m-lab-result-status m-lab-result-status--attention">Low</span>
+            </header>
+            <div class="m-lab-result-value">
+              <span class="m-lab-result-number">22</span>
+              <span class="m-lab-result-unit">ng/mL</span>
+            </div>
+            <div class="m-range-indicator" aria-label="22 ng/mL, below sufficient range">
+              <div class="m-range-indicator-bar"></div>
+              <div class="m-range-indicator-marker" style="left: 18%;"></div>
+              <div class="m-range-indicator-labels">
+                <span>10</span><span>30+ sufficient</span><span>100</span>
+              </div>
+            </div>
+            <p class="m-lab-result-explanation">Below sufficient. Common in northern latitudes during winter. A daily supplement (1000–2000 IU) typically restores levels within 8–12 weeks.</p>
+          </article>
+        </div>
+
+        <footer class="o-health-snapshot-footer">
+          <p class="o-health-snapshot-footer-note">3 of 5 values are in range. 2 borderline values and 1 low value have suggested next steps.</p>
+          <a class="button button-secondary" href="lab-interpretation.html">View full lab panel →</a>
+        </footer>
+      </section>
+    </main>
+
+    <footer class="v-shell-foot">
+      <span>Vita Health · Reference screen built from the Peter Tak Design System</span>
+      <span><a href="../../components/molecules/lab-result.md">.m-lab-result</a> · <a href="../../components/organisms/recommendation-card.md">.o-recommendation-card</a> · <a href="../../CLAUDE.md">CLAUDE.md</a></span>
+    </footer>
+  </div>
+</body>
+</html>

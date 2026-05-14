@@ -1,0 +1,55 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "color": {
+    "_meta": {
+      "description": "Three-tier color system. Primitives (gray-*, amber-*) feed semantics (--color-text-primary) feed component aliases (--ink, --bg). Reference the third tier in components; the first tier is implementation detail.",
+      "contrast": "All --color-text-* against --color-bg meet WCAG AA. --color-action-text against --color-bg is 4.81:1 (AA pass)."
+    },
+    "primitive": {
+      "gray-0":   { "value": "hsl(0 0% 100%)",  "type": "color" },
+      "gray-50":  { "value": "hsl(0 0% 99%)",   "type": "color" },
+      "gray-100": { "value": "hsl(0 0% 97%)",   "type": "color" },
+      "gray-200": { "value": "hsl(0 0% 90%)",   "type": "color" },
+      "gray-300": { "value": "hsl(0 0% 76%)",   "type": "color" },
+      "gray-400": { "value": "hsl(0 0% 60%)",   "type": "color" },
+      "gray-500": { "value": "hsl(0 0% 47%)",   "type": "color" },
+      "gray-700": { "value": "hsl(0 0% 28%)",   "type": "color" },
+      "gray-800": { "value": "hsl(0 0% 18%)",   "type": "color" },
+      "gray-900": { "value": "hsl(0 0% 9%)",    "type": "color" },
+      "gray-950": { "value": "hsl(0 0% 5%)",    "type": "color" },
+      "amber-500": { "value": "hsl(38 95% 50%)", "type": "color" },
+      "amber-600": { "value": "hsl(36 95% 45%)", "type": "color" },
+      "amber-700": { "value": "hsl(34 95% 38%)", "type": "color" },
+      "amber-800": { "value": "hsl(32 95% 30%)", "type": "color" }
+    },
+    "semantic": {
+      "bg":              { "value": "{color.primitive.gray-50}",  "css": "--color-bg",            "description": "Page background" },
+      "bg-tinted":       { "value": "{color.primitive.gray-100}", "css": "--color-bg-tinted",     "description": "Subtle alternate background — code blocks, callouts" },
+      "surface":         { "value": "{color.primitive.gray-0}",   "css": "--color-surface",       "description": "Cards, form fields, raised elements" },
+      "surface-elevated":{ "value": "{color.primitive.gray-100}", "css": "--color-surface-elevated","description": "Hover states on cards, secondary surfaces" },
+      "text-primary":    { "value": "{color.primitive.gray-900}", "css": "--color-text-primary",  "description": "Headlines, primary text" },
+      "text-body":       { "value": "{color.primitive.gray-700}", "css": "--color-text-body",     "description": "Body copy" },
+      "text-muted":      { "value": "{color.primitive.gray-500}", "css": "--color-text-muted",    "description": "Captions, meta, secondary labels" },
+      "text-placeholder":{ "value": "{color.primitive.gray-400}", "css": "--color-text-placeholder","description": "Placeholders, disabled state" },
+      "good-text":       { "value": "hsl(142 70% 35%)",            "css": "--color-good-text",     "description": "Up trends, success labels — in-range health values" },
+      "warn-text":       { "value": "hsl(43 100% 32%)",            "css": "--color-warn-text",     "description": "Beta, warning labels — borderline health values" },
+      "border":          { "value": "hsl(0 0% 0% / 0.08)",         "css": "--color-border",        "description": "Default hairline" },
+      "border-strong":   { "value": "hsl(0 0% 0% / 0.14)",         "css": "--color-border-strong", "description": "Emphasized hairline — focused inputs, active states" },
+      "border-faint":    { "value": "hsl(0 0% 0% / 0.04)",         "css": "--color-border-faint",  "description": "Subtle dividers inside cards" },
+      "action":          { "value": "{color.primitive.amber-500}", "css": "--color-action",        "description": "Brand accent — focus rings, primary fills" },
+      "action-text":     { "value": "{color.primitive.amber-700}", "css": "--color-action-text",   "description": "Text-safe amber (AA on bg)" }
+    },
+    "alias": {
+      "_description": "Component-level aliases. Use these in component CSS.",
+      "ink":          { "value": "{color.semantic.text-primary}", "css": "--ink" },
+      "ink-soft":     { "value": "{color.semantic.text-body}",    "css": "--ink-soft" },
+      "muted":        { "value": "{color.semantic.text-muted}",   "css": "--muted" },
+      "bg":           { "value": "{color.semantic.bg}",            "css": "--bg" },
+      "surface":      { "value": "{color.semantic.surface}",       "css": "--surface" },
+      "surface-2":    { "value": "{color.semantic.surface-elevated}","css": "--surface-2" },
+      "hairline":     { "value": "{color.semantic.border}",        "css": "--hairline" },
+      "accent":       { "value": "{color.semantic.action}",        "css": "--accent" },
+      "accent-text":  { "value": "{color.semantic.action-text}",   "css": "--accent-text" }
+    }
+  }
+}

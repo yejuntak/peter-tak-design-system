@@ -1,0 +1,13 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "radius": {
+    "_meta": "Pick the radius that matches the element's role, not just its size.",
+    "r-0":    { "value": "2px",    "css": "--r-0",    "usage": "kbd, inline code, micro-rounding" },
+    "r-1":    { "value": "4px",    "css": "--r-1",    "usage": "tags, inline pills, chips" },
+    "r-2":    { "value": "6px",    "css": "--r-2",    "usage": "inputs, small buttons" },
+    "r-3":    { "value": "8px",    "css": "--r-3",    "usage": "buttons (default), media frames" },
+    "r-4":    { "value": "12px",   "css": "--r-4",    "usage": "cards" },
+    "r-5":    { "value": "16px",   "css": "--r-5",    "usage": "hero panels, large surfaces" },
+    "r-full": { "value": "9999px", "css": "--r-full", "usage": "pills, avatars, status dots" }
+  }
+}

@@ -1,0 +1,1084 @@
+/* ============================================================================
+   MOTION                                                       v1.1 — 2026-05-03
+   ============================================================================
+   Animation patterns layered on top of organisms. Per Emil Kowalski's
+   framework: every animation answers "should this animate?" and "what's the
+   purpose?" — we don't animate keyboard actions or things users see 100x/day.
+
+   Patterns in this file:
+     1. Scroll-triggered reveals    — sections fade up on first viewport entry
+     2. Hero stagger                — hero children cascade in on page load
+     3. Reading progress            — thin amber bar tracks scroll on case pages
+     4. View transitions            — cross-document fade between page navigations
+
+   All animations gracefully degrade with prefers-reduced-motion: opacity-only
+   or no animation, never broken layouts.
+   ============================================================================ */
+
+
+/* ----------------------------------------------------------------------------
+   1. SCROLL REVEALS
+   ----------------------------------------------------------------------------
+   Pattern: opt-in via [data-reveal] attribute. The init flag is added by JS
+   so SSR / no-JS gracefully degrades to fully visible content.
+
+   Markup:
+     <section data-reveal>...</section>
+
+   JS adds [data-reveal-init] on load, then [data-reveal-shown] when the
+   element enters the viewport (IntersectionObserver, fires once per element).
+   ---------------------------------------------------------------------------- */
+
+[data-reveal][data-reveal-init] {
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+  will-change: opacity, transform;
+}
+
+[data-reveal][data-reveal-init][data-reveal-shown] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal][data-reveal-init] {
+    opacity: 1;
+    transform: none;
+    transition: opacity 200ms linear;
+  }
+}
+
+
+/* ----------------------------------------------------------------------------
+   2. HERO STAGGER
+   ----------------------------------------------------------------------------
+   Pure CSS. Children cascade in 60ms apart with translateY + opacity.
+   Runs on initial page load. Doesn't re-fire on theme toggle (good).
+   ---------------------------------------------------------------------------- */
+
+@keyframes o-hero-stagger {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.o-hero-home-content > *,
+.o-hero-page > *,
+.o-hero-case-head > *,
+.o-hero-case > .m-breadcrumb,
+.o-hero-case > .o-hero-case-grid,
+.o-hero-home > .hero-motion-frame {
+  opacity: 0;
+  animation: o-hero-stagger var(--dur-slow) var(--ease-out) forwards;
+}
+
+.o-hero-home-content > *:nth-child(1),
+.o-hero-page > *:nth-child(1),
+.o-hero-case > *:nth-child(1) { animation-delay: 60ms; }
+
+.o-hero-home-content > *:nth-child(2),
+.o-hero-page > *:nth-child(2),
+.o-hero-case > *:nth-child(2) { animation-delay: 120ms; }
+
+.o-hero-home-content > *:nth-child(3),
+.o-hero-page > *:nth-child(3),
+.o-hero-case > *:nth-child(3) { animation-delay: 180ms; }
+
+.o-hero-home-content > *:nth-child(4),
+.o-hero-page > *:nth-child(4),
+.o-hero-case > *:nth-child(4) { animation-delay: 240ms; }
+
+.o-hero-home-content > *:nth-child(5) { animation-delay: 300ms; }
+
+.o-hero-home > .hero-motion-frame   { animation-delay: 360ms; }
+
+.o-hero-case-head > *:nth-child(1) { animation-delay: 140ms; }
+.o-hero-case-head > *:nth-child(2) { animation-delay: 200ms; }
+.o-hero-case-head > *:nth-child(3) { animation-delay: 260ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .o-hero-home-content > *,
+  .o-hero-page > *,
+  .o-hero-case-head > *,
+  .o-hero-case > .m-breadcrumb,
+  .o-hero-case > .o-hero-case-grid,
+  .o-hero-home > .hero-motion-frame {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+
+/* ----------------------------------------------------------------------------
+   3. READING PROGRESS
+   ----------------------------------------------------------------------------
+   Thin amber bar at top of viewport, only visible on case study pages.
+   Width updated by JS via the --reading-progress custom property.
+   ---------------------------------------------------------------------------- */
+
+.o-reading-progress {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--hairline);
+  z-index: var(--z-sticky);
+  pointer-events: none;
+}
+
+.o-reading-progress::after {
+  content: "";
+  display: block;
+  height: 100%;
+  width: var(--reading-progress, 0%);
+  background: var(--accent);
+  transition: width 80ms linear;
+  transform-origin: left;
+}
+
+.page-case .o-reading-progress {
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .o-reading-progress::after {
+    transition: none;
+  }
+}
+
+
+/* ----------------------------------------------------------------------------
+   4. VIEW TRANSITIONS (cross-document)
+   ----------------------------------------------------------------------------
+   Modern browsers (Chrome 126+, Edge 126+, Safari 18+) cross-fade pages
+   automatically. Older browsers navigate normally — no penalty.
+
+   Site header gets view-transition-name so it persists across pages instead
+   of fading. Body content cross-fades.
+   ---------------------------------------------------------------------------- */
+
+@view-transition {
+  navigation: auto;
+}
+
+.o-header {
+  view-transition-name: site-header;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 220ms;
+  animation-timing-function: var(--ease-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0ms;
+  }
+}
+
+
+/* ----------------------------------------------------------------------------
+   5. SECTION REVEAL STAGGER (children cascade)
+   ----------------------------------------------------------------------------
+   For grids of cards (.o-card-archetype, .o-card-work, .m-metric, etc.)
+   inside a revealing section, stagger children once the section is shown.
+   ---------------------------------------------------------------------------- */
+
+[data-reveal][data-reveal-init][data-reveal-shown] .ds-grid > *,
+[data-reveal][data-reveal-init][data-reveal-shown] .o-metric-grid > *,
+[data-reveal][data-reveal-init][data-reveal-shown] .o-artifact-grid > *,
+[data-reveal][data-reveal-init][data-reveal-shown] .o-feature-grid > * {
+  animation: o-hero-stagger 480ms var(--ease-out) backwards;
+}
+
+[data-reveal][data-reveal-init][data-reveal-shown] .ds-grid > *:nth-child(1),
+[data-reveal][data-reveal-init][data-reveal-shown] .o-metric-grid > *:nth-child(1),
+[data-reveal][data-reveal-init][data-reveal-shown] .o-artifact-grid > *:nth-child(1),
+[data-reveal][data-reveal-init][data-reveal-shown] .o-feature-grid > *:nth-child(1) { animation-delay: 0ms; }
+
+[data-reveal][data-reveal-init][data-reveal-shown] .ds-grid > *:nth-child(2),
+[data-reveal][data-reveal-init][data-reveal-shown] .o-metric-grid > *:nth-child(2),
+[data-reveal][data-reveal-init][data-reveal-shown] .o-artifact-grid > *:nth-child(2),
+[data-reveal][data-reveal-init][data-reveal-shown] .o-feature-grid > *:nth-child(2) { animation-delay: 60ms; }
+
+[data-reveal][data-reveal-init][data-reveal-shown] .ds-grid > *:nth-child(3),
+[data-reveal][data-reveal-init][data-reveal-shown] .o-metric-grid > *:nth-child(3),
+[data-reveal][data-reveal-init][data-reveal-shown] .o-artifact-grid > *:nth-child(3),
+[data-reveal][data-reveal-init][data-reveal-shown] .o-feature-grid > *:nth-child(3) { animation-delay: 120ms; }
+
+[data-reveal][data-reveal-init][data-reveal-shown] .ds-grid > *:nth-child(4),
+[data-reveal][data-reveal-init][data-reveal-shown] .o-metric-grid > *:nth-child(4),
+[data-reveal][data-reveal-init][data-reveal-shown] .o-artifact-grid > *:nth-child(4),
+[data-reveal][data-reveal-init][data-reveal-shown] .o-feature-grid > *:nth-child(4) { animation-delay: 180ms; }
+
+[data-reveal][data-reveal-init][data-reveal-shown] .ds-grid > *:nth-child(5),
+[data-reveal][data-reveal-init][data-reveal-shown] .o-metric-grid > *:nth-child(5),
+[data-reveal][data-reveal-init][data-reveal-shown] .o-artifact-grid > *:nth-child(5),
+[data-reveal][data-reveal-init][data-reveal-shown] .o-feature-grid > *:nth-child(5) { animation-delay: 240ms; }
+
+
+
+/* ============================================================================
+   HERO MOTION v7 — continuous-flow architecture                  v1.2 / 2026
+   ============================================================================
+   Five persistent dots travel through a 20s loop, morphing positions through
+   10 stations (5 word arrangements + 5 metaphor formations). The dots NEVER
+   disappear. They ARE the story.
+
+   Scene-specific overlays (spokes, track, rings, frame, bars) fade in only
+   when the dots reach their matching formation, attaching to the dots'
+   known coordinates. Typography fades in at word stations.
+
+   All transitions are pure POSITION morphs — same elements, new coords,
+   smooth cubic-bezier easing. No isolated scenes. One narrative, one camera.
+   ============================================================================ */
+
+.hero-motion-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: 440px;
+  margin-inline: auto;
+  isolation: isolate;
+  /* Defer to identity. The motion arrives only after the name has settled. */
+  opacity: 0;
+  animation: hm-canvas-launch 1000ms cubic-bezier(0.23, 1, 0.32, 1) 1800ms forwards;
+}
+@keyframes hm-canvas-launch {
+  to { opacity: 0.95; }
+}
+
+.hero-motion {
+  --hm-cycle: 28s;
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: var(--ink);
+  font-family: var(--font-text);
+  overflow: visible;
+  transform-origin: center;
+  animation: hm-canvas-breath var(--hm-cycle) infinite ease-in-out;
+}
+
+@keyframes hm-canvas-breath {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.004); }
+}
+
+/* Hairline opacity scale — three tiers only (Ive discipline):
+   subtle 0.06 / default 0.18 / strong 0.32. */
+
+/* Persistent grid */
+.hm-grid line {
+  stroke: currentColor;
+  stroke-width: 1;
+  opacity: 0.06;
+}
+
+/* Corner registration marks */
+.hm-corners line {
+  stroke: currentColor;
+  stroke-width: 1;
+  opacity: 0.18;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   THE 5 PERSISTENT FLOW DOTS — these ARE the narrative
+   ═══════════════════════════════════════════════════════════════════════════
+   Each dot has 11 keyframes (10 stations + loop). They move continuously
+   through positions. Cubic-bezier(0.83, 0, 0.17, 1) creates a slow-fast-slow
+   "cinematic" interpolation between stations.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.hm-flow-dot {
+  fill: currentColor;
+  /* breathing radius — shared across all 5 dots; emphasizes active vs passive moments */
+  r: 4;
+  animation-name: hm-flow-radius;
+  animation-duration: var(--hm-cycle);
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* All 5 dots share the same radius rhythm — smaller at word stations
+   (supporting role), larger at metaphor stations (active nodes), smallest
+   at convergence (focused energy). */
+@keyframes hm-flow-radius {
+  0%, 7%   { r: 3.4; }                    /* AI word — passive */
+  8.5%     { r: 2.4; }                    /* converge */
+  10%, 17% { r: 5; }                      /* AI metaphor — active */
+  18.5%    { r: 2.4; }
+  20%, 27% { r: 3.4; }                    /* Fintech word */
+  28.5%    { r: 2.4; }
+  30%, 37% { r: 5; }                      /* Fintech metaphor */
+  38.5%    { r: 2.4; }
+  40%, 47% { r: 3.4; }                    /* HC word */
+  50%, 57% { r: 5; }                      /* HC metaphor */
+  60%, 67% { r: 3.4; }                    /* DS word */
+  68.5%    { r: 2.4; }
+  70%, 77% { r: 5; }                      /* DS metaphor */
+  78.5%    { r: 2.4; }
+  80%, 87% { r: 3.4; }                    /* EA word */
+  88.5%    { r: 2.4; }
+  90%, 97% { r: 5; }                      /* EA metaphor */
+  98.5%    { r: 2.4; }
+  100%     { r: 3.4; }
+}
+
+/* Cascading delays — each dot starts ~70ms after the previous one,
+   so transitions between stations flow rather than jump in lockstep.
+   Each dot now runs TWO animations: position (hm-flow-N) and radius (hm-flow-radius). */
+
+/* DOT 1 — leads (top/start of each formation) */
+.hm-flow-dot--1 {
+  animation:
+    hm-flow-1 var(--hm-cycle) infinite cubic-bezier(0.77, 0, 0.175, 1),
+    hm-flow-radius var(--hm-cycle) infinite cubic-bezier(0.77, 0, 0.175, 1),
+    hm-fill-1 var(--hm-cycle) infinite ease-in-out;
+  animation-delay: 0ms;
+}
+
+/* Dot 1 fill: stays ink, no signal needed (it's the leader) */
+@keyframes hm-fill-1 {
+  0%, 100% { fill: currentColor; }
+}
+@keyframes hm-flow-1 {
+  /* DOT 1 — leftmost / leads */
+  0%, 7%   { transform: translate(272px, 352px); }   /* AI word baseline */
+  8.5%     { transform: translate(300px, 320px); }
+  10%, 17% { transform: translate(200px, 240px); }   /* AI: input top node */
+  18.5%    { transform: translate(300px, 320px); }
+  20%, 27% { transform: translate(220px, 352px); }   /* Fintech word baseline */
+  28.5%    { transform: translate(300px, 320px); }
+  30%, 37% { transform: translate(170px, 300px); }   /* Fintech: sender */
+  38.5%    { transform: translate(300px, 320px); }
+  40%, 47% { transform: translate(200px, 352px); }   /* HC word baseline */
+  50%, 57% { transform: translate(218px, 285px); }   /* HC: ECG P peak */
+  60%, 67% { transform: translate(180px, 352px); }   /* DS word baseline */
+  68.5%    { transform: translate(300px, 320px); }
+  70%, 77% { transform: translate(270px, 270px); }   /* DS: master TL cell */
+  78.5%    { transform: translate(300px, 320px); }
+  80%, 87% { transform: translate(180px, 352px); }   /* EA word baseline */
+  88.5%    { transform: translate(300px, 320px); }
+  90%, 97% { transform: translate(217px, 320px); }   /* EA: bar 1 top */
+  98.5%    { transform: translate(300px, 320px); }
+  100%     { transform: translate(272px, 352px); }
+}
+
+/* DOT 2 — top-right */
+.hm-flow-dot--2 {
+  animation:
+    hm-flow-2 var(--hm-cycle) infinite cubic-bezier(0.77, 0, 0.175, 1),
+    hm-flow-radius var(--hm-cycle) infinite cubic-bezier(0.77, 0, 0.175, 1),
+    hm-fill-2 var(--hm-cycle) infinite ease-in-out;
+  animation-delay: 0ms;
+}
+
+/* Dot 2 fill: amber at HC pulse moment (pulse cluster) */
+@keyframes hm-fill-2 {
+  0%, 49%   { fill: currentColor; }
+  52%, 56%  { fill: var(--accent); }
+  59%, 100% { fill: currentColor; }
+}
+@keyframes hm-flow-2 {
+  /* DOT 2 — top-right */
+  0%, 7%   { transform: translate(286px, 352px); }
+  8.5%     { transform: translate(300px, 320px); }
+  10%, 17% { transform: translate(400px, 240px); }   /* AI: output top node */
+  18.5%    { transform: translate(300px, 320px); }
+  20%, 27% { transform: translate(260px, 352px); }
+  28.5%    { transform: translate(300px, 320px); }
+  30%, 37% { transform: translate(215px, 275px); }   /* Fintech: secondary rail above */
+  38.5%    { transform: translate(300px, 320px); }
+  40%, 47% { transform: translate(250px, 352px); }
+  50%, 57% { transform: translate(270px, 310px); }   /* HC: ECG Q dip */
+  60%, 67% { transform: translate(240px, 352px); }
+  68.5%    { transform: translate(300px, 320px); }
+  70%, 77% { transform: translate(330px, 270px); }   /* DS: master TR cell */
+  78.5%    { transform: translate(300px, 320px); }
+  80%, 87% { transform: translate(240px, 352px); }
+  88.5%    { transform: translate(300px, 320px); }
+  90%, 97% { transform: translate(251px, 288px); }
+  98.5%    { transform: translate(300px, 320px); }
+  100%     { transform: translate(286px, 352px); }
+}
+
+/* DOT 3 — center / pivot */
+.hm-flow-dot--3 {
+  animation:
+    hm-flow-3 var(--hm-cycle) infinite cubic-bezier(0.77, 0, 0.175, 1),
+    hm-flow-radius var(--hm-cycle) infinite cubic-bezier(0.77, 0, 0.175, 1),
+    hm-fill-3 var(--hm-cycle) infinite ease-in-out;
+  animation-delay: 0ms;
+}
+
+/* Dot 3 fill: amber at HC source (it's the heartbeat origin) */
+@keyframes hm-fill-3 {
+  0%, 49%   { fill: currentColor; }
+  51%, 57%  { fill: var(--accent); }
+  59%, 100% { fill: currentColor; }
+}
+@keyframes hm-flow-3 {
+  /* DOT 3 — center / leader / pivot */
+  0%, 7%   { transform: translate(300px, 352px); }
+  8.5%     { transform: translate(300px, 320px); }
+  10%, 17% { transform: translate(300px, 300px); }   /* AI: hidden node */
+  18.5%    { transform: translate(300px, 320px); }
+  20%, 27% { transform: translate(300px, 352px); }
+  28.5%    { transform: translate(300px, 320px); }
+  30%, 37% { transform: translate(300px, 275px); }   /* Fintech: secondary rail center */
+  38.5%    { transform: translate(300px, 320px); }
+  40%, 47% { transform: translate(300px, 352px); }
+  50%, 57% { transform: translate(285px, 240px); }   /* HC: ECG R peak (leader) */
+  60%, 67% { transform: translate(300px, 352px); }
+  68.5%    { transform: translate(300px, 320px); }
+  70%, 77% { transform: translate(300px, 300px); }   /* DS: master center */
+  78.5%    { transform: translate(300px, 320px); }
+  80%, 87% { transform: translate(300px, 352px); }
+  88.5%    { transform: translate(300px, 320px); }
+  90%, 97% { transform: translate(285px, 332px); }
+  98.5%    { transform: translate(300px, 320px); }
+  100%     { transform: translate(300px, 352px); }
+}
+
+/* DOT 4 — bottom-left */
+.hm-flow-dot--4 {
+  animation:
+    hm-flow-4 var(--hm-cycle) infinite cubic-bezier(0.77, 0, 0.175, 1),
+    hm-flow-radius var(--hm-cycle) infinite cubic-bezier(0.77, 0, 0.175, 1),
+    hm-fill-4 var(--hm-cycle) infinite ease-in-out;
+  animation-delay: 0ms;
+}
+
+/* Dot 4 fill: amber at EA peak bar (the highest data point) */
+@keyframes hm-fill-4 {
+  0%, 89%   { fill: currentColor; }
+  92%, 96%  { fill: var(--accent); }
+  98%, 100% { fill: currentColor; }
+}
+@keyframes hm-flow-4 {
+  /* DOT 4 — bottom-left */
+  0%, 7%   { transform: translate(314px, 352px); }
+  8.5%     { transform: translate(300px, 320px); }
+  10%, 17% { transform: translate(200px, 360px); }   /* AI: input bottom node */
+  18.5%    { transform: translate(300px, 320px); }
+  20%, 27% { transform: translate(340px, 352px); }
+  28.5%    { transform: translate(300px, 320px); }
+  30%, 37% { transform: translate(385px, 275px); }   /* Fintech: secondary rail above */
+  38.5%    { transform: translate(300px, 320px); }
+  40%, 47% { transform: translate(350px, 352px); }
+  50%, 57% { transform: translate(300px, 360px); }   /* HC: ECG S trough */
+  60%, 67% { transform: translate(360px, 352px); }
+  68.5%    { transform: translate(300px, 320px); }
+  70%, 77% { transform: translate(270px, 330px); }   /* DS: master BL cell */
+  78.5%    { transform: translate(300px, 320px); }
+  80%, 87% { transform: translate(360px, 352px); }
+  88.5%    { transform: translate(300px, 320px); }
+  90%, 97% { transform: translate(319px, 262px); }
+  98.5%    { transform: translate(300px, 320px); }
+  100%     { transform: translate(314px, 352px); }
+}
+
+/* DOT 5 — bottom-right (trails) */
+.hm-flow-dot--5 {
+  animation:
+    hm-flow-5 var(--hm-cycle) infinite cubic-bezier(0.77, 0, 0.175, 1),
+    hm-flow-radius var(--hm-cycle) infinite cubic-bezier(0.77, 0, 0.175, 1),
+    hm-fill-5 var(--hm-cycle) infinite ease-in-out;
+  animation-delay: 0ms;
+}
+
+/* Dot 5 fill: amber at Fintech endpoint (the value arrival) */
+@keyframes hm-fill-5 {
+  0%, 33%   { fill: currentColor; }
+  35%, 37%  { fill: var(--accent); }
+  39%, 100% { fill: currentColor; }
+}
+@keyframes hm-flow-5 {
+  /* DOT 5 — bottom-right */
+  0%, 7%   { transform: translate(328px, 352px); }
+  8.5%     { transform: translate(300px, 320px); }
+  10%, 17% { transform: translate(400px, 360px); }   /* AI: output bottom node */
+  18.5%    { transform: translate(300px, 320px); }
+  20%, 27% { transform: translate(380px, 352px); }
+  28.5%    { transform: translate(300px, 320px); }
+  30%, 37% { transform: translate(430px, 300px); }   /* Fintech: receiver */
+  38.5%    { transform: translate(300px, 320px); }
+  40%, 47% { transform: translate(400px, 352px); }
+  50%, 57% { transform: translate(360px, 280px); }   /* HC: ECG T peak */
+  60%, 67% { transform: translate(420px, 352px); }
+  68.5%    { transform: translate(300px, 320px); }
+  70%, 77% { transform: translate(330px, 330px); }   /* DS: master BR cell */
+  78.5%    { transform: translate(300px, 320px); }
+  80%, 87% { transform: translate(420px, 352px); }
+  88.5%    { transform: translate(300px, 320px); }
+  90%, 97% { transform: translate(353px, 302px); }
+  98.5%    { transform: translate(300px, 320px); }
+  100%     { transform: translate(328px, 352px); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   OVERLAYS — scene-specific shapes that fade in only at their station
+   ═══════════════════════════════════════════════════════════════════════════
+   Each overlay's geometry is fixed at coords matching the dots' station.
+   When the dots arrive, the overlay fades in to "complete" the metaphor.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.hm-overlay {
+  opacity: 0;
+}
+
+.hm-overlay line,
+.hm-overlay polyline,
+.hm-overlay rect,
+.hm-overlay circle {
+  /* shared base styling */
+}
+
+/* ─── AI: 2-1-2 network with traveling signals ─── */
+.hm-overlay--ai {
+  animation: hm-overlay-ai var(--hm-cycle) infinite cubic-bezier(0.23, 1, 0.32, 1);
+}
+.hm-ai-edge {
+  stroke: currentColor;
+  stroke-width: 1;
+  opacity: 0.18;
+}
+.hm-ai-signal {
+  fill: currentColor;
+  opacity: 0;
+}
+@keyframes hm-overlay-ai {
+  0%, 9%   { opacity: 0; }
+  11%      { opacity: 1; }
+  17%      { opacity: 1; }
+  19%      { opacity: 0; }
+  100%     { opacity: 0; }
+}
+
+/* Each signal travels along one connection: input → hidden → output.
+   Two passes inside the 1.4s station window. */
+.hm-ai-signal--1 { animation: hm-ai-signal-a var(--hm-cycle) infinite linear; }
+.hm-ai-signal--2 { animation: hm-ai-signal-b var(--hm-cycle) infinite linear; }
+.hm-ai-signal--3 { animation: hm-ai-signal-c var(--hm-cycle) infinite linear; }
+.hm-ai-signal--4 { animation: hm-ai-signal-d var(--hm-cycle) infinite linear; }
+
+/* signal-a: input top → hidden → output bottom (2 passes) */
+@keyframes hm-ai-signal-a {
+  0%, 11%    { opacity: 0; transform: translate(200px, 240px); }
+  11.5%      { opacity: 1; transform: translate(200px, 240px); }
+  12.5%      { opacity: 1; transform: translate(300px, 300px); }
+  13.5%      { opacity: 1; transform: translate(400px, 360px); }
+  14%        { opacity: 0; transform: translate(400px, 360px); }
+  14.5%      { opacity: 1; transform: translate(200px, 240px); }
+  15.5%      { opacity: 1; transform: translate(300px, 300px); }
+  16.5%      { opacity: 1; transform: translate(400px, 360px); }
+  17%, 100%  { opacity: 0; transform: translate(400px, 360px); }
+}
+/* signal-b: input bottom → hidden → output top (2 passes, offset) */
+@keyframes hm-ai-signal-b {
+  0%, 11.5%  { opacity: 0; transform: translate(200px, 360px); }
+  12%        { opacity: 1; transform: translate(200px, 360px); }
+  13%        { opacity: 1; transform: translate(300px, 300px); }
+  14%        { opacity: 1; transform: translate(400px, 240px); }
+  14.5%      { opacity: 0; transform: translate(400px, 240px); }
+  15%        { opacity: 1; transform: translate(200px, 360px); }
+  16%        { opacity: 1; transform: translate(300px, 300px); }
+  17%        { opacity: 1; transform: translate(400px, 240px); }
+  17.5%, 100%{ opacity: 0; transform: translate(400px, 240px); }
+}
+/* signal-c: input top → hidden → output top */
+@keyframes hm-ai-signal-c {
+  0%, 12%    { opacity: 0; transform: translate(200px, 240px); }
+  12.5%      { opacity: 1; transform: translate(200px, 240px); }
+  13.5%      { opacity: 1; transform: translate(300px, 300px); }
+  14.5%      { opacity: 1; transform: translate(400px, 240px); }
+  15%, 100%  { opacity: 0; transform: translate(400px, 240px); }
+}
+/* signal-d: input bottom → hidden → output bottom */
+@keyframes hm-ai-signal-d {
+  0%, 13%    { opacity: 0; transform: translate(200px, 360px); }
+  13.5%      { opacity: 1; transform: translate(200px, 360px); }
+  14.5%      { opacity: 1; transform: translate(300px, 300px); }
+  15.5%      { opacity: 1; transform: translate(400px, 360px); }
+  16%, 100%  { opacity: 0; transform: translate(400px, 360px); }
+}
+
+/* ─── FINTECH: value packets streaming sender → receiver ─── */
+.hm-overlay--fin {
+  animation: hm-overlay-fin var(--hm-cycle) infinite cubic-bezier(0.23, 1, 0.32, 1);
+}
+.hm-fin-track-line {
+  stroke: currentColor;
+  stroke-width: 1;
+  stroke-dasharray: 1 4;
+  opacity: 0.32;
+}
+.hm-fin-end-ring {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hm-fin-ring-grow var(--hm-cycle) infinite cubic-bezier(0.23, 1, 0.32, 1);
+}
+.hm-fin-packet {
+  fill: currentColor;
+  opacity: 0;
+}
+.hm-fin-packet--1 { animation: hm-fin-packet-flow var(--hm-cycle) infinite linear 0s; }
+.hm-fin-packet--2 { animation: hm-fin-packet-flow var(--hm-cycle) infinite linear 0.3s; }
+.hm-fin-packet--3 { animation: hm-fin-packet-flow var(--hm-cycle) infinite linear 0.6s; }
+
+@keyframes hm-overlay-fin {
+  0%, 29%  { opacity: 0; }
+  31%      { opacity: 1; }
+  37%      { opacity: 1; }
+  39%      { opacity: 0; }
+  100%     { opacity: 0; }
+}
+@keyframes hm-fin-ring-grow {
+  0%, 36% { opacity: 0; transform: scale(0.4); }
+  37%     { opacity: 0.8; transform: scale(0.4); }
+  38%     { opacity: 0; transform: scale(1.6); }
+  100%    { opacity: 0; }
+}
+/* Each packet: invisible → fade in at sender → travel to receiver → fade out.
+   Active only during 31-37% window (1.4s). */
+@keyframes hm-fin-packet-flow {
+  0%, 30%  { opacity: 0; transform: translate(170px, 0); }
+  31%      { opacity: 1; transform: translate(170px, 0); }
+  37%      { opacity: 1; transform: translate(430px, 0); }
+  37.5%    { opacity: 0; transform: translate(430px, 0); }
+  100%     { opacity: 0; transform: translate(170px, 0); }
+}
+
+/* ─── HEALTHCARE: ECG waveform tracing PQRST left→right ─── */
+.hm-overlay--hc {
+  animation: hm-overlay-hc var(--hm-cycle) infinite cubic-bezier(0.23, 1, 0.32, 1);
+}
+.hm-hc-baseline-line {
+  stroke: currentColor;
+  stroke-width: 1;
+  stroke-dasharray: 1 4;
+  opacity: 0.18;
+}
+.hm-hc-trace {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 380;
+  stroke-dashoffset: 380;
+  animation: hm-hc-trace-draw var(--hm-cycle) infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+@keyframes hm-overlay-hc {
+  0%, 49%  { opacity: 0; }
+  51%      { opacity: 1; }
+  57%      { opacity: 1; }
+  59%      { opacity: 0; }
+  100%     { opacity: 0; }
+}
+/* Two heartbeats inside the 50-57% window (≈1.4s, two ~0.7s beats). */
+@keyframes hm-hc-trace-draw {
+  0%, 50%  { stroke-dashoffset: 380; }
+  53%      { stroke-dashoffset: 0; }
+  53.5%    { stroke-dashoffset: 380; }
+  56.5%    { stroke-dashoffset: 0; }
+  57%      { stroke-dashoffset: 0; }
+  58%      { stroke-dashoffset: 380; }
+  100%     { stroke-dashoffset: 380; }
+}
+
+/* ─── DESIGN SYSTEM: master + replicated component copies ─── */
+.hm-overlay--ds {
+  animation: hm-overlay-ds var(--hm-cycle) infinite cubic-bezier(0.23, 1, 0.32, 1);
+}
+.hm-ds-block-bg {
+  fill: var(--surface);
+  stroke: currentColor;
+  stroke-width: 1;
+  opacity: 0.7;
+}
+.hm-ds-frame-line {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  opacity: 0.5;
+  stroke-dasharray: 416;
+  stroke-dashoffset: 416;
+  animation: hm-ds-frame-draw var(--hm-cycle) infinite cubic-bezier(0.23, 1, 0.32, 1);
+}
+.hm-ds-copy {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.hm-ds-copy rect {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1;
+  opacity: 0.32;
+}
+
+@keyframes hm-overlay-ds {
+  0%, 69%  { opacity: 0; }
+  71%      { opacity: 1; }
+  77%      { opacity: 1; }
+  79%      { opacity: 0; }
+  100%     { opacity: 0; }
+}
+@keyframes hm-ds-frame-draw {
+  0%, 71% { stroke-dashoffset: 416; }
+  74%     { stroke-dashoffset: 0; }
+  77%     { stroke-dashoffset: 0; }
+  79%     { stroke-dashoffset: 416; }
+  100%    { stroke-dashoffset: 416; }
+}
+/* Replicated component copies snap in around master with stagger. */
+.hm-ds-copy--1 { animation: hm-ds-copy-snap var(--hm-cycle) infinite cubic-bezier(0.34, 1.56, 0.64, 1); }
+.hm-ds-copy--2 { animation: hm-ds-copy-snap var(--hm-cycle) infinite cubic-bezier(0.34, 1.56, 0.64, 1); animation-delay: 60ms; }
+.hm-ds-copy--3 { animation: hm-ds-copy-snap var(--hm-cycle) infinite cubic-bezier(0.34, 1.56, 0.64, 1); animation-delay: 120ms; }
+.hm-ds-copy--4 { animation: hm-ds-copy-snap var(--hm-cycle) infinite cubic-bezier(0.34, 1.56, 0.64, 1); animation-delay: 180ms; }
+.hm-ds-copy--5 { animation: hm-ds-copy-snap var(--hm-cycle) infinite cubic-bezier(0.34, 1.56, 0.64, 1); animation-delay: 80ms; }
+.hm-ds-copy--6 { animation: hm-ds-copy-snap var(--hm-cycle) infinite cubic-bezier(0.34, 1.56, 0.64, 1); animation-delay: 140ms; }
+.hm-ds-copy--7 { animation: hm-ds-copy-snap var(--hm-cycle) infinite cubic-bezier(0.34, 1.56, 0.64, 1); animation-delay: 200ms; }
+.hm-ds-copy--8 { animation: hm-ds-copy-snap var(--hm-cycle) infinite cubic-bezier(0.34, 1.56, 0.64, 1); animation-delay: 260ms; }
+
+@keyframes hm-ds-copy-snap {
+  0%, 73%  { opacity: 0; transform: scale(0.5); }
+  75%      { opacity: 1; transform: scale(1); }
+  77%      { opacity: 1; transform: scale(1); }
+  79%      { opacity: 0; transform: scale(0.5); }
+  100%     { opacity: 0; transform: scale(0.5); }
+}
+
+/* Enterprise data overlay: 90-97% */
+.hm-overlay--ea {
+  animation: hm-overlay-ea var(--hm-cycle) infinite cubic-bezier(0.23, 1, 0.32, 1);
+}
+.hm-ea-baseline-line {
+  stroke: currentColor;
+  stroke-width: 1;
+  opacity: 0.18;
+}
+.hm-ea-bar-line {
+  stroke: currentColor;
+  stroke-width: 14;
+  stroke-linecap: butt;
+  opacity: 0.85;
+  /* bars draw from baseline → top via stroke-dashoffset */
+  stroke-dasharray: 120;
+  stroke-dashoffset: 120;
+}
+.hm-ea-bar-line--1 { animation: hm-ea-bar-grow var(--hm-cycle) infinite cubic-bezier(0.23, 1, 0.32, 1); }
+.hm-ea-bar-line--2 { animation: hm-ea-bar-grow var(--hm-cycle) infinite cubic-bezier(0.23, 1, 0.32, 1); animation-delay: 80ms; }
+.hm-ea-bar-line--3 { animation: hm-ea-bar-grow var(--hm-cycle) infinite cubic-bezier(0.23, 1, 0.32, 1); animation-delay: 160ms; }
+.hm-ea-bar-line--4 { animation: hm-ea-bar-grow var(--hm-cycle) infinite cubic-bezier(0.23, 1, 0.32, 1); animation-delay: 240ms; }
+.hm-ea-bar-line--5 { animation: hm-ea-bar-grow var(--hm-cycle) infinite cubic-bezier(0.23, 1, 0.32, 1); animation-delay: 320ms; }
+
+@keyframes hm-ea-bar-grow {
+  0%, 90%  { stroke-dashoffset: 120; }
+  93%      { stroke-dashoffset: 0; }
+  97%      { stroke-dashoffset: 0; }
+  99%      { stroke-dashoffset: 120; }
+  100%     { stroke-dashoffset: 120; }
+}
+.hm-ea-trend-line {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: hm-ea-trend-draw var(--hm-cycle) infinite cubic-bezier(0.23, 1, 0.32, 1);
+}
+@keyframes hm-overlay-ea {
+  0%, 89%   { opacity: 0; }
+  91%       { opacity: 1; }
+  97%       { opacity: 1; }
+  99%       { opacity: 0; }
+  100%      { opacity: 0; }
+}
+@keyframes hm-ea-trend-draw {
+  0%, 95% { stroke-dashoffset: 200; }
+  97%     { stroke-dashoffset: 0; }
+  98.5%   { stroke-dashoffset: 0; }
+  99%     { stroke-dashoffset: 200; }
+  100%    { stroke-dashoffset: 200; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   WORDS — fade in/out with blur masking (Emil's see-through technique)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.hm-word {
+  fill: currentColor;
+  font-family: var(--font-display);
+  font-size: 60px;
+  font-weight: 500;
+  letter-spacing: -0.034em;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.hm-word--ai  { animation: hm-word-fade     var(--hm-cycle) infinite cubic-bezier(0.23, 1, 0.32, 1); }
+.hm-word--fin { animation: hm-word-fade-fin var(--hm-cycle) infinite cubic-bezier(0.23, 1, 0.32, 1); }
+.hm-word--hc  { animation: hm-word-fade-hc  var(--hm-cycle) infinite cubic-bezier(0.23, 1, 0.32, 1); }
+.hm-word--ds  { animation: hm-word-fade-ds  var(--hm-cycle) infinite cubic-bezier(0.23, 1, 0.32, 1); }
+.hm-word--ea  { animation: hm-word-fade-ea  var(--hm-cycle) infinite cubic-bezier(0.23, 1, 0.32, 1); }
+
+@keyframes hm-word-fade {
+  0%   { opacity: 0; filter: blur(8px); }
+  2%   { opacity: 1; filter: blur(0); }
+  6%   { opacity: 1; filter: blur(0); }
+  8.5% { opacity: 0; filter: blur(8px); }
+  100% { opacity: 0; filter: blur(8px); }
+}
+@keyframes hm-word-fade-fin {
+  0%, 20% { opacity: 0; filter: blur(8px); }
+  22%     { opacity: 1; filter: blur(0); }
+  26%     { opacity: 1; filter: blur(0); }
+  28.5%   { opacity: 0; filter: blur(8px); }
+  100%    { opacity: 0; filter: blur(8px); }
+}
+@keyframes hm-word-fade-hc {
+  0%, 40% { opacity: 0; filter: blur(8px); }
+  42%     { opacity: 1; filter: blur(0); }
+  46%     { opacity: 1; filter: blur(0); }
+  48.5%   { opacity: 0; filter: blur(8px); }
+  100%    { opacity: 0; filter: blur(8px); }
+}
+@keyframes hm-word-fade-ds {
+  0%, 60% { opacity: 0; filter: blur(8px); }
+  62%     { opacity: 1; filter: blur(0); }
+  66%     { opacity: 1; filter: blur(0); }
+  68.5%   { opacity: 0; filter: blur(8px); }
+  100%    { opacity: 0; filter: blur(8px); }
+}
+@keyframes hm-word-fade-ea {
+  0%, 80% { opacity: 0; filter: blur(8px); }
+  82%     { opacity: 1; filter: blur(0); }
+  86%     { opacity: 1; filter: blur(0); }
+  88.5%   { opacity: 0; filter: blur(8px); }
+  100%    { opacity: 0; filter: blur(8px); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   READOUT CAPTIONS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.hm-readout {
+  fill: currentColor;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-anchor: middle;
+  opacity: 0;
+}
+.hm-readout--ai  { animation: hm-readout-ai  var(--hm-cycle) infinite ease-in-out; }
+.hm-readout--fin { animation: hm-readout-fin var(--hm-cycle) infinite ease-in-out; }
+.hm-readout--hc  { animation: hm-readout-hc  var(--hm-cycle) infinite ease-in-out; }
+.hm-readout--ds  { animation: hm-readout-ds  var(--hm-cycle) infinite ease-in-out; }
+.hm-readout--ea  { animation: hm-readout-ea  var(--hm-cycle) infinite ease-in-out; }
+@keyframes hm-readout-ai  { 0%,13%{opacity:0;} 14%{opacity:0.6;} 17%{opacity:0.6;} 19%{opacity:0;} 100%{opacity:0;} }
+@keyframes hm-readout-fin { 0%,33%{opacity:0;} 34%{opacity:0.6;} 37%{opacity:0.6;} 39%{opacity:0;} 100%{opacity:0;} }
+@keyframes hm-readout-hc  { 0%,53%{opacity:0;} 54%{opacity:0.6;} 57%{opacity:0.6;} 59%{opacity:0;} 100%{opacity:0;} }
+@keyframes hm-readout-ds  { 0%,73%{opacity:0;} 74%{opacity:0.6;} 77%{opacity:0.6;} 79%{opacity:0;} 100%{opacity:0;} }
+@keyframes hm-readout-ea  { 0%,93%{opacity:0;} 94%{opacity:0.6;} 97%{opacity:0.6;} 99%{opacity:0;} 100%{opacity:0;} }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PERSISTENT UI — caption, scene index, progress, live dot
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.hm-caption-frame {
+  fill: currentColor;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.4;
+}
+
+.hm-live-dot {
+  fill: var(--accent);
+  transform-box: fill-box;
+  transform-origin: center;
+  /* Beat-synced: 1.4s tick aligned with station arrivals (14s cycle / 10 stations) */
+  animation: hm-live-beat 2s infinite cubic-bezier(0.23, 1, 0.32, 1);
+}
+@keyframes hm-live-beat {
+  0%   { opacity: 1; transform: scale(1.4); }
+  20%  { opacity: 0.4; transform: scale(1); }
+  100% { opacity: 0.4; transform: scale(1); }
+}
+
+.hm-scene {
+  fill: currentColor;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-anchor: end;
+  opacity: 0;
+}
+.hm-scene--ai  { animation: hm-scene-ai  var(--hm-cycle) infinite ease-in-out; }
+.hm-scene--fin { animation: hm-scene-fin var(--hm-cycle) infinite ease-in-out; }
+.hm-scene--hc  { animation: hm-scene-hc  var(--hm-cycle) infinite ease-in-out; }
+.hm-scene--ds  { animation: hm-scene-ds  var(--hm-cycle) infinite ease-in-out; }
+.hm-scene--ea  { animation: hm-scene-ea  var(--hm-cycle) infinite ease-in-out; }
+@keyframes hm-scene-ai  { 0%, 19%{opacity:0.4;} 20%, 100%{opacity:0;} }
+@keyframes hm-scene-fin { 0%, 19%{opacity:0;} 21%, 39%{opacity:0.4;} 40%, 100%{opacity:0;} }
+@keyframes hm-scene-hc  { 0%, 39%{opacity:0;} 41%, 59%{opacity:0.4;} 60%, 100%{opacity:0;} }
+@keyframes hm-scene-ds  { 0%, 59%{opacity:0;} 61%, 79%{opacity:0.4;} 80%, 100%{opacity:0;} }
+@keyframes hm-scene-ea  { 0%, 79%{opacity:0;} 81%, 99%{opacity:0.4;} 100%{opacity:0;} }
+
+.hm-progress-track {
+  stroke: currentColor;
+  stroke-width: 1;
+  stroke-dasharray: 1 4;
+  opacity: 0.18;
+}
+.hm-progress-fill {
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  /* Ratchet step at each beat — film-leader feel instead of smooth growth */
+  animation: hm-progress-ratchet var(--hm-cycle) infinite steps(10, end);
+}
+@keyframes hm-progress-ratchet {
+  0%   { stroke-dasharray: 0 120; }
+  100% { stroke-dasharray: 120 0; }
+}
+.hm-progress-label {
+  fill: currentColor;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.4;
+}
+
+/* Pause-on-hover (Emil's let-them-study principle) */
+.hero-motion-frame:hover [class*="hm-"] {
+  animation-play-state: paused !important;
+}
+
+/* Reduced motion: freeze on AI neural network snapshot, all motion off */
+@media (prefers-reduced-motion: reduce) {
+  .hero-motion-frame,
+  .hero-motion,
+  .hero-motion *,
+  .hm-flow-dot,
+  .hm-overlay,
+  .hm-ai-edge,
+  .hm-ai-signal,
+  .hm-fin-track-line,
+  .hm-fin-end-ring,
+  .hm-fin-packet,
+  .hm-hc-baseline-line,
+  .hm-hc-trace,
+  .hm-ds-block-bg,
+  .hm-ds-frame-line,
+  .hm-ds-copy,
+  .hm-ea-baseline-line,
+  .hm-ea-bar-line,
+  .hm-ea-trend-line,
+  .hm-word,
+  .hm-readout,
+  .hm-live-dot,
+  .hm-progress-fill {
+    animation: none !important;
+    transition: none !important;
+  }
+  .hero-motion-frame  { opacity: 1; }
+  .hero-motion        { transform: none; }
+  /* Freeze dots on the AI 2-1-2 network formation */
+  .hm-flow-dot--1     { transform: translate(200px, 240px); }
+  .hm-flow-dot--2     { transform: translate(400px, 240px); }
+  .hm-flow-dot--3     { transform: translate(300px, 300px); }
+  .hm-flow-dot--4     { transform: translate(200px, 360px); }
+  .hm-flow-dot--5     { transform: translate(400px, 360px); }
+  .hm-flow-dot        { r: 4; }
+  /* Show only AI overlay, statically */
+  .hm-overlay--ai     { opacity: 1; }
+  .hm-overlay--fin,
+  .hm-overlay--hc,
+  .hm-overlay--ds,
+  .hm-overlay--ea     { display: none; }
+  .hm-ai-signal       { display: none; }
+  /* Words hidden — the network snapshot speaks for itself */
+  .hm-word            { display: none; }
+  .hm-readout--ai     { opacity: 0.6; }
+  .hm-readout--fin,
+  .hm-readout--hc,
+  .hm-readout--ds,
+  .hm-readout--ea     { display: none; }
+  .hm-live-dot        { opacity: 0.4; }
+  .hm-progress-fill   { stroke-dasharray: 0 120; }
+}
+
+
+/* ----------------------------------------------------------------------------
+   8. SCROLL-DRIVEN CASE STUDY REVEALS (S41)
+   ----------------------------------------------------------------------------
+   Modern Chrome 115+ / Safari 26 supports CSS scroll-driven animations.
+   Each .o-process block fades + lifts as it enters the viewport, with
+   progress driven by the section's own position rather than a one-shot
+   IntersectionObserver fire. Feels more cinematic on long case studies.
+
+   Browsers without animation-timeline support skip the rule entirely
+   (the @supports gate handles that), so the section just appears
+   fully rendered — no degradation.
+   ---------------------------------------------------------------------------- */
+
+/* Disabled: previously applied `animation-timeline: view()` to every
+   .o-process block to do a scroll-driven fade/lift on entry. The keyframes
+   start at opacity:0 + translateY(36px) and `animation-fill-mode: both`
+   pins that initial state until the timeline engages. In some embedded
+   contexts (iframe previews, certain scroll containers) view() never
+   engages, so whole sections stay invisible. Falling back to no animation
+   — sections render at their natural state, no surprises. */
+
+@keyframes o-process-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(36px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes o-section-soft-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,0 +1,603 @@
+/* ============================================================================
+   DESIGN SYSTEM — TOKENS                                       v1.1 — 2026-05-03
+   ============================================================================
+   Atomic primitives consumed by every atom, molecule, organism, and page in
+   the portfolio. Nothing in this file produces visible output by itself —
+   it only declares variables. Components reference these tokens; tokens never
+   reference components.
+
+   ─── Tier model (per Nathan Curtis / EightShapes) ──────────────────────────
+   TIER 1 — Primitives    Raw values named by attribute (--gray-900, --amber-500).
+                          Should never be used directly by components.
+   TIER 2 — Semantic      Intent-named, references primitives (--color-text-primary,
+                          --color-action-bg). Components reference these.
+   TIER 3 — Component     Component-specific (--button-radius, --card-padding).
+                          Used inside the component, defined alongside it.
+
+   In v1.1 we introduce Tier 1 and refactor existing Tier 2 to consume them.
+   Existing token names (--ink, --bg, --accent, etc.) are kept as Tier 2
+   aliases for backward compatibility within this codebase.
+
+   ─── Philosophy ────────────────────────────────────────────────────────────
+   • Pure monochrome neutrals + single amber accent
+   • Two amber tiers: --accent (surfaces) vs --accent-text (AA-compliant text)
+   • Dual-mode from line one (light/dark via prefers-color-scheme + manual override)
+   • Aeonik for primary type, Geist Mono for tabular numerics & code
+   • Custom Emil Kowalski easing curves; asymmetric durations (exit < enter)
+   • 4px spacing scale (12, 24, 48, 96 are halves between geometric steps)
+   • Reduced-motion aware
+
+   ─── Changelog ─────────────────────────────────────────────────────────────
+   v1.1 (2026-05-03)
+     + Tier 1 primitive scale (--gray-*, --amber-*)
+     + Tier 2 semantic naming (--color-text-primary, --color-action-bg, etc.)
+     + Component tokens introduced for atoms (--button-radius, --tag-padding-x)
+     + Atoms: kbd, code, switch, spinner, skeleton
+     + Molecules: tooltip, tabs, callout, empty-state, code-snippet, section-divider
+     + Organisms: toast (with @starting-style), dialog, comparison-slider demo
+
+   v1.0 (2026-05-02)
+     + Initial release: tokens, reset, atoms (41), molecules (14), organisms (12)
+     + Light + dark mode parity
+     + Aeonik + Geist Mono
+     + Two-tier amber accent
+     + Custom Emil Kowalski easing curves
+
+   ─── Loading order ─────────────────────────────────────────────────────────
+   tokens.css → reset.css → atoms.css → molecules.css → organisms.css → pages
+   ============================================================================ */
+
+/* ----------------------------------------------------------------------------
+   FONTS
+   Aeonik (primary) + Geist Mono (numerics & code).
+   v1.1 moves Aeonik @font-face here so the system is self-contained and
+   site.css can eventually be retired.
+   ---------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: "Aeonik";
+  src: url("/fonts/Aeonik/Aeonik-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Aeonik";
+  src: url("/fonts/Aeonik/Aeonik-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Aeonik";
+  src: url("/fonts/Aeonik/Aeonik-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/fonts/GeistMono/GeistMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/fonts/GeistMono/GeistMono-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================================================
+   ROOT — LIGHT MODE (default)
+   ============================================================================ */
+
+:root {
+
+  /* ═════════════════════════════════════════════════════════════════════════
+     TIER 1 — PRIMITIVES (raw values, attribute-named)
+     ═════════════════════════════════════════════════════════════════════════
+     Atoms-of-atoms. Components must NOT reference these directly.
+     Use the semantic tokens below.
+     ───────────────────────────────────────────────────────────────────────── */
+
+  --gray-0:             hsl(0 0% 100%);
+  --gray-50:            hsl(0 0% 99%);
+  --gray-100:           hsl(0 0% 97%);
+  --gray-200:           hsl(0 0% 90%);
+  --gray-300:           hsl(0 0% 76%);
+  --gray-400:           hsl(0 0% 60%);
+  --gray-500:           hsl(0 0% 47%);
+  --gray-700:           hsl(0 0% 28%);
+  --gray-800:           hsl(0 0% 18%);
+  --gray-900:           hsl(0 0% 9%);
+  --gray-950:           hsl(0 0% 5%);
+
+  --amber-300:          hsl(40 95% 60%);        /* dark mode accent */
+  --amber-500:          hsl(38 95% 50%);        /* light mode surface accent */
+  --amber-600:          hsl(35 95% 45%);        /* hover */
+  --amber-700:          hsl(28 100% 37%);       /* AA-compliant text accent */
+  --amber-800:          hsl(22 95% 30%);        /* hover for text */
+
+  --alpha-04:           0.04;                   /* faint hairline */
+  --alpha-08:           0.08;                   /* default hairline */
+  --alpha-14:           0.14;                   /* strong hairline */
+
+  /* ═════════════════════════════════════════════════════════════════════════
+     TIER 2 — SEMANTIC (intent-named, references primitives)
+     ═════════════════════════════════════════════════════════════════════════
+     Components reference these. Existing names (--bg, --ink, --accent) are
+     kept as aliases for backward compatibility — they reference the new
+     intent-named tokens.
+     ───────────────────────────────────────────────────────────────────────── */
+
+  /* Surface roles */
+  --color-bg:                   var(--gray-50);
+  --color-bg-tinted:            var(--gray-100);
+  --color-surface:              var(--gray-0);
+  --color-surface-elevated:     var(--gray-100);
+
+  /* Text roles */
+  --color-text-primary:         var(--gray-900);
+  --color-text-body:            var(--gray-700);
+  --color-text-muted:           var(--gray-500);
+  --color-text-placeholder:     var(--gray-400);
+
+  /* R7 Rasmus foundation: state-color text tokens. Used for trend
+     indicators in tables (↑ +131%), validation labels, and the
+     sparkline stroke colors. Pulled from raw HSL values that were
+     inlined in 7+ places in design-system.gohtml + atoms.css. */
+  --color-good-text:            hsl(142 70% 35%);   /* up trends, success labels */
+  --color-warn-text:            hsl(43 100% 32%);   /* beta, warning labels */
+  --color-neutral-text:         hsl(0 0% 35%);      /* stable / no change */
+
+  /* Border / divider roles */
+  --color-border:               hsl(0 0% 0% / var(--alpha-08));
+  --color-border-strong:        hsl(0 0% 0% / var(--alpha-14));
+  --color-border-faint:         hsl(0 0% 0% / var(--alpha-04));
+
+  /* Action / accent roles */
+  --color-action:               var(--amber-500);
+  --color-action-hover:         var(--amber-600);
+  --color-action-text:          var(--amber-700);
+  --color-action-text-hover:    var(--amber-800);
+  --color-action-fg:            var(--gray-0);
+  --color-action-soft:          hsl(38 95% 50% / 0.12);
+  --color-action-focus:         hsl(38 95% 50% / 0.4);
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     LEGACY ALIASES — Tier 2 names that pre-date the rename.
+     Kept so v1.0 component CSS keeps working. New components should prefer
+     the --color-* names above.
+     ───────────────────────────────────────────────────────────────────────── */
+
+  --bg:                 var(--color-bg);
+  --bg-tinted:          var(--color-bg-tinted);
+  --surface:            var(--color-surface);
+  --surface-2:          var(--color-surface-elevated);
+
+  --ink:                var(--color-text-primary);
+  --ink-soft:           var(--color-text-body);
+  --muted:              var(--color-text-muted);
+  --muted-soft:         var(--color-text-placeholder);
+
+  --hairline:           var(--color-border);
+  --hairline-strong:    var(--color-border-strong);
+  --hairline-faint:     var(--color-border-faint);
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     COLOR — amber accent (two-tier system for AA compliance)
+     ─────────────────────────────────────────────────────────────────────────
+     --accent:        Surfaces only. Used as fill for badges, focus rings,
+                      decorative dividers, button backgrounds (with white
+                      text on top: 5.5:1 ✓), data-viz highlights.
+                      Failing 4.5:1 against white as text — DO NOT use for text.
+
+     --accent-text:   The text-safe amber. AA-compliant (4.81:1 on bg).
+                      Use for: links, accent words inside body copy,
+                      hover states on interactive text.
+     ───────────────────────────────────────────────────────────────────────── */
+
+  --accent:             var(--color-action);
+  --accent-hover:       var(--color-action-hover);
+  --accent-text:        var(--color-action-text);
+  --accent-text-hover:  var(--color-action-text-hover);
+  --accent-fg:          var(--color-action-fg);
+  --accent-soft:        var(--color-action-soft);
+
+  --focus-ring:         var(--color-action-focus);
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     COLOR — data-viz scale
+     5 monochrome steps for charts, process diagrams, system maps.
+     Pair with --accent for the highlighted/featured data point.
+     ───────────────────────────────────────────────────────────────────────── */
+
+  --viz-1:              hsl(0 0% 90%);          /* lightest */
+  --viz-2:              hsl(0 0% 76%);
+  --viz-3:              hsl(0 0% 60%);
+  --viz-4:              hsl(0 0% 40%);
+  --viz-5:              hsl(0 0% 18%);          /* darkest */
+  --viz-highlight:      var(--accent);          /* the one that draws the eye */
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     COLOR — selection state
+     ───────────────────────────────────────────────────────────────────────── */
+
+  --selection-bg:       hsl(38 95% 50% / 0.2);
+  --selection-fg:       var(--ink);
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     TYPE — font families
+     ───────────────────────────────────────────────────────────────────────── */
+
+  --font-display:       "Aeonik", "Helvetica Neue", Arial, sans-serif;
+  --font-text:          "Aeonik", "Helvetica Neue", Arial, sans-serif;
+  --font-mono:          "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     TYPE — fluid scale (clamp for responsive sizing)
+     Smallest size = mobile (≤375px), largest = wide desktop (≥1440px)
+     ───────────────────────────────────────────────────────────────────────── */
+
+  /* S46 Paco pass: 96px display = Stripe homepage. Portfolio that wants
+     to be hired (not gawked at) caps display at 56-64. Editorial-bold,
+     not shouting. */
+  --t-display-xl:       clamp(40px, 5vw, 64px);     /* hero h1 (home) */
+  --t-display-l:        clamp(30px, 3.8vw, 44px);   /* page hero h1 */
+  --t-title-xl:         clamp(28px, 2.8vw, 40px);   /* major section h2 */
+  --t-title-l:          clamp(22px, 2.1vw, 28px);   /* h3, card titles */
+  --t-title-m:          18px;                        /* h4, list titles */
+  --t-body-l:           17px;                        /* primary body, lede */
+  --t-body-m:           15px;                        /* secondary body */
+  --t-body-s:           13px;                        /* captions, meta */
+  --t-eyebrow:          12px;                        /* uppercase eyebrows */
+  --t-mono-m:           14px;                        /* tabular numerics, code */
+  --t-mono-s:           12px;                        /* small mono labels */
+  /* Rasmus foundation pass: formalize the micro tier — these were
+     used as raw 10/11px values across ~30 places. Now they're system. */
+  --t-micro:            11px;                        /* kbd, status pill, chip count */
+  --t-tiny:             10px;                        /* TOC shortcuts, hyper-tight labels */
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     TYPE — weights (Aeonik available: 300, 400, 500, 700)
+     ───────────────────────────────────────────────────────────────────────── */
+
+  --w-light:            300;
+  --w-regular:          400;
+  --w-medium:           500;
+  --w-bold:             700;
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     TYPE — line-heights & letter-spacing
+     ───────────────────────────────────────────────────────────────────────── */
+
+  --lh-tight:           1.02;     /* display headlines */
+  --lh-snug:            1.1;      /* titles */
+  --lh-normal:          1.3;      /* small titles, leads */
+  --lh-relaxed:         1.55;     /* body copy */
+  --lh-loose:           1.7;      /* generous reading */
+  /* Rasmus foundation pass: 1.15 / 1.45 / 1.65 used raw site-wide;
+     formalize as named tokens so consumers don't pick magic numbers. */
+  --lh-card:            1.15;     /* card titles, group labels */
+  --lh-quote:           1.45;     /* m-quote, lede paragraphs */
+  --lh-prose:           1.65;     /* dense prose, dl meta */
+
+  --ls-tightest:        -0.034em;
+  --ls-tighter:         -0.028em;
+  --ls-tight:           -0.022em;
+  --ls-snug:            -0.018em;
+  --ls-normal:          -0.012em;
+  --ls-body:            -0.003em;
+  --ls-flat:            0;
+  --ls-eyebrow:         0.08em;
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     SPACING — 4px geometric scale
+     ───────────────────────────────────────────────────────────────────────── */
+
+  --s-1:                4px;
+  --s-2:                8px;
+  --s-3:                12px;
+  --s-4:                16px;
+  --s-5:                24px;
+  --s-6:                32px;
+  --s-7:                48px;
+  --s-8:                64px;
+  --s-9:                96px;
+  --s-10:               128px;
+  --s-11:               160px;
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     LAYOUT — container widths
+     ───────────────────────────────────────────────────────────────────────── */
+
+  --w-narrow:           680px;     /* case study reading column */
+  --w-default:          1120px;    /* main content */
+  --w-wide:             1320px;    /* galleries, wide grids */
+  --container-pad:      clamp(20px, 4.4vw, 64px);
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     RADII
+     ───────────────────────────────────────────────────────────────────────── */
+
+  /* S46 Paco pass + Rasmus foundation: 6-step scale with explicit
+     micro at the bottom. Was 6/10/14/18/24 — now 2/4/6/8/12/16. */
+  --r-0:                2px;       /* kbd, inline code, micro-rounding */
+  --r-1:                4px;       /* tags, inline pills */
+  --r-2:                6px;       /* inputs, small buttons */
+  --r-3:                8px;       /* buttons (default) */
+  --r-4:                12px;      /* cards */
+  --r-5:                16px;      /* hero panels */
+  --r-full:             9999px;    /* pills, avatars */
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     SHADOWS — three levels
+     ───────────────────────────────────────────────────────────────────────── */
+
+  --shadow-1:           0 1px 2px rgb(0 0 0 / 0.04);
+  --shadow-2:           0 1px 2px rgb(0 0 0 / 0.04),
+                        0 6px 16px rgb(0 0 0 / 0.06);
+  --shadow-3:           0 2px 6px rgb(0 0 0 / 0.05),
+                        0 16px 40px rgb(0 0 0 / 0.10);
+  --shadow-glow:        0 0 0 4px var(--focus-ring);
+
+  /* Card depth — softer than --shadow-2 with negative blur offset so
+     the shadow tucks under the card instead of bleeding sideways. The
+     hover shadow doesn't lift (no transform) — it spreads, like the
+     card "presses into" the page a little harder. */
+  --shadow-card:        0 1px 2px rgb(0 0 0 / 0.04),
+                        0 10px 24px -8px rgb(0 0 0 / 0.06);
+  --shadow-card-hover:  0 1px 2px rgb(0 0 0 / 0.06),
+                        0 18px 36px -10px rgb(0 0 0 / 0.12);
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     MOTION — easing curves (per Emil Kowalski's animation framework)
+     Browser defaults are too weak. These have the punch that makes
+     animations feel intentional, not "stock".
+     ───────────────────────────────────────────────────────────────────────── */
+
+  --ease-out:           cubic-bezier(0.23, 1, 0.32, 1);     /* strong entry */
+  --ease-in-out:        cubic-bezier(0.77, 0, 0.175, 1);    /* on-screen movement */
+  --ease-drawer:        cubic-bezier(0.32, 0.72, 0, 1);     /* iOS-feel drawer */
+  --ease-spring:        cubic-bezier(0.5, 1.5, 0.5, 1);     /* subtle overshoot */
+  --ease-quick:         cubic-bezier(0.4, 0, 0.2, 1);       /* fast standard */
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     MOTION — durations (asymmetric: exits faster than entries)
+     UI animations stay under 320ms. Anything longer feels sluggish.
+     ───────────────────────────────────────────────────────────────────────── */
+
+  /* S46 Paco pass: motion durations dropped by ~35%. 220ms hover was
+     "the eye can't perceive a hover that takes 1/5 of a second" — by
+     the time it completes the cursor has moved on. Linear/Cron live in
+     100-150ms. */
+  --dur-press:          100ms;     /* button :active scale feedback */
+  --dur-instant:        120ms;     /* tooltips, micro-popovers, exits */
+  --dur-quick:          140ms;     /* hover state changes */
+  --dur-base:           220ms;     /* dropdowns, modals, drawers */
+  --dur-slow:           360ms;     /* hero reveals, scroll-triggered */
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     Z-INDEX SCALE
+     ───────────────────────────────────────────────────────────────────────── */
+
+  --z-base:             0;
+  --z-raised:           10;
+  --z-sticky:           80;
+  --z-overlay:          90;
+  --z-modal:            100;
+  --z-popover:          110;
+  --z-tooltip:          120;
+  --z-toast:            130;
+
+  /* ═════════════════════════════════════════════════════════════════════════
+     TIER 3 — COMPONENT TOKENS
+     ═════════════════════════════════════════════════════════════════════════
+     Component-scoped tokens. Each component reads ONLY from semantic tokens
+     above (Tier 2). These are the Tier 3 layer — they translate semantic
+     intent into per-component values and live alongside the component CSS.
+
+     Naming: --<component>-<property>[-<modifier>]
+       e.g.   --button-radius
+              --button-padding-x-sm
+              --card-border
+     ───────────────────────────────────────────────────────────────────────── */
+
+  /* Button */
+  --button-radius:              var(--r-3);
+  /* S53 Paco pass: button heights dropped from 40 to 36 (default),
+     paddings tightened proportionally. Linear / Vercel buttons sit
+     at 32-36; 40 was "consumer app" territory. */
+  --button-padding-y:           8px;
+  --button-padding-x:           16px;
+  --button-padding-y-sm:        4px;
+  --button-padding-x-sm:        12px;
+  --button-padding-y-lg:        12px;
+  --button-padding-x-lg:        22px;
+  --button-min-height:          36px;
+  --button-min-width:           72px;
+  --button-icon-gap:            var(--s-2);
+  --button-active-scale:        0.97;
+
+  /* Card */
+  --card-radius:                var(--r-4);
+  --card-padding:               var(--s-5);
+  --card-border:                1px solid var(--color-border);
+  --card-border-hover:          1px solid var(--color-border-strong);
+  --card-bg:                    var(--color-surface);
+
+  /* Input */
+  --input-radius:               var(--r-2);
+  /* S53 Paco pass: input height to match buttons. */
+  --input-padding-y:            8px;
+  --input-padding-x:            12px;
+  --input-min-height:           36px;
+  --input-border:               1px solid var(--color-border);
+  --input-border-focus:         1px solid var(--color-action);
+  --input-focus-ring:           0 0 0 3px var(--color-action-focus);
+
+  /* Tag */
+  --tag-radius:                 var(--r-1);
+  --tag-padding-y:              3px;
+  --tag-padding-x:              10px;
+  --tag-bg:                     var(--color-surface-elevated);
+  --tag-text:                   var(--color-text-body);
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     THEME META
+     Tells the browser which scrollbar/form-control variant to use.
+     ───────────────────────────────────────────────────────────────────────── */
+
+  color-scheme:         light;
+}
+
+/* ============================================================================
+   ROOT — DARK MODE
+   ============================================================================
+   Activated by either:
+     (a) OS preference: prefers-color-scheme: dark
+     (b) explicit override: html[data-theme="dark"]
+
+   The :root:not([data-theme="light"]) selector lets users force light mode
+   even when their OS is dark — explicit user choice always wins.
+
+   Accent collapses to ONE bright amber in dark mode because contrast is
+   trivially solved against dark backgrounds — no need for the two-tier system.
+   ============================================================================ */
+
+/* Dark mode overrides target SEMANTIC tokens — legacy aliases cascade through */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg:                  hsl(0 0% 5%);
+    --color-bg-tinted:           hsl(0 0% 8%);
+    --color-surface:             hsl(0 0% 7%);
+    --color-surface-elevated:    hsl(0 0% 10%);
+
+    --color-text-primary:        hsl(0 0% 96%);
+    --color-text-body:           hsl(0 0% 76%);
+    --color-text-muted:          hsl(0 0% 56%);
+    --color-text-placeholder:    hsl(0 0% 42%);
+
+    /* R7: state-color tokens lifted for dark — match sparkline pass */
+    --color-good-text:           hsl(142 50% 60%);
+    --color-warn-text:           hsl(43 80% 62%);
+    --color-neutral-text:        hsl(0 0% 70%);
+
+    --color-border:              hsl(0 0% 100% / 0.10);
+    --color-border-strong:       hsl(0 0% 100% / 0.16);
+    --color-border-faint:        hsl(0 0% 100% / 0.05);
+
+    /* In dark mode, both accent tiers collapse to one bright amber */
+    --color-action:              var(--amber-300);
+    --color-action-hover:        hsl(38 95% 55%);
+    --color-action-text:         var(--amber-300);
+    --color-action-text-hover:   hsl(38 95% 55%);
+    --color-action-fg:           var(--gray-900);
+    --color-action-soft:         hsl(40 95% 60% / 0.16);
+    --color-action-focus:        hsl(40 95% 60% / 0.5);
+
+    --viz-1:              hsl(0 0% 18%);
+    --viz-2:              hsl(0 0% 32%);
+    --viz-3:              hsl(0 0% 48%);
+    --viz-4:              hsl(0 0% 66%);
+    --viz-5:              hsl(0 0% 88%);
+
+    --selection-bg:       hsl(40 95% 60% / 0.3);
+
+    --shadow-1:           0 1px 2px rgb(0 0 0 / 0.4);
+    --shadow-2:           0 1px 2px rgb(0 0 0 / 0.4),
+                          0 6px 16px rgb(0 0 0 / 0.5);
+    --shadow-3:           0 2px 6px rgb(0 0 0 / 0.5),
+                          0 16px 40px rgb(0 0 0 / 0.6);
+    --shadow-card:        0 1px 2px rgb(0 0 0 / 0.4),
+                          0 14px 28px -10px rgb(0 0 0 / 0.55);
+    --shadow-card-hover:  0 1px 2px rgb(0 0 0 / 0.5),
+                          0 22px 40px -12px rgb(0 0 0 / 0.7);
+
+    color-scheme:         dark;
+  }
+}
+
+/* Explicit user override — html[data-theme="dark"] */
+:root[data-theme="dark"] {
+  --color-bg:                  hsl(0 0% 5%);
+  --color-bg-tinted:           hsl(0 0% 8%);
+  --color-surface:             hsl(0 0% 7%);
+  --color-surface-elevated:    hsl(0 0% 10%);
+
+  --color-text-primary:        hsl(0 0% 96%);
+  --color-text-body:           hsl(0 0% 76%);
+  --color-text-muted:          hsl(0 0% 56%);
+  --color-text-placeholder:    hsl(0 0% 42%);
+
+  --color-good-text:           hsl(142 50% 60%);
+  --color-warn-text:           hsl(43 80% 62%);
+  --color-neutral-text:        hsl(0 0% 70%);
+
+  --color-border:              hsl(0 0% 100% / 0.10);
+  --color-border-strong:       hsl(0 0% 100% / 0.16);
+  --color-border-faint:        hsl(0 0% 100% / 0.05);
+
+  --color-action:              var(--amber-300);
+  --color-action-hover:        hsl(38 95% 55%);
+  --color-action-text:         var(--amber-300);
+  --color-action-text-hover:   hsl(38 95% 55%);
+  --color-action-fg:           var(--gray-900);
+  --color-action-soft:         hsl(40 95% 60% / 0.16);
+  --color-action-focus:        hsl(40 95% 60% / 0.5);
+
+  --viz-1:              hsl(0 0% 18%);
+  --viz-2:              hsl(0 0% 32%);
+  --viz-3:              hsl(0 0% 48%);
+  --viz-4:              hsl(0 0% 66%);
+  --viz-5:              hsl(0 0% 88%);
+
+  --selection-bg:       hsl(40 95% 60% / 0.3);
+
+  --shadow-1:           0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-2:           0 1px 2px rgb(0 0 0 / 0.4),
+                        0 6px 16px rgb(0 0 0 / 0.5);
+  --shadow-3:           0 2px 6px rgb(0 0 0 / 0.5),
+                        0 16px 40px rgb(0 0 0 / 0.6);
+  --shadow-card:        0 1px 2px rgb(0 0 0 / 0.4),
+                        0 14px 28px -10px rgb(0 0 0 / 0.55);
+  --shadow-card-hover:  0 1px 2px rgb(0 0 0 / 0.5),
+                        0 22px 40px -12px rgb(0 0 0 / 0.7);
+
+  color-scheme:         dark;
+}
+
+/* ============================================================================
+   REDUCED MOTION
+   ============================================================================
+   Per Emil's framework: reduced motion ≠ zero motion.
+   Keep opacity and color fades (they aid comprehension). Kill movement.
+   ============================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-press:          0ms;
+    --dur-instant:        80ms;     /* short opacity fade still helps */
+    --dur-quick:          80ms;
+    --dur-base:           120ms;
+    --dur-slow:           120ms;
+  }
+}
+
+/* ============================================================================
+   NATIVE SELECTION STYLE — uses the accent token
+   This is the only "rendered" thing in tokens.css — defining ::selection here
+   guarantees all pages get accent-color text selection, even before atoms.css.
+   ============================================================================ */
+
+::selection {
+  background: var(--selection-bg);
+  color: var(--selection-fg);
+}

@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Vita Health — Patient journey & preventative care</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../../css/tokens.css">
+  <link rel="stylesheet" href="../../css/reset.css">
+  <link rel="stylesheet" href="../../css/atoms.css">
+  <link rel="stylesheet" href="../../css/molecules.css">
+  <link rel="stylesheet" href="../../css/organisms.css">
+  <link rel="stylesheet" href="../../css/motion.css">
+  <link rel="stylesheet" href="../../css/vita-health.css">
+  <link rel="stylesheet" href="_layout.css">
+</head>
+<body>
+  <div class="v-shell">
+    <header class="v-shell-head">
+      <a class="v-shell-head-brand" href="index.html">
+        <span class="v-shell-head-brand-mark">V</span>
+        <span>Vita Health</span>
+      </a>
+      <nav class="v-shell-head-nav">
+        <a href="../../docs/index.html">Docs</a>
+        <a href="https://github.com/yejuntak/peter-tak-design-system" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+    </header>
+
+    <main>
+      <span class="v-screen-eyebrow">Reference screens · Healthcare</span>
+      <h1 class="v-screen-title">Vita Health.<br>Patient journey, built from this design system.</h1>
+      <p class="v-screen-lede">Five reference screens reconstructing the core patient-journey patterns from a 3-year UX Lead engagement at Onlife Health / Pager Health (Vita-branded preventative care app, 2019–2022). Every screen is built from the Peter Tak Design System with no page-scoped CSS. The components that made these screens possible — <code>.m-lab-result</code>, <code>.m-confidence-tier</code>, <code>.m-action-trio</code>, <code>.m-progress-bar</code> — are documented as first-class system components.</p>
+
+      <div class="v-screen-section">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--s-4);">
+
+          <a href="onboarding.html" class="o-card-archetype" style="text-decoration: none;">
+            <div class="o-card-archetype-head">
+              <span><span class="o-card-archetype-num">01</span> &nbsp; First session</span>
+              <span>5 values</span>
+            </div>
+            <div>
+              <h3 class="o-card-archetype-title">Health snapshot.</h3>
+              <p class="o-card-archetype-tagline">Curated view of 3–5 metrics with range + status, never the full panel.</p>
+            </div>
+            <div class="o-card-archetype-foot">
+              <span class="o-card-archetype-arrow">View screen →</span>
+            </div>
+          </a>
+
+          <a href="lab-interpretation.html" class="o-card-archetype" style="text-decoration: none;">
+            <div class="o-card-archetype-head">
+              <span><span class="o-card-archetype-num">02</span> &nbsp; Lab detail</span>
+              <span>1 value, full</span>
+            </div>
+            <div>
+              <h3 class="o-card-archetype-title">Lab interpretation.</h3>
+              <p class="o-card-archetype-tagline">A single value with range, trend, and a plain-language explanation. The founding pattern.</p>
+            </div>
+            <div class="o-card-archetype-foot">
+              <span class="o-card-archetype-arrow">View screen →</span>
+            </div>
+          </a>
+
+          <a href="care-plan.html" class="o-card-archetype" style="text-decoration: none;">
+            <div class="o-card-archetype-head">
+              <span><span class="o-card-archetype-num">03</span> &nbsp; Care plan</span>
+              <span>Direction → Plan</span>
+            </div>
+            <div>
+              <h3 class="o-card-archetype-title">Patient-defined goal.</h3>
+              <p class="o-card-archetype-tagline">Clinical recommendation as direction, patient as author of the plan.</p>
+            </div>
+            <div class="o-card-archetype-foot">
+              <span class="o-card-archetype-arrow">View screen →</span>
+            </div>
+          </a>
+
+          <a href="progress-framing.html" class="o-card-archetype" style="text-decoration: none;">
+            <div class="o-card-archetype-head">
+              <span><span class="o-card-archetype-num">04</span> &nbsp; Adherence</span>
+              <span>Same data, better framing</span>
+            </div>
+            <div>
+              <h3 class="o-card-archetype-title">Progress, not compliance.</h3>
+              <p class="o-card-archetype-tagline">"4 of 7 completed" vs. "missed 3 of 7" — same numbers, different patient response.</p>
+            </div>
+            <div class="o-card-archetype-foot">
+              <span class="o-card-archetype-arrow">View screen →</span>
+            </div>
+          </a>
+
+          <a href="recommendation.html" class="o-card-archetype" style="text-decoration: none;">
+            <div class="o-card-archetype-head">
+              <span><span class="o-card-archetype-num">05</span> &nbsp; AI insights</span>
+              <span>3 tiers · 3 actions</span>
+            </div>
+            <div>
+              <h3 class="o-card-archetype-title">ML recommendations.</h3>
+              <p class="o-card-archetype-tagline">Direction-not-directive copy. Plain-language confidence. Accept · Modify · Dismiss.</p>
+            </div>
+            <div class="o-card-archetype-foot">
+              <span class="o-card-archetype-arrow">View screen →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <section class="v-screen-section">
+        <h2 class="v-screen-section-title">New system components this case added</h2>
+        <p style="margin: 0 0 var(--s-4); color: var(--ink-soft); font-size: var(--t-body-m); line-height: var(--lh-relaxed); max-width: 64ch;">Building these screens surfaced eight first-class components that were missing from the base system. Each is documented in <code>components/</code> with anatomy, rules, when-to-use, and HTML examples.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--s-3); max-width: 960px;">
+          <a href="../../components/molecules/lab-result.md" style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2); text-decoration: none;">
+            <code style="font-family: var(--font-mono); font-size: var(--t-body-s); color: var(--ink); display: block; margin-bottom: 6px;">.m-lab-result</code>
+            <span style="font-size: var(--t-body-s); color: var(--muted);">Lab value with range + trend + explanation</span>
+          </a>
+          <a href="../../components/molecules/lab-result.md#range-indicator" style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2); text-decoration: none;">
+            <code style="font-family: var(--font-mono); font-size: var(--t-body-s); color: var(--ink); display: block; margin-bottom: 6px;">.m-range-indicator</code>
+            <span style="font-size: var(--t-body-s); color: var(--muted);">Visual position on a value spectrum</span>
+          </a>
+          <a href="../../components/molecules/lab-result.md#trend-arrow" style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2); text-decoration: none;">
+            <code style="font-family: var(--font-mono); font-size: var(--t-body-s); color: var(--ink); display: block; margin-bottom: 6px;">.m-trend-arrow</code>
+            <span style="font-size: var(--t-body-s); color: var(--muted);">Direction vs. previous reading</span>
+          </a>
+          <a href="../../components/molecules/progress-bar.md" style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2); text-decoration: none;">
+            <code style="font-family: var(--font-mono); font-size: var(--t-body-s); color: var(--ink); display: block; margin-bottom: 6px;">.m-progress-bar</code>
+            <span style="font-size: var(--t-body-s); color: var(--muted);">Progress framing, never compliance</span>
+          </a>
+          <a href="../../components/molecules/confidence-tier.md" style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2); text-decoration: none;">
+            <code style="font-family: var(--font-mono); font-size: var(--t-body-s); color: var(--ink); display: block; margin-bottom: 6px;">.m-confidence-tier</code>
+            <span style="font-size: var(--t-body-s); color: var(--muted);">High · Medium · Low (language, not scores)</span>
+          </a>
+          <a href="../../components/molecules/action-trio.md" style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2); text-decoration: none;">
+            <code style="font-family: var(--font-mono); font-size: var(--t-body-s); color: var(--ink); display: block; margin-bottom: 6px;">.m-action-trio</code>
+            <span style="font-size: var(--t-body-s); color: var(--muted);">Accept · Modify · Dismiss</span>
+          </a>
+          <a href="../../components/organisms/recommendation-card.md" style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2); text-decoration: none;">
+            <code style="font-family: var(--font-mono); font-size: var(--t-body-s); color: var(--ink); display: block; margin-bottom: 6px;">.o-recommendation-card</code>
+            <span style="font-size: var(--t-body-s); color: var(--muted);">Composes tier + body + action-trio</span>
+          </a>
+          <a href="../../components/organisms/recommendation-card.md" style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2); text-decoration: none;">
+            <code style="font-family: var(--font-mono); font-size: var(--t-body-s); color: var(--ink); display: block; margin-bottom: 6px;">.o-care-plan</code>
+            <span style="font-size: var(--t-body-s); color: var(--muted);">Direction → patient-authored plan</span>
+          </a>
+          <a href="../../components/organisms/recommendation-card.md" style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2); text-decoration: none;">
+            <code style="font-family: var(--font-mono); font-size: var(--t-body-s); color: var(--ink); display: block; margin-bottom: 6px;">.o-health-snapshot</code>
+            <span style="font-size: var(--t-body-s); color: var(--muted);">Curated multi-result grid</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="v-shell-foot">
+      <span>Vita Health · Reference screens from the Peter Tak Design System</span>
+      <span><a href="../../README.md">README</a> · <a href="../../CLAUDE.md">CLAUDE.md</a></span>
+    </footer>
+  </div>
+</body>
+</html>

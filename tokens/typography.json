@@ -1,0 +1,44 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "typography": {
+    "_meta": {
+      "description": "Two-family system: Aeonik for display + text, Geist Mono for code + metadata + small labels.",
+      "scale-anchor": "16px base. Display sizes use clamp() to fluidly resize between viewport min/max."
+    },
+    "font-family": {
+      "display": { "value": "Aeonik, 'Helvetica Neue', Arial, sans-serif", "css": "--font-display", "usage": "Headlines, hero titles, display copy" },
+      "text":    { "value": "Aeonik, 'Helvetica Neue', Arial, sans-serif", "css": "--font-text",    "usage": "Body, lede, captions" },
+      "mono":    { "value": "'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace", "css": "--font-mono", "usage": "Code, eyebrows, metadata, small labels, kbd" }
+    },
+    "scale": {
+      "display-xl": { "value": "clamp(40px, 5vw, 64px)",   "css": "--t-display-xl", "usage": "Home hero h1" },
+      "display-l":  { "value": "clamp(30px, 3.8vw, 44px)", "css": "--t-display-l",  "usage": "Page hero h1" },
+      "title-xl":   { "value": "clamp(28px, 2.8vw, 40px)", "css": "--t-title-xl",   "usage": "Major section h2" },
+      "title-l":    { "value": "clamp(22px, 2.1vw, 28px)", "css": "--t-title-l",    "usage": "h3, card titles" },
+      "title-m":    { "value": "18px", "css": "--t-title-m", "usage": "h4, list titles" },
+      "body-l":     { "value": "17px", "css": "--t-body-l",  "usage": "Primary body, lede" },
+      "body-m":     { "value": "15px", "css": "--t-body-m",  "usage": "Secondary body" },
+      "body-s":     { "value": "13px", "css": "--t-body-s",  "usage": "Captions, meta" },
+      "eyebrow":    { "value": "12px", "css": "--t-eyebrow", "usage": "Uppercase eyebrows" },
+      "mono-m":     { "value": "14px", "css": "--t-mono-m",  "usage": "Tabular numerics, code" },
+      "mono-s":     { "value": "12px", "css": "--t-mono-s",  "usage": "Small mono labels" },
+      "micro":      { "value": "11px", "css": "--t-micro",   "usage": "kbd, status pill, chip count" },
+      "tiny":       { "value": "10px", "css": "--t-tiny",    "usage": "TOC shortcuts, hyper-tight labels" }
+    },
+    "weight": {
+      "light":   { "value": 300, "css": "--w-light" },
+      "regular": { "value": 400, "css": "--w-regular" },
+      "medium":  { "value": 500, "css": "--w-medium" },
+      "bold":    { "value": 700, "css": "--w-bold" }
+    },
+    "line-height": {
+      "tight":   { "value": 1.02, "css": "--lh-tight",   "usage": "Display headlines" },
+      "snug":    { "value": 1.1,  "css": "--lh-snug",    "usage": "Titles" },
+      "normal":  { "value": 1.3,  "css": "--lh-normal",  "usage": "Small titles, leads" },
+      "relaxed": { "value": 1.55, "css": "--lh-relaxed", "usage": "Body copy" },
+      "loose":   { "value": 1.7,  "css": "--lh-loose",   "usage": "Generous reading" },
+      "card":    { "value": 1.15, "css": "--lh-card",    "usage": "Card titles" },
+      "quote":   { "value": 1.45, "css": "--lh-quote",   "usage": "Lede paragraphs, quotes" }
+    }
+  }
+}

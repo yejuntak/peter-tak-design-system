@@ -1,0 +1,19 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "motion": {
+    "_meta": "Two durations and two easings cover ~95% of cases. Anything else needs justification.",
+    "duration": {
+      "fast":   { "value": "120ms", "css": "--motion-fast",   "usage": "Hover/focus states, micro feedback" },
+      "normal": { "value": "240ms", "css": "--motion-normal", "usage": "Disclosure, accordion, modal in/out" },
+      "slow":   { "value": "480ms", "css": "--motion-slow",   "usage": "Page transitions, hero reveals" }
+    },
+    "easing": {
+      "standard": { "value": "cubic-bezier(0.23, 1, 0.32, 1)", "css": "--ease-standard", "usage": "Default — feels grounded, weighty" },
+      "linear":   { "value": "linear",                          "css": "--ease-linear",   "usage": "Progress bars, looping animation" }
+    },
+    "principles": [
+      "Respect prefers-reduced-motion: collapse all reveal animations to opacity transitions only.",
+      "Direction-sensitive: items entering from below use translateY(8px) → 0; items disclosing use grid-template-rows 0fr → 1fr."
+    ]
+  }
+}
