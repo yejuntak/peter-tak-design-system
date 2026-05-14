@@ -1181,7 +1181,10 @@ body.vita-app {
   flex-shrink: 0;
   color: transparent;
   cursor: pointer;
-  transition: all 120ms ease;
+  transition:
+    background var(--vm-base) var(--ve-out),
+    border-color var(--vm-base) var(--ve-out),
+    color 80ms var(--ve-out);
 }
 .v-today-check:hover { border-color: var(--accent); }
 .v-today-item--done .v-today-check {
@@ -1719,13 +1722,20 @@ a.v-card:hover { border-color: var(--accent); }
    ============================================================================= */
 
 body.vita-app {
-  --vm-fast: 80ms;
-  --vm-base: 140ms;
-  --vm-slow: 220ms;
-  --vm-page: 320ms;
-  --ve-out:    cubic-bezier(0.22, 1, 0.36, 1);
-  --ve-spring: cubic-bezier(0.34, 1.36, 0.64, 1);
-  --ve-linear: linear;
+  /* Durations · Emil: UI animations under 300ms */
+  --vm-fast: 80ms;       /* tap-press */
+  --vm-base: 140ms;      /* hover, color, border */
+  --vm-slow: 220ms;      /* expand, modal, optimistic */
+  --vm-page: 280ms;      /* page transition (≤300ms) */
+
+  /* Easing · canonical curves from animations.dev */
+  --ve-out:     cubic-bezier(0.23, 1, 0.32, 1);   /* strong ease-out */
+  --ve-in-out:  cubic-bezier(0.77, 0, 0.175, 1);  /* strong ease-in-out */
+  --ve-drawer:  cubic-bezier(0.32, 0.72, 0, 1);   /* iOS drawer */
+  --ve-breathe: cubic-bezier(0.4, 0, 0.6, 1);     /* gentle breathing */
+  --ve-spring:  cubic-bezier(0.34, 1.36, 0.64, 1);/* subtle overshoot */
+  --ve-linear:  linear;                            /* constant motion */
+
   --vfocus: 0 0 0 2px hsl(155 45% 45% / 0.4);
 }
 
@@ -1789,7 +1799,8 @@ a.m-lab-result:focus-visible,
   border: 1.5px solid currentColor;
   border-right-color: transparent;
   color: var(--ink-soft);
-  animation: v-spin 700ms linear infinite;
+  /* Emil: faster spinner makes loading feel faster (same load time, different perception). 700→500ms */
+  animation: v-spin 500ms linear infinite;
 }
 .v-btn-mini--primary[data-loading="true"]::after { color: white; }
 
@@ -1820,22 +1831,24 @@ a.m-lab-result:focus-visible,
 
 /* ─────────────────────────────────────────────────────────────────────────
    CARD HOVER · only clickable cards lift. Static cards stay flat.
-   Emil rule: every hover must signal a real action. Cards that aren't
-   navigable must NOT have a hover state. */
+   Emil rule 1: every hover must signal a real action.
+   Emil rule 2: gate transforms-on-hover behind (hover: hover) so touch
+   devices don't trigger lifts on tap. */
 .v-card, .v-big, .v-vital {
   transition:
     border-color var(--vm-base) var(--ve-out),
     transform var(--vm-base) var(--ve-out),
     box-shadow var(--vm-base) var(--ve-out);
 }
-a.v-card:hover,
-a.v-tile:hover,
-a.v-quick-tile:hover,
-a.m-lab-result:hover {
-  border-color: var(--accent);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px hsl(155 30% 20% / 0.06);
-  cursor: pointer;
+@media (hover: hover) and (pointer: fine) {
+  a.v-card:hover,
+  a.v-tile:hover,
+  a.v-quick-tile:hover,
+  a.m-lab-result:hover {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px hsl(155 30% 20% / 0.06);
+  }
 }
 a.v-card:active,
 a.v-tile:active,
@@ -1843,10 +1856,12 @@ a.v-quick-tile:active,
 a.m-lab-result:active {
   transform: translateY(0);
   box-shadow: none;
+  border-color: var(--accent);
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
-   FILTER CHIPS — give them real state language (selectable, hoverable)
+   FILTER CHIPS — selectable, hoverable, with a smooth active crossfade
+   so picks feel deliberate, not abrupt.
    ───────────────────────────────────────────────────────────────────────── */
 .m-chip {
   transition:
@@ -1855,34 +1870,34 @@ a.m-lab-result:active {
     border-color var(--vm-base) var(--ve-out),
     transform var(--vm-fast) var(--ve-out);
   cursor: pointer;
+  user-select: none;
 }
-.m-chip:hover { background: hsl(142 12% 94%); }
+@media (hover: hover) and (pointer: fine) {
+  .m-chip:hover { background: hsl(142 12% 94%); }
+  .m-chip[data-active="true"]:hover { background: var(--accent-hover); }
+}
 .m-chip:active { transform: scale(0.97); }
 .m-chip[data-active="true"] {
   background: var(--accent);
   color: var(--accent-fg);
   border-color: var(--accent);
 }
-.m-chip[data-active="true"]:hover {
-  background: var(--accent-hover);
-}
 
 /* ─────────────────────────────────────────────────────────────────────────
-   TODAY-LIST CHECK · check toggles in place with a snappy fill
+   TODAY-LIST CHECK · transition-based (NOT keyframe). Emil rule:
+   rapidly-toggled elements should retarget smoothly, not restart from zero.
+   The "done" overshoot uses --ve-spring on the same transition.
    ───────────────────────────────────────────────────────────────────────── */
 .v-today-check {
   transition:
     background var(--vm-base) var(--ve-out),
     border-color var(--vm-base) var(--ve-out),
-    color var(--vm-base) var(--ve-out),
-    transform var(--vm-fast) var(--ve-spring);
+    color 80ms var(--ve-out),
+    transform 180ms var(--ve-spring);
 }
 .v-today-check:active { transform: scale(0.85); }
-.v-today-item--done .v-today-check { animation: v-check-fill 220ms var(--ve-spring); }
-@keyframes v-check-fill {
-  0%   { transform: scale(0.85); }
-  60%  { transform: scale(1.08); }
-  100% { transform: scale(1); }
+.v-today-item--done .v-today-check {
+  transform: scale(1);    /* settles via the same transition + spring easing */
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -1898,32 +1913,40 @@ a.m-lab-result:active {
 .v-schedule-slot:active { transform: scale(0.98); }
 
 /* ─────────────────────────────────────────────────────────────────────────
-   HEATMAP CELL — hover state, tooltip-on-hover via native title attr
+   HEATMAP CELL — quiet hover scale; gated behind (hover: hover)
    ───────────────────────────────────────────────────────────────────────── */
 .v-heatmap-cell {
   transition:
     transform var(--vm-fast) var(--ve-out),
     box-shadow var(--vm-base) var(--ve-out);
   cursor: pointer;
+  position: relative;
 }
-.v-heatmap-cell:hover {
-  transform: scale(1.15);
-  box-shadow: 0 0 0 2px hsl(0 0% 100%), 0 0 0 3px hsl(155 30% 70%);
-  z-index: 1;
+@media (hover: hover) and (pointer: fine) {
+  .v-heatmap-cell:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 2px hsl(0 0% 100%), 0 0 0 3px hsl(155 30% 70%);
+    z-index: 1;
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
-   BIOMARKER STRIP segments — quiet hover, no transform leak
+   BIOMARKER STRIP segments — bar charts grow from the baseline, not from
+   center. Set transform-origin: bottom so hover scaleY reads as "grow up".
+   Gated behind (hover: hover) so touch taps don't trigger growth.
    ───────────────────────────────────────────────────────────────────────── */
 .v-biomarker-seg {
   transition:
     transform var(--vm-fast) var(--ve-out),
     filter var(--vm-base) var(--ve-out);
   cursor: pointer;
+  transform-origin: bottom;
 }
-.v-biomarker-seg:hover {
-  transform: scaleY(1.12);
-  filter: brightness(1.08);
+@media (hover: hover) and (pointer: fine) {
+  .v-biomarker-seg:hover {
+    transform: scaleY(1.12);
+    filter: brightness(1.08);
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -1944,21 +1967,36 @@ a.m-lab-result:active {
 .v-status { cursor: default; }
 
 /* ─────────────────────────────────────────────────────────────────────────
-   AI / INSIGHT CARD ACTIONS — optimistic acknowledgement, no theatre
-   When the user clicks "Add to plan", the card briefly fades + lifts a
-   pixel + the action group collapses to a single confirmation chip.
-   This is reserved for JS-driven behavior; CSS provides the targets.
+   AI / INSIGHT CARD ACTIONS — optimistic acknowledgement sequence.
+   Step 1: "accepting" — border instantly sage + button feedback (the
+           system heard you).
+   Step 2: "accepted" — content fades to confirmed state (border holds).
+   Step 3: dismiss path mirrors with attention-rose border, fading out.
+   Emil rule: acknowledge BEFORE fading, never after.
    ───────────────────────────────────────────────────────────────────────── */
-.v-card[data-action-state="accepting"],
-.v-card[data-action-state="dismissing"] {
+.v-card {
   transition:
-    opacity var(--vm-slow) var(--ve-out),
-    transform var(--vm-slow) var(--ve-out);
-  opacity: 0.5;
+    border-color var(--vm-base) var(--ve-out),
+    transform var(--vm-base) var(--ve-out),
+    box-shadow var(--vm-base) var(--ve-out),
+    opacity var(--vm-slow) var(--ve-out);
+}
+.v-card[data-action-state="accepting"] {
+  border-color: var(--accent);
+  /* No opacity change yet — user just clicked, acknowledge first */
+}
+.v-card[data-action-state="accepted"] {
+  border-color: var(--accent);
+  opacity: 0.7;
   pointer-events: none;
 }
-.v-card[data-action-state="accepted"]  { border-color: var(--accent); }
-.v-card[data-action-state="dismissed"] { opacity: 0.3; }
+.v-card[data-action-state="dismissing"] {
+  border-color: hsl(0 50% 80%);
+}
+.v-card[data-action-state="dismissed"] {
+  opacity: 0.35;
+  pointer-events: none;
+}
 
 /* AI status badge — paired with .v-status for "Listening / Thinking /
    Reviewing" states. Subtle dot pulse, no sparkles, no gradients. */
@@ -1978,7 +2016,8 @@ a.m-lab-result:active {
   height: 6px;
   border-radius: 999px;
   background: var(--accent);
-  animation: v-ai-pulse 1.6s var(--ve-out) infinite;
+  /* Emil: breathing = natural acceleration/deceleration, not snap-and-rest */
+  animation: v-ai-pulse 1.6s var(--ve-breathe) infinite;
 }
 @keyframes v-ai-pulse {
   0%, 100% { opacity: 1;   transform: scale(1); }
@@ -2033,16 +2072,81 @@ a.m-lab-result:active {
 .v-empty-action { margin-top: var(--vs-3); }
 
 /* ─────────────────────────────────────────────────────────────────────────
-   ENTER ANIMATIONS · for cards entering on page mount. Triggered by a
-   data-enter attribute so we don't animate on every re-render.
+   ENTER ANIMATIONS · @starting-style for modern browsers, animation
+   fallback elsewhere. Cards in a row stagger 40ms each.
+   Emil rule: never start from scale(0). 4px translate + opacity is plenty.
    ───────────────────────────────────────────────────────────────────────── */
 [data-enter] {
   animation: v-enter var(--vm-slow) var(--ve-out) both;
 }
+[data-enter]:nth-child(2)  { animation-delay: 40ms; }
+[data-enter]:nth-child(3)  { animation-delay: 80ms; }
+[data-enter]:nth-child(4)  { animation-delay: 120ms; }
+[data-enter]:nth-child(5)  { animation-delay: 160ms; }
+[data-enter]:nth-child(6)  { animation-delay: 200ms; }
 @keyframes v-enter {
   from { opacity: 0; transform: translateY(4px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+/* Modern browsers: @starting-style for component-mount animation without JS.
+   Falls back gracefully (no animation) if unsupported. */
+@supports (transition-behavior: allow-discrete) {
+  .v-card[data-mount],
+  .v-big[data-mount] {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity var(--vm-slow) var(--ve-out),
+      transform var(--vm-slow) var(--ve-out);
+  }
+  @starting-style {
+    .v-card[data-mount],
+    .v-big[data-mount] {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   TOOLTIP · canonical hover-tooltip pattern. Replaces native title.
+   Trigger has data-tooltip="…"; CSS shows a positioned ::after on hover.
+   125ms ease-out, scale(0.97 → 1) + opacity. Skip animation when an
+   adjacent tooltip is already open (handled via [data-instant] attr).
+   ───────────────────────────────────────────────────────────────────────── */
+[data-tooltip] { position: relative; }
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%) translateY(2px) scale(0.97);
+  transform-origin: bottom center;
+  padding: 4px 8px;
+  background: hsl(0 0% 14%);
+  color: hsl(0 0% 96%);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.4;
+  letter-spacing: -0.003em;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    opacity 125ms var(--ve-out),
+    transform 125ms var(--ve-out);
+  z-index: 100;
+}
+@media (hover: hover) and (pointer: fine) {
+  [data-tooltip]:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+    transition-delay: 250ms;
+  }
+}
+[data-tooltip][data-instant]::after { transition-delay: 0ms; }
 
 /* ─────────────────────────────────────────────────────────────────────────
    PROGRESS BAR · animated fill that grows on entry
@@ -2052,21 +2156,25 @@ a.m-lab-result:active {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
-   REDUCED-MOTION BRANCH — kill all transforms/animations for users who
-   request reduced motion. Hover color changes remain (informational).
+   REDUCED-MOTION BRANCH — Emil rule: reduced motion is "fewer + gentler,"
+   not zero. Kill transforms and continuous animations; keep color +
+   opacity transitions (they aid comprehension).
    ───────────────────────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  body.vita-app *,
-  body.vita-app *::before,
-  body.vita-app *::after {
+  body.vita-app * {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+  /* Disable transform-based motion only. Color / background / border-color
+     / opacity transitions stay so feedback remains visible. */
   body.vita-app *:hover,
-  body.vita-app *:active { transform: none !important; }
-  body.vita-app .v-ai-status::before { animation: none; }
+  body.vita-app *:active,
+  body.vita-app *:focus-visible { transform: none !important; }
+  /* Kill the AI pulse, shimmer, and spinner for reduced motion */
+  body.vita-app .v-ai-status::before,
+  body.vita-app .v-skeleton,
+  body.vita-app [data-loading="true"]::after { animation: none !important; }
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
