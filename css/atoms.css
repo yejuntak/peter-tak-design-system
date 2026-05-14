@@ -2696,25 +2696,52 @@ pre.code-block code,
   color: var(--color-text-body);
 }
 
+/* Dark-mode overrides for status pills + do/don't surfaces.
+   Guard with :root:not([data-theme="light"]) so an explicit user-set
+   light theme correctly suppresses these even when the OS prefers dark.
+   The unguarded earlier version caused Beta/Stable badges to render
+   dark-style in light mode when the OS was dark-set. */
 @media (prefers-color-scheme: dark) {
-  .ds-component-status--stable {
+  :root:not([data-theme="light"]) .ds-component-status--stable {
     background: hsl(142 50% 18%);
     color: hsl(142 70% 70%);
   }
-  .ds-component-status--beta {
+  :root:not([data-theme="light"]) .ds-component-status--beta {
     background: hsl(43 50% 18%);
     color: hsl(48 100% 70%);
   }
-  .ds-component-status--deprecated {
+  :root:not([data-theme="light"]) .ds-component-status--deprecated {
     background: hsl(0 50% 18%);
     color: hsl(0 80% 75%);
   }
-  .ds-dodont-col--do {
+  :root:not([data-theme="light"]) .ds-dodont-col--do {
     border-color: hsl(142 30% 30%);
     background: hsl(142 30% 12%);
   }
-  .ds-dodont-col--dont {
+  :root:not([data-theme="light"]) .ds-dodont-col--dont {
     border-color: hsl(0 30% 30%);
     background: hsl(0 30% 12%);
   }
+}
+/* Explicit dark theme — same overrides keyed to the data-theme attribute
+   so the JS toggle controls them too. */
+:root[data-theme="dark"] .ds-component-status--stable {
+  background: hsl(142 50% 18%);
+  color: hsl(142 70% 70%);
+}
+:root[data-theme="dark"] .ds-component-status--beta {
+  background: hsl(43 50% 18%);
+  color: hsl(48 100% 70%);
+}
+:root[data-theme="dark"] .ds-component-status--deprecated {
+  background: hsl(0 50% 18%);
+  color: hsl(0 80% 75%);
+}
+:root[data-theme="dark"] .ds-dodont-col--do {
+  border-color: hsl(142 30% 30%);
+  background: hsl(142 30% 12%);
+}
+:root[data-theme="dark"] .ds-dodont-col--dont {
+  border-color: hsl(0 30% 30%);
+  background: hsl(0 30% 12%);
 }
