@@ -1,0 +1,160 @@
+<svg viewBox="0 0 880 580" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="vitaHeroTitle">
+  <title id="vitaHeroTitle">Vita Health patient dashboard — curated health snapshot with lab values, trend indicators, and plain-language interpretation</title>
+  <defs>
+    <linearGradient id="vitaBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F4F9F6" />
+      <stop offset="1" stop-color="#E8F4EE" />
+    </linearGradient>
+    <style>
+      .frame       { stroke: #C8C6C4; stroke-width: 1; fill: #FFFFFF; }
+      .annot       { font-family: "Segoe UI", system-ui, sans-serif; font-size: 11px; font-weight: 600; fill: #2D7D46; letter-spacing: 0.06em; text-transform: uppercase; }
+      .section-label{ font-family: "Segoe UI", system-ui, sans-serif; font-size: 10px; font-weight: 700; fill: #605E5C; letter-spacing: 0.06em; text-transform: uppercase; }
+      .card-title  { font-family: "Segoe UI", system-ui, sans-serif; font-size: 13px; font-weight: 600; fill: #323130; }
+      .card-body   { font-family: "Segoe UI", system-ui, sans-serif; font-size: 11px; fill: #605E5C; }
+      .metric-val  { font-family: "Segoe UI", system-ui, sans-serif; font-size: 24px; font-weight: 700; fill: #323130; }
+      .metric-unit { font-family: "Segoe UI", system-ui, sans-serif; font-size: 11px; fill: #605E5C; }
+      .field-label { font-family: "Segoe UI", system-ui, sans-serif; font-size: 10px; fill: #605E5C; }
+      .field-val   { font-family: "Segoe UI", system-ui, sans-serif; font-size: 11.5px; fill: #323130; font-weight: 500; }
+      .interp      { font-family: "Segoe UI", system-ui, sans-serif; font-size: 11px; fill: #323130; }
+      .interp-ok   { fill: #DFF6DD; }
+      .interp-warn { fill: #FFF4CE; }
+      .interp-watch{ fill: #EFF6FC; }
+      .interp-ok-text { font-family: "Segoe UI", system-ui, sans-serif; font-size: 10px; font-weight: 700; fill: #107C10; }
+      .interp-warn-text { font-family: "Segoe UI", system-ui, sans-serif; font-size: 10px; font-weight: 700; fill: #835200; }
+      .interp-watch-text { font-family: "Segoe UI", system-ui, sans-serif; font-size: 10px; font-weight: 700; fill: #0078D4; }
+      .trend-up-good { fill: #107C10; }
+      .trend-up-bad  { fill: #D13438; }
+      .trend-stable  { fill: #605E5C; }
+      .row-line    { stroke: #EDEBE9; stroke-width: 1; }
+      .range-bg    { fill: #EDEBE9; }
+      .range-ok    { fill: #DFF6DD; }
+      .range-warn  { fill: #FFF4CE; }
+      .range-dot   { fill: #0078D4; }
+      .avatar      { fill: #2D7D46; }
+      .avatar-text { font-family: "Segoe UI", system-ui, sans-serif; font-size: 9px; font-weight: 700; fill: #FFFFFF; }
+      .btn-primary { fill: #2D7D46; }
+      .btn-text    { font-family: "Segoe UI", system-ui, sans-serif; font-size: 11px; font-weight: 600; fill: #FFFFFF; }
+      @media (prefers-color-scheme: dark) {
+        .card-title, .field-val, .metric-val, .interp { fill: #F3F2F1; }
+        .card-body, .field-label, .section-label { fill: #B3B0AD; }
+        .frame { stroke: #3B3A39; fill: #1F1E1D; }
+        .row-line { stroke: #3B3A39; }
+        .range-bg { fill: #3B3A39; }
+      }
+    </style>
+  </defs>
+
+  <rect x="0" y="0" width="880" height="580" fill="url(#vitaBg)" />
+  <text x="40" y="36" class="annot">Health snapshot · curated first session · no value without interpretation</text>
+
+  <!-- ── HEADER ── -->
+  <rect x="40" y="52" width="800" height="52" rx="4" class="frame" />
+  <circle cx="68" cy="78" r="14" class="avatar" />
+  <text x="68" y="82" text-anchor="middle" class="avatar-text">JT</text>
+  <text x="90" y="73" class="card-title">Good morning, Jamie</text>
+  <text x="90" y="89" class="card-body">Your last lab results are in. Here's what they mean for you.</text>
+  <text x="720" y="82" class="field-label">Updated Mar 18, 2022</text>
+
+  <!-- ── 3 METRIC CARDS (top row) ── -->
+
+  <!-- Card 1: Glucose - in range -->
+  <rect x="40" y="120" width="248" height="176" rx="4" class="frame" />
+  <text x="56" y="146" class="section-label">Fasting glucose</text>
+  <text x="56" y="178" class="metric-val">94</text>
+  <text x="112" y="178" class="metric-unit">mg/dL</text>
+  <line x1="40" y1="190" x2="288" y2="190" class="row-line" />
+  <!-- Range bar -->
+  <rect x="56" y="200" width="200" height="8" rx="4" class="range-bg" />
+  <rect x="56" y="200" width="140" height="8" rx="4" class="range-ok" />
+  <circle cx="165" cy="204" r="5" class="range-dot" />
+  <text x="56" y="222" class="field-label">70</text>
+  <text x="236" y="222" text-anchor="end" class="field-label">100 mg/dL normal</text>
+  <line x1="40" y1="230" x2="288" y2="230" class="row-line" />
+  <rect x="56" y="240" width="188" height="18" rx="9" class="interp-ok" />
+  <text x="150" y="252" text-anchor="middle" class="interp-ok-text">✓ In normal range</text>
+  <text x="56" y="278" class="card-body">Your glucose is healthy. Stable</text>
+  <text x="56" y="292" class="card-body">vs. last test (97). Keep it up.</text>
+
+  <!-- Card 2: LDL Cholesterol - watch -->
+  <rect x="304" y="120" width="248" height="176" rx="4" class="frame" />
+  <text x="320" y="146" class="section-label">LDL cholesterol</text>
+  <text x="320" y="178" class="metric-val">128</text>
+  <text x="376" y="178" class="metric-unit">mg/dL</text>
+  <line x1="304" y1="190" x2="552" y2="190" class="row-line" />
+  <!-- Range bar - near boundary -->
+  <rect x="320" y="200" width="200" height="8" rx="4" class="range-bg" />
+  <rect x="320" y="200" width="165" height="8" rx="4" class="range-warn" />
+  <circle cx="478" cy="204" r="5" class="range-dot" style="fill:#FF8C00;" />
+  <text x="320" y="222" class="field-label">0</text>
+  <text x="500" y="222" text-anchor="end" class="field-label">&lt;100 optimal · &lt;130 ok</text>
+  <line x1="304" y1="230" x2="552" y2="230" class="row-line" />
+  <rect x="320" y="240" width="188" height="18" rx="9" class="interp-warn" />
+  <text x="414" y="252" text-anchor="middle" class="interp-warn-text">↑ Slightly elevated — watch</text>
+  <text x="320" y="278" class="card-body">Borderline but not alarming.</text>
+  <text x="320" y="292" class="card-body">Trending up from 119 last test.</text>
+
+  <!-- Card 3: HbA1c - good trend -->
+  <rect x="568" y="120" width="272" height="176" rx="4" class="frame" />
+  <text x="584" y="146" class="section-label">HbA1c</text>
+  <text x="584" y="178" class="metric-val">5.4%</text>
+  <line x1="568" y1="190" x2="840" y2="190" class="row-line" />
+  <!-- Range bar -->
+  <rect x="584" y="200" width="220" height="8" rx="4" class="range-bg" />
+  <rect x="584" y="200" width="140" height="8" rx="4" class="range-ok" />
+  <circle cx="718" cy="204" r="5" class="range-dot" />
+  <text x="584" y="222" class="field-label">0</text>
+  <text x="804" y="222" text-anchor="end" class="field-label">&lt;5.7% normal</text>
+  <line x1="568" y1="230" x2="840" y2="230" class="row-line" />
+  <rect x="584" y="240" width="200" height="18" rx="9" class="interp-ok" />
+  <text x="684" y="252" text-anchor="middle" class="interp-ok-text">✓ Well within normal range</text>
+  <text x="584" y="278" class="card-body">3-month blood sugar average</text>
+  <text x="584" y="292" class="card-body">is healthy. Improving from 5.6%.</text>
+
+  <!-- ── CARE PLAN + NEXT STEPS (bottom) ── -->
+  <rect x="40" y="312" width="504" height="220" rx="4" class="frame" />
+  <text x="56" y="338" class="section-label">Your care plan · this week</text>
+  <line x1="40" y1="348" x2="544" y2="348" class="row-line" />
+
+  <!-- Care plan items -->
+  <rect x="56" y="360" width="12" height="12" rx="2" fill="#DFF6DD" stroke="#107C10" stroke-width="1" />
+  <text x="76" y="372" class="field-val">Walk 20 min · 3×/week</text>
+  <text x="76" y="388" class="card-body">Goal you set · to support LDL trend</text>
+
+  <rect x="56" y="404" width="12" height="12" rx="2" fill="#DFF6DD" stroke="#107C10" stroke-width="1" />
+  <text x="76" y="416" class="field-val">Reduce processed food · 5 days</text>
+  <text x="76" y="432" class="card-body">Based on cholesterol trend</text>
+
+  <rect x="56" y="448" width="12" height="12" rx="2" fill="#FFFFFF" stroke="#C8C6C4" stroke-width="1" />
+  <text x="76" y="460" class="field-val">Schedule follow-up labs</text>
+  <text x="76" y="476" class="card-body">In 3 months · Dr. R. Kim recommends</text>
+
+  <!-- Progress bar -->
+  <line x1="40" y1="494" x2="544" y2="494" class="row-line" />
+  <text x="56" y="514" class="field-label">Progress this week</text>
+  <rect x="56" y="518" width="400" height="8" rx="4" class="range-bg" />
+  <rect x="56" y="518" width="260" height="8" rx="4" fill="#107C10" />
+  <text x="460" y="526" class="field-label">4 of 7 activities</text>
+
+  <!-- Advisor card -->
+  <rect x="560" y="312" width="280" height="220" rx="4" class="frame" />
+  <text x="576" y="338" class="section-label">Your care advisor</text>
+  <line x1="560" y1="348" x2="840" y2="348" class="row-line" />
+
+  <circle cx="592" cy="384" r="18" fill="#0078D4" />
+  <text x="592" y="388" text-anchor="middle" class="avatar-text" style="font-size:10px;">RK</text>
+  <text x="618" y="378" class="card-title" style="font-size:12px;">Dr. R. Kim</text>
+  <text x="618" y="394" class="card-body">Primary care · available</text>
+
+  <line x1="560" y1="408" x2="840" y2="408" class="row-line" />
+
+  <text x="576" y="432" class="card-body">Your LDL is trending up slightly.</text>
+  <text x="576" y="448" class="card-body">The lifestyle changes you've</text>
+  <text x="576" y="464" class="card-body">started should help. Let's check</text>
+  <text x="576" y="480" class="card-body">in at your 3-month follow-up.</text>
+
+  <rect x="576" y="496" width="148" height="26" rx="3" class="btn-primary" />
+  <text x="650" y="514" text-anchor="middle" class="btn-text">Message Dr. Kim</text>
+
+  <!-- Bottom annotation -->
+  <text x="40" y="558" class="annot">Curated snapshot · interpretation first · one next step per metric · progress not compliance</text>
+</svg>

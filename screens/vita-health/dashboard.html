@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Vita Health · Your snapshot</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../../css/tokens.css">
+  <link rel="stylesheet" href="../../css/reset.css">
+  <link rel="stylesheet" href="../../css/atoms.css">
+  <link rel="stylesheet" href="../../css/molecules.css">
+  <link rel="stylesheet" href="../../css/organisms.css">
+  <link rel="stylesheet" href="../../css/motion.css">
+  <link rel="stylesheet" href="../../css/vita-health.css">
+  <link rel="stylesheet" href="_layout.css">
+</head>
+<body class="vita-app">
+  <div class="v-shell">
+
+    <!-- ── App header (sticky pill nav) ──────────────────────────────── -->
+    <header class="v-shell-head">
+      <a class="v-shell-head-brand" href="dashboard.html">
+        <span class="v-shell-head-brand-mark">V</span>
+        <span>Vita Health</span>
+      </a>
+      <nav class="v-shell-head-nav" aria-label="Main navigation">
+        <a href="dashboard.html" aria-current="page">Snapshot</a>
+        <a href="labs.html">Labs</a>
+        <a href="care-plan.html">Care plan</a>
+        <a href="progress-framing.html">Progress</a>
+        <a href="recommendation.html">Insights</a>
+        <a href="messages.html">Messages</a>
+      </nav>
+      <div class="v-shell-head-user">
+        <span class="v-shell-head-user-avatar" aria-hidden="true">JT</span>
+      </div>
+    </header>
+
+    <main>
+
+      <!-- ── Greeting (header card from the SVG) ──────────────────────── -->
+      <section class="v-greeting" aria-label="Welcome">
+        <div class="v-greeting-left">
+          <span class="v-greeting-avatar" aria-hidden="true">JT</span>
+          <div>
+            <h1 class="v-greeting-hello">Good morning, Jamie.</h1>
+            <p class="v-greeting-sub">Your last lab results are in. Here's what they mean for you.</p>
+          </div>
+        </div>
+        <div class="v-greeting-meta">
+          <strong>Updated Mar 18, 2022</strong>
+          5 values · interpreted
+        </div>
+      </section>
+
+      <!-- ── 3 metric cards (snapshot) ────────────────────────────────── -->
+      <section aria-label="Health snapshot">
+        <div class="v-section-eyebrow">
+          <span class="v-section-eyebrow-label">Snapshot · curated 5 metrics</span>
+          <a class="v-section-eyebrow-action" href="labs.html">View full panel ↗</a>
+        </div>
+        <div class="v-metric-grid">
+
+          <!-- 1. Fasting glucose — in range -->
+          <article class="m-lab-result">
+            <header class="m-lab-result-head">
+              <h3 class="m-lab-result-name">Fasting glucose</h3>
+              <span class="m-lab-result-status m-lab-result-status--ok">In range</span>
+            </header>
+            <div class="m-lab-result-value">
+              <span class="m-lab-result-number">94</span>
+              <span class="m-lab-result-unit">mg/dL</span>
+            </div>
+            <div class="m-range-indicator" aria-label="94 mg/dL, in normal range">
+              <div class="m-range-indicator-bar"></div>
+              <div class="m-range-indicator-marker" style="left: 24%;"></div>
+              <div class="m-range-indicator-labels">
+                <span>70</span><span>100 normal</span><span>140</span>
+              </div>
+            </div>
+            <div class="m-trend-arrow m-trend-arrow--flat">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <span>−3 vs. last test (97). Steady.</span>
+            </div>
+            <p class="m-lab-result-explanation">Your glucose is healthy. Lifestyle changes are working — keep them up.</p>
+          </article>
+
+          <!-- 2. LDL cholesterol — watch -->
+          <article class="m-lab-result">
+            <header class="m-lab-result-head">
+              <h3 class="m-lab-result-name">LDL cholesterol</h3>
+              <span class="m-lab-result-status m-lab-result-status--watch">Watch</span>
+            </header>
+            <div class="m-lab-result-value">
+              <span class="m-lab-result-number">128</span>
+              <span class="m-lab-result-unit">mg/dL</span>
+            </div>
+            <div class="m-range-indicator" aria-label="128 mg/dL, slightly elevated">
+              <div class="m-range-indicator-bar"></div>
+              <div class="m-range-indicator-marker" style="left: 64%;"></div>
+              <div class="m-range-indicator-labels">
+                <span>0</span><span>&lt;100 optimal · &lt;130 ok</span><span>200</span>
+              </div>
+            </div>
+            <div class="m-trend-arrow m-trend-arrow--up">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 15 12 9 18 15"/></svg>
+              <span>+9 vs. last test (119). Trending up.</span>
+            </div>
+            <p class="m-lab-result-explanation">Borderline but not alarming. Often improves with consistent activity and reduced processed food.</p>
+          </article>
+
+          <!-- 3. HbA1c — good trend -->
+          <article class="m-lab-result">
+            <header class="m-lab-result-head">
+              <h3 class="m-lab-result-name">HbA1c</h3>
+              <span class="m-lab-result-status m-lab-result-status--ok">In range</span>
+            </header>
+            <div class="m-lab-result-value">
+              <span class="m-lab-result-number">5.4</span>
+              <span class="m-lab-result-unit">%</span>
+            </div>
+            <div class="m-range-indicator" aria-label="5.4 percent, well within normal">
+              <div class="m-range-indicator-bar"></div>
+              <div class="m-range-indicator-marker" style="left: 30%;"></div>
+              <div class="m-range-indicator-labels">
+                <span>4.0</span><span>&lt;5.7 normal</span><span>6.5</span>
+              </div>
+            </div>
+            <div class="m-trend-arrow m-trend-arrow--down">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+              <span>−0.2 vs. last test (5.6). Improving.</span>
+            </div>
+            <p class="m-lab-result-explanation">3-month blood-sugar average is healthy and trending in the right direction.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- ── Bottom row: care plan + advisor (the SVG split) ──────────── -->
+      <section class="v-split">
+
+        <!-- Care plan card -->
+        <article class="o-care-plan">
+          <header class="o-care-plan-head">
+            <span class="o-care-plan-direction">Your care plan · this week</span>
+            <h2 class="o-care-plan-goal" style="font-size: var(--t-title-m);">Three steps you chose, anchored to your LDL trend.</h2>
+          </header>
+
+          <div class="m-progress-bar" data-completed="4" data-target="7">
+            <header class="m-progress-bar-head">
+              <span class="m-progress-bar-count"><strong>4 of 7</strong> activities this week</span>
+              <span class="m-progress-bar-streak">3-day streak</span>
+            </header>
+            <div class="m-progress-bar-track" role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="7" aria-label="4 of 7 activities completed">
+              <div class="m-progress-bar-fill" style="width: calc(4 / 7 * 100%);"></div>
+            </div>
+            <p class="m-progress-bar-encouragement">More than halfway. Two more to finish strong.</p>
+          </div>
+
+          <ul class="o-care-plan-list">
+            <li class="o-care-plan-item o-care-plan-item--done">
+              <span class="o-care-plan-item-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span class="o-care-plan-item-text">Walk 20 min · 3×/week</span>
+              <span class="o-care-plan-item-when">Goal you set · to support LDL trend</span>
+            </li>
+            <li class="o-care-plan-item o-care-plan-item--done">
+              <span class="o-care-plan-item-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+              </span>
+              <span class="o-care-plan-item-text">Reduce processed food · 5 days</span>
+              <span class="o-care-plan-item-when">Based on cholesterol trend</span>
+            </li>
+            <li class="o-care-plan-item">
+              <span class="o-care-plan-item-icon"></span>
+              <span class="o-care-plan-item-text">Schedule follow-up labs</span>
+              <span class="o-care-plan-item-when">In 3 months · Dr. Kim recommends</span>
+            </li>
+          </ul>
+
+          <div class="m-cta-pair" style="justify-content: flex-start; margin-top: var(--s-2);">
+            <a class="button button-primary" href="care-plan.html">Adjust your plan →</a>
+            <a class="button button-ghost" href="progress-framing.html">See full progress</a>
+          </div>
+        </article>
+
+        <!-- Advisor card -->
+        <article class="v-advisor">
+          <header class="v-advisor-head">
+            <span class="v-advisor-eyebrow">Your care advisor</span>
+            <span class="v-advisor-availability">Available today</span>
+          </header>
+          <div class="v-advisor-body">
+            <div class="v-advisor-who">
+              <span class="v-advisor-avatar" aria-hidden="true">RK</span>
+              <div>
+                <h3 class="v-advisor-name">Dr. R. Kim</h3>
+                <p class="v-advisor-role">Primary care · Vita Clinical Advisory Panel</p>
+              </div>
+            </div>
+            <p class="v-advisor-message">Your LDL is trending up slightly, but the lifestyle changes you've started should help. Let's check in at your 3-month follow-up.</p>
+            <div class="v-advisor-actions">
+              <a class="button button-primary" href="messages.html" style="flex: 1; justify-content: center;">Message Dr. Kim</a>
+              <a class="button button-secondary" href="messages.html#schedule">Schedule follow-up</a>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ── Insights row (ML recommendations preview) ────────────────── -->
+      <section aria-label="Personalized insights">
+        <div class="v-section-eyebrow">
+          <span class="v-section-eyebrow-label">Personalized insights · 2 active</span>
+          <a class="v-section-eyebrow-action" href="recommendation.html">See all insights ↗</a>
+        </div>
+        <div class="v-metric-grid">
+
+          <!-- Insight 1 -->
+          <article class="o-recommendation-card">
+            <header class="o-recommendation-card-head">
+              <span class="m-confidence-tier m-confidence-tier--high">Based on your results</span>
+              <span class="o-recommendation-card-meta">2 days ago</span>
+            </header>
+            <div class="o-recommendation-card-body">
+              <div class="o-recommendation-card-trigger">
+                <strong>LDL cholesterol</strong>
+                <span>119 → 128 mg/dL</span>
+                <span class="o-recommendation-card-trigger-delta">+7.6%</span>
+              </div>
+              <h3 class="o-recommendation-card-title" style="font-size: var(--t-title-m);">Increasing weekly activity could bring LDL back toward optimal.</h3>
+              <p class="o-recommendation-card-rationale">Patients with a similar profile who reached 150 min/week saw an average 12 mg/dL drop at next test.</p>
+            </div>
+            <div class="m-action-trio" role="group" aria-label="Respond to recommendation">
+              <button type="button" class="button button-ghost" data-action="dismiss">Not for me</button>
+              <button type="button" class="button button-secondary" data-action="modify">Adjust it</button>
+              <button type="button" class="button button-primary" data-action="accept">Add to my plan</button>
+            </div>
+          </article>
+
+          <!-- Insight 2 -->
+          <article class="o-recommendation-card">
+            <header class="o-recommendation-card-head">
+              <span class="m-confidence-tier m-confidence-tier--medium">Consider</span>
+              <span class="o-recommendation-card-meta">today</span>
+            </header>
+            <div class="o-recommendation-card-body">
+              <div class="o-recommendation-card-trigger">
+                <strong>Activity rhythm</strong>
+                <span>Most active 5–7 PM</span>
+              </div>
+              <h3 class="o-recommendation-card-title" style="font-size: var(--t-title-m);">A short post-meal walk could fit your existing rhythm.</h3>
+              <p class="o-recommendation-card-rationale">10–15 min after dinner is suggestive for glucose response; it slots naturally into your most-active window.</p>
+            </div>
+            <div class="m-action-trio" role="group" aria-label="Respond to recommendation">
+              <button type="button" class="button button-ghost" data-action="dismiss">Not for me</button>
+              <button type="button" class="button button-secondary" data-action="modify">Adjust it</button>
+              <button type="button" class="button button-primary" data-action="accept">Add to my plan</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ── Quick actions (CTA strip) ────────────────────────────────── -->
+      <section aria-label="Quick actions">
+        <div class="v-section-eyebrow">
+          <span class="v-section-eyebrow-label">Quick actions</span>
+        </div>
+        <div class="v-quick-actions">
+          <a class="v-quick-tile" href="lab-interpretation.html">
+            <span class="v-quick-tile-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            </span>
+            <h3 class="v-quick-tile-title">Explore your labs</h3>
+            <p class="v-quick-tile-body">See every value with the same context — range, trend, plain language.</p>
+            <span class="v-quick-tile-arrow">Open →</span>
+          </a>
+          <a class="v-quick-tile" href="care-plan.html">
+            <span class="v-quick-tile-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </span>
+            <h3 class="v-quick-tile-title">Update care plan</h3>
+            <p class="v-quick-tile-body">Adjust your goals or add a new commitment anchored to a trend.</p>
+            <span class="v-quick-tile-arrow">Open →</span>
+          </a>
+          <a class="v-quick-tile" href="recommendation.html">
+            <span class="v-quick-tile-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+            </span>
+            <h3 class="v-quick-tile-title">Review insights</h3>
+            <p class="v-quick-tile-body">Personalized suggestions with transparent confidence and sources.</p>
+            <span class="v-quick-tile-arrow">Open →</span>
+          </a>
+          <a class="v-quick-tile" href="journey.html">
+            <span class="v-quick-tile-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="9"/><line x1="12" y1="3" x2="12" y2="9"/><line x1="12" y1="15" x2="12" y2="21"/><line x1="3" y1="12" x2="9" y2="12"/><line x1="15" y1="12" x2="21" y2="12"/></svg>
+            </span>
+            <h3 class="v-quick-tile-title">Your journey</h3>
+            <p class="v-quick-tile-body">From data → understanding → action. The map of how this product works.</p>
+            <span class="v-quick-tile-arrow">Open →</span>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="v-shell-foot">
+      <span>Vita Health · Hi-fi prototype · Built on the Peter Tak Design System</span>
+      <span><a href="index.html">Case overview</a> · <a href="https://github.com/yejuntak/peter-tak-design-system" target="_blank" rel="noopener">GitHub ↗</a></span>
+    </footer>
+  </div>
+</body>
+</html>

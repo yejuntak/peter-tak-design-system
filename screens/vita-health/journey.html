@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Vita Health · Patient journey</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../../css/tokens.css">
+  <link rel="stylesheet" href="../../css/reset.css">
+  <link rel="stylesheet" href="../../css/atoms.css">
+  <link rel="stylesheet" href="../../css/molecules.css">
+  <link rel="stylesheet" href="../../css/organisms.css">
+  <link rel="stylesheet" href="../../css/motion.css">
+  <link rel="stylesheet" href="../../css/vita-health.css">
+  <link rel="stylesheet" href="_layout.css">
+  <style>
+    .v-journey {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-3);
+    }
+    .v-journey-step {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: var(--s-5);
+      padding: var(--s-5) var(--s-6);
+      background: var(--surface);
+      border: 1px solid var(--hairline);
+      border-radius: var(--r-4);
+      position: relative;
+    }
+    .v-journey-step--active { border-color: var(--accent); }
+    .v-journey-step::before {
+      content: "";
+      position: absolute;
+      left: 64px;
+      top: 100%;
+      width: 2px;
+      height: var(--s-3);
+      background: var(--hairline-strong);
+    }
+    .v-journey-step:last-child::before { display: none; }
+    .v-journey-step-num {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--r-full);
+      background: var(--accent-soft);
+      color: var(--accent-text);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: var(--w-bold);
+    }
+    .v-journey-step--active .v-journey-step-num {
+      background: var(--accent);
+      color: var(--accent-fg);
+    }
+    .v-journey-step-content {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-2);
+    }
+    .v-journey-step-eyebrow {
+      font-family: var(--font-mono);
+      font-size: var(--t-micro);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+    .v-journey-step-title {
+      font-family: var(--font-display);
+      font-size: var(--t-title-l);
+      font-weight: var(--w-medium);
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      margin: 0;
+      line-height: 1.2;
+    }
+    .v-journey-step-body {
+      font-family: var(--font-text);
+      font-size: var(--t-body-m);
+      line-height: var(--lh-relaxed);
+      color: var(--ink-soft);
+      max-width: 64ch;
+      margin: 0;
+    }
+    .v-journey-step-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--s-2);
+      margin-top: var(--s-3);
+    }
+    .v-journey-pill {
+      padding: 4px 10px;
+      background: var(--bg-tinted);
+      border: 1px solid var(--hairline);
+      border-radius: var(--r-1);
+      font-family: var(--font-mono);
+      font-size: var(--t-micro);
+      color: var(--ink-soft);
+    }
+    .v-principle-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: var(--s-3);
+      margin-top: var(--s-6);
+    }
+    .v-principle {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-2);
+      padding: var(--s-5);
+      background: var(--accent-soft);
+      border: 1px solid hsl(142 30% 80%);
+      border-radius: var(--r-4);
+    }
+    .v-principle-eyebrow {
+      font-family: var(--font-mono);
+      font-size: var(--t-micro);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-text);
+    }
+    .v-principle-statement {
+      font-family: var(--font-display);
+      font-size: var(--t-title-m);
+      font-weight: var(--w-medium);
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      margin: 0;
+    }
+    .v-principle-body {
+      font-family: var(--font-text);
+      font-size: var(--t-body-s);
+      line-height: var(--lh-relaxed);
+      color: var(--ink-soft);
+      margin: 0;
+    }
+  </style>
+</head>
+<body class="vita-app">
+  <div class="v-shell">
+
+    <header class="v-shell-head">
+      <a class="v-shell-head-brand" href="dashboard.html">
+        <span class="v-shell-head-brand-mark">V</span>
+        <span>Vita Health</span>
+      </a>
+      <nav class="v-shell-head-nav" aria-label="Main navigation">
+        <a href="dashboard.html">Snapshot</a>
+        <a href="labs.html">Labs</a>
+        <a href="care-plan.html">Care plan</a>
+        <a href="progress-framing.html">Progress</a>
+        <a href="recommendation.html">Insights</a>
+        <a href="messages.html">Messages</a>
+      </nav>
+      <div class="v-shell-head-user"><span class="v-shell-head-user-avatar" aria-hidden="true">JT</span></div>
+    </header>
+
+    <main>
+      <span class="v-screen-eyebrow">Patient journey · Vita preventative care</span>
+      <h1 class="v-screen-title">From data to understanding to action.</h1>
+      <p class="v-screen-lede">The product's spine: three transitions, each with a deliberate design intervention. The first session moves the patient from raw data to meaning. The care plan moves the patient from meaning to action. Adherence tracking sustains the action long enough for it to show in the next test.</p>
+
+      <!-- Journey steps -->
+      <section class="v-screen-section">
+        <div class="v-journey">
+
+          <article class="v-journey-step v-journey-step--active">
+            <span class="v-journey-step-num" aria-hidden="true">01</span>
+            <div class="v-journey-step-content">
+              <span class="v-journey-step-eyebrow">First session · Onboarding</span>
+              <h2 class="v-journey-step-title">Curated health snapshot.</h2>
+              <p class="v-journey-step-body">3–5 most-relevant metrics from the latest test, each with a range, a trend, and a plain-language explanation. The full panel is accessible on demand — never the default. Engagement A/B testing showed meaningfully higher 30-day retention versus the full-panel default.</p>
+              <div class="v-journey-step-meta">
+                <span class="v-journey-pill">Progressive disclosure</span>
+                <span class="v-journey-pill">No value without interpretation</span>
+                <span class="v-journey-pill">3–5 metrics · curated</span>
+              </div>
+              <div class="m-cta-pair" style="justify-content: flex-start; margin-top: var(--s-3);">
+                <a class="button button-primary" href="onboarding.html">View first-session screen →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="v-journey-step">
+            <span class="v-journey-step-num" aria-hidden="true">02</span>
+            <div class="v-journey-step-content">
+              <span class="v-journey-step-eyebrow">Understanding · Lab interpretation</span>
+              <h2 class="v-journey-step-title">Every value, in context.</h2>
+              <p class="v-journey-step-body">Tap any value for the full interpretation surface — visual position on the reference range, trend versus the previous test, plain-language explanation, and a small "what comes next" pointer toward the care plan. The founding rule: a number alone is either alarming or meaningless.</p>
+              <div class="v-journey-step-meta">
+                <span class="v-journey-pill">Range indicator</span>
+                <span class="v-journey-pill">Trend arrow</span>
+                <span class="v-journey-pill">Plain-language sentence</span>
+              </div>
+              <div class="m-cta-pair" style="justify-content: flex-start; margin-top: var(--s-3);">
+                <a class="button button-primary" href="lab-interpretation.html">View lab detail →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="v-journey-step">
+            <span class="v-journey-step-num" aria-hidden="true">03</span>
+            <div class="v-journey-step-content">
+              <span class="v-journey-step-eyebrow">Action · Care plan</span>
+              <h2 class="v-journey-step-title">Clinical direction → patient-authored plan.</h2>
+              <p class="v-journey-step-body">The clinical recommendation is a direction, not a mandate. The patient writes the commitment — frequency, duration, activity type — anchored to that direction. Patient-defined goals consistently outperformed clinician-mandated targets on adherence.</p>
+              <div class="v-journey-step-meta">
+                <span class="v-journey-pill">Patient-defined goals</span>
+                <span class="v-journey-pill">Direction vs. mandate</span>
+                <span class="v-journey-pill">Editable plan</span>
+              </div>
+              <div class="m-cta-pair" style="justify-content: flex-start; margin-top: var(--s-3);">
+                <a class="button button-primary" href="care-plan.html">View care-plan screen →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="v-journey-step">
+            <span class="v-journey-step-num" aria-hidden="true">04</span>
+            <div class="v-journey-step-content">
+              <span class="v-journey-step-eyebrow">Sustaining · Adherence</span>
+              <h2 class="v-journey-step-title">Progress framing, never compliance.</h2>
+              <p class="v-journey-step-body">"4 of 7 completed" produces continued engagement. "Missed 3 of 7" produces shame and abandonment. The component API rejects a "missed" prop — there is no compliance-framing variant in the system, by design.</p>
+              <div class="v-journey-step-meta">
+                <span class="v-journey-pill">Progress over compliance</span>
+                <span class="v-journey-pill">Streak preserved</span>
+                <span class="v-journey-pill">Forward-looking copy</span>
+              </div>
+              <div class="m-cta-pair" style="justify-content: flex-start; margin-top: var(--s-3);">
+                <a class="button button-primary" href="progress-framing.html">View progress screen →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="v-journey-step">
+            <span class="v-journey-step-num" aria-hidden="true">05</span>
+            <div class="v-journey-step-content">
+              <span class="v-journey-step-eyebrow">Deepening · ML-powered insights</span>
+              <h2 class="v-journey-step-title">Recommendations with transparent confidence.</h2>
+              <p class="v-journey-step-body">Direction-not-directive copy. Three confidence tiers as language — "Based on your results," "Consider," "Ask your doctor about." Never a raw model score. Every recommendation has Accept · Adjust · Set aside; Adjust is first-class because partial acceptance is the common case.</p>
+              <div class="v-journey-step-meta">
+                <span class="v-journey-pill">3 confidence tiers</span>
+                <span class="v-journey-pill">Accept · Adjust · Set aside</span>
+                <span class="v-journey-pill">Sources visible</span>
+              </div>
+              <div class="m-cta-pair" style="justify-content: flex-start; margin-top: var(--s-3);">
+                <a class="button button-primary" href="recommendation.html">View insights screen →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="v-journey-step">
+            <span class="v-journey-step-num" aria-hidden="true">06</span>
+            <div class="v-journey-step-content">
+              <span class="v-journey-step-eyebrow">Continuity · Clinical advisor</span>
+              <h2 class="v-journey-step-title">A repeatable thread with your care team.</h2>
+              <p class="v-journey-step-body">The advisor card on the dashboard opens into a continuous conversation. Clinical context, attachments, and follow-up scheduling live alongside the trends they're commenting on. The collaborative review process for new care decisions is part of the product, not a separate workflow.</p>
+              <div class="v-journey-step-meta">
+                <span class="v-journey-pill">Clinical review embedded</span>
+                <span class="v-journey-pill">Follow-up scheduling</span>
+                <span class="v-journey-pill">Attachable trend summaries</span>
+              </div>
+              <div class="m-cta-pair" style="justify-content: flex-start; margin-top: var(--s-3);">
+                <a class="button button-primary" href="messages.html">View advisor thread →</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Principles strip -->
+      <section class="v-screen-section">
+        <h2 class="v-screen-section-title">Principles that shaped this journey.</h2>
+        <p style="color: var(--ink-soft); max-width: 64ch; margin-bottom: var(--s-4);">Established in year one of the engagement, maintained across three years and multiple product versions, and adopted as organizational defaults for how Vita communicates health data.</p>
+        <div class="v-principle-strip">
+          <article class="v-principle">
+            <span class="v-principle-eyebrow">Principle 1</span>
+            <h3 class="v-principle-statement">No health value without interpretation.</h3>
+            <p class="v-principle-body">Every lab result, every metric, every trend needs a plain-language explanation of what it means in context. Numbers alone are either alarming or meaningless — both are product failures.</p>
+          </article>
+          <article class="v-principle">
+            <span class="v-principle-eyebrow">Principle 2</span>
+            <h3 class="v-principle-statement">Progress framing, always.</h3>
+            <p class="v-principle-body">Adherence tracking shows what was done, never what was missed. Same data, different framing, measurably different patient response.</p>
+          </article>
+          <article class="v-principle">
+            <span class="v-principle-eyebrow">Principle 3</span>
+            <h3 class="v-principle-statement">Patient authors the plan.</h3>
+            <p class="v-principle-body">Clinical recommendations are direction. The commitment is patient-defined, editable, anchored to the trend that prompted it. Patient-defined goals produce higher adherence than clinician-mandated targets.</p>
+          </article>
+          <article class="v-principle">
+            <span class="v-principle-eyebrow">Principle 4</span>
+            <h3 class="v-principle-statement">Confidence as language, not a score.</h3>
+            <p class="v-principle-body">Three fixed phrases — "Based on your results," "Consider," "Ask your doctor about." Patients can't act on 0.84. The tier wraps the score in language they can use to weigh the recommendation.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="v-shell-foot">
+      <span>Vita Health · Hi-fi prototype · Built on the Peter Tak Design System</span>
+      <span><a href="index.html">Case overview</a> · <a href="https://github.com/yejuntak/peter-tak-design-system" target="_blank" rel="noopener">GitHub ↗</a></span>
+    </footer>
+  </div>
+</body>
+</html>

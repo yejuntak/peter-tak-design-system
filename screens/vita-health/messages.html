@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Vita Health · Messages</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../../css/tokens.css">
+  <link rel="stylesheet" href="../../css/reset.css">
+  <link rel="stylesheet" href="../../css/atoms.css">
+  <link rel="stylesheet" href="../../css/molecules.css">
+  <link rel="stylesheet" href="../../css/organisms.css">
+  <link rel="stylesheet" href="../../css/motion.css">
+  <link rel="stylesheet" href="../../css/vita-health.css">
+  <link rel="stylesheet" href="_layout.css">
+  <style>
+    /* Chat thread layout — scoped to this screen only */
+    .v-thread {
+      display: flex;
+      flex-direction: column;
+      gap: var(--s-3);
+      padding: var(--s-5);
+      background: var(--surface);
+      border: 1px solid var(--hairline);
+      border-radius: var(--r-4);
+      min-height: 420px;
+    }
+    .v-msg {
+      display: flex;
+      gap: var(--s-3);
+      max-width: 70%;
+    }
+    .v-msg--mine { align-self: flex-end; flex-direction: row-reverse; }
+    .v-msg-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--r-full);
+      background: hsl(210 80% 40%);
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: var(--w-bold);
+      flex-shrink: 0;
+    }
+    .v-msg--mine .v-msg-avatar { background: var(--accent); }
+    .v-msg-bubble {
+      padding: var(--s-3) var(--s-4);
+      background: var(--bg-tinted);
+      border-radius: var(--r-4);
+      border-top-left-radius: 4px;
+      font-family: var(--font-text);
+      font-size: var(--t-body-m);
+      line-height: var(--lh-relaxed);
+      color: var(--ink);
+    }
+    .v-msg--mine .v-msg-bubble {
+      background: var(--accent-soft);
+      color: var(--ink);
+      border-top-left-radius: var(--r-4);
+      border-top-right-radius: 4px;
+    }
+    .v-msg-time {
+      font-family: var(--font-mono);
+      font-size: var(--t-micro);
+      color: var(--muted);
+      margin-top: 4px;
+      letter-spacing: -0.003em;
+    }
+    .v-msg-attachment {
+      margin-top: var(--s-2);
+      padding: var(--s-3);
+      background: var(--surface);
+      border: 1px solid var(--hairline);
+      border-radius: var(--r-2);
+    }
+    .v-msg-attachment-label {
+      font-family: var(--font-mono);
+      font-size: var(--t-micro);
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .v-composer-row {
+      display: flex;
+      gap: var(--s-2);
+      margin-top: var(--s-3);
+      padding: var(--s-3);
+      background: var(--surface);
+      border: 1px solid var(--hairline);
+      border-radius: var(--r-4);
+    }
+    .v-composer-row textarea {
+      flex: 1;
+      resize: none;
+      border: 0;
+      background: transparent;
+      font-family: var(--font-text);
+      font-size: var(--t-body-m);
+      color: var(--ink);
+      padding: 6px;
+    }
+    .v-composer-row textarea:focus { outline: none; }
+    .v-schedule {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--s-2);
+      margin-top: var(--s-4);
+    }
+    .v-schedule-slot {
+      padding: var(--s-3);
+      background: var(--surface);
+      border: 1px solid var(--hairline);
+      border-radius: var(--r-2);
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 120ms, transform 120ms;
+    }
+    .v-schedule-slot:hover { border-color: var(--accent); }
+    .v-schedule-slot[data-selected="true"] {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+    .v-schedule-slot-day {
+      font-family: var(--font-mono);
+      font-size: var(--t-micro);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .v-schedule-slot-time {
+      font-family: var(--font-display);
+      font-size: var(--t-body-l);
+      font-weight: var(--w-medium);
+      color: var(--ink);
+    }
+  </style>
+</head>
+<body class="vita-app">
+  <div class="v-shell">
+
+    <header class="v-shell-head">
+      <a class="v-shell-head-brand" href="dashboard.html">
+        <span class="v-shell-head-brand-mark">V</span>
+        <span>Vita Health</span>
+      </a>
+      <nav class="v-shell-head-nav" aria-label="Main navigation">
+        <a href="dashboard.html">Snapshot</a>
+        <a href="labs.html">Labs</a>
+        <a href="care-plan.html">Care plan</a>
+        <a href="progress-framing.html">Progress</a>
+        <a href="recommendation.html">Insights</a>
+        <a href="messages.html" aria-current="page">Messages</a>
+      </nav>
+      <div class="v-shell-head-user"><span class="v-shell-head-user-avatar" aria-hidden="true">JT</span></div>
+    </header>
+
+    <main>
+      <span class="v-screen-eyebrow">Messages · Clinical advisor</span>
+      <h1 class="v-screen-title">Dr. R. Kim, Primary Care.</h1>
+      <p class="v-screen-lede">A repeatable thread with your clinical advisor — built into the patient surface so the clinical review on your care plan and lab trends lives where you can read it back. Direct continuation of the snapshot's advisor card.</p>
+
+      <div class="v-split">
+        <!-- Thread (left/main) -->
+        <section>
+          <div class="v-thread" aria-label="Conversation with Dr. Kim">
+
+            <div class="v-msg">
+              <span class="v-msg-avatar" aria-hidden="true">RK</span>
+              <div>
+                <div class="v-msg-bubble">
+                  Hi Jamie — your Mar 18 labs are in. Most values are healthy. Two things I want to flag together: your LDL ticked up to 128, and your morning blood pressure has crept toward 132/86. Neither is alarming on its own, but together they're worth a small adjustment.
+                </div>
+                <div class="v-msg-time">Today · 9:14 AM</div>
+              </div>
+            </div>
+
+            <div class="v-msg">
+              <span class="v-msg-avatar" aria-hidden="true">RK</span>
+              <div>
+                <div class="v-msg-bubble">
+                  Looking at your activity data, you're already moving in the right direction. The post-meal walk suggestion in your insights is genuinely useful here — short walks help glucose response and tend to nudge BP too. I'd say try the 3×/week for 4 weeks before we revisit.
+                  <div class="v-msg-attachment">
+                    <span class="v-msg-attachment-label">Attached</span>
+                    <span style="font-family: var(--font-display); color: var(--ink); display: block;">Trend summary · LDL + BP, 6 months</span>
+                    <span class="t-mono-s" style="color: var(--muted);">3-page PDF · view in patient portal</span>
+                  </div>
+                </div>
+                <div class="v-msg-time">Today · 9:17 AM</div>
+              </div>
+            </div>
+
+            <div class="v-msg v-msg--mine">
+              <span class="v-msg-avatar" aria-hidden="true">JT</span>
+              <div>
+                <div class="v-msg-bubble">
+                  That works for me. I already added the post-meal walk to my plan. Should I push the 3-month follow-up labs earlier, or stick with the original date?
+                </div>
+                <div class="v-msg-time">Today · 9:42 AM</div>
+              </div>
+            </div>
+
+            <div class="v-msg">
+              <span class="v-msg-avatar" aria-hidden="true">RK</span>
+              <div>
+                <div class="v-msg-bubble">
+                  Stick with the original. Three months gives the change enough time to show up in the LDL trend. If you notice morning BP creeping past 135/88 in the meantime, ping me — that's the threshold where we'd accelerate.
+                </div>
+                <div class="v-msg-time">Today · 9:48 AM</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Composer -->
+          <div class="v-composer-row">
+            <textarea rows="2" placeholder="Reply to Dr. Kim…" aria-label="Reply"></textarea>
+            <button type="button" class="button button-ghost button-sm" aria-label="Attach">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.44 11.05l-9.19 9.19a6 6 0 1 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+            </button>
+            <button type="button" class="button button-primary button-sm">Send</button>
+          </div>
+        </section>
+
+        <!-- Sidebar: schedule + about (right) -->
+        <aside style="display: flex; flex-direction: column; gap: var(--s-3);">
+
+          <!-- About advisor -->
+          <article class="v-advisor">
+            <header class="v-advisor-head">
+              <span class="v-advisor-eyebrow">Care advisor</span>
+              <span class="v-advisor-availability">Available</span>
+            </header>
+            <div class="v-advisor-body">
+              <div class="v-advisor-who">
+                <span class="v-advisor-avatar" aria-hidden="true">RK</span>
+                <div>
+                  <h3 class="v-advisor-name">Dr. R. Kim</h3>
+                  <p class="v-advisor-role">Primary care · 14 years</p>
+                </div>
+              </div>
+              <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: var(--s-2); font-size: var(--t-body-s); color: var(--ink-soft);">
+                <li style="display: flex; justify-content: space-between;"><span style="color: var(--muted);">Languages</span><span>English, 한국어</span></li>
+                <li style="display: flex; justify-content: space-between;"><span style="color: var(--muted);">Member since</span><span>2019</span></li>
+                <li style="display: flex; justify-content: space-between;"><span style="color: var(--muted);">Avg response</span><span>2.4 hours</span></li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Schedule follow-up -->
+          <article class="o-care-plan" id="schedule">
+            <header class="o-care-plan-head">
+              <span class="o-care-plan-direction">Schedule</span>
+              <h2 class="o-care-plan-goal" style="font-size: var(--t-title-m);">3-month follow-up labs</h2>
+              <p class="o-care-plan-goal-source">Original date: June 18. Pick a morning slot that works.</p>
+            </header>
+            <div class="v-schedule">
+              <div class="v-schedule-slot" data-selected="false">
+                <span class="v-schedule-slot-day">Mon · Jun 13</span>
+                <span class="v-schedule-slot-time">7:30 AM</span>
+              </div>
+              <div class="v-schedule-slot" data-selected="true">
+                <span class="v-schedule-slot-day">Wed · Jun 15</span>
+                <span class="v-schedule-slot-time">8:00 AM</span>
+              </div>
+              <div class="v-schedule-slot" data-selected="false">
+                <span class="v-schedule-slot-day">Fri · Jun 17</span>
+                <span class="v-schedule-slot-time">7:45 AM</span>
+              </div>
+              <div class="v-schedule-slot" data-selected="false">
+                <span class="v-schedule-slot-day">Sat · Jun 18</span>
+                <span class="v-schedule-slot-time">9:00 AM</span>
+              </div>
+            </div>
+            <div class="m-cta-pair" style="justify-content: flex-end;">
+              <button type="button" class="button button-primary">Confirm slot</button>
+            </div>
+          </article>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="v-shell-foot">
+      <span>Vita Health · Hi-fi prototype · Built on the Peter Tak Design System</span>
+      <span><a href="index.html">Case overview</a> · <a href="https://github.com/yejuntak/peter-tak-design-system" target="_blank" rel="noopener">GitHub ↗</a></span>
+    </footer>
+  </div>
+</body>
+</html>

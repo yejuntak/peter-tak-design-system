@@ -13,146 +13,181 @@
   <link rel="stylesheet" href="../../css/vita-health.css">
   <link rel="stylesheet" href="_layout.css">
 </head>
-<body>
+<body class="vita-app">
   <div class="v-shell">
+
     <header class="v-shell-head">
       <a class="v-shell-head-brand" href="index.html">
         <span class="v-shell-head-brand-mark">V</span>
         <span>Vita Health</span>
       </a>
-      <nav class="v-shell-head-nav">
-        <a href="../../docs/index.html">Docs</a>
+      <nav class="v-shell-head-nav" aria-label="Case-study navigation">
+        <a href="index.html" aria-current="page">Overview</a>
+        <a href="dashboard.html">Try the prototype</a>
+        <a href="journey.html">Journey map</a>
+        <a href="../../docs/index.html">Design system</a>
         <a href="https://github.com/yejuntak/peter-tak-design-system" target="_blank" rel="noopener">GitHub ↗</a>
       </nav>
     </header>
 
     <main>
-      <span class="v-screen-eyebrow">Reference screens · Healthcare</span>
-      <h1 class="v-screen-title">Vita Health.<br>Patient journey, built from this design system.</h1>
-      <p class="v-screen-lede">Five reference screens reconstructing the core patient-journey patterns from a 3-year UX Lead engagement at Onlife Health / Pager Health (Vita-branded preventative care app, 2019–2022). Every screen is built from the Peter Tak Design System with no page-scoped CSS. The components that made these screens possible — <code>.m-lab-result</code>, <code>.m-confidence-tier</code>, <code>.m-action-trio</code>, <code>.m-progress-bar</code> — are documented as first-class system components.</p>
+      <span class="v-screen-eyebrow">Case study · Healthcare · 3-year UX engagement</span>
+      <h1 class="v-screen-title">Vita Health.<br>Patient journey for preventative care.</h1>
+      <p class="v-screen-lede">A working hi-fi prototype reconstructing the patient-journey patterns from a 3-year UX Lead engagement at Onlife Health (Vita-branded preventative care app on the AlwaysOn® member experience, 2019–2022). Built entirely on the Peter Tak Design System with a sage theme override — every screen composes the system's organisms, molecules, and atoms. ML/AI logic is visual only; the design surfaces are functional.</p>
 
-      <div class="v-screen-section">
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--s-4);">
+      <!-- Reference hero SVG (the original artifact) -->
+      <figure class="v-hero-svg">
+        <img src="assets/hero-health-snapshot.svg" alt="Vita Health patient dashboard wireframe — curated health snapshot with lab values, trend indicators, and plain-language interpretation">
+        <figcaption style="padding: var(--s-3) var(--s-4); font-family: var(--font-mono); font-size: var(--t-micro); color: var(--muted); border-top: 1px solid var(--hairline);">Reference artifact · Health snapshot — curated first session · no value without interpretation</figcaption>
+      </figure>
 
-          <a href="onboarding.html" class="o-card-archetype" style="text-decoration: none;">
-            <div class="o-card-archetype-head">
-              <span><span class="o-card-archetype-num">01</span> &nbsp; First session</span>
-              <span>5 values</span>
-            </div>
-            <div>
-              <h3 class="o-card-archetype-title">Health snapshot.</h3>
-              <p class="o-card-archetype-tagline">Curated view of 3–5 metrics with range + status, never the full panel.</p>
-            </div>
-            <div class="o-card-archetype-foot">
-              <span class="o-card-archetype-arrow">View screen →</span>
-            </div>
+      <!-- TL;DR -->
+      <section class="v-screen-section">
+        <h2 class="v-screen-section-title">The product bet</h2>
+        <p style="font-size: var(--t-body-l); line-height: var(--lh-relaxed); color: var(--ink-soft); max-width: 64ch;">Most chronic conditions are preventable if caught and addressed early. The primary barrier isn't access — it's engagement. Most people who get annual labs don't understand their results; most people who get "eat better and exercise more" don't know where to start. Vita's product closed those two gaps: <strong>data → understanding</strong>, and <strong>understanding → action</strong>. My job for three years was to design those two transitions and make them coherent across multiple product versions.</p>
+      </section>
+
+      <!-- All screens -->
+      <section class="v-screen-section">
+        <h2 class="v-screen-section-title">Screens in the prototype</h2>
+        <p style="color: var(--ink-soft); max-width: 64ch; margin-bottom: var(--s-4);">Eight working surfaces. Navigate between them using the in-app nav once you enter — every screen links to every other.</p>
+
+        <div class="v-quick-actions">
+          <a class="v-quick-tile" href="dashboard.html">
+            <span class="v-quick-tile-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            </span>
+            <h3 class="v-quick-tile-title">Dashboard</h3>
+            <p class="v-quick-tile-body">The hero screen. Greeting, curated snapshot, care plan + advisor split, insights row, quick actions. Matches the reference SVG above.</p>
+            <span class="v-quick-tile-arrow">Open →</span>
           </a>
-
-          <a href="lab-interpretation.html" class="o-card-archetype" style="text-decoration: none;">
-            <div class="o-card-archetype-head">
-              <span><span class="o-card-archetype-num">02</span> &nbsp; Lab detail</span>
-              <span>1 value, full</span>
-            </div>
-            <div>
-              <h3 class="o-card-archetype-title">Lab interpretation.</h3>
-              <p class="o-card-archetype-tagline">A single value with range, trend, and a plain-language explanation. The founding pattern.</p>
-            </div>
-            <div class="o-card-archetype-foot">
-              <span class="o-card-archetype-arrow">View screen →</span>
-            </div>
+          <a class="v-quick-tile" href="onboarding.html">
+            <span class="v-quick-tile-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v8M4.93 10.93l5.66 5.66M2 18h8M21.07 10.93l-5.66 5.66M22 18h-8M12 22v-4"/></svg>
+            </span>
+            <h3 class="v-quick-tile-title">First session</h3>
+            <p class="v-quick-tile-body">Onboarding view — curated 3–5 metrics, never the full panel. Progressive disclosure pattern.</p>
+            <span class="v-quick-tile-arrow">Open →</span>
           </a>
-
-          <a href="care-plan.html" class="o-card-archetype" style="text-decoration: none;">
-            <div class="o-card-archetype-head">
-              <span><span class="o-card-archetype-num">03</span> &nbsp; Care plan</span>
-              <span>Direction → Plan</span>
-            </div>
-            <div>
-              <h3 class="o-card-archetype-title">Patient-defined goal.</h3>
-              <p class="o-card-archetype-tagline">Clinical recommendation as direction, patient as author of the plan.</p>
-            </div>
-            <div class="o-card-archetype-foot">
-              <span class="o-card-archetype-arrow">View screen →</span>
-            </div>
+          <a class="v-quick-tile" href="labs.html">
+            <span class="v-quick-tile-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3h18v18H3z"/><path d="M3 9h18M9 21V9"/></svg>
+            </span>
+            <h3 class="v-quick-tile-title">Full lab panel</h3>
+            <p class="v-quick-tile-body">All values with the same interpretation rules. Filter chips, status colors, click-through to lab detail.</p>
+            <span class="v-quick-tile-arrow">Open →</span>
           </a>
-
-          <a href="progress-framing.html" class="o-card-archetype" style="text-decoration: none;">
-            <div class="o-card-archetype-head">
-              <span><span class="o-card-archetype-num">04</span> &nbsp; Adherence</span>
-              <span>Same data, better framing</span>
-            </div>
-            <div>
-              <h3 class="o-card-archetype-title">Progress, not compliance.</h3>
-              <p class="o-card-archetype-tagline">"4 of 7 completed" vs. "missed 3 of 7" — same numbers, different patient response.</p>
-            </div>
-            <div class="o-card-archetype-foot">
-              <span class="o-card-archetype-arrow">View screen →</span>
-            </div>
+          <a class="v-quick-tile" href="lab-interpretation.html">
+            <span class="v-quick-tile-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </span>
+            <h3 class="v-quick-tile-title">Lab detail</h3>
+            <p class="v-quick-tile-body">A single value with range, trend, plain-language explanation, three-tier zone breakdown, and 12-month trend.</p>
+            <span class="v-quick-tile-arrow">Open →</span>
           </a>
-
-          <a href="recommendation.html" class="o-card-archetype" style="text-decoration: none;">
-            <div class="o-card-archetype-head">
-              <span><span class="o-card-archetype-num">05</span> &nbsp; AI insights</span>
-              <span>3 tiers · 3 actions</span>
-            </div>
-            <div>
-              <h3 class="o-card-archetype-title">ML recommendations.</h3>
-              <p class="o-card-archetype-tagline">Direction-not-directive copy. Plain-language confidence. Accept · Modify · Dismiss.</p>
-            </div>
-            <div class="o-card-archetype-foot">
-              <span class="o-card-archetype-arrow">View screen →</span>
-            </div>
+          <a class="v-quick-tile" href="care-plan.html">
+            <span class="v-quick-tile-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </span>
+            <h3 class="v-quick-tile-title">Care plan</h3>
+            <p class="v-quick-tile-body">Clinical direction → patient-authored plan. Editable goals, daily checklist, anchored to the trend that prompted it.</p>
+            <span class="v-quick-tile-arrow">Open →</span>
+          </a>
+          <a class="v-quick-tile" href="progress-framing.html">
+            <span class="v-quick-tile-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </span>
+            <h3 class="v-quick-tile-title">Progress</h3>
+            <p class="v-quick-tile-body">Adherence tracking with progress framing. Side-by-side comparison shows the design decision in action.</p>
+            <span class="v-quick-tile-arrow">Open →</span>
+          </a>
+          <a class="v-quick-tile" href="recommendation.html">
+            <span class="v-quick-tile-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            </span>
+            <h3 class="v-quick-tile-title">ML insights</h3>
+            <p class="v-quick-tile-body">Three confidence tiers as language. Direction-not-directive copy. Accept · Adjust · Set aside.</p>
+            <span class="v-quick-tile-arrow">Open →</span>
+          </a>
+          <a class="v-quick-tile" href="messages.html">
+            <span class="v-quick-tile-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </span>
+            <h3 class="v-quick-tile-title">Advisor thread</h3>
+            <p class="v-quick-tile-body">Continuous conversation with the clinical advisor. Attached trend summaries, follow-up scheduling.</p>
+            <span class="v-quick-tile-arrow">Open →</span>
+          </a>
+          <a class="v-quick-tile" href="journey.html">
+            <span class="v-quick-tile-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+            <h3 class="v-quick-tile-title">Patient journey map</h3>
+            <p class="v-quick-tile-body">The six-step product spine: onboarding → understanding → action → adherence → insights → continuity. Plus four founding principles.</p>
+            <span class="v-quick-tile-arrow">Open →</span>
           </a>
         </div>
-      </div>
+      </section>
 
+      <!-- New components shipped -->
       <section class="v-screen-section">
-        <h2 class="v-screen-section-title">New system components this case added</h2>
-        <p style="margin: 0 0 var(--s-4); color: var(--ink-soft); font-size: var(--t-body-m); line-height: var(--lh-relaxed); max-width: 64ch;">Building these screens surfaced eight first-class components that were missing from the base system. Each is documented in <code>components/</code> with anatomy, rules, when-to-use, and HTML examples.</p>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--s-3); max-width: 960px;">
+        <h2 class="v-screen-section-title">New design-system components shipped by this case</h2>
+        <p style="color: var(--ink-soft); max-width: 64ch; margin-bottom: var(--s-4);">Building the screens above surfaced nine first-class components the base system was missing. Each is documented as a Beta entry in the system, with anatomy, when-to-use, and rules baked into the API.</p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--s-3);">
           <a href="../../components/molecules/lab-result.md" style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2); text-decoration: none;">
             <code style="font-family: var(--font-mono); font-size: var(--t-body-s); color: var(--ink); display: block; margin-bottom: 6px;">.m-lab-result</code>
-            <span style="font-size: var(--t-body-s); color: var(--muted);">Lab value with range + trend + explanation</span>
+            <span style="font-size: var(--t-body-s); color: var(--muted);">Health value with range + trend + explanation</span>
           </a>
-          <a href="../../components/molecules/lab-result.md#range-indicator" style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2); text-decoration: none;">
+          <span style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2);">
             <code style="font-family: var(--font-mono); font-size: var(--t-body-s); color: var(--ink); display: block; margin-bottom: 6px;">.m-range-indicator</code>
             <span style="font-size: var(--t-body-s); color: var(--muted);">Visual position on a value spectrum</span>
-          </a>
-          <a href="../../components/molecules/lab-result.md#trend-arrow" style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2); text-decoration: none;">
+          </span>
+          <span style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2);">
             <code style="font-family: var(--font-mono); font-size: var(--t-body-s); color: var(--ink); display: block; margin-bottom: 6px;">.m-trend-arrow</code>
             <span style="font-size: var(--t-body-s); color: var(--muted);">Direction vs. previous reading</span>
-          </a>
+          </span>
           <a href="../../components/molecules/progress-bar.md" style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2); text-decoration: none;">
             <code style="font-family: var(--font-mono); font-size: var(--t-body-s); color: var(--ink); display: block; margin-bottom: 6px;">.m-progress-bar</code>
             <span style="font-size: var(--t-body-s); color: var(--muted);">Progress framing, never compliance</span>
           </a>
           <a href="../../components/molecules/confidence-tier.md" style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2); text-decoration: none;">
             <code style="font-family: var(--font-mono); font-size: var(--t-body-s); color: var(--ink); display: block; margin-bottom: 6px;">.m-confidence-tier</code>
-            <span style="font-size: var(--t-body-s); color: var(--muted);">High · Medium · Low (language, not scores)</span>
+            <span style="font-size: var(--t-body-s); color: var(--muted);">3 phrases · raw scores never exposed</span>
           </a>
           <a href="../../components/molecules/action-trio.md" style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2); text-decoration: none;">
             <code style="font-family: var(--font-mono); font-size: var(--t-body-s); color: var(--ink); display: block; margin-bottom: 6px;">.m-action-trio</code>
-            <span style="font-size: var(--t-body-s); color: var(--muted);">Accept · Modify · Dismiss</span>
+            <span style="font-size: var(--t-body-s); color: var(--muted);">Accept · Adjust · Set aside (right-aligned)</span>
           </a>
           <a href="../../components/organisms/recommendation-card.md" style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2); text-decoration: none;">
             <code style="font-family: var(--font-mono); font-size: var(--t-body-s); color: var(--ink); display: block; margin-bottom: 6px;">.o-recommendation-card</code>
-            <span style="font-size: var(--t-body-s); color: var(--muted);">Composes tier + body + action-trio</span>
+            <span style="font-size: var(--t-body-s); color: var(--muted);">Tier + trigger + rationale + action-trio</span>
           </a>
-          <a href="../../components/organisms/recommendation-card.md" style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2); text-decoration: none;">
+          <span style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2);">
             <code style="font-family: var(--font-mono); font-size: var(--t-body-s); color: var(--ink); display: block; margin-bottom: 6px;">.o-care-plan</code>
             <span style="font-size: var(--t-body-s); color: var(--muted);">Direction → patient-authored plan</span>
-          </a>
-          <a href="../../components/organisms/recommendation-card.md" style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2); text-decoration: none;">
+          </span>
+          <span style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2);">
             <code style="font-family: var(--font-mono); font-size: var(--t-body-s); color: var(--ink); display: block; margin-bottom: 6px;">.o-health-snapshot</code>
             <span style="font-size: var(--t-body-s); color: var(--muted);">Curated multi-result grid</span>
-          </a>
+          </span>
         </div>
+      </section>
+
+      <!-- Disclaimer -->
+      <section class="v-screen-section">
+        <article class="o-care-plan" style="background: var(--bg-tinted); border-color: var(--hairline-faint);">
+          <header class="o-care-plan-head">
+            <span class="o-care-plan-direction">Health disclaimer</span>
+            <h2 class="o-care-plan-goal" style="font-size: var(--t-title-m);">Visual prototype · no medical guidance.</h2>
+            <p class="o-care-plan-goal-source">All patient data, recommendation copy, advisor messages, and lab values shown are fictional. The screens demonstrate UX patterns from the engagement, not real clinical content. Onlife Health (now Pager Health) account details are abstracted under engagement constraints.</p>
+          </header>
+        </article>
       </section>
     </main>
 
     <footer class="v-shell-foot">
-      <span>Vita Health · Reference screens from the Peter Tak Design System</span>
-      <span><a href="../../README.md">README</a> · <a href="../../CLAUDE.md">CLAUDE.md</a></span>
+      <span>Vita Health · Hi-fi prototype · Built on the Peter Tak Design System</span>
+      <span><a href="../../README.md">README</a> · <a href="../../CLAUDE.md">CLAUDE.md</a> · <a href="https://github.com/yejuntak/peter-tak-design-system" target="_blank" rel="noopener">GitHub ↗</a></span>
     </footer>
   </div>
 </body>

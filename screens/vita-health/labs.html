@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Vita Health · Labs</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../../css/tokens.css">
+  <link rel="stylesheet" href="../../css/reset.css">
+  <link rel="stylesheet" href="../../css/atoms.css">
+  <link rel="stylesheet" href="../../css/molecules.css">
+  <link rel="stylesheet" href="../../css/organisms.css">
+  <link rel="stylesheet" href="../../css/motion.css">
+  <link rel="stylesheet" href="../../css/vita-health.css">
+  <link rel="stylesheet" href="_layout.css">
+</head>
+<body class="vita-app">
+  <div class="v-shell">
+
+    <header class="v-shell-head">
+      <a class="v-shell-head-brand" href="dashboard.html">
+        <span class="v-shell-head-brand-mark">V</span>
+        <span>Vita Health</span>
+      </a>
+      <nav class="v-shell-head-nav" aria-label="Main navigation">
+        <a href="dashboard.html">Snapshot</a>
+        <a href="labs.html" aria-current="page">Labs</a>
+        <a href="care-plan.html">Care plan</a>
+        <a href="progress-framing.html">Progress</a>
+        <a href="recommendation.html">Insights</a>
+        <a href="messages.html">Messages</a>
+      </nav>
+      <div class="v-shell-head-user"><span class="v-shell-head-user-avatar" aria-hidden="true">JT</span></div>
+    </header>
+
+    <main>
+      <span class="v-screen-eyebrow">Lab panel · Mar 18, 2022</span>
+      <h1 class="v-screen-title">Every value, with context.</h1>
+      <p class="v-screen-lede">The full panel. Same interpretation rules as the snapshot: every value gets a status, a position on its range, a trend, and a plain-language sentence. Tap any value for the full detail page.</p>
+
+      <!-- Filter row -->
+      <section class="v-screen-section">
+        <div style="display: flex; flex-wrap: wrap; gap: var(--s-2); align-items: center;">
+          <span class="m-chip" data-active="true">All values</span>
+          <span class="m-chip">Out of range</span>
+          <span class="m-chip">Trending up</span>
+          <span class="m-chip">Trending down</span>
+          <span class="m-chip">Stable</span>
+          <span style="flex: 1;"></span>
+          <span style="font-family: var(--font-mono); font-size: var(--t-micro); color: var(--muted);">12 values · 3 borderline · 1 low</span>
+        </div>
+      </section>
+
+      <!-- Full lab grid -->
+      <section class="v-screen-section">
+        <div class="v-metric-grid">
+
+          <a class="m-lab-result" href="lab-interpretation.html" style="text-decoration: none; color: inherit;">
+            <header class="m-lab-result-head">
+              <h3 class="m-lab-result-name">Fasting glucose</h3>
+              <span class="m-lab-result-status m-lab-result-status--ok">In range</span>
+            </header>
+            <div class="m-lab-result-value">
+              <span class="m-lab-result-number">94</span><span class="m-lab-result-unit">mg/dL</span>
+            </div>
+            <div class="m-range-indicator">
+              <div class="m-range-indicator-bar"></div>
+              <div class="m-range-indicator-marker" style="left: 24%;"></div>
+              <div class="m-range-indicator-labels"><span>70</span><span>100 normal</span><span>140</span></div>
+            </div>
+            <div class="m-trend-arrow m-trend-arrow--flat">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <span>−3 vs. last test (97).</span>
+            </div>
+          </a>
+
+          <a class="m-lab-result" href="lab-interpretation.html" style="text-decoration: none; color: inherit;">
+            <header class="m-lab-result-head">
+              <h3 class="m-lab-result-name">LDL cholesterol</h3>
+              <span class="m-lab-result-status m-lab-result-status--watch">Watch</span>
+            </header>
+            <div class="m-lab-result-value">
+              <span class="m-lab-result-number">128</span><span class="m-lab-result-unit">mg/dL</span>
+            </div>
+            <div class="m-range-indicator">
+              <div class="m-range-indicator-bar"></div>
+              <div class="m-range-indicator-marker" style="left: 64%;"></div>
+              <div class="m-range-indicator-labels"><span>0</span><span>&lt;100 optimal</span><span>200</span></div>
+            </div>
+            <div class="m-trend-arrow m-trend-arrow--up">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 15 12 9 18 15"/></svg>
+              <span>+9 vs. last test (119).</span>
+            </div>
+          </a>
+
+          <a class="m-lab-result" href="lab-interpretation.html" style="text-decoration: none; color: inherit;">
+            <header class="m-lab-result-head">
+              <h3 class="m-lab-result-name">HDL cholesterol</h3>
+              <span class="m-lab-result-status m-lab-result-status--ok">In range</span>
+            </header>
+            <div class="m-lab-result-value">
+              <span class="m-lab-result-number">58</span><span class="m-lab-result-unit">mg/dL</span>
+            </div>
+            <div class="m-range-indicator">
+              <div class="m-range-indicator-bar"></div>
+              <div class="m-range-indicator-marker" style="left: 58%;"></div>
+              <div class="m-range-indicator-labels"><span>40</span><span>60+ optimal</span><span>100</span></div>
+            </div>
+            <div class="m-trend-arrow m-trend-arrow--flat">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <span>+1 vs. last test (57).</span>
+            </div>
+          </a>
+
+          <a class="m-lab-result" href="lab-interpretation.html" style="text-decoration: none; color: inherit;">
+            <header class="m-lab-result-head">
+              <h3 class="m-lab-result-name">HbA1c</h3>
+              <span class="m-lab-result-status m-lab-result-status--ok">In range</span>
+            </header>
+            <div class="m-lab-result-value">
+              <span class="m-lab-result-number">5.4</span><span class="m-lab-result-unit">%</span>
+            </div>
+            <div class="m-range-indicator">
+              <div class="m-range-indicator-bar"></div>
+              <div class="m-range-indicator-marker" style="left: 30%;"></div>
+              <div class="m-range-indicator-labels"><span>4.0</span><span>&lt;5.7 normal</span><span>6.5</span></div>
+            </div>
+            <div class="m-trend-arrow m-trend-arrow--down">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              <span>−0.2 vs. last test (5.6).</span>
+            </div>
+          </a>
+
+          <a class="m-lab-result" href="lab-interpretation.html" style="text-decoration: none; color: inherit;">
+            <header class="m-lab-result-head">
+              <h3 class="m-lab-result-name">Triglycerides</h3>
+              <span class="m-lab-result-status m-lab-result-status--ok">In range</span>
+            </header>
+            <div class="m-lab-result-value">
+              <span class="m-lab-result-number">108</span><span class="m-lab-result-unit">mg/dL</span>
+            </div>
+            <div class="m-range-indicator">
+              <div class="m-range-indicator-bar"></div>
+              <div class="m-range-indicator-marker" style="left: 36%;"></div>
+              <div class="m-range-indicator-labels"><span>0</span><span>&lt;150 optimal</span><span>500</span></div>
+            </div>
+            <div class="m-trend-arrow m-trend-arrow--down">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              <span>−14 vs. last test (122).</span>
+            </div>
+          </a>
+
+          <a class="m-lab-result" href="lab-interpretation.html" style="text-decoration: none; color: inherit;">
+            <header class="m-lab-result-head">
+              <h3 class="m-lab-result-name">Blood pressure</h3>
+              <span class="m-lab-result-status m-lab-result-status--watch">Watch</span>
+            </header>
+            <div class="m-lab-result-value">
+              <span class="m-lab-result-number">132/86</span><span class="m-lab-result-unit">mmHg</span>
+            </div>
+            <div class="m-range-indicator">
+              <div class="m-range-indicator-bar"></div>
+              <div class="m-range-indicator-marker" style="left: 52%;"></div>
+              <div class="m-range-indicator-labels"><span>110/70</span><span>120/80 target</span><span>140/90</span></div>
+            </div>
+            <div class="m-trend-arrow m-trend-arrow--up">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 15 12 9 18 15"/></svg>
+              <span>+8/+6 vs. last test (124/80).</span>
+            </div>
+          </a>
+
+          <a class="m-lab-result" href="lab-interpretation.html" style="text-decoration: none; color: inherit;">
+            <header class="m-lab-result-head">
+              <h3 class="m-lab-result-name">Vitamin D</h3>
+              <span class="m-lab-result-status m-lab-result-status--attention">Low</span>
+            </header>
+            <div class="m-lab-result-value">
+              <span class="m-lab-result-number">22</span><span class="m-lab-result-unit">ng/mL</span>
+            </div>
+            <div class="m-range-indicator">
+              <div class="m-range-indicator-bar"></div>
+              <div class="m-range-indicator-marker" style="left: 16%;"></div>
+              <div class="m-range-indicator-labels"><span>10</span><span>30+ sufficient</span><span>100</span></div>
+            </div>
+            <div class="m-trend-arrow m-trend-arrow--down">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+              <span>−4 vs. last test (26).</span>
+            </div>
+          </a>
+
+          <a class="m-lab-result" href="lab-interpretation.html" style="text-decoration: none; color: inherit;">
+            <header class="m-lab-result-head">
+              <h3 class="m-lab-result-name">Resting heart rate</h3>
+              <span class="m-lab-result-status m-lab-result-status--ok">In range</span>
+            </header>
+            <div class="m-lab-result-value">
+              <span class="m-lab-result-number">68</span><span class="m-lab-result-unit">bpm</span>
+            </div>
+            <div class="m-range-indicator">
+              <div class="m-range-indicator-bar"></div>
+              <div class="m-range-indicator-marker" style="left: 38%;"></div>
+              <div class="m-range-indicator-labels"><span>50</span><span>60–80 typical</span><span>100</span></div>
+            </div>
+            <div class="m-trend-arrow m-trend-arrow--flat">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <span>−1 vs. last test (69).</span>
+            </div>
+          </a>
+
+          <a class="m-lab-result" href="lab-interpretation.html" style="text-decoration: none; color: inherit;">
+            <header class="m-lab-result-head">
+              <h3 class="m-lab-result-name">TSH (thyroid)</h3>
+              <span class="m-lab-result-status m-lab-result-status--ok">In range</span>
+            </header>
+            <div class="m-lab-result-value">
+              <span class="m-lab-result-number">2.1</span><span class="m-lab-result-unit">mIU/L</span>
+            </div>
+            <div class="m-range-indicator">
+              <div class="m-range-indicator-bar"></div>
+              <div class="m-range-indicator-marker" style="left: 42%;"></div>
+              <div class="m-range-indicator-labels"><span>0.4</span><span>0.4–4.0 normal</span><span>5.0</span></div>
+            </div>
+            <div class="m-trend-arrow m-trend-arrow--flat">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              <span>+0.1 vs. last test (2.0).</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- Progressive disclosure note -->
+      <section class="v-screen-section">
+        <article class="o-care-plan" style="background: var(--bg-tinted); border-color: var(--hairline-faint);">
+          <header class="o-care-plan-head">
+            <span class="o-care-plan-direction">Progressive disclosure</span>
+            <h2 class="o-care-plan-goal" style="font-size: var(--t-title-m);">3 additional CBC values are hidden by default.</h2>
+            <p class="o-care-plan-goal-source">White blood cell count, platelets, hematocrit — all in normal range with no trend movement. Tap to expand if you want to see them.</p>
+          </header>
+          <div class="m-cta-pair" style="justify-content: flex-start;">
+            <a class="button button-ghost" href="#">Show all 12 values</a>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="v-shell-foot">
+      <span>Vita Health · Hi-fi prototype · Built on the Peter Tak Design System</span>
+      <span><a href="index.html">Case overview</a> · <a href="https://github.com/yejuntak/peter-tak-design-system" target="_blank" rel="noopener">GitHub ↗</a></span>
+    </footer>
+  </div>
+</body>
+</html>
