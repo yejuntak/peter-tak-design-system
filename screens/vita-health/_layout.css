@@ -1052,13 +1052,17 @@ body.vita-app {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
-   HEATMAP (week × day grid)
+   HEATMAP (week × day grid) — fixed cell size so it doesn't bloat in
+   wide cards. 24×24 cells with 3px gap and a 48px label column.
+   Total width: 48 + 7×24 + 6×3 = 234px. Compact, scannable.
    ───────────────────────────────────────────────────────────────────────── */
 .v-heatmap {
   display: grid;
-  grid-template-columns: 60px repeat(7, 1fr);
-  gap: var(--vs-1);
+  grid-template-columns: 48px repeat(7, 24px);
+  gap: 3px;
   align-items: center;
+  justify-content: start;
+  max-width: max-content;
 }
 .v-heatmap-label {
   font-family: var(--font-mono);
@@ -1069,8 +1073,9 @@ body.vita-app {
   letter-spacing: 0.06em;
 }
 .v-heatmap-cell {
-  aspect-ratio: 1;
-  border-radius: var(--vr-sm);
+  width: 24px;
+  height: 24px;
+  border-radius: 5px;
   background: hsl(142 12% 94%);
 }
 .v-heatmap-cell[data-level="1"] { background: hsl(155 40% 86%); }
@@ -1705,3 +1710,371 @@ a.v-card:hover { border-color: var(--accent); }
   letter-spacing: -0.015em;
   margin: 0 0 var(--vs-4);
 }
+
+/* =============================================================================
+   ROUND 3 · EMIL KOWALSKI · INTERACTION LAYER
+   ─────────────────────────────────────────────────────────────────────────────
+   Motion tokens, focus-visible discipline, pressed feedback, hover restraint,
+   reduced-motion branch. Every interactive element is now stateful.
+   ============================================================================= */
+
+body.vita-app {
+  --vm-fast: 80ms;
+  --vm-base: 140ms;
+  --vm-slow: 220ms;
+  --vm-page: 320ms;
+  --ve-out:    cubic-bezier(0.22, 1, 0.36, 1);
+  --ve-spring: cubic-bezier(0.34, 1.36, 0.64, 1);
+  --ve-linear: linear;
+  --vfocus: 0 0 0 2px hsl(155 45% 45% / 0.4);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   FOCUS-VISIBLE · sage ring, 2px, outside the element. Replaces the
+   default browser outline on every interactive surface.
+   ───────────────────────────────────────────────────────────────────────── */
+.v-topnav-links a:focus-visible,
+.v-topnav-icon:focus-visible,
+.v-topnav-search input:focus-visible,
+.v-btn-mini:focus-visible,
+.v-today-check:focus-visible,
+.v-schedule-slot:focus-visible,
+.v-heatmap-cell:focus-visible,
+a.v-card:focus-visible,
+a.v-tile:focus-visible,
+a.v-quick-tile:focus-visible,
+a.m-lab-result:focus-visible,
+.m-chip:focus-visible {
+  outline: none;
+  box-shadow: var(--vfocus);
+}
+.v-topnav-search input:focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: var(--vfocus);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   BUTTON STATES · hover, pressed, focus, disabled, loading
+   ───────────────────────────────────────────────────────────────────────── */
+.v-btn-mini {
+  transition:
+    background var(--vm-base) var(--ve-out),
+    border-color var(--vm-base) var(--ve-out),
+    color var(--vm-base) var(--ve-out),
+    transform var(--vm-fast) var(--ve-out),
+    box-shadow var(--vm-base) var(--ve-out);
+  user-select: none;
+}
+.v-btn-mini:active { transform: scale(0.97); }
+.v-btn-mini:disabled,
+.v-btn-mini[aria-disabled="true"] {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+.v-btn-mini[data-loading="true"] {
+  pointer-events: none;
+  position: relative;
+  color: transparent;
+}
+.v-btn-mini[data-loading="true"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  border: 1.5px solid currentColor;
+  border-right-color: transparent;
+  color: var(--ink-soft);
+  animation: v-spin 700ms linear infinite;
+}
+.v-btn-mini--primary[data-loading="true"]::after { color: white; }
+
+@keyframes v-spin { to { transform: rotate(360deg); } }
+
+/* Tertiary actions get text-underline feedback on hover so the cursor
+   discovers them faster than a color shift alone. */
+.v-btn-mini--ghost:hover { text-decoration: none; }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   TOPNAV INTERACTIONS · subtle transitions, instant press on links
+   ───────────────────────────────────────────────────────────────────────── */
+.v-topnav-links a,
+.v-topnav-icon {
+  transition:
+    background var(--vm-base) var(--ve-out),
+    color var(--vm-base) var(--ve-out),
+    transform var(--vm-fast) var(--ve-out);
+}
+.v-topnav-links a:active,
+.v-topnav-icon:active { transform: scale(0.96); }
+.v-topnav-search input {
+  transition:
+    background var(--vm-base) var(--ve-out),
+    border-color var(--vm-base) var(--ve-out),
+    box-shadow var(--vm-base) var(--ve-out);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   CARD HOVER · only clickable cards lift. Static cards stay flat.
+   Emil rule: every hover must signal a real action. Cards that aren't
+   navigable must NOT have a hover state. */
+.v-card, .v-big, .v-vital {
+  transition:
+    border-color var(--vm-base) var(--ve-out),
+    transform var(--vm-base) var(--ve-out),
+    box-shadow var(--vm-base) var(--ve-out);
+}
+a.v-card:hover,
+a.v-tile:hover,
+a.v-quick-tile:hover,
+a.m-lab-result:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px hsl(155 30% 20% / 0.06);
+  cursor: pointer;
+}
+a.v-card:active,
+a.v-tile:active,
+a.v-quick-tile:active,
+a.m-lab-result:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   FILTER CHIPS — give them real state language (selectable, hoverable)
+   ───────────────────────────────────────────────────────────────────────── */
+.m-chip {
+  transition:
+    background var(--vm-base) var(--ve-out),
+    color var(--vm-base) var(--ve-out),
+    border-color var(--vm-base) var(--ve-out),
+    transform var(--vm-fast) var(--ve-out);
+  cursor: pointer;
+}
+.m-chip:hover { background: hsl(142 12% 94%); }
+.m-chip:active { transform: scale(0.97); }
+.m-chip[data-active="true"] {
+  background: var(--accent);
+  color: var(--accent-fg);
+  border-color: var(--accent);
+}
+.m-chip[data-active="true"]:hover {
+  background: var(--accent-hover);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   TODAY-LIST CHECK · check toggles in place with a snappy fill
+   ───────────────────────────────────────────────────────────────────────── */
+.v-today-check {
+  transition:
+    background var(--vm-base) var(--ve-out),
+    border-color var(--vm-base) var(--ve-out),
+    color var(--vm-base) var(--ve-out),
+    transform var(--vm-fast) var(--ve-spring);
+}
+.v-today-check:active { transform: scale(0.85); }
+.v-today-item--done .v-today-check { animation: v-check-fill 220ms var(--ve-spring); }
+@keyframes v-check-fill {
+  0%   { transform: scale(0.85); }
+  60%  { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   SCHEDULE SLOT (messages.html) — selectable with instant feedback
+   ───────────────────────────────────────────────────────────────────────── */
+.v-schedule-slot {
+  transition:
+    background var(--vm-base) var(--ve-out),
+    border-color var(--vm-base) var(--ve-out),
+    transform var(--vm-fast) var(--ve-out);
+  cursor: pointer;
+}
+.v-schedule-slot:active { transform: scale(0.98); }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   HEATMAP CELL — hover state, tooltip-on-hover via native title attr
+   ───────────────────────────────────────────────────────────────────────── */
+.v-heatmap-cell {
+  transition:
+    transform var(--vm-fast) var(--ve-out),
+    box-shadow var(--vm-base) var(--ve-out);
+  cursor: pointer;
+}
+.v-heatmap-cell:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 0 2px hsl(0 0% 100%), 0 0 0 3px hsl(155 30% 70%);
+  z-index: 1;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   BIOMARKER STRIP segments — quiet hover, no transform leak
+   ───────────────────────────────────────────────────────────────────────── */
+.v-biomarker-seg {
+  transition:
+    transform var(--vm-fast) var(--ve-out),
+    filter var(--vm-base) var(--ve-out);
+  cursor: pointer;
+}
+.v-biomarker-seg:hover {
+  transform: scaleY(1.12);
+  filter: brightness(1.08);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   LAB MINI rows — hover row highlight
+   ───────────────────────────────────────────────────────────────────────── */
+.v-lab-mini {
+  transition: background var(--vm-base) var(--ve-out);
+  padding-inline: var(--vs-2);
+  margin-inline: calc(var(--vs-2) * -1);
+  border-radius: var(--vr-sm);
+}
+.v-lab-mini:hover { background: hsl(142 12% 96%); }
+.v-lab-mini:active { background: hsl(142 12% 93%); }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   STATUS PILLS — purely display, no interactive state. Confirmed display-only.
+   ───────────────────────────────────────────────────────────────────────── */
+.v-status { cursor: default; }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   AI / INSIGHT CARD ACTIONS — optimistic acknowledgement, no theatre
+   When the user clicks "Add to plan", the card briefly fades + lifts a
+   pixel + the action group collapses to a single confirmation chip.
+   This is reserved for JS-driven behavior; CSS provides the targets.
+   ───────────────────────────────────────────────────────────────────────── */
+.v-card[data-action-state="accepting"],
+.v-card[data-action-state="dismissing"] {
+  transition:
+    opacity var(--vm-slow) var(--ve-out),
+    transform var(--vm-slow) var(--ve-out);
+  opacity: 0.5;
+  pointer-events: none;
+}
+.v-card[data-action-state="accepted"]  { border-color: var(--accent); }
+.v-card[data-action-state="dismissed"] { opacity: 0.3; }
+
+/* AI status badge — paired with .v-status for "Listening / Thinking /
+   Reviewing" states. Subtle dot pulse, no sparkles, no gradients. */
+.v-ai-status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--vs-2);
+  font-family: var(--font-mono);
+  font-size: var(--vt-micro);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+}
+.v-ai-status::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--accent);
+  animation: v-ai-pulse 1.6s var(--ve-out) infinite;
+}
+@keyframes v-ai-pulse {
+  0%, 100% { opacity: 1;   transform: scale(1); }
+  50%      { opacity: 0.4; transform: scale(0.7); }
+}
+.v-ai-status--idle::before    { background: var(--muted); animation: none; }
+.v-ai-status--done::before    { background: var(--accent); animation: none; }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   SKELETON · used while content loads. Single primitive, reusable.
+   ───────────────────────────────────────────────────────────────────────── */
+.v-skeleton {
+  background: linear-gradient(
+    90deg,
+    hsl(142 12% 94%) 0%,
+    hsl(142 12% 90%) 50%,
+    hsl(142 12% 94%) 100%
+  );
+  background-size: 200% 100%;
+  animation: v-shimmer 1.4s var(--ve-linear) infinite;
+  border-radius: var(--vr-sm);
+  color: transparent;
+  pointer-events: none;
+  user-select: none;
+}
+@keyframes v-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   EMPTY STATE · used when a section has no data to show.
+   ───────────────────────────────────────────────────────────────────────── */
+.v-empty {
+  padding: var(--vs-7) var(--vs-5);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--vs-2);
+  color: var(--muted);
+  font-family: var(--font-text);
+  font-size: var(--vt-body-s);
+}
+.v-empty-title {
+  font-family: var(--font-display);
+  font-size: var(--vt-title-s);
+  color: var(--ink);
+  margin: 0;
+}
+.v-empty-body { max-width: 40ch; margin: 0; line-height: var(--vlh-body-s); }
+.v-empty-action { margin-top: var(--vs-3); }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   ENTER ANIMATIONS · for cards entering on page mount. Triggered by a
+   data-enter attribute so we don't animate on every re-render.
+   ───────────────────────────────────────────────────────────────────────── */
+[data-enter] {
+  animation: v-enter var(--vm-slow) var(--ve-out) both;
+}
+@keyframes v-enter {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   PROGRESS BAR · animated fill that grows on entry
+   ───────────────────────────────────────────────────────────────────────── */
+.m-progress-bar-fill {
+  transition: width var(--vm-slow) var(--ve-out);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   REDUCED-MOTION BRANCH — kill all transforms/animations for users who
+   request reduced motion. Hover color changes remain (informational).
+   ───────────────────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  body.vita-app *,
+  body.vita-app *::before,
+  body.vita-app *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  body.vita-app *:hover,
+  body.vita-app *:active { transform: none !important; }
+  body.vita-app .v-ai-status::before { animation: none; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   CURSOR DISCIPLINE — only clickable surfaces show pointer
+   ───────────────────────────────────────────────────────────────────────── */
+.v-card, .v-big, .v-vital { cursor: default; }
+a.v-card, a.v-tile, a.v-quick-tile, a.m-lab-result,
+.v-topnav-links a, .v-topnav-icon, .v-btn-mini, .m-chip,
+.v-today-check, .v-schedule-slot, .v-heatmap-cell,
+.v-biomarker-seg, .v-lab-mini { cursor: pointer; }
+.v-btn-mini:disabled { cursor: not-allowed; }
