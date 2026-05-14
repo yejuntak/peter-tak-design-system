@@ -14,35 +14,36 @@
   <link rel="stylesheet" href="_layout.css">
 </head>
 <body class="vita-app">
-<div class="v-app">
-
-  <aside class="v-sidebar" aria-label="Primary navigation">
-    <a class="v-sidebar-brand" href="dashboard.html"><span class="v-sidebar-brand-mark">V</span><span>Vita Health</span></a>
-    <div><div class="v-sidebar-section-label">Care</div><nav class="v-sidebar-nav">
-      <a class="v-sidebar-link" href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12l9-9 9 9"/><path d="M5 10v10h14V10"/></svg>Today</a>
-      <a class="v-sidebar-link" href="labs.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2v7L4 21h16L15 9V2"/><line x1="9" y1="2" x2="15" y2="2"/></svg>Labs<span class="v-sidebar-link-badge">3</span></a>
-      <a class="v-sidebar-link" href="care-plan.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Care plan</a>
-      <a class="v-sidebar-link" href="progress-framing.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Progress</a>
-      <a class="v-sidebar-link" href="recommendation.html" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>Insights</a>
-    </nav></div>
-    <div><div class="v-sidebar-section-label">Communicate</div><nav class="v-sidebar-nav">
-      <a class="v-sidebar-link" href="messages.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Messages<span class="v-sidebar-link-badge">2</span></a>
-      <a class="v-sidebar-link" href="messages.html#schedule"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Appointments</a>
-    </nav></div>
-    <div><div class="v-sidebar-section-label">Learn</div><nav class="v-sidebar-nav">
-      <a class="v-sidebar-link" href="journey.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><line x1="12" y1="3" x2="12" y2="9"/><line x1="12" y1="15" x2="12" y2="21"/><line x1="3" y1="12" x2="9" y2="12"/><line x1="15" y1="12" x2="21" y2="12"/></svg>Patient journey</a>
-      <a class="v-sidebar-link" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>Case overview</a>
-    </nav></div>
-    <div class="v-sidebar-foot"><span class="v-sidebar-foot-avatar" aria-hidden="true">JT</span><div><div class="v-sidebar-foot-name">Jamie Tak</div><div class="v-sidebar-foot-meta">Member · 2019</div></div></div>
-  </aside>
-
-  <div class="v-main">
-    <header class="v-topbar">
-      <div class="v-topbar-greeting"><span class="v-topbar-eyebrow">Personalized insights · 3 active</span><h1 class="v-topbar-title">Insights</h1></div>
-      <div class="v-topbar-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="search" placeholder="Search insights…" aria-label="Search"></div>
-      <button class="v-topbar-icon" data-notif aria-label="Notifications"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></button>
-    </header>
-
+  <header class="v-topnav">
+    <a class="v-topnav-brand" href="dashboard.html">
+      <span class="v-topnav-brand-mark">V</span>
+      <span>Vita Health</span>
+    </a>
+    <nav class="v-topnav-links" aria-label="Main navigation">
+      <a href="dashboard.html">Today</a>
+      <a href="labs.html">Labs <span class="v-topnav-badge">3</span></a>
+      <a href="care-plan.html">Care plan</a>
+      <a href="progress-framing.html">Progress</a>
+      <a href="recommendation.html" aria-current="page">Insights</a>
+      <a href="messages.html">Messages <span class="v-topnav-badge">2</span></a>
+      <a href="journey.html">Journey</a>
+    </nav>
+    <div class="v-topnav-end">
+      <div class="v-topnav-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="search" placeholder="Search…" aria-label="Search">
+      </div>
+      <button class="v-topnav-icon" data-notif aria-label="Notifications">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </button>
+      <span class="v-topnav-avatar" aria-hidden="true">JT</span>
+    </div>
+  </header>
+  <main class="v-main">
+    <div class="v-page-head">
+      <span class="v-page-eyebrow">Personalized insights · 3 active</span>
+      <h1 class="v-page-title">Insights</h1>
+    </div>
     <div class="v-content">
       <section class="v-bento">
         <article class="v-big v-big--dark">
@@ -140,7 +141,6 @@
         </div>
       </section>
     </div>
-  </div>
-</div>
+    </main>
 </body>
 </html>
