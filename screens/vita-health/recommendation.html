@@ -70,72 +70,91 @@
       </section>
 
       <section>
-        <div class="v-section-head"><h3 class="v-section-title">Active insights</h3><span class="v-section-sub">3 recommendations · trigger trends visible</span></div>
-        <div style="display: flex; flex-direction: column; gap: 16px">
+        <div class="v-section-head"><h3 class="v-section-title">Active insights</h3><span class="v-section-sub">3 recommendations</span></div>
+        <div style="display: flex; flex-direction: column; gap: var(--vs-3);">
 
-          <article class="v-chat-card">
-            <div class="v-doctor-attr">
-              <span class="v-doctor-attr-avatar" aria-hidden="true">VI</span>
-              <div><h3 class="v-doctor-attr-name">Vita Insights</h3><p class="v-doctor-attr-role">Reviewed by Dr. R. Kim · 2 days ago</p></div>
+          <article class="v-card">
+            <div class="v-card-head">
+              <span class="v-status v-status--ok">Based on your results</span>
+              <span class="v-card-meta">Reviewed by Dr. Kim · 2 days ago</span>
             </div>
-            <div class="v-chat-bubble v-chat-bubble--mine">My LDL is creeping up. Is there something I can do without medication?</div>
-            <div class="v-chat-callout">
-              <div><h4 class="v-chat-callout-name">LDL cholesterol</h4><div class="v-chat-callout-sub">116 → 128 mg/dL · over 4 months</div></div>
-              <div style="text-align: right"><span class="v-chat-callout-status"style="color: hsl(48 95% 70%)">Watch</span><div><span class="v-chat-callout-value">128</span> <span class="v-chat-callout-unit">mg/dL</span></div></div>
+
+            <!-- Trigger row: the metric that prompted this insight, inline -->
+            <div style="display: flex; align-items: baseline; gap: var(--vs-3); padding: var(--vs-3) 0; border-top: 1px solid var(--hairline-faint); border-bottom: 1px solid var(--hairline-faint);">
+              <div style="flex: 1;">
+                <div style="font-family: var(--font-text); font-size: var(--vt-body-s); color: var(--ink); font-weight: 500;">LDL cholesterol</div>
+                <div style="font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-top: 2px;">116 → 128 mg/dL · over 4 months</div>
+              </div>
+              <div style="text-align: right;">
+                <div style="font-family: var(--font-display); font-size: 22px; color: var(--ink); font-weight: 500; letter-spacing: -0.012em; line-height: 1; font-variant-numeric: tabular-nums;">128</div>
+                <div style="font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-top: 2px;">mg/dL</div>
+              </div>
             </div>
-            <div class="v-chat-bubble v-chat-bubble--reply">Yes. Patients with a similar LDL trend who reached 150 min/week of moderate activity saw an average 12 mg/dL drop at next test, often returning to normal range without medication. Your activity is already trending up — adding a 10-min post-meal walk would slot naturally.</div>
-            <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px">
-              <span style="padding: 4px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-text); font-size: 11px; font-weight: 700; letter-spacing: 0.06em">Based on your results</span>
-              <span style="font-size: 11px; color: var(--muted); margin-left: auto">Lab trend · Activity · CAP guidance</span>
-            </div>
-            <div style="display: flex; gap: 6px">
-              <button class="v-btn-mini v-btn-mini--ghost">Not for me</button>
-              <button class="v-btn-mini">Adjust it</button>
-              <button class="v-btn-mini v-btn-mini--primary">Add to my plan</button>
+
+            <h3 style="font-family: var(--font-display); font-size: var(--vt-title-s); line-height: var(--vlh-title-s); font-weight: 500; color: var(--ink); margin: 0; letter-spacing: -0.005em;">A 10-min post-meal walk could nudge LDL back toward optimal.</h3>
+            <p style="font-family: var(--font-text); font-size: var(--vt-body-s); line-height: var(--vlh-body-s); color: var(--ink-soft); margin: 0;">Patients with a similar LDL trend who reached 150 min/week of moderate activity saw an average 12 mg/dL drop at next test. Your activity is already trending up — this slots naturally.</p>
+
+            <div style="display: flex; align-items: center; gap: var(--vs-2); padding-top: var(--vs-2); border-top: 1px solid var(--hairline-faint);">
+              <span style="font-family: var(--font-mono); font-size: 11px; color: var(--muted);">Lab trend · Activity · CAP guidance</span>
+              <div style="margin-left: auto; display: flex; gap: 6px;">
+                <button class="v-btn-mini v-btn-mini--ghost">Not for me</button>
+                <button class="v-btn-mini">Adjust</button>
+                <button class="v-btn-mini v-btn-mini--primary">Add to plan</button>
+              </div>
             </div>
           </article>
 
-          <article class="v-chat-card">
-            <div class="v-doctor-attr">
-              <span class="v-doctor-attr-avatar" aria-hidden="true">VI</span>
-              <div><h3 class="v-doctor-attr-name">Vita Insights</h3><p class="v-doctor-attr-role">Generated today · awaiting review</p></div>
+          <article class="v-card">
+            <div class="v-card-head">
+              <span class="v-status v-status--watch">Consider</span>
+              <span class="v-card-meta">Generated today · awaiting review</span>
             </div>
-            <div class="v-chat-bubble v-chat-bubble--mine">My morning BP has been higher than usual lately.</div>
-            <div class="v-chat-callout">
-              <div><h4 class="v-chat-callout-name">Morning BP</h4><div class="v-chat-callout-sub">7-day average vs. baseline</div></div>
-              <div style="text-align: right"><span class="v-chat-callout-status"style="color: hsl(48 95% 70%)">Watch</span><div><span class="v-chat-callout-value">132/86</span></div></div>
+            <div style="display: flex; align-items: baseline; gap: var(--vs-3); padding: var(--vs-3) 0; border-top: 1px solid var(--hairline-faint); border-bottom: 1px solid var(--hairline-faint);">
+              <div style="flex: 1;">
+                <div style="font-family: var(--font-text); font-size: var(--vt-body-s); color: var(--ink); font-weight: 500;">Morning BP</div>
+                <div style="font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-top: 2px;">7-day average vs. baseline</div>
+              </div>
+              <div style="text-align: right;">
+                <div style="font-family: var(--font-display); font-size: 22px; color: var(--ink); font-weight: 500; letter-spacing: -0.012em; line-height: 1; font-variant-numeric: tabular-nums;">132/86</div>
+                <div style="font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-top: 2px;">mmHg</div>
+              </div>
             </div>
-            <div class="v-chat-bubble v-chat-bubble--reply">Sleep timing is one of several factors associated with morning BP — alongside sodium intake, activity, and stress. A 7-day sleep-consistency window often produces measurable changes for borderline values.</div>
-            <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px">
-              <span style="padding: 4px 10px; border-radius: 999px; background: hsl(48 95% 95%); color: hsl(36 95% 35%); font-size: 11px; font-weight: 700; letter-spacing: 0.06em">Consider</span>
-              <span style="font-size: 11px; color: var(--muted); margin-left: auto">Sleep · BP readings</span>
-            </div>
-            <div style="display: flex; gap: 6px">
-              <button class="v-btn-mini v-btn-mini--ghost">Not for me</button>
-              <button class="v-btn-mini">Adjust it</button>
-              <button class="v-btn-mini v-btn-mini--primary">Add to my plan</button>
+            <h3 style="font-family: var(--font-display); font-size: var(--vt-title-s); line-height: var(--vlh-title-s); font-weight: 500; color: var(--ink); margin: 0; letter-spacing: -0.005em;">A consistent bedtime could improve your morning BP.</h3>
+            <p style="font-family: var(--font-text); font-size: var(--vt-body-s); line-height: var(--vlh-body-s); color: var(--ink-soft); margin: 0;">Sleep timing is one of several factors associated with morning BP — alongside sodium intake, activity, and stress. A 7-day sleep-consistency window often produces measurable changes for borderline values.</p>
+            <div style="display: flex; align-items: center; gap: var(--vs-2); padding-top: var(--vs-2); border-top: 1px solid var(--hairline-faint);">
+              <span style="font-family: var(--font-mono); font-size: 11px; color: var(--muted);">Sleep · BP readings</span>
+              <div style="margin-left: auto; display: flex; gap: 6px;">
+                <button class="v-btn-mini v-btn-mini--ghost">Not for me</button>
+                <button class="v-btn-mini">Adjust</button>
+                <button class="v-btn-mini v-btn-mini--primary">Add to plan</button>
+              </div>
             </div>
           </article>
 
-          <article class="v-chat-card">
-            <div class="v-doctor-attr">
-              <span class="v-doctor-attr-avatar" aria-hidden="true">VI</span>
-              <div><h3 class="v-doctor-attr-name">Vita Insights</h3><p class="v-doctor-attr-role">Generated today · low-confidence path</p></div>
+          <article class="v-card">
+            <div class="v-card-head">
+              <span class="v-status v-status--attention">Ask your doctor about</span>
+              <span class="v-card-meta">Generated today · low-confidence path</span>
             </div>
-            <div class="v-chat-bubble v-chat-bubble--mine">Should I start a Vitamin D supplement on my own?</div>
-            <div class="v-chat-callout">
-              <div><h4 class="v-chat-callout-name">Vitamin D (25-OH)</h4><div class="v-chat-callout-sub">22 ng/mL · below sufficient (30+)</div></div>
-              <div style="text-align: right"><span class="v-chat-callout-status">Low</span><div><span class="v-chat-callout-value">22</span> <span class="v-chat-callout-unit">ng/mL</span></div></div>
+            <div style="display: flex; align-items: baseline; gap: var(--vs-3); padding: var(--vs-3) 0; border-top: 1px solid var(--hairline-faint); border-bottom: 1px solid var(--hairline-faint);">
+              <div style="flex: 1;">
+                <div style="font-family: var(--font-text); font-size: var(--vt-body-s); color: var(--ink); font-weight: 500;">Vitamin D (25-OH)</div>
+                <div style="font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-top: 2px;">22 ng/mL · below sufficient (30+)</div>
+              </div>
+              <div style="text-align: right;">
+                <div style="font-family: var(--font-display); font-size: 22px; color: var(--ink); font-weight: 500; letter-spacing: -0.012em; line-height: 1; font-variant-numeric: tabular-nums;">22</div>
+                <div style="font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-top: 2px;">ng/mL</div>
+              </div>
             </div>
-            <div class="v-chat-bubble v-chat-bubble--reply">Standard supplementation (1,000–2,000 IU/day) is appropriate for most patients — but the right dose for you depends on factors a model can't fully resolve from app data: current medications, calcium intake, history of stones. Conversation for your care team.</div>
-            <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px">
-              <span style="padding: 4px 10px; border-radius: 999px; background: hsl(0 0% 95%); color: hsl(0 0% 35%); font-size: 11px; font-weight: 700; letter-spacing: 0.06em">Ask your doctor about</span>
-              <span style="font-size: 11px; color: var(--muted); margin-left: auto">Vitamin D · Latitude</span>
-            </div>
-            <div style="display: flex; gap: 6px">
-              <button class="v-btn-mini v-btn-mini--ghost">Not for me</button>
-              <button class="v-btn-mini">Save for later</button>
-              <button class="v-btn-mini v-btn-mini--primary">Schedule with doctor</button>
+            <h3 style="font-family: var(--font-display); font-size: var(--vt-title-s); line-height: var(--vlh-title-s); font-weight: 500; color: var(--ink); margin: 0; letter-spacing: -0.005em;">Vitamin D supplementation needs a clinical check.</h3>
+            <p style="font-family: var(--font-text); font-size: var(--vt-body-s); line-height: var(--vlh-body-s); color: var(--ink-soft); margin: 0;">Standard dosing (1,000–2,000 IU/day) is appropriate for most patients — but the right dose for you depends on current medications, calcium intake, and stone history. Best resolved in a 5-minute message thread.</p>
+            <div style="display: flex; align-items: center; gap: var(--vs-2); padding-top: var(--vs-2); border-top: 1px solid var(--hairline-faint);">
+              <span style="font-family: var(--font-mono); font-size: 11px; color: var(--muted);">Vitamin D · Latitude</span>
+              <div style="margin-left: auto; display: flex; gap: 6px;">
+                <button class="v-btn-mini v-btn-mini--ghost">Not for me</button>
+                <button class="v-btn-mini">Save for later</button>
+                <button class="v-btn-mini v-btn-mini--primary">Schedule with doctor</button>
+              </div>
             </div>
           </article>
         </div>
