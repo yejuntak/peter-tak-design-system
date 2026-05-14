@@ -49,19 +49,19 @@ body.vita-app {
   --vt-meta:     12px;
   --vt-body-s:   13px;
   --vt-body:     14px;
-  --vt-title-s:  16px;
-  --vt-title:    20px;
-  --vt-headline: 32px;
-  --vt-display:  64px;
+  --vt-title-s:  15px;  /* Karri: 16 → 15 — operational title size */
+  --vt-title:    18px;  /* Karri: 20 → 18 — section title */
+  --vt-headline: 24px;  /* Karri: 32 → 24 — page title h1 */
+  --vt-display:  40px;  /* Karri: 64 → 40 — billboard sizes belong to marketing */
 
   --vlh-micro:    16px;
   --vlh-meta:     18px;
   --vlh-body-s:   20px;
   --vlh-body:     22px;
-  --vlh-title-s:  22px;
+  --vlh-title-s:  20px;
   --vlh-title:    24px;
-  --vlh-headline: 36px;
-  --vlh-display:  60px;
+  --vlh-headline: 28px;
+  --vlh-display:  40px;
 
   --vr-sm:    8px;
   --vr-md:    16px;
@@ -131,16 +131,16 @@ body.vita-app {
   flex-shrink: 0;
 }
 .v-topnav-brand-mark {
-  width: 28px;
-  height: 28px;
-  border-radius: var(--vr-sm);
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
   background: var(--accent);
   color: var(--accent-fg);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-display);
-  font-size: var(--vt-body);
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: -0.02em;
 }
@@ -213,8 +213,8 @@ body.vita-app {
   color: var(--muted);
 }
 .v-topnav-icon {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: var(--vr-full);
   background: transparent;
   border: 0;
@@ -226,7 +226,7 @@ body.vita-app {
   position: relative;
 }
 .v-topnav-icon:hover { background: hsl(142 12% 95%); color: var(--ink); }
-.v-topnav-icon svg { width: 18px; height: 18px; }
+.v-topnav-icon svg { width: 16px; height: 16px; }
 .v-topnav-icon[data-notif]::after {
   content: "";
   position: absolute;
@@ -239,8 +239,8 @@ body.vita-app {
   border: 2px solid white;
 }
 .v-topnav-avatar {
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   border-radius: var(--vr-full);
   background: var(--accent);
   color: var(--accent-fg);
@@ -248,7 +248,7 @@ body.vita-app {
   align-items: center;
   justify-content: center;
   font-family: var(--font-display);
-  font-size: var(--vt-body-s);
+  font-size: 10px;
   font-weight: 700;
   margin-left: var(--vs-1);
 }
@@ -408,56 +408,65 @@ body.vita-app {
 /* ─────────────────────────────────────────────────────────────────────────
    BIG CARDS (bento hero cards) · three surfaces, single radius (lg)
    ───────────────────────────────────────────────────────────────────────── */
+/* Karri's restraint: one card chrome. No radial gradients, no silhouettes,
+   no decorative blobs. Hero KPI cards earn their weight through typography,
+   not chrome. min-height halved (260 → 180) so cards stop bloating short
+   content. Single radius. Single padding. */
 .v-big {
-  border-radius: var(--vr-lg);
-  padding: var(--vs-6);
+  border-radius: var(--vr-md);
+  padding: var(--vs-5);
   display: flex;
   flex-direction: column;
-  gap: var(--vs-4);
+  gap: var(--vs-3);
   position: relative;
   overflow: hidden;
-  min-height: 260px;
-}
-.v-big--dark {
-  background: var(--ink);
-  color: hsl(0 0% 92%);
-}
-.v-big--dark .v-big-eyebrow { color: hsl(0 0% 65%); }
-.v-big--dark .v-big-num     { color: white; }
-.v-big--dark .v-big-meta    { color: hsl(0 0% 70%); }
-
-.v-big--gradient {
-  background: linear-gradient(135deg, hsl(155 60% 45%) 0%, hsl(170 60% 30%) 100%);
-  color: white;
-}
-.v-big--gradient::before {
-  content: "";
-  position: absolute;
-  top: -60px; right: -80px;
-  width: 280px; height: 280px;
-  background: radial-gradient(circle, hsl(155 80% 70% / 0.5) 0%, transparent 60%);
-  border-radius: var(--vr-full);
-  pointer-events: none;
-}
-.v-big--gradient::after {
-  content: "";
-  position: absolute;
-  bottom: -100px; left: 30%;
-  width: 260px; height: 260px;
-  background: radial-gradient(circle, hsl(170 60% 30% / 0.5) 0%, transparent 70%);
-  border-radius: var(--vr-full);
-  pointer-events: none;
-}
-.v-big--gradient .v-big-eyebrow { color: hsl(155 30% 90%); }
-.v-big--gradient .v-big-num,
-.v-big--gradient .v-big-title { color: white; position: relative; z-index: 1; }
-.v-big--gradient .v-big-meta { color: hsl(155 25% 88%); }
-
-.v-big--surface {
+  min-height: 180px;
   background: white;
   color: var(--ink);
   border: 1px solid var(--hairline);
 }
+
+/* --dark: the ONE elevated surface variant. Used sparingly for primary
+   KPI cards. No pure black — neutral-900. */
+.v-big--dark {
+  background: hsl(0 0% 14%);
+  color: hsl(0 0% 92%);
+  border-color: transparent;
+}
+.v-big--dark .v-big-num    { color: white; }
+.v-big--dark .v-big-meta   { color: hsl(0 0% 65%); }
+.v-big--dark .v-big-title  { color: hsl(0 0% 96%); }
+.v-big--dark .v-eyebrow,
+.v-big--dark .v-eyebrow--on-dark { color: hsl(0 0% 60%); }
+
+/* --soft: replaces the old --gradient. A barely-tinted sage surface with a
+   visible hairline border. Quiet, mature, repeatable. */
+.v-big--soft {
+  background: var(--accent-soft);
+  color: var(--ink);
+  border: 1px solid hsl(155 30% 88%);
+}
+.v-big--soft .v-eyebrow,
+.v-big--soft .v-eyebrow--on-grad { color: var(--accent-text); }
+
+/* Legacy alias — old --gradient class points at --soft so existing markup
+   survives without re-sweeping HTML. */
+.v-big--gradient {
+  background: var(--accent-soft);
+  color: var(--ink);
+  border: 1px solid hsl(155 30% 88%);
+}
+.v-big--gradient::before,
+.v-big--gradient::after { display: none; }
+.v-big--gradient .v-big-num,
+.v-big--gradient .v-big-title { color: var(--ink); }
+.v-big--gradient .v-big-meta { color: var(--ink-soft); }
+.v-big--gradient .v-eyebrow,
+.v-big--gradient .v-eyebrow--on-grad { color: var(--accent-text); }
+
+/* --surface: alias for the default look (white + hairline). Now identical
+   to base .v-big. Kept for explicit-intent markup. */
+.v-big--surface { background: white; color: var(--ink); border: 1px solid var(--hairline); }
 
 .v-big-eyebrow {
   font-family: var(--font-mono);
@@ -474,7 +483,7 @@ body.vita-app {
   font-size: var(--vt-display);
   line-height: var(--vlh-display);
   font-weight: 500;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.025em;
   font-variant-numeric: tabular-nums;
   margin: 0;
   position: relative;
@@ -745,12 +754,18 @@ body.vita-app {
   justify-content: center;
 }
 .v-vital-head-icon svg { width: 12px; height: 12px; }
-.v-vital-head-icon--heart    { background: var(--rose-soft); color: var(--rose); }
-.v-vital-head-icon--bp       { background: var(--sky-soft); color: var(--sky); }
-.v-vital-head-icon--steps    { background: var(--accent-soft); color: var(--accent-text); }
-.v-vital-head-icon--sleep    { background: var(--plum-soft); color: var(--plum); }
-.v-vital-head-icon--glucose  { background: var(--amber-warn-soft); color: hsl(36 95% 40%); }
-.v-vital-head-icon--weight   { background: hsl(180 50% 95%); color: hsl(180 50% 35%); }
+/* Karri: neutralized — every vital icon shares one quiet surface tone.
+   Differentiation between metrics is the LABEL, not the COLOR. */
+.v-vital-head-icon,
+.v-vital-head-icon--heart,
+.v-vital-head-icon--bp,
+.v-vital-head-icon--steps,
+.v-vital-head-icon--sleep,
+.v-vital-head-icon--glucose,
+.v-vital-head-icon--weight {
+  background: hsl(142 12% 95%);
+  color: var(--ink-soft);
+}
 .v-vital-value {
   display: flex;
   align-items: baseline;
@@ -758,10 +773,10 @@ body.vita-app {
 }
 .v-vital-num {
   font-family: var(--font-display);
-  font-size: var(--vt-headline);
+  font-size: 22px;            /* Karri: 32 → 22, operational scale */
   line-height: 1;
   font-weight: 500;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.012em;
   color: var(--ink);
   font-variant-numeric: tabular-nums;
 }
@@ -802,12 +817,14 @@ body.vita-app {
   transition: opacity 120ms ease, transform 120ms ease;
 }
 .v-biomarker-seg:hover { transform: scaleY(1.08); }
-.v-biomarker-seg--ok        { background: hsl(155 55% 50%); }
-.v-biomarker-seg--ok2       { background: hsl(160 60% 45%); }
-.v-biomarker-seg--watch     { background: hsl(48 95% 55%); }
-.v-biomarker-seg--watch2    { background: hsl(38 95% 55%); }
-.v-biomarker-seg--attention { background: hsl(340 80% 65%); }
-.v-biomarker-seg--low       { background: hsl(280 60% 65%); }
+/* Karri: 6 colors → 3. One sage tone for in-range, one amber for watch,
+   one rose for out-of-range / attention / low. No secondary tints. */
+.v-biomarker-seg--ok,
+.v-biomarker-seg--ok2       { background: hsl(155 50% 48%); }
+.v-biomarker-seg--watch,
+.v-biomarker-seg--watch2    { background: hsl(38 88% 56%); }
+.v-biomarker-seg--attention,
+.v-biomarker-seg--low       { background: hsl(0 65% 58%); }
 .v-biomarker-legend {
   display: flex;
   flex-wrap: wrap;
@@ -875,8 +892,8 @@ body.vita-app {
   border-bottom: 1px solid var(--hairline);
 }
 .v-doctor-attr-avatar {
-  width: 40px;
-  height: 40px;
+  width: 28px;
+  height: 28px;
   border-radius: var(--vr-full);
   background: var(--accent);
   color: var(--accent-fg);
@@ -884,10 +901,9 @@ body.vita-app {
   align-items: center;
   justify-content: center;
   font-family: var(--font-display);
-  font-size: var(--vt-body-s);
+  font-size: 11px;
   font-weight: 700;
   flex-shrink: 0;
-  box-shadow: 0 0 0 4px hsl(155 40% 92%);
 }
 .v-doctor-attr-name {
   font-family: var(--font-display);
@@ -1081,16 +1097,16 @@ body.vita-app {
 .v-advisor-rich {
   display: flex;
   flex-direction: column;
-  gap: var(--vs-4);
-  padding: var(--vs-5);
-  background: linear-gradient(135deg, hsl(155 40% 96%) 0%, hsl(155 40% 92%) 100%);
-  border: 1px solid hsl(155 30% 85%);
+  gap: var(--vs-3);
+  padding: var(--vs-4);
+  background: var(--accent-soft);
+  border: 1px solid hsl(155 30% 88%);
   border-radius: var(--vr-md);
 }
 .v-advisor-rich-head { display: flex; align-items: center; gap: var(--vs-3); }
 .v-advisor-rich-avatar {
-  width: 40px;
-  height: 40px;
+  width: 28px;
+  height: 28px;
   border-radius: var(--vr-full);
   background: var(--accent);
   color: var(--accent-fg);
@@ -1098,10 +1114,9 @@ body.vita-app {
   align-items: center;
   justify-content: center;
   font-family: var(--font-display);
-  font-size: var(--vt-body-s);
+  font-size: 11px;
   font-weight: 700;
   flex-shrink: 0;
-  box-shadow: 0 0 0 3px hsl(155 40% 92%);
 }
 .v-advisor-rich-name {
   font-family: var(--font-display);
@@ -1422,6 +1437,47 @@ body.vita-app {
 .v-btn-mini--ghost:hover { color: var(--ink); background: hsl(142 12% 95%); }
 
 /* ─────────────────────────────────────────────────────────────────────────
+   CANONICAL STATUS · ONE component, three states.
+   Replaces three earlier tier systems:
+     .m-lab-result-status (ok / watch / attention)
+     .m-confidence-tier   (high / medium / low)
+     .v-insight-tier      (high / medium / low)
+   Chrome is identical; only the dot color changes. Karri's rule:
+   color carries semantic meaning, not chrome.
+   ───────────────────────────────────────────────────────────────────────── */
+.v-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+  border-radius: var(--vr-full);
+  background: hsl(142 12% 96%);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  line-height: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.v-status::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: var(--vr-full);
+  background: currentColor;
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+.v-status--ok        { color: hsl(155 60% 32%); }
+.v-status--ok::before        { background: hsl(155 55% 45%); opacity: 1; }
+.v-status--watch     { color: hsl(36 80% 36%); }
+.v-status--watch::before     { background: hsl(38 95% 50%); opacity: 1; }
+.v-status--attention { color: hsl(0 65% 42%); }
+.v-status--attention::before { background: hsl(0 70% 52%); opacity: 1; }
+
+/* ─────────────────────────────────────────────────────────────────────────
    CANONICAL EYEBROW · single class, single rhythm
    Replaces .v-page-eyebrow / .v-big-eyebrow / .v-hero-greeting-eyebrow /
    .v-section-eyebrow-label / .v-doctor-attr-role / inline mono-caps spans.
@@ -1509,11 +1565,13 @@ body.vita-app {
    = 56 between title and first card. Too much for an info-dense product.)
    New: 24 top / 0 bottom + content padding 16 = 40px total.
    ───────────────────────────────────────────────────────────────────────── */
+/* Karri: tighter density — 24/16 padding for an operational tool. */
 .v-page-head {
-  padding: var(--vs-5) var(--vs-6) 0;
+  padding: var(--vs-5) var(--vs-5) 0;
 }
 .v-content {
-  padding: var(--vs-4) var(--vs-6) var(--vs-8);
+  padding: var(--vs-3) var(--vs-5) var(--vs-7);
+  gap: var(--vs-4);
 }
 
 /* ─────────────────────────────────────────────────────────────────────────

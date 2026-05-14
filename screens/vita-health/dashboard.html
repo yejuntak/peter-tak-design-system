@@ -95,112 +95,71 @@
         </article>
       </section>
 
-      <!-- ── Row 2: Doctor protocol (white) + Range dial (dark) + Chat insight (white) ── -->
-      <section class="v-bento-3">
+      <!-- ── Row 2: Doctor protocol (white) + Distribution summary (white) ── -->
+      <section class="v-row v-row--8-4">
 
         <!-- Doctor protocol card -->
-        <article class="v-big v-big--surface">
-          <div class="v-doctor-attr">
-            <span class="v-doctor-attr-avatar" aria-hidden="true">RK</span>
-            <div>
-              <h3 class="v-doctor-attr-name">Dr. R. Kim, MD</h3>
-              <p class="v-doctor-attr-role">Vita Primary Care · 14 years</p>
-            </div>
-          </div>
-          <span class="v-eyebrow">March 14, 2022</span>
-          <h3 class="v-big-title">Care plan selected by Dr. Kim for you</h3>
-          <p class="v-big-meta">Hi Jamie — I've selected three lifestyle interventions to address your LDL trend and morning BP together. Adjust any frequency or duration to fit your week.</p>
-          <div class="v-protocol">
-            <div class="v-protocol-item">
-              <span class="v-protocol-item-num">01</span>
+        <article class="v-card">
+          <div class="v-card-head">
+            <div style="display: flex; align-items: center; gap: var(--vs-2);">
+              <span class="v-doctor-attr-avatar" aria-hidden="true">RK</span>
               <div>
-                <h4 class="v-protocol-item-title">Walk 20 min · 3×/week</h4>
-                <p class="v-protocol-item-meta">After lunch or dinner · supports LDL trend</p>
+                <h3 class="v-card-title">Care plan from Dr. Kim</h3>
+                <span class="v-eyebrow" style="text-transform: none; letter-spacing: 0;">Updated Mar 14 · Vita Primary Care</span>
               </div>
             </div>
-            <div class="v-protocol-item">
-              <span class="v-protocol-item-num">02</span>
-              <div>
-                <h4 class="v-protocol-item-title">Reduce processed food · 5 days</h4>
-                <p class="v-protocol-item-meta">Replace 2 meals/week · supports cholesterol</p>
-              </div>
-            </div>
+            <a class="v-card-link" href="care-plan.html">Open →</a>
           </div>
+          <p style="margin: 0; font-family: var(--font-text); font-size: var(--vt-body-s); line-height: var(--vlh-body-s); color: var(--ink-soft);">Three lifestyle interventions for your LDL trend and morning BP. Adjust frequency or duration anytime.</p>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column;">
+            <li style="display: grid; grid-template-columns: 20px 1fr auto; gap: var(--vs-3); padding: var(--vs-3) 0; border-top: 1px solid var(--hairline-faint); align-items: baseline;">
+              <span style="font-family: var(--font-mono); font-size: 11px; color: var(--muted);">01</span>
+              <div>
+                <div style="font-family: var(--font-text); font-size: var(--vt-body-s); color: var(--ink); font-weight: 500;">Walk 20 min · 3×/week</div>
+                <div style="font-family: var(--font-text); font-size: 12px; color: var(--muted); margin-top: 2px;">For LDL trend</div>
+              </div>
+              <span class="v-status v-status--ok">Active</span>
+            </li>
+            <li style="display: grid; grid-template-columns: 20px 1fr auto; gap: var(--vs-3); padding: var(--vs-3) 0; border-top: 1px solid var(--hairline-faint); align-items: baseline;">
+              <span style="font-family: var(--font-mono); font-size: 11px; color: var(--muted);">02</span>
+              <div>
+                <div style="font-family: var(--font-text); font-size: var(--vt-body-s); color: var(--ink); font-weight: 500;">Reduce processed food · 5 days</div>
+                <div style="font-family: var(--font-text); font-size: 12px; color: var(--muted); margin-top: 2px;">For cholesterol</div>
+              </div>
+              <span class="v-status v-status--ok">Active</span>
+            </li>
+            <li style="display: grid; grid-template-columns: 20px 1fr auto; gap: var(--vs-3); padding: var(--vs-3) 0; border-top: 1px solid var(--hairline-faint); align-items: baseline;">
+              <span style="font-family: var(--font-mono); font-size: 11px; color: var(--muted);">03</span>
+              <div>
+                <div style="font-family: var(--font-text); font-size: var(--vt-body-s); color: var(--ink); font-weight: 500;">Vitamin D · 1,000 IU daily</div>
+                <div style="font-family: var(--font-text); font-size: 12px; color: var(--muted); margin-top: 2px;">Re-check at June labs</div>
+              </div>
+              <span class="v-status v-status--ok">Active</span>
+            </li>
+          </ul>
         </article>
 
-        <!-- Range dial — dark donut -->
-        <article class="v-big v-big--dark">
-          <span class="v-eyebrow v-eyebrow--on-dark">Range overview</span>
-          <h2 class="v-big-num"style="font-size: 38px">12<span style="font-size: 16px; color: hsl(0 0% 60%); font-weight: normal"> of 12 tested</span></h2>
-          <p class="v-big-meta">9 in range · 2 watch · 1 low</p>
-
-          <div class="v-dial"style="margin-top: auto">
-            <svg class="v-dial-svg" viewBox="0 0 100 100" aria-label="Distribution of biomarker results">
-              <!-- Outer track -->
-              <circle cx="50" cy="50" r="42" fill="none" stroke="hsl(0 0% 22%)" stroke-width="3"/>
-              <!-- In-range arc: 75% (270deg of 360) -->
-              <circle cx="50" cy="50" r="42" fill="none" stroke="hsl(155 55% 50%)" stroke-width="10" stroke-linecap="butt"
-                stroke-dasharray="197.9 263.9" stroke-dashoffset="0" transform="rotate(-90 50 50)"/>
-              <!-- Watch arc: 16.7% (60deg), starting from 270 -->
-              <circle cx="50" cy="50" r="42" fill="none" stroke="hsl(48 95% 55%)" stroke-width="10" stroke-linecap="butt"
-                stroke-dasharray="44 263.9" stroke-dashoffset="-197.9" transform="rotate(-90 50 50)"/>
-              <!-- Low arc: 8.3% (30deg) -->
-              <circle cx="50" cy="50" r="42" fill="none" stroke="hsl(280 60% 65%)" stroke-width="10" stroke-linecap="butt"
-                stroke-dasharray="22 263.9" stroke-dashoffset="-241.9" transform="rotate(-90 50 50)"/>
-              <!-- Center value -->
-              <text x="50" y="50" text-anchor="middle" font-family="Aeonik" font-size="18" font-weight="500" fill="white" letter-spacing="-0.5">75%</text>
-              <text x="50" y="62" text-anchor="middle" font-family="Geist Mono" font-size="6" fill="hsl(0 0% 65%)" letter-spacing="0.5">IN RANGE</text>
-            </svg>
-            <div class="v-dial-legend">
-              <div class="v-dial-legend-row">
-                <span class="v-dial-legend-dot"style="background: hsl(155 55% 50%)"></span>
-                <span class="v-dial-legend-label">In range</span>
-                <span class="v-dial-legend-count">9</span>
-              </div>
-              <div class="v-dial-legend-row">
-                <span class="v-dial-legend-dot"style="background: hsl(48 95% 55%)"></span>
-                <span class="v-dial-legend-label">Watch</span>
-                <span class="v-dial-legend-count">2</span>
-              </div>
-              <div class="v-dial-legend-row">
-                <span class="v-dial-legend-dot"style="background: hsl(280 60% 65%)"></span>
-                <span class="v-dial-legend-label">Low</span>
-                <span class="v-dial-legend-count">1</span>
-              </div>
-            </div>
+        <!-- Distribution summary — quiet replacement for the donut dial -->
+        <article class="v-card">
+          <div class="v-card-head">
+            <h3 class="v-card-title">Range overview</h3>
+            <span class="v-card-meta">12 tested</span>
           </div>
-        </article>
-
-        <!-- Chat insight — Q&A with biomarker callout -->
-        <article class="v-chat-card">
-          <div class="v-doctor-attr">
-            <span class="v-doctor-attr-avatar" aria-hidden="true">RK</span>
-            <div>
-              <h3 class="v-doctor-attr-name">Dr. R. Kim, MD</h3>
-              <p class="v-doctor-attr-role">Available · Responds in 2 hrs</p>
-            </div>
-          </div>
-
-          <div class="v-chat-bubble v-chat-bubble--mine">
-            Hi Dr. Kim — what does my Vitamin D number mean and should I be worried?
-          </div>
-
-          <div class="v-chat-callout">
-            <div>
-              <h4 class="v-chat-callout-name">Vitamin D</h4>
-              <div class="v-chat-callout-sub">25-hydroxy · below sufficient</div>
-            </div>
-            <div style="text-align: right">
-              <span class="v-chat-callout-status">Low</span>
-              <div><span class="v-chat-callout-value">22</span> <span class="v-chat-callout-unit">ng/mL</span></div>
-            </div>
-          </div>
-
-          <div class="v-chat-bubble v-chat-bubble--reply">
-            Not worried — but worth acting on. 22 is below sufficient (30+). Common in winter at our latitude. A daily 1,000–2,000 IU supplement usually brings levels back to range within 8–12 weeks.
-          </div>
-
-          <a class="v-card-link" href="messages.html"style="align-self: flex-start">Continue thread →</a>
+          <ul style="list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column;">
+            <li style="display: flex; align-items: baseline; justify-content: space-between; padding: var(--vs-3) 0; border-top: 1px solid var(--hairline-faint);">
+              <span style="display: inline-flex; align-items: center; gap: var(--vs-2); font-family: var(--font-text); font-size: var(--vt-body-s); color: var(--ink);"><span style="width: 6px; height: 6px; border-radius: 999px; background: hsl(155 55% 45%);"></span>In range</span>
+              <span style="font-family: var(--font-mono); font-size: 14px; color: var(--ink); font-variant-numeric: tabular-nums; font-weight: 500;">9</span>
+            </li>
+            <li style="display: flex; align-items: baseline; justify-content: space-between; padding: var(--vs-3) 0; border-top: 1px solid var(--hairline-faint);">
+              <span style="display: inline-flex; align-items: center; gap: var(--vs-2); font-family: var(--font-text); font-size: var(--vt-body-s); color: var(--ink);"><span style="width: 6px; height: 6px; border-radius: 999px; background: hsl(38 88% 56%);"></span>Watch</span>
+              <span style="font-family: var(--font-mono); font-size: 14px; color: var(--ink); font-variant-numeric: tabular-nums; font-weight: 500;">2</span>
+            </li>
+            <li style="display: flex; align-items: baseline; justify-content: space-between; padding: var(--vs-3) 0; border-top: 1px solid var(--hairline-faint);">
+              <span style="display: inline-flex; align-items: center; gap: var(--vs-2); font-family: var(--font-text); font-size: var(--vt-body-s); color: var(--ink);"><span style="width: 6px; height: 6px; border-radius: 999px; background: hsl(0 65% 58%);"></span>Attention</span>
+              <span style="font-family: var(--font-mono); font-size: 14px; color: var(--ink); font-variant-numeric: tabular-nums; font-weight: 500;">1</span>
+            </li>
+          </ul>
+          <a class="v-card-link" href="labs.html" style="margin-top: auto;">View biomarkers →</a>
         </article>
       </section>
 
