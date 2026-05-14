@@ -1041,9 +1041,14 @@ pre.code-block code,
   border-top: 1px solid var(--hairline);
 }
 
-/* Anchor offset — keeps sections clear of the sticky header on jump */
+/* Anchor offset — keeps sections clear of the sticky header on jump.
+   Applies to section/component-doc IDs AND to the lighter "cluster header"
+   entry wrappers used by the v1.0 informal documentation pattern
+   (e.g., #m-eyebrow-title, #o-status-pill). */
 .ds-section[id],
-.ds-component-doc[id] {
+.ds-component-doc[id],
+[id^="m-"],
+[id^="o-"] {
   scroll-margin-top: 80px;
 }
 
