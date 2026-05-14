@@ -1,28 +1,29 @@
 /* =============================================================================
-   vita-health.css — components added to the system for the Vita Health screens
+   health.css — health values, adherence, and ML-recommendation components
    ----------------------------------------------------------------------------
-   These are first-class system components, not page-scoped overrides. They
-   follow the same atom/molecule/organism rules as the rest of the system and
-   reference only design tokens.
+   These extend the system's existing molecule/organism rules. They reference
+   only tokens and existing atom classes. The aesthetic discipline is the same
+   as the rest of the system: one accent (amber), hairlines instead of filled
+   chrome, mono for meta, ink for value. Status differentiation lives in the
+   label and a single neutral dot — never in a background fill.
 
-   New molecules:
+   Molecules:
      .m-lab-result · .m-range-indicator · .m-trend-arrow
      .m-progress-bar
      .m-confidence-tier
-     .m-action-trio
+     .m-action-trio (composes .button.button-ghost.button-sm)
 
-   New organisms:
-     .o-recommendation-card
-     .o-care-plan
-     .o-health-snapshot
+   Organisms:
+     .o-recommendation-card · .o-care-plan · .o-health-snapshot
    ============================================================================= */
 
 /* ─── .m-lab-result ─────────────────────────────────────────────────────── */
 .m-lab-result {
   display: flex;
   flex-direction: column;
-  gap: var(--s-3);
-  padding: var(--s-5);
+  gap: var(--s-4);
+  /* Card chrome matches .o-card-archetype: 20px padding, r-4, hairline border. */
+  padding: 20px;
   background: var(--surface);
   border: 1px solid var(--hairline);
   border-radius: var(--r-4);
@@ -41,31 +42,32 @@
   margin: 0;
   line-height: var(--lh-snug);
 }
+
+/* Status — one neutral pill chrome shared by all states; status meaning
+   lives in the label text and the single dot color. No filled backgrounds. */
 .m-lab-result-status {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   padding: 4px 10px;
   border-radius: var(--r-full);
+  background: var(--surface);
+  border: 1px solid var(--hairline);
   font-family: var(--font-mono);
   font-size: var(--t-micro);
-  letter-spacing: 0.04em;
-  background: var(--surface-2);
+  letter-spacing: -0.003em;
   color: var(--ink-soft);
 }
 .m-lab-result-status::before {
   content: "";
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: var(--r-full);
   background: var(--muted);
 }
-.m-lab-result-status--ok        { color: var(--color-good-text); background: hsl(142 70% 95%); }
-.m-lab-result-status--ok::before     { background: var(--color-good-text); }
-.m-lab-result-status--watch     { color: var(--accent-text); background: var(--accent-soft); }
-.m-lab-result-status--watch::before  { background: var(--accent); }
-.m-lab-result-status--attention { color: hsl(0 70% 38%); background: hsl(0 70% 96%); }
-.m-lab-result-status--attention::before { background: hsl(0 70% 50%); }
+.m-lab-result-status--ok::before        { background: var(--ink-soft); }
+.m-lab-result-status--watch::before     { background: var(--accent); }
+.m-lab-result-status--attention::before { background: var(--ink); }
 
 .m-lab-result-value {
   display: flex;
@@ -74,15 +76,17 @@
 }
 .m-lab-result-number {
   font-family: var(--font-display);
-  font-size: clamp(40px, 5vw, 56px);
+  /* Match .m-stat-value scale. Number is type, not hero. */
+  font-size: clamp(28px, 3vw, 40px);
   font-weight: var(--w-medium);
-  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight, -0.01em);
+  line-height: 1;
   color: var(--ink);
-  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
 }
 .m-lab-result-unit {
   font-family: var(--font-mono);
-  font-size: var(--t-body-m);
+  font-size: var(--t-body-s);
   color: var(--muted);
 }
 .m-lab-result-explanation {
@@ -95,71 +99,72 @@
   border-top: 1px solid var(--hairline-faint);
 }
 .m-lab-result--compact {
-  padding: var(--s-3) var(--s-4);
+  padding: var(--s-4);
+  gap: var(--s-2);
 }
 .m-lab-result--compact .m-lab-result-explanation,
 .m-lab-result--compact .m-range-indicator,
 .m-lab-result--compact .m-trend-arrow { display: none; }
 .m-lab-result--compact .m-lab-result-number { font-size: var(--t-title-l); }
 
-/* ─── .m-range-indicator ────────────────────────────────────────────────── */
+/* ─── .m-range-indicator ──────────────────────────────────────────────────
+   Quiet single-track bar with a marker. The bar is surface-2 (not a rainbow
+   gradient); the normal band gets a subtle accent-soft tint to indicate the
+   reference range. Labels in mono muted carry the numeric meaning. */
 .m-range-indicator {
   position: relative;
   padding-top: var(--s-2);
 }
 .m-range-indicator-bar {
   position: relative;
-  height: 8px;
+  height: 4px;
   border-radius: var(--r-full);
-  background: linear-gradient(
-    to right,
-    hsl(0 60% 75%) 0%,
-    hsl(38 90% 70%) 18%,
-    hsl(142 50% 70%) 38%,
-    hsl(142 50% 70%) 62%,
-    hsl(38 90% 70%) 82%,
-    hsl(0 60% 75%) 100%
-  );
+  background: var(--surface-2);
+  border: 1px solid var(--hairline-faint);
+  overflow: hidden;
 }
 .m-range-indicator-zone {
-  /* Optional explicit "normal" overlay — usually unnecessary thanks to gradient */
-  display: none;
+  position: absolute;
+  inset-block: 0;
+  background: var(--accent-soft);
 }
 .m-range-indicator-marker {
   position: absolute;
-  top: calc(var(--s-2) - 4px);
-  width: 16px;
-  height: 16px;
+  /* Marker sits centered on the 4px bar (top: half-of-bar minus half-of-marker). */
+  top: calc(var(--s-2) - 2px);
+  width: 8px;
+  height: 8px;
   border-radius: var(--r-full);
   background: var(--ink);
-  border: 3px solid var(--surface);
-  box-shadow: 0 2px 8px hsl(0 0% 0% / 0.15);
   transform: translateX(-50%);
 }
 .m-range-indicator-labels {
   display: flex;
   justify-content: space-between;
-  margin-top: var(--s-2);
+  margin-top: 6px;
   font-family: var(--font-mono);
   font-size: var(--t-micro);
   color: var(--muted);
+  letter-spacing: -0.003em;
 }
 
-/* ─── .m-trend-arrow ────────────────────────────────────────────────────── */
+/* ─── .m-trend-arrow ──────────────────────────────────────────────────────
+   Direction is a glyph + a sentence. Color is muted across all directions —
+   the meaning lives in the language ("+6 mg/dL vs. last test"). */
 .m-trend-arrow {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   font-family: var(--font-text);
   font-size: var(--t-body-s);
-  color: var(--ink-soft);
+  color: var(--muted);
 }
-.m-trend-arrow svg { flex-shrink: 0; }
-.m-trend-arrow--up   svg { color: hsl(0 70% 50%); }
-.m-trend-arrow--down svg { color: var(--color-good-text); }
-.m-trend-arrow--flat svg { color: var(--muted); }
+.m-trend-arrow svg { flex-shrink: 0; color: var(--muted); }
 
-/* ─── .m-progress-bar ───────────────────────────────────────────────────── */
+/* ─── .m-progress-bar ─────────────────────────────────────────────────────
+   Track is surface-2; fill is ink-soft (not accent). Accent is reserved for
+   primary actions across the system — using it on every adherence surface
+   would dilute its meaning. */
 .m-progress-bar {
   display: flex;
   flex-direction: column;
@@ -181,21 +186,22 @@
   color: var(--ink);
 }
 .m-progress-bar-streak {
+  /* Mono, muted — matches the rest of the system's meta labels. */
   font-family: var(--font-mono);
   font-size: var(--t-micro);
-  color: var(--accent-text);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  color: var(--muted);
+  letter-spacing: -0.003em;
 }
 .m-progress-bar-track {
-  height: 10px;
+  height: 4px;
   border-radius: var(--r-full);
   background: var(--surface-2);
+  border: 1px solid var(--hairline-faint);
   overflow: hidden;
 }
 .m-progress-bar-fill {
   height: 100%;
-  background: var(--accent);
+  background: var(--ink-soft);
   border-radius: var(--r-full);
   transition: width 240ms cubic-bezier(0.23, 1, 0.32, 1);
 }
@@ -203,41 +209,41 @@
   font-family: var(--font-text);
   font-size: var(--t-body-s);
   color: var(--muted);
-  font-style: italic;
   margin: 0;
 }
 
-/* ─── .m-confidence-tier ────────────────────────────────────────────────── */
+/* ─── .m-confidence-tier ──────────────────────────────────────────────────
+   Same neutral pill chrome as .m-lab-result-status and .o-status-pill.
+   Differentiation is the dot only: ink (act) → accent (consider) → muted
+   (escalate). The phrase carries the meaning; the dot is a quiet anchor. */
 .m-confidence-tier {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   padding: 4px 10px;
   border-radius: var(--r-full);
+  background: var(--surface);
+  border: 1px solid var(--hairline);
   font-family: var(--font-mono);
   font-size: var(--t-micro);
-  font-weight: var(--w-medium);
-  letter-spacing: 0.04em;
-  text-transform: none;
+  letter-spacing: -0.003em;
+  color: var(--ink-soft);
 }
 .m-confidence-tier::before {
   content: "";
   width: 6px;
   height: 6px;
   border-radius: var(--r-full);
+  background: var(--muted);
 }
-.m-confidence-tier--high   { color: var(--color-good-text); background: hsl(142 70% 95%); }
-.m-confidence-tier--high::before { background: var(--color-good-text); }
-.m-confidence-tier--medium { color: var(--accent-text); background: var(--accent-soft); }
+.m-confidence-tier--high::before   { background: var(--ink); }
 .m-confidence-tier--medium::before { background: var(--accent); }
-.m-confidence-tier--low    { color: var(--ink-soft); background: var(--surface-2); }
-.m-confidence-tier--low::before { background: var(--muted); }
+.m-confidence-tier--low::before    { background: var(--muted); }
 
 /* ─── .m-action-trio ──────────────────────────────────────────────────────
-   Composition: engaged row (primary + secondary) clustered together; hairline
-   separator below; ghost "set-aside" button under the line, visually quieter
-   and physically separated. The separator is the design contract: above it =
-   lean in, below it = step away. */
+   Composition: engagement actions clustered above a hairline, set-aside
+   below as a ghost. The molecule positions; .button-ghost.button-sm carries
+   its own atom-defined sizing. */
 .m-action-trio {
   display: flex;
   flex-direction: column;
@@ -250,8 +256,6 @@
   gap: var(--s-2);
 }
 .m-action-trio-engaged .button {
-  /* Size to content — matches .m-cta-pair pattern. Buttons grow only as
-     wide as their label needs, never stretching to fill the container. */
   flex: 0 0 auto;
 }
 .m-action-trio-divider {
@@ -259,26 +263,21 @@
   border-top: 1px solid var(--hairline);
   margin: 0;
 }
-/* The set-aside button is composed with .button.button-ghost.button-sm —
-   the atom carries its own padding, height, and transparent-ghost styling.
-   This molecule only positions the button (center alignment); it does not
-   override the atom's sizing tokens. */
 .m-action-trio > .button {
   align-self: center;
 }
 @media (max-width: 480px) {
-  /* On narrow viewports, stack the engaged buttons full-width so they
-     remain comfortable thumb targets. */
   .m-action-trio-engaged { flex-direction: column; align-items: stretch; }
   .m-action-trio-engaged .button { width: 100%; flex: 1 1 auto; }
 }
 
-/* ─── .o-recommendation-card ────────────────────────────────────────────── */
+/* ─── .o-recommendation-card ──────────────────────────────────────────────
+   Matches .o-card-archetype chrome (20px padding, r-4, hairline). */
 .o-recommendation-card {
   display: flex;
   flex-direction: column;
   gap: var(--s-4);
-  padding: var(--s-5);
+  padding: 20px;
   background: var(--surface);
   border: 1px solid var(--hairline);
   border-radius: var(--r-4);
@@ -293,6 +292,7 @@
   font-family: var(--font-mono);
   font-size: var(--t-micro);
   color: var(--muted);
+  letter-spacing: -0.003em;
 }
 .o-recommendation-card-title {
   font-family: var(--font-display);
@@ -300,6 +300,7 @@
   font-weight: var(--w-medium);
   color: var(--ink);
   line-height: var(--lh-snug);
+  letter-spacing: -0.01em;
   margin: 0;
 }
 .o-recommendation-card-rationale {
@@ -318,40 +319,43 @@
   gap: 6px;
 }
 .o-recommendation-card-sources li {
-  padding: 4px 10px;
-  background: var(--surface-2);
+  padding: 3px 8px;
+  background: var(--surface);
   border: 1px solid var(--hairline);
   border-radius: var(--r-1);
   font-family: var(--font-mono);
   font-size: var(--t-micro);
   color: var(--ink-soft);
+  letter-spacing: -0.003em;
 }
 
-/* ─── .o-care-plan ──────────────────────────────────────────────────────── */
+/* ─── .o-care-plan ────────────────────────────────────────────────────────
+   Same card chrome as the rest of the system. The "direction → plan"
+   contract is communicated through a single hairline divider between the
+   two blocks; no heavier visual treatment is needed. */
 .o-care-plan {
   display: flex;
   flex-direction: column;
-  gap: var(--s-5);
-  padding: var(--s-6);
+  gap: var(--s-4);
+  padding: 20px;
   background: var(--surface);
   border: 1px solid var(--hairline);
-  border-radius: var(--r-5);
+  border-radius: var(--r-4);
 }
 .o-care-plan-head {
   display: flex;
   flex-direction: column;
-  gap: var(--s-2);
+  gap: var(--s-1);
 }
 .o-care-plan-direction {
   font-family: var(--font-mono);
   font-size: var(--t-micro);
   color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: -0.003em;
 }
 .o-care-plan-goal {
   font-family: var(--font-display);
-  font-size: var(--t-title-l);
+  font-size: var(--t-title-m);
   font-weight: var(--w-medium);
   color: var(--ink);
   line-height: var(--lh-snug);
@@ -362,6 +366,7 @@
   font-size: var(--t-body-s);
   color: var(--muted);
   margin: 0;
+  line-height: var(--lh-relaxed);
 }
 .o-care-plan-list {
   list-style: none;
@@ -369,31 +374,33 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--s-3);
 }
 .o-care-plan-item {
   display: flex;
   align-items: center;
   gap: var(--s-3);
-  padding: var(--s-3) var(--s-4);
-  border: 1px solid var(--hairline);
-  border-radius: var(--r-2);
-  background: var(--bg);
+  padding: var(--s-3) 0;
+  border-top: 1px solid var(--hairline-faint);
 }
+.o-care-plan-item:first-child { border-top: 0; }
 .o-care-plan-item-icon {
-  width: 24px;
-  height: 24px;
-  border-radius: var(--r-full);
-  background: var(--surface-2);
-  display: flex;
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  color: var(--muted);
 }
-.o-care-plan-item--done .o-care-plan-item-icon {
-  background: var(--accent);
-  color: var(--accent-fg);
+/* Empty placeholder for pending items — a small hairline-only circle. */
+.o-care-plan-item:not(.o-care-plan-item--done) .o-care-plan-item-icon::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: var(--r-full);
+  border: 1px solid var(--hairline-strong);
 }
+.o-care-plan-item--done .o-care-plan-item-icon { color: var(--ink); }
 .o-care-plan-item-text {
   flex: 1;
   font-family: var(--font-text);
@@ -402,32 +409,34 @@
 }
 .o-care-plan-item--done .o-care-plan-item-text {
   color: var(--muted);
-  text-decoration: line-through;
-  text-decoration-color: var(--hairline-strong);
 }
 .o-care-plan-item-when {
   font-family: var(--font-mono);
   font-size: var(--t-micro);
   color: var(--muted);
+  letter-spacing: -0.003em;
 }
 
 /* ─── .o-health-snapshot ────────────────────────────────────────────────── */
 .o-health-snapshot {
   display: flex;
   flex-direction: column;
-  gap: var(--s-5);
+  gap: var(--s-4);
 }
 .o-health-snapshot-head {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: var(--s-3);
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--hairline);
 }
 .o-health-snapshot-title {
   font-family: var(--font-display);
-  font-size: var(--t-title-xl);
+  font-size: var(--t-title-l);
   font-weight: var(--w-medium);
   color: var(--ink);
+  letter-spacing: -0.01em;
   margin: 0;
   line-height: var(--lh-snug);
 }
@@ -435,24 +444,25 @@
   font-family: var(--font-mono);
   font-size: var(--t-micro);
   color: var(--muted);
+  letter-spacing: -0.003em;
 }
 .o-health-snapshot-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: var(--s-3);
 }
 .o-health-snapshot-footer {
-  margin-top: var(--s-2);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: var(--s-3);
-  padding-top: var(--s-4);
+  padding-top: var(--s-3);
   border-top: 1px solid var(--hairline);
 }
 .o-health-snapshot-footer-note {
   font-family: var(--font-text);
   font-size: var(--t-body-s);
   color: var(--muted);
+  margin: 0;
 }
