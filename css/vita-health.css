@@ -259,22 +259,12 @@
   border-top: 1px solid var(--hairline);
   margin: 0;
 }
-.m-action-trio > .button-tertiary {
+/* The set-aside button is composed with .button.button-ghost.button-sm —
+   the atom carries its own padding, height, and transparent-ghost styling.
+   This molecule only positions the button (center alignment); it does not
+   override the atom's sizing tokens. */
+.m-action-trio > .button {
   align-self: center;
-  background: transparent;
-  border: 0;
-  color: var(--muted);
-  padding: 6px var(--s-3);
-  font-size: var(--t-body-s);
-  height: auto;
-  min-height: 0;
-}
-.m-action-trio > .button-tertiary:hover,
-.m-action-trio > .button-tertiary:focus-visible {
-  color: var(--ink);
-  background: transparent;
-  text-decoration: underline;
-  text-underline-offset: 3px;
 }
 @media (max-width: 480px) {
   /* On narrow viewports, stack the engaged buttons full-width so they

@@ -52,7 +52,7 @@ The canonical AI/system recommendation surface. Composes `.m-confidence-tier`, t
   <div class="m-action-trio" role="group" aria-label="Respond to recommendation">
     <button type="button" class="button button-primary" data-action="accept">Accept</button>
     <button type="button" class="button button-secondary" data-action="modify">Modify</button>
-    <button type="button" class="button button-tertiary" data-action="dismiss">Dismiss</button>
+    <button type="button" class="button button-ghost button-sm" data-action="dismiss">Dismiss</button>
   </div>
 </article>
 ```
