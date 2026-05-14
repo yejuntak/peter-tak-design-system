@@ -10,10 +10,14 @@ A two-button (Accept / Dismiss) recommendation system trains passive compliance 
 
 ```
 .m-action-trio
-├── .button.button-primary       ← Accept (default action)
-├── .button.button-secondary     ← Modify (opens edit flow)
-└── .button.button-tertiary      ← Dismiss (opens reason picker)
+├── .m-action-trio-engaged          ← engagement cluster
+│   ├── .button.button-primary      ← accept (default action)
+│   └── .button.button-secondary    ← adjust (opens edit flow)
+├── .m-action-trio-divider          ← hairline separator
+└── .button.button-tertiary         ← set aside (opens reason picker), ghost-style, centered
 ```
+
+The hairline separator is the design contract: **above it the user leans in, below it the user steps away.** Grouping accept + adjust together signals "these are both forms of engagement"; isolating the set-aside path below a divider signals "this is a different category of response."
 
 ## Label conventions
 
@@ -32,12 +36,15 @@ Use the warmer labels in patient-facing surfaces. Use the clinical labels in cli
 
 ```html
 <div class="m-action-trio" role="group" aria-label="Respond to recommendation">
-  <button type="button" class="button button-primary" data-action="accept">
-    Add to my plan
-  </button>
-  <button type="button" class="button button-secondary" data-action="modify">
-    Adjust it
-  </button>
+  <div class="m-action-trio-engaged">
+    <button type="button" class="button button-primary" data-action="accept">
+      Add to my plan
+    </button>
+    <button type="button" class="button button-secondary" data-action="modify">
+      Adjust it
+    </button>
+  </div>
+  <hr class="m-action-trio-divider" aria-hidden="true">
   <button type="button" class="button button-tertiary" data-action="dismiss">
     Not for me
   </button>

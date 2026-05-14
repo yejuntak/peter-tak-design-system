@@ -233,29 +233,50 @@
 .m-confidence-tier--low    { color: var(--ink-soft); background: var(--surface-2); }
 .m-confidence-tier--low::before { background: var(--muted); }
 
-/* ─── .m-action-trio ────────────────────────────────────────────────────── */
+/* ─── .m-action-trio ──────────────────────────────────────────────────────
+   Composition: engaged row (primary + secondary) clustered together; hairline
+   separator below; ghost "set-aside" button under the line, visually quieter
+   and physically separated. The separator is the design contract: above it =
+   lean in, below it = step away. */
 .m-action-trio {
   display: flex;
-  gap: var(--s-2);
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: var(--s-3);
 }
-.m-action-trio .button {
+.m-action-trio-engaged {
+  display: flex;
+  gap: var(--s-2);
+}
+.m-action-trio-engaged .button {
   flex: 1 1 auto;
   min-width: 100px;
   justify-content: center;
 }
-.m-action-trio .button-tertiary {
-  background: transparent;
-  border: 1px solid transparent;
-  color: var(--muted);
+.m-action-trio-divider {
+  border: 0;
+  border-top: 1px solid var(--hairline);
+  margin: 0;
 }
-.m-action-trio .button-tertiary:hover {
+.m-action-trio > .button-tertiary {
+  align-self: center;
+  background: transparent;
+  border: 0;
+  color: var(--muted);
+  padding: 6px var(--s-3);
+  font-size: var(--t-body-s);
+  height: auto;
+  min-height: 0;
+}
+.m-action-trio > .button-tertiary:hover,
+.m-action-trio > .button-tertiary:focus-visible {
   color: var(--ink);
-  background: var(--surface-2);
+  background: transparent;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 @media (max-width: 480px) {
-  .m-action-trio { flex-direction: column; }
-  .m-action-trio .button { width: 100%; }
+  .m-action-trio-engaged { flex-direction: column; }
+  .m-action-trio-engaged .button { width: 100%; }
 }
 
 /* ─── .o-recommendation-card ────────────────────────────────────────────── */
