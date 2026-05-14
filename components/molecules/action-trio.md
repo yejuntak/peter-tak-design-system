@@ -9,15 +9,13 @@ A two-button (Accept / Dismiss) recommendation system trains passive compliance 
 ## Anatomy
 
 ```
-.m-action-trio
-├── .m-action-trio-engaged          ← engagement cluster
-│   ├── .button.button-primary      ← accept (default action)
-│   └── .button.button-secondary    ← adjust (opens edit flow)
-├── .m-action-trio-divider          ← hairline separator
-└── .button.button-ghost.button-sm    ← set aside (opens reason picker), centered
+.m-action-trio (right-aligned flex row, 8px gap)
+├── .button.button-ghost.button-sm   ← set aside (opens reason picker)
+├── .button.button-secondary         ← adjust (opens edit flow)
+└── .button.button-primary           ← accept (the destination)
 ```
 
-The hairline separator is the design contract: **above it the user leans in, below it the user steps away.** Grouping accept + adjust together signals "these are both forms of engagement"; isolating the set-aside path below a divider signals "this is a different category of response."
+A single horizontal row, **right-aligned** — same convention as `.o-dialog-foot` and most dialog action rows. Primary action sits on the right because that's the reading destination; set-aside is leftmost because it's the quietest path. Visual hierarchy is the atom's job: `.button-primary` is filled, `.button-secondary` is outlined, `.button-ghost.button-sm` is text-only. The molecule only spaces and aligns — it does not impose its own chrome.
 
 ## Label conventions
 
@@ -36,20 +34,19 @@ Use the warmer labels in patient-facing surfaces. Use the clinical labels in cli
 
 ```html
 <div class="m-action-trio" role="group" aria-label="Respond to recommendation">
-  <div class="m-action-trio-engaged">
-    <button type="button" class="button button-primary" data-action="accept">
-      Add to my plan
-    </button>
-    <button type="button" class="button button-secondary" data-action="modify">
-      Adjust it
-    </button>
-  </div>
-  <hr class="m-action-trio-divider" aria-hidden="true">
   <button type="button" class="button button-ghost button-sm" data-action="dismiss">
     Not for me
   </button>
+  <button type="button" class="button button-secondary" data-action="modify">
+    Adjust it
+  </button>
+  <button type="button" class="button button-primary" data-action="accept">
+    Add to my plan
+  </button>
 </div>
 ```
+
+On narrow viewports (`max-width: 480px`) the row stacks full-width vertically; the markup order is preserved so the rightmost (primary) action moves to the bottom of the stack — still the reading destination, still the most prominent.
 
 ## Rules
 

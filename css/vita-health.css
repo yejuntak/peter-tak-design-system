@@ -234,43 +234,31 @@
 .m-confidence-tier--low::before { background: var(--muted); }
 
 /* ─── .m-action-trio ──────────────────────────────────────────────────────
-   Composition: engaged row (primary + secondary) clustered together; hairline
-   separator below; ghost "set-aside" button under the line, visually quieter
-   and physically separated. The separator is the design contract: above it =
-   lean in, below it = step away. */
+   Single horizontal row, right-aligned. Matches .o-dialog-foot conventions:
+   8px gap, primary action on the right (the reading destination), set-aside
+   on the left. Visual hierarchy is carried by the atom variants
+   (.button-primary filled, .button-secondary outline, .button-ghost.button-sm
+   text), not by molecule-level chrome. */
 .m-action-trio {
   display: flex;
-  flex-direction: column;
-  gap: var(--s-3);
-}
-.m-action-trio-engaged {
-  display: flex;
-  flex-wrap: wrap;
   align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
   gap: var(--s-2);
 }
-.m-action-trio-engaged .button {
-  /* Size to content — matches .m-cta-pair pattern. Buttons grow only as
-     wide as their label needs, never stretching to fill the container. */
-  flex: 0 0 auto;
-}
-.m-action-trio-divider {
-  border: 0;
-  border-top: 1px solid var(--hairline);
-  margin: 0;
-}
-/* The set-aside button is composed with .button.button-ghost.button-sm —
-   the atom carries its own padding, height, and transparent-ghost styling.
-   This molecule only positions the button (center alignment); it does not
-   override the atom's sizing tokens. */
-.m-action-trio > .button {
-  align-self: center;
-}
 @media (max-width: 480px) {
-  /* On narrow viewports, stack the engaged buttons full-width so they
-     remain comfortable thumb targets. */
-  .m-action-trio-engaged { flex-direction: column; align-items: stretch; }
-  .m-action-trio-engaged .button { width: 100%; flex: 1 1 auto; }
+  /* Narrow viewports: stack full-width so each remains a comfortable
+     thumb target. Order in markup is preserved (set-aside on top, primary
+     at the bottom) so the rightmost action stays the most prominent in
+     the reading direction. */
+  .m-action-trio {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+  }
+  .m-action-trio .button {
+    width: 100%;
+  }
 }
 
 /* ─── .o-recommendation-card ────────────────────────────────────────────── */
