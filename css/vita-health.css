@@ -245,12 +245,14 @@
 }
 .m-action-trio-engaged {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   gap: var(--s-2);
 }
 .m-action-trio-engaged .button {
-  flex: 1 1 auto;
-  min-width: 100px;
-  justify-content: center;
+  /* Size to content — matches .m-cta-pair pattern. Buttons grow only as
+     wide as their label needs, never stretching to fill the container. */
+  flex: 0 0 auto;
 }
 .m-action-trio-divider {
   border: 0;
@@ -275,8 +277,10 @@
   text-underline-offset: 3px;
 }
 @media (max-width: 480px) {
-  .m-action-trio-engaged { flex-direction: column; }
-  .m-action-trio-engaged .button { width: 100%; }
+  /* On narrow viewports, stack the engaged buttons full-width so they
+     remain comfortable thumb targets. */
+  .m-action-trio-engaged { flex-direction: column; align-items: stretch; }
+  .m-action-trio-engaged .button { width: 100%; flex: 1 1 auto; }
 }
 
 /* ─── .o-recommendation-card ────────────────────────────────────────────── */
