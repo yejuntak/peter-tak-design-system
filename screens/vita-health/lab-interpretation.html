@@ -14,34 +14,47 @@
   <link rel="stylesheet" href="_layout.css">
 </head>
 <body class="vita-app">
-  <div class="v-shell">
-    <header class="v-shell-head">
-      <a class="v-shell-head-brand" href="dashboard.html">
-        <span class="v-shell-head-brand-mark">V</span>
-        <span>Vita Health</span>
-      </a>
-      <nav class="v-shell-head-nav" aria-label="Main navigation">
-        <a href="dashboard.html">Snapshot</a>
-        <a href="labs.html" aria-current="page">Labs</a>
-        <a href="care-plan.html">Care plan</a>
-        <a href="progress-framing.html">Progress</a>
-        <a href="recommendation.html">Insights</a>
-        <a href="messages.html">Messages</a>
-      </nav>
-      <div class="v-shell-head-user"><span class="v-shell-head-user-avatar" aria-hidden="true">JT</span></div>
-    </header>
+  <header class="v-topnav">
+    <a class="v-topnav-brand" href="dashboard.html">
+      <span class="v-topnav-brand-mark">V</span>
+      <span>Vita Health</span>
+    </a>
+    <nav class="v-topnav-links" aria-label="Main navigation">
+      <a href="dashboard.html">Today</a>
+      <a href="labs.html" aria-current="page">Labs <span class="v-topnav-badge">3</span></a>
+      <a href="care-plan.html">Care plan</a>
+      <a href="progress-framing.html">Progress</a>
+      <a href="recommendation.html">Insights</a>
+      <a href="messages.html">Messages <span class="v-topnav-badge">2</span></a>
+      <a href="journey.html">Journey</a>
+    </nav>
+    <div class="v-topnav-end">
+      <div class="v-topnav-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="search" placeholder="Search…" aria-label="Search">
+      </div>
+      <button class="v-topnav-icon" data-notif aria-label="Notifications">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </button>
+      <span class="v-topnav-avatar" aria-hidden="true">JT</span>
+    </div>
+  </header>
+  <main class="v-main">
+    <div class="v-page-head">
+      <span class="v-eyebrow">Screen 02 · Lab interpretation</span>
+      <h1 class="v-page-title">Fasting glucose, with context.</h1>
+    </div>
+    <div class="v-content">
 
     <main>
-      <span class="v-screen-eyebrow">Screen 02 · Lab interpretation</span>
-      <h1 class="v-screen-title">Fasting glucose, with context.</h1>
       <p class="v-screen-lede">A number alone is either alarming or meaningless. This is the founding pattern of the product: every lab value gets a range, a trend, and a plain-language explanation — always.</p>
 
       <p class="v-screen-note"><strong>Design rule:</strong> no health value without interpretation. The same lab result presented as a raw number versus as range + trend + explanation produces measurably different patient responses. The interpretation is the product.</p>
 
-      <div style="height: var(--s-7);"></div>
+      <div style="height: var(--s-7)"></div>
 
       <section class="v-screen-section">
-        <article class="m-lab-result" style="max-width: 720px;">
+        <article class="m-lab-result"style="max-width: 720px">
           <header class="m-lab-result-head">
             <h3 class="m-lab-result-name">Fasting glucose</h3>
             <span class="m-lab-result-status m-lab-result-status--watch">Borderline</span>
@@ -52,7 +65,7 @@
           </div>
           <div class="m-range-indicator" aria-label="128 mg/dL, just above normal range">
             <div class="m-range-indicator-bar"></div>
-            <div class="m-range-indicator-marker" style="left: 44%;"></div>
+            <div class="m-range-indicator-marker"style="left: 44%"></div>
             <div class="m-range-indicator-labels">
               <span>70</span>
               <span>125 (normal)</span>
@@ -71,63 +84,58 @@
 
       <section class="v-screen-section">
         <h2 class="v-screen-section-title">What this means in plain language</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--s-4);">
-          <div style="padding: var(--s-5); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-3);">
-            <span class="t-eyebrow" style="color: var(--color-good-text);">Below 100</span>
-            <h3 style="margin: 6px 0 8px; font-size: var(--t-title-m);">Normal</h3>
-            <p style="margin: 0; color: var(--ink-soft); font-size: var(--t-body-m); line-height: var(--lh-relaxed);">Glucose levels are well-regulated by your body's insulin response.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--s-4)">
+          <div style="padding: var(--s-5); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-3)">
+            <span class="t-eyebrow"style="color: var(--color-good-text)">Below 100</span>
+            <h3 style="margin: 6px 0 8px; font-size: var(--t-title-m)">Normal</h3>
+            <p style="margin: 0; color: var(--ink-soft); font-size: var(--t-body-m); line-height: var(--lh-relaxed)">Glucose levels are well-regulated by your body's insulin response.</p>
           </div>
-          <div style="padding: var(--s-5); background: var(--accent-soft); border: 1px solid var(--accent); border-radius: var(--r-3);">
-            <span class="t-eyebrow" style="color: var(--accent-text);">100–125 · You are here</span>
-            <h3 style="margin: 6px 0 8px; font-size: var(--t-title-m);">Pre-diabetic range</h3>
-            <p style="margin: 0; color: var(--ink-soft); font-size: var(--t-body-m); line-height: var(--lh-relaxed);">An early signal worth acting on, not a diagnosis. Most people in this range can return to normal with lifestyle changes alone.</p>
+          <div style="padding: var(--s-5); background: var(--accent-soft); border: 1px solid var(--accent); border-radius: var(--r-3)">
+            <span class="t-eyebrow"style="color: var(--accent-text)">100–125 · You are here</span>
+            <h3 style="margin: 6px 0 8px; font-size: var(--t-title-m)">Pre-diabetic range</h3>
+            <p style="margin: 0; color: var(--ink-soft); font-size: var(--t-body-m); line-height: var(--lh-relaxed)">An early signal worth acting on, not a diagnosis. Most people in this range can return to normal with lifestyle changes alone.</p>
           </div>
-          <div style="padding: var(--s-5); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-3);">
-            <span class="t-eyebrow" style="color: hsl(0 70% 40%);">126+</span>
-            <h3 style="margin: 6px 0 8px; font-size: var(--t-title-m);">Diabetic range</h3>
-            <p style="margin: 0; color: var(--ink-soft); font-size: var(--t-body-m); line-height: var(--lh-relaxed);">Requires clinical evaluation. Talk to your care team about confirmatory testing.</p>
+          <div style="padding: var(--s-5); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-3)">
+            <span class="t-eyebrow"style="color: hsl(0 70% 40%)">126+</span>
+            <h3 style="margin: 6px 0 8px; font-size: var(--t-title-m)">Diabetic range</h3>
+            <p style="margin: 0; color: var(--ink-soft); font-size: var(--t-body-m); line-height: var(--lh-relaxed)">Requires clinical evaluation. Talk to your care team about confirmatory testing.</p>
           </div>
         </div>
       </section>
 
       <section class="v-screen-section">
         <h2 class="v-screen-section-title">Your trend</h2>
-        <div style="padding: var(--s-5); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-3); display: flex; flex-direction: column; gap: var(--s-3);">
-          <div style="display: flex; align-items: baseline; gap: var(--s-5);">
+        <div style="padding: var(--s-5); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-3); display: flex; flex-direction: column; gap: var(--s-3)">
+          <div style="display: flex; align-items: baseline; gap: var(--s-5)">
             <div>
-              <span class="t-mono-s" style="color: var(--muted);">12 mo ago</span>
-              <div style="font-size: var(--t-title-l); font-weight: var(--w-medium); color: var(--ink);">116 <span style="font-size: var(--t-body-s); color: var(--muted);">mg/dL</span></div>
+              <span class="t-mono-s"style="color: var(--muted)">12 mo ago</span>
+              <div style="font-size: var(--t-title-l); font-weight: var(--w-medium); color: var(--ink)">116 <span style="font-size: var(--t-body-s); color: var(--muted)">mg/dL</span></div>
             </div>
             <div>
-              <span class="t-mono-s" style="color: var(--muted);">8 mo ago</span>
-              <div style="font-size: var(--t-title-l); font-weight: var(--w-medium); color: var(--ink);">119</div>
+              <span class="t-mono-s"style="color: var(--muted)">8 mo ago</span>
+              <div style="font-size: var(--t-title-l); font-weight: var(--w-medium); color: var(--ink)">119</div>
             </div>
             <div>
-              <span class="t-mono-s" style="color: var(--muted);">4 mo ago</span>
-              <div style="font-size: var(--t-title-l); font-weight: var(--w-medium); color: var(--ink);">122</div>
+              <span class="t-mono-s"style="color: var(--muted)">4 mo ago</span>
+              <div style="font-size: var(--t-title-l); font-weight: var(--w-medium); color: var(--ink)">122</div>
             </div>
             <div>
-              <span class="t-mono-s" style="color: var(--accent-text);">Today</span>
-              <div style="font-size: var(--t-title-l); font-weight: var(--w-medium); color: var(--accent-text);">128</div>
+              <span class="t-mono-s"style="color: var(--accent-text)">Today</span>
+              <div style="font-size: var(--t-title-l); font-weight: var(--w-medium); color: var(--accent-text)">128</div>
             </div>
           </div>
-          <p style="margin: 0; font-size: var(--t-body-m); color: var(--ink-soft); line-height: var(--lh-relaxed); padding-top: var(--s-3); border-top: 1px solid var(--hairline-faint);">Slow steady rise over 12 months — the kind of trend lifestyle interventions usually catch and reverse, especially in the pre-diabetic range. Worth acting on now.</p>
+          <p style="margin: 0; font-size: var(--t-body-m); color: var(--ink-soft); line-height: var(--lh-relaxed); padding-top: var(--s-3); border-top: 1px solid var(--hairline-faint)">Slow steady rise over 12 months — the kind of trend lifestyle interventions usually catch and reverse, especially in the pre-diabetic range. Worth acting on now.</p>
         </div>
       </section>
 
       <section class="v-screen-section">
         <h2 class="v-screen-section-title">Your next steps</h2>
-        <div class="m-cta-pair" style="justify-content: flex-start;">
+        <div class="m-cta-pair"style="justify-content: flex-start">
           <a class="button button-primary" href="care-plan.html">Build a care plan →</a>
           <a class="button button-secondary" href="recommendation.html">See related recommendations</a>
         </div>
       </section>
-    </main>
-
-    <footer class="v-shell-foot">
-      <span>Vita Health · Reference screen built from the Peter Tak Design System</span>
-      <span><a href="../../components/molecules/lab-result.md">.m-lab-result</a> · <a href="../../CLAUDE.md">CLAUDE.md</a></span>
-    </footer>
-  </div>
+    </div>
+  </main>
 </body>
 </html>

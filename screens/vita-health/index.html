@@ -30,7 +30,7 @@
       <a href="journey.html">Journey</a>
     </nav>
     <div class="v-topnav-end">
-      <a class="v-btn-mini v-btn-mini--primary" href="dashboard.html" style="padding: 8px 14px;">Try prototype →</a>
+      <a class="v-btn-mini v-btn-mini--primary" href="dashboard.html"style="padding: 8px 14px">Try prototype →</a>
     </div>
   </header>
   <main class="v-main">
@@ -41,19 +41,19 @@
       <!-- Reference hero SVG (the original artifact) -->
       <figure class="v-hero-svg">
         <img src="assets/hero-health-snapshot.svg" alt="Vita Health patient dashboard wireframe — curated health snapshot with lab values, trend indicators, and plain-language interpretation">
-        <figcaption style="padding: var(--s-3) var(--s-4); font-family: var(--font-mono); font-size: var(--t-micro); color: var(--muted); border-top: 1px solid var(--hairline);">Reference artifact · Health snapshot — curated first session · no value without interpretation</figcaption>
+        <figcaption style="padding: var(--s-3) var(--s-4); font-size: var(--t-micro); color: var(--muted); border-top: 1px solid var(--hairline)">Reference artifact · Health snapshot — curated first session · no value without interpretation</figcaption>
       </figure>
 
       <!-- TL;DR -->
       <section class="v-screen-section">
         <h2 class="v-screen-section-title">The product bet</h2>
-        <p style="font-size: var(--t-body-l); line-height: var(--lh-relaxed); color: var(--ink-soft); max-width: 64ch;">Most chronic conditions are preventable if caught and addressed early. The primary barrier isn't access — it's engagement. Most people who get annual labs don't understand their results; most people who get "eat better and exercise more" don't know where to start. Vita's product closed those two gaps: <strong>data → understanding</strong>, and <strong>understanding → action</strong>. My job for three years was to design those two transitions and make them coherent across multiple product versions.</p>
+        <p style="font-size: var(--t-body-l); line-height: var(--lh-relaxed); color: var(--ink-soft); max-width: 64ch">Most chronic conditions are preventable if caught and addressed early. The primary barrier isn't access — it's engagement. Most people who get annual labs don't understand their results; most people who get "eat better and exercise more" don't know where to start. Vita's product closed those two gaps: <strong>data → understanding</strong>, and <strong>understanding → action</strong>. My job for three years was to design those two transitions and make them coherent across multiple product versions.</p>
       </section>
 
       <!-- All screens -->
       <section class="v-screen-section">
         <h2 class="v-screen-section-title">Screens in the prototype</h2>
-        <p style="color: var(--ink-soft); max-width: 64ch; margin-bottom: var(--s-4);">Eight working surfaces. Navigate between them using the in-app nav once you enter — every screen links to every other.</p>
+        <p style="color: var(--ink-soft); max-width: 64ch; margin-bottom: var(--s-4)">Eight working surfaces. Navigate between them using the in-app nav once you enter — every screen links to every other.</p>
 
         <div class="v-quick-actions">
           <a class="v-quick-tile" href="dashboard.html">
@@ -134,54 +134,54 @@
       <!-- New components shipped -->
       <section class="v-screen-section">
         <h2 class="v-screen-section-title">New design-system components shipped by this case</h2>
-        <p style="color: var(--ink-soft); max-width: 64ch; margin-bottom: var(--s-4);">Building the screens above surfaced nine first-class components the base system was missing. Each is documented as a Beta entry in the system, with anatomy, when-to-use, and rules baked into the API.</p>
+        <p style="color: var(--ink-soft); max-width: 64ch; margin-bottom: var(--s-4)">Building the screens above surfaced nine first-class components the base system was missing. Each is documented as a Beta entry in the system, with anatomy, when-to-use, and rules baked into the API.</p>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--s-3);">
-          <a href="../../components/molecules/lab-result.md" style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2); text-decoration: none;">
-            <code style="font-family: var(--font-mono); font-size: var(--t-body-s); color: var(--ink); display: block; margin-bottom: 6px;">.m-lab-result</code>
-            <span style="font-size: var(--t-body-s); color: var(--muted);">Health value with range + trend + explanation</span>
+        <div class="v-tile-grid">
+          <a href="../../components/molecules/lab-result.md"style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2); text-decoration: none">
+            <code class="v-tile-code">.m-lab-result</code>
+            <span class="v-tile-desc">Health value with range + trend + explanation</span>
           </a>
-          <span style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2);">
-            <code style="font-family: var(--font-mono); font-size: var(--t-body-s); color: var(--ink); display: block; margin-bottom: 6px;">.m-range-indicator</code>
-            <span style="font-size: var(--t-body-s); color: var(--muted);">Visual position on a value spectrum</span>
+          <span class="v-tile">
+            <code class="v-tile-code">.m-range-indicator</code>
+            <span class="v-tile-desc">Visual position on a value spectrum</span>
           </span>
-          <span style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2);">
-            <code style="font-family: var(--font-mono); font-size: var(--t-body-s); color: var(--ink); display: block; margin-bottom: 6px;">.m-trend-arrow</code>
-            <span style="font-size: var(--t-body-s); color: var(--muted);">Direction vs. previous reading</span>
+          <span class="v-tile">
+            <code class="v-tile-code">.m-trend-arrow</code>
+            <span class="v-tile-desc">Direction vs. previous reading</span>
           </span>
-          <a href="../../components/molecules/progress-bar.md" style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2); text-decoration: none;">
-            <code style="font-family: var(--font-mono); font-size: var(--t-body-s); color: var(--ink); display: block; margin-bottom: 6px;">.m-progress-bar</code>
-            <span style="font-size: var(--t-body-s); color: var(--muted);">Progress framing, never compliance</span>
+          <a href="../../components/molecules/progress-bar.md"style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2); text-decoration: none">
+            <code class="v-tile-code">.m-progress-bar</code>
+            <span class="v-tile-desc">Progress framing, never compliance</span>
           </a>
-          <a href="../../components/molecules/confidence-tier.md" style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2); text-decoration: none;">
-            <code style="font-family: var(--font-mono); font-size: var(--t-body-s); color: var(--ink); display: block; margin-bottom: 6px;">.m-confidence-tier</code>
-            <span style="font-size: var(--t-body-s); color: var(--muted);">3 phrases · raw scores never exposed</span>
+          <a href="../../components/molecules/confidence-tier.md"style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2); text-decoration: none">
+            <code class="v-tile-code">.m-confidence-tier</code>
+            <span class="v-tile-desc">3 phrases · raw scores never exposed</span>
           </a>
-          <a href="../../components/molecules/action-trio.md" style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2); text-decoration: none;">
-            <code style="font-family: var(--font-mono); font-size: var(--t-body-s); color: var(--ink); display: block; margin-bottom: 6px;">.m-action-trio</code>
-            <span style="font-size: var(--t-body-s); color: var(--muted);">Accept · Adjust · Set aside (right-aligned)</span>
+          <a href="../../components/molecules/action-trio.md"style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2); text-decoration: none">
+            <code class="v-tile-code">.m-action-trio</code>
+            <span class="v-tile-desc">Accept · Adjust · Set aside (right-aligned)</span>
           </a>
-          <a href="../../components/organisms/recommendation-card.md" style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2); text-decoration: none;">
-            <code style="font-family: var(--font-mono); font-size: var(--t-body-s); color: var(--ink); display: block; margin-bottom: 6px;">.o-recommendation-card</code>
-            <span style="font-size: var(--t-body-s); color: var(--muted);">Tier + trigger + rationale + action-trio</span>
+          <a href="../../components/organisms/recommendation-card.md"style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2); text-decoration: none">
+            <code class="v-tile-code">.o-recommendation-card</code>
+            <span class="v-tile-desc">Tier + trigger + rationale + action-trio</span>
           </a>
-          <span style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2);">
-            <code style="font-family: var(--font-mono); font-size: var(--t-body-s); color: var(--ink); display: block; margin-bottom: 6px;">.o-care-plan</code>
-            <span style="font-size: var(--t-body-s); color: var(--muted);">Direction → patient-authored plan</span>
+          <span class="v-tile">
+            <code class="v-tile-code">.o-care-plan</code>
+            <span class="v-tile-desc">Direction → patient-authored plan</span>
           </span>
-          <span style="padding: var(--s-4); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-2);">
-            <code style="font-family: var(--font-mono); font-size: var(--t-body-s); color: var(--ink); display: block; margin-bottom: 6px;">.o-health-snapshot</code>
-            <span style="font-size: var(--t-body-s); color: var(--muted);">Curated multi-result grid</span>
+          <span class="v-tile">
+            <code class="v-tile-code">.o-health-snapshot</code>
+            <span class="v-tile-desc">Curated multi-result grid</span>
           </span>
         </div>
       </section>
 
       <!-- Disclaimer -->
       <section class="v-screen-section">
-        <article class="o-care-plan" style="background: var(--bg-tinted); border-color: var(--hairline-faint);">
+        <article class="o-care-plan"style="background: var(--bg-tinted); border-color: var(--hairline-faint)">
           <header class="o-care-plan-head">
             <span class="o-care-plan-direction">Health disclaimer</span>
-            <h2 class="o-care-plan-goal" style="font-size: var(--t-title-m);">Visual prototype · no medical guidance.</h2>
+            <h2 class="o-care-plan-goal"style="font-size: var(--t-title-m)">Visual prototype · no medical guidance.</h2>
             <p class="o-care-plan-goal-source">All patient data, recommendation copy, advisor messages, and lab values shown are fictional. The screens demonstrate UX patterns from the engagement, not real clinical content. Onlife Health (now Pager Health) account details are abstracted under engagement constraints.</p>
           </header>
         </article>

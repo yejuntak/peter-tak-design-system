@@ -542,6 +542,15 @@ body.vita-app {
   border-radius: var(--vr-md);
 }
 .v-greeting-left { display: flex; align-items: center; gap: var(--vs-4); }
+.v-greeting-row {
+  /* Replaces the inline flex/gap on .v-hero-greeting-row stat lists.
+     A 4-column grid so every stat lands on the same x. */
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--vs-4);
+}
+.v-greeting-row > .v-hero-stat,
+.v-greeting-row > .v-greeting-stat { display: flex; flex-direction: column; gap: var(--vs-1); }
 .v-greeting-avatar {
   width: 48px;
   height: 48px;
@@ -1413,6 +1422,118 @@ body.vita-app {
 .v-btn-mini--ghost:hover { color: var(--ink); background: hsl(142 12% 95%); }
 
 /* ─────────────────────────────────────────────────────────────────────────
+   CANONICAL EYEBROW · single class, single rhythm
+   Replaces .v-page-eyebrow / .v-big-eyebrow / .v-hero-greeting-eyebrow /
+   .v-section-eyebrow-label / .v-doctor-attr-role / inline mono-caps spans.
+   ───────────────────────────────────────────────────────────────────────── */
+.v-eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--vt-micro);
+  line-height: var(--vlh-micro);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  display: block;
+  margin: 0;
+}
+.v-eyebrow--accent { color: var(--accent-text); }
+.v-eyebrow--on-dark { color: hsl(0 0% 65%); }
+.v-eyebrow--on-grad { color: hsl(155 30% 90%); }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   CARD-HEAD · baseline-aligned (text-on-text, not center-on-center)
+   All title + meta rows on one baseline; eyebrow above sits one rhythm up.
+   ───────────────────────────────────────────────────────────────────────── */
+.v-card-head,
+.v-section-head,
+.v-greeting,
+.v-card-head-row {
+  align-items: baseline;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   BIG-CARD content fill — pushes the last visual element to the bottom so
+   shorter cards in a bento row don't leave accidental whitespace at the
+   bottom. Apply .v-fill to the element that should grow.
+   ───────────────────────────────────────────────────────────────────────── */
+.v-fill { margin-top: auto; }
+
+/* All big cards stretch to row height; their inner stack pushes content
+   apart so eyebrow + headline pin to the top and the data viz / footer
+   pins to the bottom. */
+.v-big {
+  justify-content: flex-start;
+}
+.v-big > :last-child {
+  margin-top: auto;
+}
+/* Exception: if the big card's last child is just text meta, don't push it. */
+.v-big > .v-big-meta:last-child {
+  margin-top: 0;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   CARDS IN A ROW · equal-height + baseline-aligned content
+   Used inside .v-row--* and .v-bento. Make sure cards in a row reach the
+   same height (default for CSS grid) AND that the headline starts at the
+   same baseline regardless of card content.
+   ───────────────────────────────────────────────────────────────────────── */
+.v-row > .v-card,    .v-row > .v-big,    .v-row > .v-vital,    .v-row > .v-chat-card,    .v-row > .v-advisor-rich,
+.v-bento > .v-card,  .v-bento > .v-big,  .v-bento > .v-vital,  .v-bento > .v-chat-card,  .v-bento > .v-advisor-rich,
+.v-bento-3 > .v-card,.v-bento-3 > .v-big,.v-bento-3 > .v-vital,.v-bento-3 > .v-chat-card,.v-bento-3 > .v-advisor-rich,
+.v-row-2 > .v-card,  .v-row-2 > .v-big,  .v-row-2 > .v-vital,  .v-row-2 > .v-chat-card,  .v-row-2 > .v-advisor-rich,
+.v-row-3 > .v-card,  .v-row-3 > .v-big,  .v-row-3 > .v-vital,  .v-row-3 > .v-chat-card,  .v-row-3 > .v-advisor-rich,
+.v-row-4 > .v-card,  .v-row-4 > .v-big,  .v-row-4 > .v-vital,  .v-row-4 > .v-chat-card,  .v-row-4 > .v-advisor-rich,
+.v-row-mixed > .v-card, .v-row-mixed > .v-big, .v-row-mixed > .v-vital, .v-row-mixed > .v-chat-card, .v-row-mixed > .v-advisor-rich,
+.v-metric-grid > .m-lab-result {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   SECTION HEADER RHYTHM
+   Above section: var(--vs-5) (parent .v-content gap handles it)
+   Between section-head and grid: var(--vs-3)
+   ───────────────────────────────────────────────────────────────────────── */
+.v-section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--vs-3);
+  margin: 0 0 var(--vs-3);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   PAGE HEAD · tighter rhythm (was 32 top / 0 bottom + content padding 24
+   = 56 between title and first card. Too much for an info-dense product.)
+   New: 24 top / 0 bottom + content padding 16 = 40px total.
+   ───────────────────────────────────────────────────────────────────────── */
+.v-page-head {
+  padding: var(--vs-5) var(--vs-6) 0;
+}
+.v-content {
+  padding: var(--vs-4) var(--vs-6) var(--vs-8);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   TYPOGRAPHIC ALIGNMENT FOR DATA
+   tabular numerics everywhere a number appears in a cell or stat
+   ───────────────────────────────────────────────────────────────────────── */
+.v-big-num,
+.v-vital-num,
+.v-hero-stat-num,
+.v-dial-legend-count,
+.v-chat-callout-value,
+.v-lab-mini-value,
+.v-rings-item-value,
+.v-med-status,
+.v-timeline-date-num,
+.v-progress-bar-streak {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
    FOOT
    ───────────────────────────────────────────────────────────────────────── */
 .v-shell-foot {
@@ -1432,3 +1553,97 @@ body.vita-app {
 }
 .v-shell-foot a { color: var(--ink-soft); text-decoration: none; }
 .v-shell-foot a:hover { color: var(--ink); text-decoration: underline; }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   COMPONENT TILE · used on the case-overview page to list component class
+   names with a one-line description. Class-based replacement for 14
+   identical inline-style tile patterns.
+   ───────────────────────────────────────────────────────────────────────── */
+.v-tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vs-1);
+  padding: var(--vs-4);
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--vr-sm);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 120ms ease;
+}
+.v-tile:hover { border-color: var(--accent); }
+.v-tile-code {
+  font-family: var(--font-mono);
+  font-size: var(--vt-body-s);
+  color: var(--ink);
+  font-weight: 500;
+}
+.v-tile-desc {
+  font-family: var(--font-text);
+  font-size: var(--vt-body-s);
+  line-height: var(--vlh-body-s);
+  color: var(--muted);
+}
+
+.v-tile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--vs-3);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   ANCHOR-RESET FOR CLICKABLE CARDS · m-lab-result and v-card used as <a>
+   inherit color + drop underline so the markup stays semantically a link
+   without inline style="text-decoration: none; color: inherit".
+   ───────────────────────────────────────────────────────────────────────── */
+a.m-lab-result,
+a.v-card,
+a.v-vital,
+a.v-quick-tile { color: inherit; text-decoration: none; }
+a.m-lab-result:hover,
+a.v-card:hover { border-color: var(--accent); }
+
+/* Inside gradient + dark big cards, descendant text inherits white/light
+   color by default so inline color="white" overrides are unnecessary. */
+.v-big--dark .v-dial-legend-row,
+.v-big--dark .v-dial-legend-label,
+.v-big--dark .v-dial-legend-count { color: hsl(0 0% 92%); }
+.v-big--gradient .v-dial-legend-row,
+.v-big--gradient .v-dial-legend-label,
+.v-big--gradient .v-dial-legend-count { color: hsl(155 25% 92%); }
+.v-big--gradient .v-dial-legend-count,
+.v-big--dark .v-dial-legend-count { color: white; }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   SCREEN-LEVEL TYPE · used by lab-interpretation, onboarding for the
+   long-form reading sections (not the bento dashboards).
+   ───────────────────────────────────────────────────────────────────────── */
+.v-screen-lede {
+  font-family: var(--font-text);
+  font-size: var(--vt-body);
+  line-height: var(--vlh-body);
+  color: var(--ink-soft);
+  max-width: 64ch;
+  margin: var(--vs-3) 0 var(--vs-5);
+}
+.v-screen-note {
+  font-family: var(--font-text);
+  font-size: var(--vt-body-s);
+  line-height: var(--vlh-body-s);
+  color: var(--muted);
+  max-width: 64ch;
+  padding: var(--vs-3) var(--vs-4);
+  background: var(--bg-tinted);
+  border-left: 2px solid var(--accent);
+  border-radius: var(--vr-sm);
+}
+.v-screen-section + .v-screen-section { margin-top: var(--vs-7); }
+.v-screen-section-title {
+  font-family: var(--font-display);
+  font-size: var(--vt-title);
+  line-height: var(--vlh-title);
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: -0.015em;
+  margin: 0 0 var(--vs-4);
+}

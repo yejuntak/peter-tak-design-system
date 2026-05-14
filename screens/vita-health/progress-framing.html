@@ -41,23 +41,23 @@
   </header>
   <main class="v-main">
     <div class="v-page-head">
-      <span class="v-page-eyebrow">Progress · this week</span>
+      <span class="v-eyebrow">Progress · this week</span>
       <h1 class="v-page-title">Your progress</h1>
     </div>
     <div class="v-content">
       <section class="v-bento">
         <article class="v-big v-big--dark">
-          <span class="v-big-eyebrow">Progress framing · always</span>
+          <span class="v-eyebrow v-eyebrow--on-dark">Progress framing · always</span>
           <h2 class="v-big-num">4 of 7</h2>
           <p class="v-big-meta">Activities completed this week. The API only accepts a completed count and a target — there is no "missed" prop in the system. Same data, different framing, measurably different patient response.</p>
-          <div class="m-progress-bar" data-completed="4" data-target="7" style="margin-top: auto;">
-            <div class="m-progress-bar-track"><div class="m-progress-bar-fill" style="width: calc(4 / 7 * 100%); background: hsl(155 55% 50%);"></div></div>
-            <p class="m-progress-bar-encouragement" style="color: hsl(0 0% 65%);">Two more activities will finish strong.</p>
+          <div class="m-progress-bar" data-completed="4" data-target="7"style="margin-top: auto">
+            <div class="m-progress-bar-track"><div class="m-progress-bar-fill"style="width: calc(4 / 7 * 100%); background: hsl(155 55% 50%)"></div></div>
+            <p class="m-progress-bar-encouragement">Two more activities will finish strong.</p>
           </div>
         </article>
 
         <article class="v-big v-big--gradient">
-          <span class="v-big-eyebrow">Streak</span>
+          <span class="v-eyebrow v-eyebrow--on-grad">Streak</span>
           <h2 class="v-big-num">21 days</h2>
           <p class="v-big-meta">Longest active streak this quarter. Plan-completion streak doesn't reset on a low day — only on a no-activity day. Forward-looking encouragement only.</p>
         </article>
@@ -68,33 +68,33 @@
         <div class="v-section-head"><h3 class="v-section-title">Same data, two ways</h3><span class="v-section-sub">Why we shipped only one of these</span></div>
         <div class="v-row-2">
 
-          <article class="v-card" style="border-color: hsl(0 30% 90%); background: hsl(0 50% 99%);">
+          <article class="v-card"style="border-color: hsl(0 30% 90%); background: hsl(0 50% 99%)">
             <div class="v-card-head">
-              <h3 class="v-card-title" style="color: hsl(0 70% 40%);">Not in this system · Compliance</h3>
+              <h3 class="v-card-title"style="color: hsl(0 70% 40%)">Not in this system · Compliance</h3>
               <span class="v-card-meta">Rejected</span>
             </div>
-            <div style="display: flex; align-items: baseline; gap: 8px;">
-              <span style="font-family: var(--font-display); font-size: 32px; font-weight: 500; color: hsl(0 70% 40%); letter-spacing: -0.02em;">3</span>
-              <span style="color: var(--ink-soft);">of 7 days missed</span>
+            <div style="display: flex; align-items: baseline; gap: 8px">
+              <span style="font-size: 32px; font-weight: 500; color: hsl(0 70% 40%); letter-spacing: -0.02em">3</span>
+              <span style="color: var(--ink-soft)">of 7 days missed</span>
             </div>
-            <div style="height: 6px; border-radius: 999px; background: hsl(0 20% 92%); overflow: hidden;">
-              <div style="height: 100%; width: 43%; background: hsl(0 70% 55%);"></div>
+            <div style="height: 6px; border-radius: 999px; background: hsl(0 20% 92%); overflow: hidden">
+              <div style="height: 100%; width: 43%; background: hsl(0 70% 55%)"></div>
             </div>
-            <p style="margin: 0; font-family: var(--font-text); font-size: 13px; line-height: 1.55; color: hsl(0 40% 30%);">You're behind schedule. 3 days missed this week.</p>
-            <p style="margin: 0; font-family: var(--font-text); font-size: 12px; color: var(--muted); line-height: 1.55;">Activates shame. Drives abandonment. The underlying data is identical to the version on the right.</p>
+            <p style="margin: 0; font-size: 13px; line-height: 1.55; color: hsl(0 40% 30%)">You're behind schedule. 3 days missed this week.</p>
+            <p style="margin: 0; font-size: 12px; color: var(--muted); line-height: 1.55">Activates shame. Drives abandonment. The underlying data is identical to the version on the right.</p>
           </article>
 
-          <article class="v-card" style="border-color: var(--accent); background: var(--accent-soft);">
+          <article class="v-card"style="border-color: var(--accent); background: var(--accent-soft)">
             <div class="v-card-head">
-              <h3 class="v-card-title" style="color: var(--accent-text);">In this system · Progress</h3>
-              <span class="v-card-meta" style="color: var(--accent-text);">Shipped</span>
+              <h3 class="v-card-title"style="color: var(--accent-text)">In this system · Progress</h3>
+              <span class="v-card-meta"style="color: var(--accent-text)">Shipped</span>
             </div>
             <div class="m-progress-bar" data-completed="4" data-target="7">
               <header class="m-progress-bar-head"><span class="m-progress-bar-count"><strong>4 of 7</strong> completed</span></header>
-              <div class="m-progress-bar-track"><div class="m-progress-bar-fill" style="width: calc(4 / 7 * 100%);"></div></div>
+              <div class="m-progress-bar-track"><div class="m-progress-bar-fill"style="width: calc(4 / 7 * 100%)"></div></div>
               <p class="m-progress-bar-encouragement">More than halfway. Two more to finish strong.</p>
             </div>
-            <p style="margin: 0; font-family: var(--font-text); font-size: 12px; color: var(--ink-soft); line-height: 1.55;">Sustains engagement. The patient sees what they've done.</p>
+            <p style="margin: 0; font-size: 12px; color: var(--ink-soft); line-height: 1.55">Sustains engagement. The patient sees what they've done.</p>
           </article>
         </div>
       </section>
@@ -132,24 +132,24 @@
         <div class="v-section-head"><h3 class="v-section-title">Progress framing · everywhere</h3><span class="v-section-sub">Care plan · supplements · coach check-ins</span></div>
         <div class="v-row-3">
           <article class="v-card">
-            <span class="v-big-eyebrow">Activity goal</span>
-            <div class="m-progress-bar" data-completed="4" data-target="7" style="margin-top: 8px;">
+            <span class="v-eyebrow">Activity goal</span>
+            <div class="m-progress-bar" data-completed="4" data-target="7"style="margin-top: 8px">
               <header class="m-progress-bar-head"><span class="m-progress-bar-count"><strong>4 of 7</strong> walks this week</span></header>
-              <div class="m-progress-bar-track"><div class="m-progress-bar-fill" style="width: calc(4 / 7 * 100%);"></div></div>
+              <div class="m-progress-bar-track"><div class="m-progress-bar-fill"style="width: calc(4 / 7 * 100%)"></div></div>
             </div>
           </article>
           <article class="v-card">
-            <span class="v-big-eyebrow">Vitamin D · fortnight</span>
-            <div class="m-progress-bar" data-completed="12" data-target="14" style="margin-top: 8px;">
+            <span class="v-eyebrow">Vitamin D · fortnight</span>
+            <div class="m-progress-bar" data-completed="12" data-target="14"style="margin-top: 8px">
               <header class="m-progress-bar-head"><span class="m-progress-bar-count"><strong>12 of 14</strong> days</span></header>
-              <div class="m-progress-bar-track"><div class="m-progress-bar-fill" style="width: calc(12 / 14 * 100%);"></div></div>
+              <div class="m-progress-bar-track"><div class="m-progress-bar-fill"style="width: calc(12 / 14 * 100%)"></div></div>
             </div>
           </article>
           <article class="v-card">
-            <span class="v-big-eyebrow">Coach check-ins · month</span>
-            <div class="m-progress-bar" data-completed="2" data-target="4" style="margin-top: 8px;">
+            <span class="v-eyebrow">Coach check-ins · month</span>
+            <div class="m-progress-bar" data-completed="2" data-target="4"style="margin-top: 8px">
               <header class="m-progress-bar-head"><span class="m-progress-bar-count"><strong>2 of 4</strong> this month</span></header>
-              <div class="m-progress-bar-track"><div class="m-progress-bar-fill" style="width: 50%;"></div></div>
+              <div class="m-progress-bar-track"><div class="m-progress-bar-fill"style="width: 50%"></div></div>
             </div>
           </article>
         </div>
