@@ -96,11 +96,23 @@
 }
 .m-lab-result--compact {
   padding: var(--s-3) var(--s-4);
+  gap: var(--s-2);
 }
+/* Compact variant hides the heavy elements (explanation paragraph + visual
+   range indicator) but PRESERVES the trend arrow so the snapshot grid still
+   communicates how each value has moved — the most critical context. */
 .m-lab-result--compact .m-lab-result-explanation,
-.m-lab-result--compact .m-range-indicator,
-.m-lab-result--compact .m-trend-arrow { display: none; }
+.m-lab-result--compact .m-range-indicator { display: none; }
 .m-lab-result--compact .m-lab-result-number { font-size: var(--t-title-l); }
+.m-lab-result--compact .m-trend-arrow {
+  font-size: var(--t-micro);
+  gap: 4px;
+  color: var(--muted);
+}
+.m-lab-result--compact .m-trend-arrow svg {
+  width: 10px;
+  height: 10px;
+}
 
 /* ─── .m-range-indicator ────────────────────────────────────────────────── */
 .m-range-indicator {
@@ -326,8 +338,38 @@
   font-size: var(--t-micro);
   color: var(--ink-soft);
 }
+/* Trigger strip — the metric movement that prompted this recommendation.
+   Pulls trend info out of the rationale paragraph and into a visually
+   distinct one-liner above the title. Mono, tabular, ink-soft on a tinted
+   surface — same key as .o-recommendation-card-sources but full-width. */
+.o-recommendation-card-trigger {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--s-2);
+  padding: 8px var(--s-3);
+  background: var(--bg-tinted);
+  border-radius: var(--r-2);
+  font-family: var(--font-mono);
+  font-size: var(--t-body-s);
+  color: var(--ink-soft);
+  letter-spacing: -0.003em;
+}
+.o-recommendation-card-trigger strong {
+  color: var(--ink);
+  font-weight: var(--w-medium);
+}
+.o-recommendation-card-trigger-delta {
+  margin-left: auto;
+  color: var(--accent-text);
+  font-weight: var(--w-medium);
+  font-variant-numeric: tabular-nums;
+}
 /* When .m-action-trio sits at the foot of the card, it becomes a footer
-   region matching .o-dialog-foot: padded, hairline-top, subtle bg tint. */
+   region matching .o-dialog-foot: padded, hairline-top, subtle bg tint.
+   Inside this footer all three buttons are sized .button-sm so the heights
+   match — primary stays ink-filled but at the smaller height feels balanced
+   against the secondary outline and the ghost text. */
 .o-recommendation-card > .m-action-trio {
   padding: var(--s-3) var(--s-4);
   border-top: 1px solid var(--hairline);
