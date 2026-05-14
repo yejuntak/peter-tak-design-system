@@ -1418,15 +1418,25 @@ pre.code-block code,
   color: var(--color-text-body);
 }
 
+/* Guarded so an explicit user-set light theme suppresses these even
+   when the OS prefers dark. Mirror under [data-theme="dark"] for JS toggle. */
 @media (prefers-color-scheme: dark) {
-  .ds-antipattern-card--do {
+  :root:not([data-theme="light"]) .ds-antipattern-card--do {
     border-color: hsl(142 30% 30%);
     background: hsl(142 30% 12%);
   }
-  .ds-antipattern-card--dont {
+  :root:not([data-theme="light"]) .ds-antipattern-card--dont {
     border-color: hsl(0 30% 30%);
     background: hsl(0 30% 12%);
   }
+}
+:root[data-theme="dark"] .ds-antipattern-card--do {
+  border-color: hsl(142 30% 30%);
+  background: hsl(142 30% 12%);
+}
+:root[data-theme="dark"] .ds-antipattern-card--dont {
+  border-color: hsl(0 30% 30%);
+  background: hsl(0 30% 12%);
 }
 
 /* Body ledes — text-wrap pretty avoids orphaned last words */
@@ -2105,14 +2115,21 @@ pre.code-block code,
 .ds-palette-item-tier--governance { color: hsl(0 0% 100%); background: hsl(0 0% 18%); }
 
 @media (prefers-color-scheme: dark) {
-  .ds-palette-item-tier--foundation { color: hsl(220 70% 80%); background: hsl(220 50% 15%); }
-  .ds-palette-item-tier--atom       { color: hsl(38 100% 75%); background: hsl(38 50% 18%); }
-  .ds-palette-item-tier--molecule   { color: hsl(280 70% 80%); background: hsl(280 40% 18%); }
-  .ds-palette-item-tier--organism   { color: hsl(160 60% 75%); background: hsl(160 40% 14%); }
-  .ds-palette-item-tier--template   { color: hsl(340 70% 80%); background: hsl(340 40% 18%); }
-  .ds-palette-item-tier--reference  { color: hsl(0 0% 75%); background: hsl(0 0% 16%); }
-  .ds-palette-item-tier--governance { color: hsl(0 0% 95%); background: hsl(0 0% 28%); }
+  :root:not([data-theme="light"]) .ds-palette-item-tier--foundation { color: hsl(220 70% 80%); background: hsl(220 50% 15%); }
+  :root:not([data-theme="light"]) .ds-palette-item-tier--atom       { color: hsl(38 100% 75%); background: hsl(38 50% 18%); }
+  :root:not([data-theme="light"]) .ds-palette-item-tier--molecule   { color: hsl(280 70% 80%); background: hsl(280 40% 18%); }
+  :root:not([data-theme="light"]) .ds-palette-item-tier--organism   { color: hsl(160 60% 75%); background: hsl(160 40% 14%); }
+  :root:not([data-theme="light"]) .ds-palette-item-tier--template   { color: hsl(340 70% 80%); background: hsl(340 40% 18%); }
+  :root:not([data-theme="light"]) .ds-palette-item-tier--reference  { color: hsl(0 0% 75%); background: hsl(0 0% 16%); }
+  :root:not([data-theme="light"]) .ds-palette-item-tier--governance { color: hsl(0 0% 95%); background: hsl(0 0% 28%); }
 }
+:root[data-theme="dark"] .ds-palette-item-tier--foundation { color: hsl(220 70% 80%); background: hsl(220 50% 15%); }
+:root[data-theme="dark"] .ds-palette-item-tier--atom       { color: hsl(38 100% 75%); background: hsl(38 50% 18%); }
+:root[data-theme="dark"] .ds-palette-item-tier--molecule   { color: hsl(280 70% 80%); background: hsl(280 40% 18%); }
+:root[data-theme="dark"] .ds-palette-item-tier--organism   { color: hsl(160 60% 75%); background: hsl(160 40% 14%); }
+:root[data-theme="dark"] .ds-palette-item-tier--template   { color: hsl(340 70% 80%); background: hsl(340 40% 18%); }
+:root[data-theme="dark"] .ds-palette-item-tier--reference  { color: hsl(0 0% 75%); background: hsl(0 0% 16%); }
+:root[data-theme="dark"] .ds-palette-item-tier--governance { color: hsl(0 0% 95%); background: hsl(0 0% 28%); }
 
 .ds-palette-empty {
   padding: var(--s-5);
