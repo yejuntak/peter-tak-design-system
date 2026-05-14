@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" data-theme="light">
 <head>
-  <title>Care plan · Patient-defined goal — Vita Health</title>
+  <title>Vita Health · Care plan</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../../css/tokens.css">
@@ -14,99 +14,165 @@
   <link rel="stylesheet" href="_layout.css">
 </head>
 <body class="vita-app">
-  <div class="v-shell">
-    <header class="v-shell-head">
-      <a class="v-shell-head-brand" href="dashboard.html">
-        <span class="v-shell-head-brand-mark">V</span>
-        <span>Vita Health</span>
-      </a>
-      <nav class="v-shell-head-nav" aria-label="Main navigation">
-        <a href="dashboard.html">Snapshot</a>
-        <a href="labs.html">Labs</a>
-        <a href="care-plan.html" aria-current="page">Care plan</a>
-        <a href="progress-framing.html">Progress</a>
-        <a href="recommendation.html">Insights</a>
-        <a href="messages.html">Messages</a>
+<div class="v-app">
+
+  <aside class="v-sidebar" aria-label="Primary navigation">
+    <a class="v-sidebar-brand" href="dashboard.html"><span class="v-sidebar-brand-mark">V</span><span>Vita Health</span></a>
+    <div>
+      <div class="v-sidebar-section-label">Care</div>
+      <nav class="v-sidebar-nav">
+        <a class="v-sidebar-link" href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12l9-9 9 9"/><path d="M5 10v10h14V10"/></svg>Today</a>
+        <a class="v-sidebar-link" href="labs.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2v7L4 21h16L15 9V2"/><line x1="9" y1="2" x2="15" y2="2"/></svg>Labs<span class="v-sidebar-link-badge">3</span></a>
+        <a class="v-sidebar-link" href="care-plan.html" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Care plan</a>
+        <a class="v-sidebar-link" href="progress-framing.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Progress</a>
+        <a class="v-sidebar-link" href="recommendation.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>Insights</a>
       </nav>
-      <div class="v-shell-head-user"><span class="v-shell-head-user-avatar" aria-hidden="true">JT</span></div>
+    </div>
+    <div>
+      <div class="v-sidebar-section-label">Communicate</div>
+      <nav class="v-sidebar-nav">
+        <a class="v-sidebar-link" href="messages.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Messages<span class="v-sidebar-link-badge">2</span></a>
+        <a class="v-sidebar-link" href="messages.html#schedule"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Appointments</a>
+      </nav>
+    </div>
+    <div>
+      <div class="v-sidebar-section-label">Learn</div>
+      <nav class="v-sidebar-nav">
+        <a class="v-sidebar-link" href="journey.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><line x1="12" y1="3" x2="12" y2="9"/><line x1="12" y1="15" x2="12" y2="21"/><line x1="3" y1="12" x2="9" y2="12"/><line x1="15" y1="12" x2="21" y2="12"/></svg>Patient journey</a>
+        <a class="v-sidebar-link" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>Case overview</a>
+      </nav>
+    </div>
+    <div class="v-sidebar-foot"><span class="v-sidebar-foot-avatar" aria-hidden="true">JT</span><div><div class="v-sidebar-foot-name">Jamie Tak</div><div class="v-sidebar-foot-meta">Member · 2019</div></div></div>
+  </aside>
+
+  <div class="v-main">
+    <header class="v-topbar">
+      <div class="v-topbar-greeting"><span class="v-topbar-eyebrow">Care plan · v3 · this quarter</span><h1 class="v-topbar-title">Your plan</h1></div>
+      <div class="v-topbar-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input type="search" placeholder="Search plan…" aria-label="Search"></div>
+      <button class="v-topbar-icon" data-notif aria-label="Notifications"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></button>
     </header>
 
-    <main>
-      <span class="v-screen-eyebrow">Screen 03 · Care plan</span>
-      <h1 class="v-screen-title">From insight to action.</h1>
-      <p class="v-screen-lede">The clinical recommendation is a <em>direction</em>. The patient writes the <em>plan</em>. Patient-defined goals anchored to clinical guidance produce better adherence than clinician-mandated targets — because the patient chose the commitment.</p>
-
-      <p class="v-screen-note"><strong>Design rule:</strong> clinical recommendation = direction. Patient-defined goal = commitment. Show both — the source the direction came from, and the plan the patient authored — so the relationship between guidance and agency is legible.</p>
-
-      <div style="height: var(--s-7);"></div>
-
-      <section class="v-screen-section" aria-label="Active care plan">
-        <article class="o-care-plan">
-          <header class="o-care-plan-head">
-            <span class="o-care-plan-direction">Clinical direction</span>
-            <p class="o-care-plan-goal-source">Based on your fasting glucose trend, increasing moderate activity is the recommended first intervention.</p>
-          </header>
-
-          <div style="padding-top: var(--s-3); border-top: 1px solid var(--hairline);">
-            <span class="o-care-plan-direction">Your plan</span>
-            <h2 class="o-care-plan-goal" style="margin-top: 4px;">Walk 20 minutes, 3 days a week, after dinner.</h2>
-            <p class="o-care-plan-goal-source">You chose this commitment. You can change it anytime — frequency, duration, or activity type. The system tracks <em>your</em> goal, not the clinical target.</p>
+    <div class="v-content">
+      <section class="v-bento">
+        <article class="v-big v-big--surface">
+          <div class="v-doctor-attr">
+            <span class="v-doctor-attr-avatar" aria-hidden="true">RK</span>
+            <div><h3 class="v-doctor-attr-name">Dr. R. Kim, MD</h3><p class="v-doctor-attr-role">Vita Primary Care · 14 years</p></div>
           </div>
+          <span class="v-big-eyebrow">March 14, 2022</span>
+          <h2 class="v-big-title" style="font-size: 28px;">Health goals selected by Dr. Kim for you</h2>
+          <p class="v-big-meta">Hi Jamie — three lifestyle interventions to address your LDL trend and morning BP together. Each is anchored to a measurable trend; adjust frequency or duration to fit your week. We'll review at your June labs.</p>
+          <div class="v-protocol">
+            <div class="v-protocol-item"><span class="v-protocol-item-num">01</span><div><h4 class="v-protocol-item-title">Walk 20 min · 3×/week, after meals</h4><p class="v-protocol-item-meta">Anchored to LDL trend · supports glucose response</p></div></div>
+            <div class="v-protocol-item"><span class="v-protocol-item-num">02</span><div><h4 class="v-protocol-item-title">Reduce processed food · 5 days/week</h4><p class="v-protocol-item-meta">Replace 2 meals/week · supports cholesterol</p></div></div>
+            <div class="v-protocol-item"><span class="v-protocol-item-num">03</span><div><h4 class="v-protocol-item-title">Vitamin D · 1,000 IU daily</h4><p class="v-protocol-item-meta">Re-check at 3-month follow-up labs</p></div></div>
+          </div>
+          <div style="display: flex; gap: 8px; margin-top: 12px;">
+            <button class="v-btn-mini v-btn-mini--primary">Accept plan</button>
+            <button class="v-btn-mini">Adjust frequency</button>
+            <button class="v-btn-mini v-btn-mini--ghost">Discuss with Dr. Kim</button>
+          </div>
+        </article>
 
-          <div class="m-progress-bar" data-completed="2" data-target="3">
-            <header class="m-progress-bar-head">
-              <span class="m-progress-bar-count"><strong>2 of 3</strong> walks this week</span>
-              <span class="m-progress-bar-streak">Up from 1 of 3 last week</span>
-            </header>
-            <div class="m-progress-bar-track" role="progressbar" aria-valuenow="2" aria-valuemin="0" aria-valuemax="3" aria-label="2 of 3 walks this week">
-              <div class="m-progress-bar-fill" style="width: calc(2 / 3 * 100%);"></div>
+        <article class="v-big v-big--dark">
+          <span class="v-big-eyebrow">Adherence · last 28 days</span>
+          <h2 class="v-big-num">73%</h2>
+          <p class="v-big-meta">21 of 28 planned activities completed. Up from 64% last cycle.</p>
+          <div class="v-dial" style="margin-top: auto;">
+            <svg class="v-dial-svg" viewBox="0 0 100 100" aria-label="Adherence breakdown">
+              <circle cx="50" cy="50" r="42" fill="none" stroke="hsl(0 0% 22%)" stroke-width="3"/>
+              <circle cx="50" cy="50" r="42" fill="none" stroke="hsl(155 55% 50%)" stroke-width="10" stroke-linecap="butt" stroke-dasharray="192.5 263.9" stroke-dashoffset="0" transform="rotate(-90 50 50)"/>
+              <text x="50" y="50" text-anchor="middle" font-family="Aeonik" font-size="16" font-weight="500" fill="white" letter-spacing="-0.5">21/28</text>
+              <text x="50" y="62" text-anchor="middle" font-family="Geist Mono" font-size="6" fill="hsl(0 0% 65%)" letter-spacing="0.5">COMPLETED</text>
+            </svg>
+            <div class="v-dial-legend">
+              <div class="v-dial-legend-row"><span class="v-dial-legend-dot" style="background: hsl(155 55% 50%);"></span><span class="v-dial-legend-label">Walks</span><span class="v-dial-legend-count" style="color: white;">11/12</span></div>
+              <div class="v-dial-legend-row"><span class="v-dial-legend-dot" style="background: hsl(155 35% 35%);"></span><span class="v-dial-legend-label">Plate</span><span class="v-dial-legend-count" style="color: white;">8/16</span></div>
+              <div class="v-dial-legend-row"><span class="v-dial-legend-dot" style="background: hsl(48 95% 55%);"></span><span class="v-dial-legend-label">Vit D</span><span class="v-dial-legend-count" style="color: white;">14/14</span></div>
             </div>
-          </div>
-
-          <ul class="o-care-plan-list">
-            <li class="o-care-plan-item o-care-plan-item--done">
-              <span class="o-care-plan-item-icon">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              </span>
-              <span class="o-care-plan-item-text">Monday · 20 min after dinner</span>
-              <span class="o-care-plan-item-when">Done</span>
-            </li>
-            <li class="o-care-plan-item o-care-plan-item--done">
-              <span class="o-care-plan-item-icon">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-              </span>
-              <span class="o-care-plan-item-text">Wednesday · 22 min after dinner</span>
-              <span class="o-care-plan-item-when">Done</span>
-            </li>
-            <li class="o-care-plan-item">
-              <span class="o-care-plan-item-icon"></span>
-              <span class="o-care-plan-item-text">Friday · 20 min after dinner</span>
-              <span class="o-care-plan-item-when">Today</span>
-            </li>
-          </ul>
-
-          <div class="m-cta-pair" style="justify-content: flex-start; margin-top: var(--s-3);">
-            <a class="button button-primary" href="progress-framing.html">View progress →</a>
-            <a class="button button-secondary" href="#">Adjust plan</a>
           </div>
         </article>
       </section>
 
-      <section class="v-screen-section">
-        <h2 class="v-screen-section-title">Clinical context</h2>
-        <div style="padding: var(--s-5); background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--r-3); max-width: 720px;">
-          <span class="t-eyebrow" style="color: var(--muted);">Source · Vita Clinical Advisory Panel</span>
-          <h3 style="margin: 6px 0 8px; font-size: var(--t-title-m); color: var(--ink);">Why activity, why now</h3>
-          <p style="margin: 0 0 var(--s-3); font-size: var(--t-body-m); line-height: var(--lh-relaxed); color: var(--ink-soft);">Your fasting glucose has trended upward from 116 to 128 over 12 months — still in pre-diabetic territory, not yet diabetic. Patients with similar trends who reach ~150 minutes/week of moderate activity see an average 8–14 mg/dL decrease at their next test, often returning to the normal range without medication.</p>
-          <p style="margin: 0; font-size: var(--t-body-s); color: var(--muted); font-style: italic;">150 min/week is the long-term target. The patient-defined starting plan (60 min/week) builds the habit first; the system suggests cadence increases over time as the habit stabilizes.</p>
+      <section>
+        <div class="v-section-head"><h3 class="v-section-title">Your plan, your edits</h3><span class="v-section-sub">Patient-defined · editable</span></div>
+        <div class="v-row-3">
+
+          <article class="v-card">
+            <div class="v-card-head"><h3 class="v-card-title">Goal 1 · Walks</h3><span class="v-card-meta">Cardio</span></div>
+            <div>
+              <span class="v-big-eyebrow">Direction</span>
+              <p style="font-family: var(--font-text); font-size: 13px; color: var(--ink-soft); margin: 4px 0 12px; line-height: 1.5;">Increase moderate activity to address LDL trend.</p>
+              <span class="v-big-eyebrow">Your commitment</span>
+              <p style="font-family: var(--font-display); font-size: 17px; font-weight: var(--w-medium); color: var(--ink); margin: 4px 0 0; line-height: 1.3; letter-spacing: -0.01em;">Walk 20 min · 3×/week</p>
+            </div>
+            <div class="m-progress-bar" data-completed="11" data-target="12">
+              <header class="m-progress-bar-head"><span class="m-progress-bar-count"><strong>11 of 12</strong> this month</span></header>
+              <div class="m-progress-bar-track"><div class="m-progress-bar-fill" style="width: calc(11 / 12 * 100%);"></div></div>
+            </div>
+            <div style="display: flex; gap: 6px;"><button class="v-btn-mini">Edit</button><button class="v-btn-mini v-btn-mini--ghost">Pause</button></div>
+          </article>
+
+          <article class="v-card">
+            <div class="v-card-head"><h3 class="v-card-title">Goal 2 · Plate</h3><span class="v-card-meta">Nutrition</span></div>
+            <div>
+              <span class="v-big-eyebrow">Direction</span>
+              <p style="font-family: var(--font-text); font-size: 13px; color: var(--ink-soft); margin: 4px 0 12px; line-height: 1.5;">Reduce processed food to support cholesterol.</p>
+              <span class="v-big-eyebrow">Your commitment</span>
+              <p style="font-family: var(--font-display); font-size: 17px; font-weight: var(--w-medium); color: var(--ink); margin: 4px 0 0; line-height: 1.3; letter-spacing: -0.01em;">Cook at home 5 nights/week</p>
+            </div>
+            <div class="m-progress-bar" data-completed="8" data-target="16">
+              <header class="m-progress-bar-head"><span class="m-progress-bar-count"><strong>8 of 16</strong> this month</span></header>
+              <div class="m-progress-bar-track"><div class="m-progress-bar-fill" style="width: 50%;"></div></div>
+            </div>
+            <div style="display: flex; gap: 6px;"><button class="v-btn-mini">Edit</button><button class="v-btn-mini v-btn-mini--ghost">Pause</button></div>
+          </article>
+
+          <article class="v-card">
+            <div class="v-card-head"><h3 class="v-card-title">Goal 3 · Supplement</h3><span class="v-card-meta">Medication</span></div>
+            <div>
+              <span class="v-big-eyebrow">Direction</span>
+              <p style="font-family: var(--font-text); font-size: 13px; color: var(--ink-soft); margin: 4px 0 12px; line-height: 1.5;">Restore Vitamin D to sufficient range.</p>
+              <span class="v-big-eyebrow">Your commitment</span>
+              <p style="font-family: var(--font-display); font-size: 17px; font-weight: var(--w-medium); color: var(--ink); margin: 4px 0 0; line-height: 1.3; letter-spacing: -0.01em;">Vit D3 · 1,000 IU daily</p>
+            </div>
+            <div class="m-progress-bar" data-completed="14" data-target="14">
+              <header class="m-progress-bar-head"><span class="m-progress-bar-count"><strong>14 of 14</strong> this fortnight</span></header>
+              <div class="m-progress-bar-track"><div class="m-progress-bar-fill" style="width: 100%;"></div></div>
+            </div>
+            <div style="display: flex; gap: 6px;"><button class="v-btn-mini">Edit</button><button class="v-btn-mini v-btn-mini--ghost">Pause</button></div>
+          </article>
         </div>
       </section>
-    </main>
 
-    <footer class="v-shell-foot">
-      <span>Vita Health · Reference screen built from the Peter Tak Design System</span>
-      <span><a href="../../components/organisms/recommendation-card.md">.o-care-plan</a> · <a href="../../CLAUDE.md">CLAUDE.md</a></span>
-    </footer>
+      <section>
+        <div class="v-section-head"><h3 class="v-section-title">Plan activity · last 4 weeks</h3><span class="v-section-sub">Each cell = one day · darker = more completed</span></div>
+        <article class="v-card">
+          <div class="v-heatmap">
+            <span class="v-heatmap-day"></span>
+            <span class="v-heatmap-day">Mon</span><span class="v-heatmap-day">Tue</span><span class="v-heatmap-day">Wed</span>
+            <span class="v-heatmap-day">Thu</span><span class="v-heatmap-day">Fri</span><span class="v-heatmap-day">Sat</span><span class="v-heatmap-day">Sun</span>
+
+            <span class="v-heatmap-label">Wk 1</span>
+            <span class="v-heatmap-cell" data-level="2"></span><span class="v-heatmap-cell" data-level="3"></span><span class="v-heatmap-cell" data-level="1"></span>
+            <span class="v-heatmap-cell" data-level="2"></span><span class="v-heatmap-cell v-heatmap-cell--miss"></span><span class="v-heatmap-cell" data-level="3"></span><span class="v-heatmap-cell" data-level="2"></span>
+
+            <span class="v-heatmap-label">Wk 2</span>
+            <span class="v-heatmap-cell" data-level="3"></span><span class="v-heatmap-cell" data-level="4"></span><span class="v-heatmap-cell" data-level="2"></span>
+            <span class="v-heatmap-cell" data-level="3"></span><span class="v-heatmap-cell" data-level="3"></span><span class="v-heatmap-cell" data-level="4"></span><span class="v-heatmap-cell" data-level="1"></span>
+
+            <span class="v-heatmap-label">Wk 3</span>
+            <span class="v-heatmap-cell" data-level="3"></span><span class="v-heatmap-cell" data-level="3"></span><span class="v-heatmap-cell" data-level="2"></span>
+            <span class="v-heatmap-cell" data-level="3"></span><span class="v-heatmap-cell" data-level="4"></span><span class="v-heatmap-cell" data-level="3"></span><span class="v-heatmap-cell" data-level="2"></span>
+
+            <span class="v-heatmap-label">This wk</span>
+            <span class="v-heatmap-cell" data-level="4"></span><span class="v-heatmap-cell" data-level="3"></span><span class="v-heatmap-cell" data-level="4"></span>
+            <span class="v-heatmap-cell" data-level="2"></span><span class="v-heatmap-cell" data-level="3"></span><span class="v-heatmap-cell"></span><span class="v-heatmap-cell"></span>
+          </div>
+        </article>
+      </section>
+    </div>
   </div>
+</div>
 </body>
 </html>

@@ -944,3 +944,419 @@ body.vita-app {
   letter-spacing: 0.08em;
   color: var(--muted);
 }
+
+/* =============================================================================
+   Bento + data-viz primitives (Superpower-style)
+   Big cards with mixed dark / gradient / white surfaces. Used by the
+   dashboard hero strip and re-used on labs / care-plan / progress /
+   recommendation surfaces.
+   ============================================================================= */
+
+.v-bento {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+}
+.v-bento-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 980px) {
+  .v-bento { grid-template-columns: 1fr; }
+  .v-bento-3 { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .v-bento-3 { grid-template-columns: 1fr; }
+}
+
+/* Big card primitives ───────────────────────────────────────────────────── */
+.v-big {
+  border-radius: 20px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  overflow: hidden;
+  min-height: 260px;
+}
+.v-big--dark {
+  background: var(--ink);
+  color: hsl(0 0% 92%);
+}
+.v-big--dark .v-big-eyebrow { color: hsl(0 0% 65%); }
+.v-big--dark .v-big-num     { color: white; }
+.v-big--dark .v-big-meta    { color: hsl(0 0% 70%); }
+
+.v-big--gradient {
+  background: linear-gradient(135deg, hsl(155 60% 45%) 0%, hsl(170 60% 30%) 100%);
+  color: white;
+}
+.v-big--gradient::before {
+  content: "";
+  position: absolute;
+  top: -60px; right: -80px;
+  width: 280px; height: 280px;
+  background: radial-gradient(circle, hsl(155 80% 70% / 0.5) 0%, transparent 60%);
+  border-radius: 999px;
+  pointer-events: none;
+}
+.v-big--gradient::after {
+  content: "";
+  position: absolute;
+  bottom: -100px; left: 30%;
+  width: 260px; height: 260px;
+  background: radial-gradient(circle, hsl(170 60% 30% / 0.5) 0%, transparent 70%);
+  border-radius: 999px;
+  pointer-events: none;
+}
+.v-big--gradient .v-big-eyebrow { color: hsl(155 30% 90%); }
+.v-big--gradient .v-big-num,
+.v-big--gradient .v-big-title    { color: white; position: relative; z-index: 1; }
+.v-big--gradient .v-big-meta     { color: hsl(155 25% 88%); }
+
+.v-big--surface {
+  background: white;
+  color: var(--ink);
+  border: 1px solid var(--hairline);
+}
+
+.v-big-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  position: relative;
+  z-index: 1;
+}
+.v-big-num {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 8vw, 88px);
+  font-weight: var(--w-medium);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+.v-big-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: var(--w-medium);
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+.v-big-meta {
+  font-family: var(--font-text);
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Biomarker strip (horizontal segmented bar) ─────────────────────────── */
+.v-biomarker-strip {
+  display: flex;
+  gap: 3px;
+  height: 56px;
+  margin-top: auto;
+  position: relative;
+  z-index: 1;
+}
+.v-biomarker-seg {
+  flex: 1 1 auto;
+  border-radius: 4px;
+  position: relative;
+  transition: opacity 120ms, transform 120ms;
+}
+.v-biomarker-seg:hover { transform: scaleY(1.08); }
+.v-biomarker-seg--ok        { background: hsl(155 55% 50%); }
+.v-biomarker-seg--ok2       { background: hsl(160 60% 45%); }
+.v-biomarker-seg--watch     { background: hsl(48 95% 55%); }
+.v-biomarker-seg--watch2    { background: hsl(38 95% 55%); }
+.v-biomarker-seg--attention { background: hsl(340 80% 65%); }
+.v-biomarker-seg--low       { background: hsl(280 60% 65%); }
+.v-biomarker-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 14px;
+  position: relative;
+  z-index: 1;
+}
+.v-biomarker-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: -0.003em;
+}
+.v-biomarker-legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+/* ── Silhouette decoration (for bio-age / wellness score card) ───────────── */
+.v-silhouette {
+  position: absolute;
+  bottom: -20px;
+  right: -30px;
+  width: 240px;
+  height: 280px;
+  opacity: 0.35;
+  filter: blur(0.5px);
+  pointer-events: none;
+}
+
+/* ── Range dial (donut/sunburst chart) ──────────────────────────────────── */
+.v-dial {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.v-dial-svg {
+  flex-shrink: 0;
+  width: 180px;
+  height: 180px;
+}
+.v-dial-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+.v-dial-legend-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+.v-big--dark .v-dial-legend-row { color: hsl(0 0% 80%); }
+.v-dial-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+.v-dial-legend-count {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: var(--w-medium);
+  color: var(--ink);
+}
+.v-big--dark .v-dial-legend-count { color: white; }
+.v-dial-legend-label {
+  flex: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ── Doctor attribution row ─────────────────────────────────────────────── */
+.v-doctor-attr {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--hairline);
+}
+.v-doctor-attr-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-fg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: var(--w-bold);
+  flex-shrink: 0;
+  box-shadow: 0 0 0 4px hsl(155 40% 92%);
+}
+.v-doctor-attr-name {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: var(--w-medium);
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.2;
+}
+.v-doctor-attr-role {
+  font-family: var(--font-text);
+  font-size: 12px;
+  color: var(--muted);
+  margin: 2px 0 0;
+}
+
+/* ── Chat-thread style card (Q&A insight) ───────────────────────────────── */
+.v-chat-card {
+  background: white;
+  border: 1px solid var(--hairline);
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 260px;
+}
+.v-chat-bubble {
+  padding: 12px 16px;
+  border-radius: 16px;
+  font-family: var(--font-text);
+  font-size: 13.5px;
+  line-height: 1.55;
+  max-width: 86%;
+}
+.v-chat-bubble--mine {
+  align-self: flex-end;
+  background: var(--ink);
+  color: hsl(0 0% 96%);
+  border-bottom-right-radius: 6px;
+}
+.v-chat-bubble--reply {
+  align-self: flex-start;
+  background: hsl(142 12% 96%);
+  color: var(--ink);
+  border-bottom-left-radius: 6px;
+}
+.v-chat-callout {
+  align-self: flex-start;
+  background: var(--ink);
+  color: white;
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 92%;
+}
+.v-chat-callout-name {
+  font-family: var(--font-display);
+  font-size: 14.5px;
+  font-weight: var(--w-medium);
+  margin: 0;
+}
+.v-chat-callout-sub {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: hsl(0 0% 65%);
+  margin-top: 2px;
+}
+.v-chat-callout-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: hsl(340 80% 75%);
+}
+.v-chat-callout-status::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: hsl(340 80% 65%);
+}
+.v-chat-callout-value {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: var(--w-medium);
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+.v-chat-callout-unit {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: hsl(0 0% 65%);
+}
+
+/* ── Protocol list (numbered care steps under doctor card) ──────────────── */
+.v-protocol {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.v-protocol-item {
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  background: white;
+}
+.v-protocol-item-num {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--accent-soft);
+  color: var(--accent-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: var(--w-bold);
+}
+.v-protocol-item-title {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: var(--w-medium);
+  color: var(--ink);
+  letter-spacing: -0.005em;
+  margin: 0;
+}
+.v-protocol-item-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* ── Heatmap (week × activity grid) ─────────────────────────────────────── */
+.v-heatmap {
+  display: grid;
+  grid-template-columns: 60px repeat(7, 1fr);
+  gap: 6px;
+  align-items: center;
+}
+.v-heatmap-label {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.v-heatmap-cell {
+  aspect-ratio: 1;
+  border-radius: 6px;
+  background: hsl(142 12% 94%);
+  position: relative;
+}
+.v-heatmap-cell[data-level="1"] { background: hsl(155 40% 86%); }
+.v-heatmap-cell[data-level="2"] { background: hsl(155 45% 68%); }
+.v-heatmap-cell[data-level="3"] { background: hsl(155 50% 48%); }
+.v-heatmap-cell[data-level="4"] { background: hsl(155 55% 35%); }
+.v-heatmap-cell--miss { background: hsl(0 0% 96%); border: 1px dashed var(--hairline-strong); }
+.v-heatmap-day {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  color: var(--muted);
+  text-align: center;
+  letter-spacing: 0.04em;
+}
