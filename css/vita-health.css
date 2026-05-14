@@ -261,26 +261,38 @@
   }
 }
 
-/* ─── .o-recommendation-card ────────────────────────────────────────────── */
+/* ─── .o-recommendation-card ──────────────────────────────────────────────
+   Three regions separated by hairlines: head (tier + meta) ─ body (title +
+   rationale + sources) ─ footer (.m-action-trio). Same convention as the
+   .o-dialog organism: head/body/foot with internal dividers. Outer card has
+   no padding; each region owns its own padding so the hairlines extend
+   edge-to-edge inside the rounded corners. */
 .o-recommendation-card {
   display: flex;
   flex-direction: column;
-  gap: var(--s-4);
-  padding: var(--s-5);
   background: var(--surface);
   border: 1px solid var(--hairline);
   border-radius: var(--r-4);
+  overflow: hidden;
 }
 .o-recommendation-card-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--s-3);
+  padding: var(--s-3) var(--s-5);
+  border-bottom: 1px solid var(--hairline);
 }
 .o-recommendation-card-meta {
   font-family: var(--font-mono);
   font-size: var(--t-micro);
   color: var(--muted);
+}
+.o-recommendation-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  padding: var(--s-5);
 }
 .o-recommendation-card-title {
   font-family: var(--font-display);
@@ -313,6 +325,13 @@
   font-family: var(--font-mono);
   font-size: var(--t-micro);
   color: var(--ink-soft);
+}
+/* When .m-action-trio sits at the foot of the card, it becomes a footer
+   region matching .o-dialog-foot: padded, hairline-top, subtle bg tint. */
+.o-recommendation-card > .m-action-trio {
+  padding: var(--s-3) var(--s-4);
+  border-top: 1px solid var(--hairline);
+  background: var(--bg);
 }
 
 /* ─── .o-care-plan ──────────────────────────────────────────────────────── */

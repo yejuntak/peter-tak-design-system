@@ -4,17 +4,24 @@ The canonical AI/system recommendation surface. Composes `.m-confidence-tier`, t
 
 ## Anatomy
 
+Three hairline-separated regions — same convention as `.o-dialog` (head / body / foot).
+
 ```
-.o-recommendation-card
-├── .o-recommendation-card-head
-│   ├── .m-confidence-tier        ← high | medium | low (molecule)
-│   └── .o-recommendation-card-meta  ← optional "Updated 2 days ago"
-├── .o-recommendation-card-body
-│   ├── .o-recommendation-card-title    ← the recommendation, one sentence
-│   ├── .o-recommendation-card-rationale ← why — links to supporting data
-│   └── .o-recommendation-card-sources  ← optional "Based on: lab trend, activity, age"
-└── .m-action-trio                  ← Accept · Modify · Dismiss
+.o-recommendation-card                       ← outer container, no padding, overflow:hidden
+├── .o-recommendation-card-head              ← header region · padding s-3 s-5 · border-bottom hairline
+│   ├── .m-confidence-tier                   ← high | medium | low (molecule)
+│   └── .o-recommendation-card-meta          ← optional "Updated 2 days ago"
+├── .o-recommendation-card-body              ← body region · padding s-5
+│   ├── .o-recommendation-card-title         ← the recommendation, one sentence
+│   ├── .o-recommendation-card-rationale     ← why — supporting data
+│   └── .o-recommendation-card-sources       ← optional sources list
+└── .m-action-trio                           ← footer region · padding s-3 s-4 · border-top hairline · bg bg
+    ├── .button.button-ghost.button-sm       ← Not for me
+    ├── .button.button-secondary             ← Adjust it
+    └── .button.button-primary               ← Add to my plan (destination, right)
 ```
+
+The card has no outer padding; each region owns its own padding so the hairlines extend edge-to-edge inside the rounded corners.
 
 ## When to use
 
@@ -50,9 +57,9 @@ The canonical AI/system recommendation surface. Composes `.m-confidence-tier`, t
     </ul>
   </div>
   <div class="m-action-trio" role="group" aria-label="Respond to recommendation">
-    <button type="button" class="button button-primary" data-action="accept">Accept</button>
-    <button type="button" class="button button-secondary" data-action="modify">Modify</button>
-    <button type="button" class="button button-ghost button-sm" data-action="dismiss">Dismiss</button>
+    <button type="button" class="button button-ghost button-sm" data-action="dismiss">Not for me</button>
+    <button type="button" class="button button-secondary" data-action="modify">Adjust it</button>
+    <button type="button" class="button button-primary" data-action="accept">Add to my plan</button>
   </div>
 </article>
 ```
