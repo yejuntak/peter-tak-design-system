@@ -1,10 +1,10 @@
 # `.m-confidence-tier`
 
-A label that tells a user how much weight to give an AI/system recommendation. **The score is never exposed** — the tier is the language wrapper around the score.
+A proposed language label for an AI/system recommendation. This design system uses qualitative tiers by default. A tier is presentation, not evidence that a model is calibrated or that the recommendation is correct.
 
 ## Why this exists
 
-ML models output scores (0.84, 92%). Patients and end users cannot interpret those scores in context. A 0.84 in a medical recommendation is very different from a 0.84 in a movie recommendation. This component forces the design to translate the score into a tier the user can act on without numeracy.
+Model scores require context: what they measure, the population assessed, and any calibration evidence. This component explores qualitative language as one presentation choice. The repository has not established that hiding numerical information improves understanding or decisions. A model score, strength of supporting evidence, and the appropriateness of an action are distinct properties; do not infer one from another.
 
 ## The three tiers
 
@@ -14,7 +14,7 @@ ML models output scores (0.84, 92%). Patients and end users cannot interpret tho
 | `.m-confidence-tier--medium` | "Consider" | Suggestive, lifestyle-factor heavy, multiple inputs. Treat as option. |
 | `.m-confidence-tier--low` | "Ask your doctor about" | Complex, edge of model competence, requires human judgment. Treat as a prompt to escalate. |
 
-The phrase IS the variant. **Do not freelance new copy** — these three phrases are how every recommendation in the product introduces itself.
+These are the current example variants. Their wording and selection rules require review for the intended domain and users. The healthcare examples do not establish clinical safety, efficacy or universal suitability.
 
 ## Anatomy
 
@@ -49,6 +49,6 @@ It's a small inline element. Mono font, small caps, leading icon optional.
 
 ## Rules
 
-- **No numeric score next to or behind this label.** If your designer or PM asks for "(94% confidence)", reject — that's the failure mode this component prevents.
+- **Qualitative language is the default design choice, not a universal ban on numbers.** Decide whether quantitative information is needed for the task and whether its meaning and calibration can be explained. Record that decision and evaluate user interpretation.
 - **One tier per recommendation.** Don't try to express more nuance with two tiers stacked.
-- **The tier maps to a model-confidence threshold defined by the team**, not by the designer. Document the thresholds in your product's recommendation engine, not in the UI.
+- **Define the evidence required for each tier.** Record score meaning, validation population, calibration evidence where relevant, supporting evidence and escalation rules. A threshold alone does not justify a recommendation. Neither threshold selection nor runtime mapping is implemented by this HTML/CSS component.

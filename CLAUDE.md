@@ -75,10 +75,10 @@ ML/agentic recommendations use `.m-confidence-tier`:
 - `--medium`: "Consider" (suggestive)
 - `--low`: "Ask your doctor about" (complex, refer human)
 
-**Never expose a raw confidence score (0.84, 84%) to users.** The tier wraps the score in interpretable language.
+Qualitative tiers are this system's default presentation choice. They are not proof of calibration or improved understanding. Follow `components/molecules/confidence-tier.md`: assess whether quantitative information is needed, document its meaning and evidence, and evaluate interpretation in the intended context.
 
 ### Three-action recommendation response
-Every AI recommendation surface needs `.m-action-trio`: **Accept · Modify · Dismiss**. Modify is first-class — partial acceptance is the common case. Dismissal collects structured reasoning that feeds back into the model.
+The `.m-action-trio` pattern offers **Accept · Modify · Dismiss** when those actions fit the task. Its documentation defines DOM-order keyboard navigation and requires resulting states to be specified. Collection of dismissal reasons and any model-training use are separate product capabilities, not behavior implemented by the component.
 
 ---
 

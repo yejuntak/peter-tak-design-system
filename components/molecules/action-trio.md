@@ -4,7 +4,7 @@ Three first-class responses to an ML recommendation: **accept**, **adjust**, **s
 
 ## Why three, not two
 
-A two-button (Accept / Dismiss) recommendation system trains passive compliance or disengagement — the user either rubber-stamps the model or walks away. The "Adjust" path makes the **negotiation pattern** a first-class response: research on clinician-AI interaction (Frontiers in Computer Science 2023; JMIR Medical Informatics 2025) shows that clinicians and patients selectively modify recommendations far more often than they accept or reject them outright. Two-action surfaces force that real behavior into the wrong slot. Three-action surfaces match it.
+The Adjust path gives users an explicit way to modify a recommendation without accepting it unchanged or dismissing it entirely. This is the design rationale for this pattern. The repository does not establish that three actions improve decision quality, reduce overreliance, or produce better clinical outcomes. Those effects require evaluation in the intended context; the reading list below is not a validation report for this component.
 
 ## Anatomy
 
@@ -51,7 +51,7 @@ On narrow viewports (`max-width: 480px`) the row stacks full-width vertically; t
 ## Rules
 
 - **All three actions are always visible.** Don't hide Adjust or Set-aside behind a menu.
-- **Set-aside must collect a structured reason.** Wire the click to a reason picker (not a free-text field) so the reasons feed back into the model as training signal.
+- **Set-aside should define its resulting state.** If the product collects a structured reason, specify the reason picker and what happens after submission or cancellation. These HTML/CSS hooks do not implement collection or model training.
 - **Adjust must open an editable version of the recommendation**, not a free-text override. Show the recommendation broken into editable parts (target value, frequency, duration).
 - **Tertiary styling for set-aside is intentional.** It's available but visually quieter than the first two — set-aside is the path of least friction; it should not also be the path of least visual weight.
 
@@ -65,8 +65,8 @@ On narrow viewports (`max-width: 480px`) the row stacks full-width vertically; t
 
 - `role="group"` + `aria-label` on the container
 - Each button carries `data-action` for analytics + reason-picker routing
-- Keyboard: Tab through accept → adjust → set-aside in that order. Enter or Space activates.
-- Tertiary button maintains a 3:1 contrast ratio against the surrounding surface so it remains discoverable for low-vision users despite the quieter visual weight.
+- Keyboard: in the HTML example, Tab follows DOM order: set-aside → adjust → accept. Shift+Tab reverses that order. Enter or Space activates a focused button. Preserve logical focus order when adapting the layout; do not use positive tabindex values to force visual priority.
+- Verify actual text contrast in each rendered state. WCAG 2.2 SC 1.4.3 requires at least 4.5:1 for normal text and 3:1 for qualifying large text, subject to its exceptions. A small tertiary button label does not qualify for 3:1 merely because it is a control. This specification is not a completed contrast audit. [W3C guidance](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html).
 
 ## References
 
