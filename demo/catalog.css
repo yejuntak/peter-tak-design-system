@@ -3,6 +3,7 @@
   margin: auto;
   padding: var(--s-7) var(--s-5);
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--s-7);
 }
 .catalog-shell > .m-eyebrow-title {
@@ -22,6 +23,7 @@
 }
 .catalog-example {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--s-5);
   margin-top: var(--s-5);
   min-width: 0;
