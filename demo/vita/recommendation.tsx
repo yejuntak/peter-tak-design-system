@@ -21,7 +21,7 @@ export default function RecommendationScreen() {
           <a href="care-plan.html">{"sample plan"}</a>{" "}
           <a href="progress-framing.html">{"Progress"}</a>{" "}
           <a href="recommendation.html" aria-current="page">
-            {"examples"}
+            {"Examples"}
           </a>{" "}
           <a href="messages.html">
             {"Messages "}
@@ -82,7 +82,7 @@ export default function RecommendationScreen() {
           <span className="v-eyebrow">
             {"Personalized examples · 3 active"}
           </span>{" "}
-          <h1 className="v-page-title">{"examples"}</h1>{" "}
+          <h1 className="v-page-title">{"Examples"}</h1>{" "}
         </div>{" "}
         <div className="v-content">
           {" "}

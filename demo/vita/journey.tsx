@@ -24,7 +24,7 @@ export default function JourneyScreen() {
           </a>{" "}
           <a href="care-plan.html">{"sample plan"}</a>{" "}
           <a href="progress-framing.html">{"Progress"}</a>{" "}
-          <a href="recommendation.html">{"examples"}</a>{" "}
+          <a href="recommendation.html">{"Examples"}</a>{" "}
           <a href="messages.html">
             {"Messages "}
             <span className="v-topnav-badge">{"2"}</span>

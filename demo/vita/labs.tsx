@@ -26,7 +26,7 @@ export default function LabsScreen() {
           </a>{" "}
           <a href="care-plan.html">{"sample plan"}</a>{" "}
           <a href="progress-framing.html">{"Progress"}</a>{" "}
-          <a href="recommendation.html">{"examples"}</a>{" "}
+          <a href="recommendation.html">{"Examples"}</a>{" "}
           <a href="messages.html">
             {"Messages "}
             <span className="v-topnav-badge">{"2"}</span>
@@ -268,7 +268,7 @@ export default function LabsScreen() {
                     x="50"
                     y="50"
                     textAnchor="middle"
-                    fontFamily="Aeonik"
+                    fontFamily="var(--font-text)"
                     fontSize="18"
                     fontWeight="500"
                     fill="var(--ink)"
@@ -280,7 +280,7 @@ export default function LabsScreen() {
                     x="50"
                     y="62"
                     textAnchor="middle"
-                    fontFamily="Geist Mono"
+                    fontFamily="var(--font-mono)"
                     fontSize="6"
                     fill="var(--ink-soft)"
                     letterSpacing="0.5"

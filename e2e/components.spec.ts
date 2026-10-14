@@ -127,7 +127,25 @@ test("root and docs catalog work under a non-root base", async ({
       (value) => document.documentElement.setAttribute("data-theme", value),
       theme,
     );
+    await expect
+      .poll(() =>
+        page.evaluate(() => {
+          const probe = document.createElement("span");
+          probe.style.cssText =
+            "color:var(--ink);background:var(--bg);position:fixed;visibility:hidden";
+          document.body.append(probe);
+          const expected = getComputedStyle(probe);
+          const body = getComputedStyle(document.body);
+          const settled =
+            body.color === expected.color &&
+            body.backgroundColor === expected.backgroundColor;
+          probe.remove();
+          return settled;
+        }),
+      )
+      .toBe(true);
     await page.screenshot({
+      animations: "disabled",
       path: `evidence/screens/${info.project.name}-catalog-${theme}.jpg`,
       type: "jpeg",
       quality: 80,
@@ -143,7 +161,42 @@ test("root and docs catalog work under a non-root base", async ({
         color: getComputedStyle(node).color,
         bg: getComputedStyle(document.body).backgroundColor,
       }));
-    expect(colors.color).not.toBe(colors.bg);
+    const contrast = (a: string, b: string) => {
+      const luminance = (value: string) => {
+        const rgb = value
+          .match(/[\d.]+/g)!
+          .slice(0, 3)
+          .map(Number)
+          .map((x) => x / 255)
+          .map((x) =>
+            x <= 0.04045 ? x / 12.92 : ((x + 0.055) / 1.055) ** 2.4,
+          );
+        return rgb[0] * 0.2126 + rgb[1] * 0.7152 + rgb[2] * 0.0722;
+      };
+      const x = luminance(a),
+        y = luminance(b);
+      return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
+    };
+    expect(
+      contrast(colors.color, colors.bg),
+      `${theme} supporting text`,
+    ).toBeGreaterThanOrEqual(4.5);
+    expect(
+      contrast(
+        await icon.evaluate((node) => getComputedStyle(node).color),
+        colors.bg,
+      ),
+      `${theme} icon`,
+    ).toBeGreaterThanOrEqual(3);
+    expect(
+      contrast(
+        await page
+          .locator("#atoms h2")
+          .evaluate((node) => getComputedStyle(node).color),
+        colors.bg,
+      ),
+      `${theme} heading`,
+    ).toBeGreaterThanOrEqual(4.5);
   }
   await page.locator("#health").scrollIntoViewIfNeeded();
   const sticky = await page.evaluate(() => ({

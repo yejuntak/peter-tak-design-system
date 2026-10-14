@@ -22,7 +22,7 @@ export default function ProgressFramingScreen() {
           <a href="progress-framing.html" aria-current="page">
             {"Progress"}
           </a>{" "}
-          <a href="recommendation.html">{"examples"}</a>{" "}
+          <a href="recommendation.html">{"Examples"}</a>{" "}
           <a href="messages.html">
             {"Messages "}
             <span className="v-topnav-badge">{"2"}</span>

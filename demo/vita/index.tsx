@@ -20,7 +20,7 @@ export default function IndexScreen() {
           <a href="labs.html">{"Measures"}</a>{" "}
           <a href="care-plan.html">{"sample plan"}</a>{" "}
           <a href="progress-framing.html">{"Progress"}</a>{" "}
-          <a href="recommendation.html">{"examples"}</a>{" "}
+          <a href="recommendation.html">{"Examples"}</a>{" "}
           <a href="messages.html">{"Messages"}</a>{" "}
           <a href="journey.html">{"Journey"}</a>{" "}
         </nav>{" "}
@@ -45,7 +45,7 @@ export default function IndexScreen() {
           <h1 className="v-screen-title">
             {"Vita UI."}
             <br />
-            {"Example journey for interface."}
+            {"A sample interface journey."}
           </h1>{" "}
           <p className="v-screen-lede">
             {
