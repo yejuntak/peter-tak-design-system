@@ -1676,8 +1676,8 @@ a.v-card:hover { border-color: var(--accent); }
 .v-big--dark .v-dial-legend-count { color: hsl(0 0% 92%); }
 .v-big--gradient .v-dial-legend-row,
 .v-big--gradient .v-dial-legend-label,
-.v-big--gradient .v-dial-legend-count { color: hsl(155 25% 92%); }
-.v-big--gradient .v-dial-legend-count,
+.v-big--gradient .v-dial-legend-count { color: var(--ink-soft); }
+.v-big--gradient .v-dial-legend-count { color: var(--ink); }
 .v-big--dark .v-dial-legend-count { color: white; }
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -2186,3 +2186,6 @@ a.v-card, a.v-tile, a.v-quick-tile, a.m-lab-result,
 .v-today-check, .v-schedule-slot, .v-heatmap-cell,
 .v-biomarker-seg, .v-lab-mini { cursor: pointer; }
 .v-btn-mini:disabled { cursor: not-allowed; }
+
+/* Secondary copy stays readable on the explicitly dark example card. */
+.v-big--dark .m-progress-bar-encouragement { color: hsl(0 0% 85%); }

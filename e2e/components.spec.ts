@@ -20,6 +20,21 @@ for (const name of pages)
     page.on("pageerror", (error) => errors.push(error.message));
     const path = `screens/vita-health/${name}.html`;
     await page.goto(path);
+    await expect(page.locator("body")).toHaveClass(/vita-app/);
+    expect(
+      await page
+        .locator("body")
+        .evaluate((node) =>
+          getComputedStyle(node).getPropertyValue("--vs-5").trim(),
+        ),
+    ).toBe("24px");
+    expect(
+      await page
+        .locator("body")
+        .evaluate((node) =>
+          getComputedStyle(node).getPropertyValue("--vt-body").trim(),
+        ),
+    ).toBe("14px");
     await expect(page.locator("#root main")).toHaveCount(1);
     await expect(page.locator("#root main")).toBeVisible();
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
@@ -29,7 +44,9 @@ for (const name of pages)
     await page.evaluate(() => document.fonts.ready);
     expect(errors).toEqual([]);
     const overflow = await page.evaluate(
-      () => document.documentElement.scrollWidth > innerWidth + 2,
+      () =>
+        document.documentElement.scrollWidth >
+        document.documentElement.clientWidth + 2,
     );
     expect(overflow, "page must fit viewport").toBe(false);
     for (const href of await page
@@ -81,6 +98,28 @@ test("root and docs catalog work under a non-root base", async ({
         .evaluate((link) => (link as HTMLAnchorElement).pathname),
     ).toContain("/peter-tak-design-system/screens/");
     expect(errors).toEqual([]);
+    const geometry = await page.evaluate(() => ({
+      innerWidth,
+      documentWidth: document.documentElement.scrollWidth,
+      viewportWidth: document.documentElement.clientWidth,
+      offenders: Array.from(document.querySelectorAll("body *"))
+        .filter((node) => {
+          const r = node.getBoundingClientRect();
+          return (
+            r.right > document.documentElement.clientWidth + 2 && r.width > 0
+          );
+        })
+        .slice(0, 12)
+        .map((node) => ({
+          tag: node.tagName,
+          class: node.className,
+          rect: node.getBoundingClientRect().toJSON(),
+        })),
+    }));
+    expect(
+      geometry.documentWidth,
+      JSON.stringify(geometry),
+    ).toBeLessThanOrEqual(geometry.viewportWidth + 2);
   }
   await page.locator("#atoms").scrollIntoViewIfNeeded();
   for (const theme of ["light", "dark"]) {
@@ -107,6 +146,20 @@ test("root and docs catalog work under a non-root base", async ({
     expect(colors.color).not.toBe(colors.bg);
   }
   await page.locator("#health").scrollIntoViewIfNeeded();
+  const sticky = await page.evaluate(() => ({
+    scrollY,
+    header: document
+      .querySelector(".o-header")!
+      .getBoundingClientRect()
+      .toJSON(),
+    headerPosition: getComputedStyle(document.querySelector(".o-header")!)
+      .position,
+    body: document.body.getBoundingClientRect().toJSON(),
+    html: document.documentElement.getBoundingClientRect().toJSON(),
+    root: document.querySelector("#root")!.getBoundingClientRect().toJSON(),
+  }));
+  expect(sticky.header.top, JSON.stringify(sticky)).toBeGreaterThanOrEqual(-1);
+  expect(sticky.header.top, JSON.stringify(sticky)).toBeLessThanOrEqual(1);
   await page.screenshot({
     path: `evidence/screens/${info.project.name}-health.jpg`,
     type: "jpeg",

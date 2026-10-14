@@ -387,4 +387,4 @@ body.page-design-system {
 }
 
 /* Selected count shares the inverse chip foreground. */
-.m-filter-row .m-chip[aria-pressed="true"] .m-chip-count { color: inherit; }
+.m-chip[aria-pressed="true"] .m-chip-count { color: inherit; }

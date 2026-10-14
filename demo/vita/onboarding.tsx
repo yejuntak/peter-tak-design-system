@@ -102,7 +102,7 @@ export default function OnboardingScreen() {
               }
             </p>{" "}
             <p className="v-screen-note">
-              <strong>{"Design rule:"}</strong>
+              <strong>{"Design rule: "}</strong>
               {
                 "This fictional reference pairs sample values with context, review states and local actions. It demonstrates reusable components without predicting an outcome."
               }

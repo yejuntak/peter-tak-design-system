@@ -19,7 +19,7 @@ const name =
     ?.replace(/\.html$/, "") || "index";
 const loader = pages[`./vita/${name}.tsx`];
 const Screen = loader ? lazy(loader) : null;
-if (vita) document.body.className = name === "index" ? "" : "vita-app";
+if (vita) document.body.classList.add("vita-app");
 createRoot(document.getElementById("root")!).render(
   vita && Screen ? (
     <ThemeProvider defaultTheme="light">

@@ -100,7 +100,7 @@ export default function LabInterpretationScreen() {
               }
             </p>{" "}
             <p className="v-screen-note">
-              <strong>{"Design rule:"}</strong>
+              <strong>{"Design rule: "}</strong>
               {
                 "This fictional reference pairs sample values with context, review states and local actions. It demonstrates reusable components without predicting an outcome."
               }
@@ -168,13 +168,9 @@ export default function LabInterpretationScreen() {
                   <span>{"+6 units vs. last test (4 months ago)"}</span>{" "}
                 </TrendArrowFrame>{" "}
                 <p className="m-lab-result-explanation">
-                  {
-                    "This fictional reference pairs sample values with context, review states and local actions. It demonstrates reusable components without predicting an outcome."
-                  }
-                  <em>{"before"}</em>
-                  {
-                    "This fictional reference pairs sample values with context, review states and local actions. It demonstrates reusable components without predicting an outcome."
-                  }
+                  This fictional measure includes a value, reference band and
+                  recent trend. Review the supplied context before choosing a
+                  local demo action.
                 </p>{" "}
               </LabResultFrame>{" "}
             </section>{" "}

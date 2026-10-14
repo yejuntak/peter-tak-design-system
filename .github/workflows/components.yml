@@ -2,7 +2,7 @@ name: Verify React components
 on:
   pull_request:
   push:
-    branches: [main, 'plot/react-components-*']
+    branches: [main]
 permissions:
   contents: read
 jobs:

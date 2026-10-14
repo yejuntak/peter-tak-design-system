@@ -10,13 +10,19 @@ export function InlineMedia({
   alt,
   caption,
   expandable = true,
+  width,
+  height,
 }: {
   src: string;
   alt: string;
   caption?: ReactNode;
   expandable?: boolean;
+  width?: number;
+  height?: number;
 }) {
-  const image = <img src={src} alt={alt} loading="lazy" />;
+  const image = (
+    <img src={src} alt={alt} loading="lazy" width={width} height={height} />
+  );
   return (
     <figure className="o-inline-media">
       {expandable ? (

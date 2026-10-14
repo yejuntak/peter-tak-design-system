@@ -271,7 +271,7 @@ export default function LabsScreen() {
                     fontFamily="Aeonik"
                     fontSize="18"
                     fontWeight="500"
-                    fill="white"
+                    fill="var(--ink)"
                     letterSpacing="-0.5"
                   >
                     {"75%"}
@@ -282,7 +282,7 @@ export default function LabsScreen() {
                     textAnchor="middle"
                     fontFamily="Geist Mono"
                     fontSize="6"
-                    fill="hsl(155 25% 85%)"
+                    fill="var(--ink-soft)"
                     letterSpacing="0.5"
                   >
                     {"IN RANGE"}
@@ -336,7 +336,7 @@ export default function LabsScreen() {
               <span className="m-chip">{"Watch"}</span>{" "}
               <span className="m-chip">{"Trending up"}</span>{" "}
               <span className="m-chip">{"Trending down"}</span>{" "}
-              <span className="m-chip">{"Cardiac"}</span>{" "}
+              <span className="m-chip">{"Category A"}</span>{" "}
               <span className="m-chip">{"Sample reference"}</span>{" "}
               <span style={{ flex: "1" }}></span>{" "}
               <span style={{ fontSize: "11px", color: "var(--muted)" }}>

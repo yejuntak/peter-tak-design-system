@@ -115,7 +115,7 @@ export default function ProgressFramingScreen() {
                   ></div>
                 </div>{" "}
                 <p className="m-progress-bar-encouragement">
-                  {"Two more activities will finish strong."}
+                  {"Three more activities complete the example."}
                 </p>{" "}
               </ProgressBarFrame>{" "}
             </article>{" "}
@@ -137,7 +137,7 @@ export default function ProgressFramingScreen() {
             <div className="v-section-head">
               <h3 className="v-section-title">{"Same data, two ways"}</h3>
               <span className="v-section-sub">
-                {"Why we shipped only one of these"}
+                {"Two ways to frame the same example"}
               </span>
             </div>{" "}
             <div className="v-row-2">
@@ -265,7 +265,7 @@ export default function ProgressFramingScreen() {
                     ></div>
                   </div>{" "}
                   <p className="m-progress-bar-encouragement">
-                    {"More than halfway. Two more to finish strong."}
+                    {"More than halfway. Three more complete the example."}
                   </p>{" "}
                 </ProgressBarFrame>{" "}
                 <p

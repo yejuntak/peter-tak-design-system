@@ -10,6 +10,18 @@ import userEvent from "@testing-library/user-event";
 import * as Plot from "../index.js";
 import { useState } from "react";
 describe("Reusable component API", () => {
+  it("inline media reserves supplied dimensions before its lazy asset loads", () => {
+    render(
+      <Plot.InlineMedia
+        src="/example.svg"
+        alt="Example"
+        width={880}
+        height={580}
+      />,
+    );
+    expect(screen.getByRole("img")).toHaveAttribute("width", "880");
+    expect(screen.getByRole("img")).toHaveAttribute("height", "580");
+  });
   it("reference links use the canonical styled anatomy", () => {
     render(
       <Plot.ReferenceLink href="#sample" label="Reference">

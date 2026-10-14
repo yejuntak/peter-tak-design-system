@@ -191,8 +191,8 @@ export default function RecommendationScreen() {
                     padding: "8px 14px",
                     borderRadius: "8px",
                     background: "hsl(155 60% 35% / 0.3)",
-                    border: "1px solid hsl(155 60% 80%)",
-                    color: "white",
+                    border: "1px solid var(--hairline-strong)",
+                    color: "var(--ink)",
                     fontSize: "12px",
                     fontWeight: "500",
                   }}
@@ -203,7 +203,7 @@ export default function RecommendationScreen() {
                   style={{
                     padding: "8px 14px",
                     borderRadius: "8px",
-                    color: "hsl(155 25% 88%)",
+                    color: "var(--ink-soft)",
                     fontSize: "12px",
                     fontWeight: "500",
                   }}

@@ -40,7 +40,7 @@ export default function IndexScreen() {
         <div className="v-content">
           {" "}
           <span className="v-screen-eyebrow">
-            {"Component reference · Fictional interface interface"}
+            {"Component reference · Fictional interface"}
           </span>{" "}
           <h1 className="v-screen-title">
             {"Vita UI."}
@@ -88,6 +88,7 @@ export default function IndexScreen() {
               <strong>{"data → understanding"}</strong>
               {", and "}
               <strong>{"understanding → action"}</strong>
+              {". "}
               {
                 "This fictional reference pairs sample values with context, review states and local actions. It demonstrates reusable components without predicting an outcome."
               }

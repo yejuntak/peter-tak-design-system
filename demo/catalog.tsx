@@ -123,7 +123,7 @@ export default function Catalog() {
             <Plot.Typography variant="title-xl">
               Clear hierarchy, original tokens.
             </Plot.Typography>
-            <div className="cluster">
+            <div className="cluster cluster-2">
               <Plot.Button>Primary</Plot.Button>
               <Plot.Button variant="secondary">Secondary</Plot.Button>
               <Plot.Button variant="accent">Accent</Plot.Button>
@@ -137,7 +137,7 @@ export default function Catalog() {
               <Plot.Button loading>Saving</Plot.Button>
               <Plot.Button disabled>Disabled</Plot.Button>
             </div>
-            <div className="cluster">
+            <div className="cluster cluster-2">
               <Plot.Tag>Tag</Plot.Tag>
               <Plot.Tag className="tag-accent">Accent tag</Plot.Tag>
               <Plot.Chip count={3}>Chip</Plot.Chip>
@@ -153,7 +153,7 @@ export default function Catalog() {
               Quiet link
             </Plot.Link>
             <Plot.Link className="link-arrow" href="#media">
-              Arrow link →
+              Arrow link
             </Plot.Link>
             <Plot.Divider />
           </Example>
@@ -359,6 +359,8 @@ export default function Catalog() {
             <Plot.InlineMedia
               src={`${rootPath}screens/vita-health/assets/hero-health-snapshot.svg`}
               alt="Existing reference-screen illustration"
+              width={880}
+              height={580}
               caption="Public asset retained from the existing repository."
             />
             <Plot.ComparisonSlider
