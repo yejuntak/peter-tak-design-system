@@ -2,6 +2,7 @@ import {
   createContext,
   useContext,
   useEffect,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
@@ -21,30 +22,40 @@ export function ThemeProvider({
   defaultTheme?: Theme;
   storageKey?: string;
 }) {
-  const [theme, setTheme] = useState<Theme>(() => {
-    if (storageKey && typeof window !== "undefined") {
+  // The first render is deterministic; persistence starts only after restoration.
+  const initialTheme = useRef(defaultTheme).current;
+  const source = JSON.stringify([storageKey]);
+  const [selection, setSelection] = useState<{
+    theme: Theme;
+    source: string | null;
+  }>({ theme: defaultTheme, source: null });
+  const theme = selection.theme;
+  useEffect(() => {
+    let restored = initialTheme;
+    if (storageKey) {
       try {
         const saved = localStorage.getItem(storageKey);
         if (saved === "light" || saved === "dark" || saved === "system")
-          return saved;
+          restored = saved;
       } catch {
         /* Storage is optional. */
       }
     }
-    return defaultTheme;
-  });
+    setSelection({ theme: restored, source });
+  }, [storageKey, initialTheme, source]);
+  const setTheme = (value: Theme) => setSelection({ theme: value, source });
   useEffect(() => {
     if (theme === "system")
       document.documentElement.removeAttribute("data-theme");
     else document.documentElement.setAttribute("data-theme", theme);
-    if (storageKey) {
+    if (storageKey && selection.source === source) {
       try {
         localStorage.setItem(storageKey, theme);
       } catch {
         /* Private browsing must not break theme controls. */
       }
     }
-  }, [theme, storageKey]);
+  }, [theme, storageKey, source, selection.source]);
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       {children}

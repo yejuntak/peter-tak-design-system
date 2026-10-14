@@ -7,6 +7,7 @@ import "../screens/vita-health/_layout.css";
 import { VitaDemo } from "./vita/shared";
 import { ThemeProvider } from "../src";
 import Catalog from "./catalog";
+import ReviewFixture from "./review-fixture";
 const pages = import.meta.glob<{ default: React.ComponentType }>([
   "./vita/*.tsx",
   "!./vita/shared.tsx",
@@ -21,7 +22,9 @@ const loader = pages[`./vita/${name}.tsx`];
 const Screen = loader ? lazy(loader) : null;
 if (vita) document.body.classList.add("vita-app");
 createRoot(document.getElementById("root")!).render(
-  vita && Screen ? (
+  new URLSearchParams(location.search).has("component-review") ? (
+    <ReviewFixture />
+  ) : vita && Screen ? (
     <ThemeProvider defaultTheme="light">
       <VitaDemo>
         <Suspense fallback={<p role="status">Loading example screen…</p>}>

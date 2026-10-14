@@ -3,7 +3,8 @@
   "color": {
     "_meta": {
       "description": "Three-tier color system. Primitives (gray-*, amber-*) feed semantics (--color-text-primary) feed component aliases (--ink, --bg). Reference the third tier in components; the first tier is implementation detail.",
-      "contrast": "All --color-text-* against --color-bg meet WCAG AA. --color-action-text against --color-bg is 4.81:1 (AA pass)."
+      "contrast": "Light-mode text roles meet WCAG AA against --color-bg; values are checked against canonical CSS in CI.",
+      "mode": "light"
     },
     "primitive": {
       "gray-0": {
@@ -55,15 +56,15 @@
         "type": "color"
       },
       "amber-600": {
-        "value": "hsl(36 95% 45%)",
+        "value": "hsl(35 95% 45%)",
         "type": "color"
       },
       "amber-700": {
-        "value": "hsl(34 95% 38%)",
+        "value": "hsl(28 100% 37%)",
         "type": "color"
       },
       "amber-800": {
-        "value": "hsl(32 95% 30%)",
+        "value": "hsl(22 95% 30%)",
         "type": "color"
       }
     },
@@ -104,17 +105,17 @@
         "description": "Captions, meta, secondary labels"
       },
       "text-placeholder": {
-        "value": "{color.primitive.gray-400}",
+        "value": "hsl(0 0% 40%)",
         "css": "--color-text-placeholder",
         "description": "Placeholders, disabled state"
       },
       "good-text": {
-        "value": "hsl(142 70% 35%)",
+        "value": "hsl(142 70% 27%)",
         "css": "--color-good-text",
         "description": "Up trends, success labels \u2014 in-range health values"
       },
       "warn-text": {
-        "value": "hsl(43 100% 32%)",
+        "value": "hsl(43 100% 26%)",
         "css": "--color-warn-text",
         "description": "Beta, warning labels \u2014 borderline health values"
       },

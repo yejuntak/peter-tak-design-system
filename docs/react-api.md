@@ -59,3 +59,11 @@ ScheduleSelector uses radio semantics, disables unavailable slots and only confi
 ## Font, privacy and demo boundaries
 
 No font binaries or portfolio datasets are included. Customize the font stacks or provide separately licensed fonts. Every Vita route is an illustrative React reference screen; local action dialogs explicitly say that nothing was sent, booked or saved. These examples are not real-world advice or a validation report.
+
+## Count-up hook compatibility
+
+The old `useMetricCountUp(ref)` call is deprecated and keeps supplied values
+static. It still type-checks, but no longer rewrites React-owned DOM. Use `Metric`
+with a `.m-metric-value` child to retain the 1100ms cubic count-up. Nested host
+markup and exact final formatting are preserved; opaque custom children remain
+untouched. A changed value cancels an in-flight animation immediately.

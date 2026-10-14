@@ -3,6 +3,7 @@ import {
   isValidElement,
   type ComponentProps,
   type ReactElement,
+  Fragment,
   type ReactNode,
 } from "react";
 import { cn } from "../../lib/utils.js";
@@ -45,13 +46,31 @@ export function PlotTooltip({
   label: string;
   children: ReactNode;
 }) {
-  const child = isValidElement(children) ? (
-    (children as ReactElement<{ tabIndex?: number }>)
-  ) : (
-    <span>{children}</span>
-  );
+  const child =
+    isValidElement(children) && children.type !== Fragment ? (
+      (children as ReactElement<{
+        tabIndex?: number;
+        disabled?: boolean;
+        href?: string;
+        contentEditable?: boolean | "true" | "false" | "inherit";
+      }>)
+    ) : (
+      <span>{children}</span>
+    );
+  const nativeControl =
+    typeof child.type === "string" &&
+    ["button", "input", "select", "textarea", "summary"].includes(child.type);
+  const naturallyFocusable =
+    nativeControl ||
+    Boolean(child.props.href) ||
+    child.props.contentEditable === true ||
+    child.props.contentEditable === "true";
   const trigger =
-    child.type === "span" ? cloneElement(child, { tabIndex: 0 }) : child;
+    child.props.tabIndex !== undefined ||
+    child.props.disabled ||
+    naturallyFocusable
+      ? child
+      : cloneElement(child, { tabIndex: 0 });
   return (
     <Tooltip>
       <TooltipTrigger asChild>{trigger}</TooltipTrigger>

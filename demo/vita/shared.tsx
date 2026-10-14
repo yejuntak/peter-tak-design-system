@@ -1,3 +1,4 @@
+import { useDialogReturnFocus } from "../../src/components/ui/use-dialog-return-focus.js";
 import {
   createContext,
   useContext,
@@ -26,6 +27,7 @@ export {
 } from "../../src";
 const DemoContext = createContext<(label: string) => void>(() => undefined);
 export function VitaDemo({ children }: { children: ReactNode }) {
+  const returnFocus = useDialogReturnFocus();
   const [action, setAction] = useState("");
   return (
     <DemoContext.Provider value={setAction}>
@@ -42,7 +44,7 @@ export function VitaDemo({ children }: { children: ReactNode }) {
         open={Boolean(action)}
         onOpenChange={(open) => !open && setAction("")}
       >
-        <DialogContent>
+        <DialogContent {...returnFocus}>
           <DialogTitle>{action}</DialogTitle>
           <DialogDescription>
             Local demonstration only. This action did not send a message, book
