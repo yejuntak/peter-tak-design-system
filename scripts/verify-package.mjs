@@ -59,6 +59,8 @@ try {
           "@peter-tak/design-system": `file:${resolve(packed.filename)}`,
           react: "19.2.0",
           "react-dom": "19.2.0",
+          "@types/react": pkg.devDependencies["@types/react"],
+          "@types/react-dom": pkg.devDependencies["@types/react-dom"],
         },
       }),
     );
@@ -101,12 +103,12 @@ try {
         "es2022",
         "--strict",
         "--noUncheckedSideEffectImports",
-        "--typeRoots",
-        resolve("node_modules/@types"),
+        "--types",
+        "react,react-dom",
         join(temporary, "consumer.tsx"),
         join(temporary, "root-only.tsx"),
       ],
-      { stdio: "inherit" },
+      { cwd: temporary, stdio: "inherit" },
     );
     execFileSync(
       resolve("node_modules/.bin/tsc"),
@@ -122,12 +124,12 @@ try {
         "es2022",
         "--strict",
         "--noUncheckedSideEffectImports",
-        "--typeRoots",
-        resolve("node_modules/@types"),
+        "--types",
+        "react,react-dom",
         join(temporary, "consumer.tsx"),
         join(temporary, "root-only.tsx"),
       ],
-      { stdio: "inherit" },
+      { cwd: temporary, stdio: "inherit" },
     );
   } else {
     const { renderToString } = await import("react-dom/server");
