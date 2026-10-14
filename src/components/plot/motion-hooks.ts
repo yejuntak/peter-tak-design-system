@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // React owns the reveal lifecycle for a component subtree, with a visible fallback.
 export function usePlotReveals(root: { current: HTMLElement | null }) {
@@ -61,68 +61,61 @@ export function usePlotReveals(root: { current: HTMLElement | null }) {
   }, [root]);
 }
 
-export function useMetricCountUp(root: { current: HTMLElement | null }) {
+// Return animation state; never replace text nodes owned by React.
+// @deprecated The one-argument DOM hook keeps values static. Use Metric for React-owned count-up.
+export function useMetricCountUp(
+  root: { current: HTMLElement | null },
+  source?: string,
+) {
+  const original = useRef(source);
+  const changed = useRef(false);
+  const [progress, setProgress] = useState<number | null>(null);
   useEffect(() => {
+    if (source !== original.current) changed.current = true;
     if (
+      source === undefined ||
+      changed.current ||
+      source !== original.current ||
       !("IntersectionObserver" in window) ||
       matchMedia("(prefers-reduced-motion: reduce)").matches
     )
       return;
-    const elements = Array.from(
-      root.current?.querySelectorAll<HTMLElement>(".m-metric-value") || [],
-    );
-    const originals = new Map<HTMLElement, string>();
-    const frames = new Set<number>();
+    const elements =
+      root.current?.querySelectorAll<HTMLElement>(".m-metric-value");
+    if (!elements?.length) return;
+    let active = true,
+      started = false,
+      frame = 0;
+    let start: number | undefined;
+    const step = (now: number) => {
+      if (!active) return;
+      start ??= now;
+      const t = Math.min(1, (now - start) / 1100);
+      setProgress(t === 1 ? null : 1 - Math.pow(1 - t, 3));
+      if (t < 1) frame = requestAnimationFrame(step);
+    };
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          const element = entry.target as HTMLElement;
-          observer.unobserve(element);
-          const raw = originals.get(element)!;
-          const match = raw.match(
-            /^([^\d+\-−.]*)([+\-−]?)(\d+(?:[.,]\d+)?)(.*)$/,
-          )!;
-          const prefix = match[1] + match[2],
-            number = match[3].replace(",", "."),
-            target = Number(number),
-            suffix = match[4];
-          const decimals = (number.split(".")[1] || "").length;
-          let start: number | undefined;
-          const step = (now: number) => {
-            start ??= now;
-            const t = Math.min(1, (now - start) / 1100);
-            element.textContent =
-              t === 1
-                ? raw
-                : prefix +
-                  (target * (1 - Math.pow(1 - t, 3))).toFixed(decimals) +
-                  suffix;
-            if (t < 1) frames.add(requestAnimationFrame(step));
-          };
-          frames.add(requestAnimationFrame(step));
-        });
+        if (
+          !active ||
+          started ||
+          !entries.some((entry) => entry.isIntersecting)
+        )
+          return;
+        started = true;
+        observer.disconnect();
+        frame = requestAnimationFrame(step);
       },
       { threshold: 0.45 },
     );
-    elements.forEach((element) => {
-      const raw = element.textContent?.trim() || "";
-      const match = raw.match(/^([^\d+\-−.]*)([+\-−]?)(\d+(?:[.,]\d+)?)(.*)$/);
-      if (!match || Number(match[3].replace(",", ".")) === 0) return;
-      originals.set(element, raw);
-      element.textContent =
-        match[1] +
-        match[2] +
-        (0).toFixed((match[3].split(/[.,]/)[1] || "").length) +
-        match[4];
-      observer.observe(element);
-    });
+    setProgress(0);
+    elements.forEach((element) => observer.observe(element));
     return () => {
+      active = false;
       observer.disconnect();
-      frames.forEach(cancelAnimationFrame);
-      originals.forEach((raw, element) => {
-        element.textContent = raw;
-      });
+      cancelAnimationFrame(frame);
     };
-  }, [root]);
+  }, [root, source]);
+  // A new prop is authoritative even before effect cleanup cancels the old RAF.
+  return !changed.current && source === original.current ? progress : null;
 }

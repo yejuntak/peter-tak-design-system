@@ -77,3 +77,18 @@ No font binaries are bundled. Aeonik and Geist Mono have system fallbacks; confi
 ## License
 
 MIT, copyright Peter Tak. See [LICENSE](LICENSE) and [third-party notices](THIRD_PARTY_NOTICES.md).
+
+### Review repair notes
+
+`Metric` owns its 1100ms, cubic-ease-out count-up in React. New values cancel an
+in-flight count-up, nested markup is retained, and reduced-motion users see the
+final value. Opaque custom components inside a metric remain untouched.
+
+The previously exported `useMetricCountUp(ref)` DOM hook is deprecated. Existing
+one-argument calls still type-check, but now leave the supplied values static to
+avoid corrupting React-owned nodes. Replace that direct hook with `Metric` to
+retain count-up animation. No DOM-mutating compatibility mode is provided.
+
+`CommandDialog` restores the actual invoking element after dismissal. Consumers
+that intentionally move focus to a selected destination can use
+`onCloseAutoFocus`, call `event.preventDefault()`, and focus that destination.

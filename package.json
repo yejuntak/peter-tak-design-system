@@ -26,7 +26,10 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./styles.css": "./dist/styles.css",
+    "./styles.css": {
+      "types": "./dist/styles.css.d.ts",
+      "default": "./dist/styles.css"
+    },
     "./tokens/*": "./tokens/*"
   },
   "scripts": {
@@ -34,7 +37,7 @@
     "lint": "eslint . --max-warnings 0",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "build": "vite build && tsc -p tsconfig.build.json",
+    "build": "vite build && tsc -p tsconfig.build.json && node scripts/style-declaration.mjs",
     "build:docs": "vite build --config vite.docs.config.ts",
     "check": "npm run lint && npm run typecheck && npm test && npm run build && npm run build:docs",
     "test:e2e": "playwright test",

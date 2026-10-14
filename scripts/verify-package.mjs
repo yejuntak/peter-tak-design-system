@@ -83,6 +83,10 @@ try {
       join(temporary, "consumer.tsx"),
       'import { Button, LabResult, type LabResultProps } from "@peter-tak/design-system"; import "@peter-tak/design-system/styles.css"; const button = <Button size="icon" aria-label="Settings">+</Button>; const data: LabResultProps = {name:"Example",value:1,unit:"unit",status:"ok",statusLabel:"Example",explanation:"Example",trend:{direction:"flat",label:"Example"},range:{position:50,label:"Example",lowLabel:"0",highLabel:"2"}}; console.log(button, <LabResult {...data}/>);',
     );
+    writeFileSync(
+      join(temporary, "root-only.tsx"),
+      'import { Button } from "@peter-tak/design-system"; console.log(<Button>Root only</Button>);',
+    );
     execFileSync(
       resolve("node_modules/.bin/tsc"),
       [
@@ -95,10 +99,12 @@ try {
         "esnext",
         "--target",
         "es2022",
-        "--skipLibCheck",
+        "--strict",
+        "--noUncheckedSideEffectImports",
         "--typeRoots",
         resolve("node_modules/@types"),
         join(temporary, "consumer.tsx"),
+        join(temporary, "root-only.tsx"),
       ],
       { stdio: "inherit" },
     );
@@ -114,10 +120,12 @@ try {
         "nodenext",
         "--target",
         "es2022",
-        "--skipLibCheck",
+        "--strict",
+        "--noUncheckedSideEffectImports",
         "--typeRoots",
         resolve("node_modules/@types"),
         join(temporary, "consumer.tsx"),
+        join(temporary, "root-only.tsx"),
       ],
       { stdio: "inherit" },
     );

@@ -1,4 +1,5 @@
 import { useRef, type ComponentProps } from "react";
+import { metricSource, animateMetricChildren } from "./metric-value.js";
 import { useMetricCountUp } from "./motion-hooks.js";
 import { cn } from "../../lib/utils.js";
 export function CTAPair({ className, ...props }: ComponentProps<"div">) {
@@ -37,10 +38,18 @@ export function Quote({ className, ...props }: ComponentProps<"blockquote">) {
 export function Stat({ className, ...props }: ComponentProps<"div">) {
   return <div className={cn("m-stat", className)} {...props} />;
 }
-export function Metric({ className, ...props }: ComponentProps<"div">) {
+export function Metric({
+  className,
+  children,
+  ...props
+}: ComponentProps<"div">) {
   const root = useRef<HTMLDivElement>(null);
-  useMetricCountUp(root);
-  return <div ref={root} className={cn("m-metric", className)} {...props} />;
+  const progress = useMetricCountUp(root, metricSource(children));
+  return (
+    <div ref={root} className={cn("m-metric", className)} {...props}>
+      {animateMetricChildren(children, progress)}
+    </div>
+  );
 }
 export function CardHeaderHeader({
   className,

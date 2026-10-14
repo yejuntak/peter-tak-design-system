@@ -1,3 +1,12 @@
+# Unreleased · Component review repairs
+
+- React-owned Metric animation prevents stale updates and nested-node corruption, retaining the 1100ms cubic count-up
+- Progress respects its maximum; TableRegion updates overflow guidance after content changes
+- Theme hydration restores storage safely; exported JSON colors match the accessible CSS tokens
+- Strict package consumers receive a typed CSS entry in both NodeNext and Bundler modes
+- Controlled command/demo dialogs restore invoking focus; comparison sliders show keyboard focus; noninteractive tooltip triggers become keyboard reachable
+- Compatibility: `useMetricCountUp(ref)` remains callable but is deprecated and now keeps values static. Use `Metric` for safe React-owned animation. No unsafe DOM-writing fallback is retained
+
 # 2.0.0 · React component migration
 
 - Replaced canonical HTML examples and all ten reference screen implementations with native React JSX
