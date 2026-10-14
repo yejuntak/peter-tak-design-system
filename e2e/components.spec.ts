@@ -144,12 +144,55 @@ test("root and docs catalog work under a non-root base", async ({
         }),
       )
       .toBe(true);
-    await page.screenshot({
-      animations: "disabled",
-      path: `evidence/screens/${info.project.name}-catalog-${theme}.jpg`,
-      type: "jpeg",
-      quality: 80,
-    });
+    // Descendant color transitions can outlive the body transition in WebKit.
+    await expect
+      .poll(() =>
+        page.evaluate(() => {
+          const expected = (token: string) => {
+            const probe = document.createElement("span");
+            probe.style.cssText = `color:var(${token});position:fixed;visibility:hidden`;
+            document.body.append(probe);
+            const color = getComputedStyle(probe).color;
+            probe.remove();
+            return color;
+          };
+          const ink = expected("--ink"),
+            soft = expected("--ink-soft");
+          const title = document.querySelector("#atoms .t-title-xl")!;
+          const icons = Array.from(
+            document.querySelectorAll(
+              ".button-icon:not(.button-primary), .button-icon:not(.button-primary) svg",
+            ),
+          );
+          const titleColor = getComputedStyle(title).color;
+          const iconColors = icons.map((node) => getComputedStyle(node).color);
+          return titleColor === ink &&
+            iconColors.every((color) => color === soft)
+            ? "settled"
+            : JSON.stringify({ titleColor, ink, soft, iconColors });
+        }),
+      )
+      .toBe("settled");
+    await expect
+      .poll(() =>
+        page.evaluate(
+          () =>
+            document
+              .getAnimations()
+              .filter(
+                (animation) =>
+                  animation.playState === "running" &&
+                  animation.effect?.getComputedTiming().iterations !== Infinity,
+              ).length,
+        ),
+      )
+      .toBe(0);
+    await page.evaluate(
+      () =>
+        new Promise<void>((resolve) =>
+          requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+        ),
+    );
     const icon = page.getByRole("button", { name: "Settings", exact: true });
     const rect = await icon.boundingBox();
     expect(rect?.width).toBe(44);
@@ -191,12 +234,17 @@ test("root and docs catalog work under a non-root base", async ({
     expect(
       contrast(
         await page
-          .locator("#atoms h2")
+          .locator("#atoms .t-title-xl")
           .evaluate((node) => getComputedStyle(node).color),
         colors.bg,
       ),
       `${theme} heading`,
     ).toBeGreaterThanOrEqual(4.5);
+    await page.screenshot({
+      path: `evidence/screens/${info.project.name}-catalog-${theme}.jpg`,
+      type: "jpeg",
+      quality: 80,
+    });
   }
   await page.locator("#health").scrollIntoViewIfNeeded();
   const sticky = await page.evaluate(() => ({
