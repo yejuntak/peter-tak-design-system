@@ -1,0 +1,33 @@
+name: Verify React components
+on:
+  pull_request:
+  push:
+    branches: [main, 'plot/react-components-*']
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm run test:package
+      - run: npx playwright install --with-deps chromium webkit
+      - run: npm run test:e2e
+      - name: Upload review evidence
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: plot-component-review
+          path: evidence
+          retention-days: 1
+      - name: Bounded image recovery if artifact quota is full
+        if: always()
+        run: node scripts/emit-review-images.mjs

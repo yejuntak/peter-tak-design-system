@@ -1,0 +1,111 @@
+/* Plot 1.3 documentation and opt-in form patterns. Shared tokens stay canonical. */
+.page-design-system [hidden] { display: none !important; }
+.page-design-system .ds-main { min-width: 0; }
+.page-design-system .ds-main :not(pre) > code { overflow-wrap: anywhere; white-space: normal; }
+.ds-table-scroll { max-width: 100%; overflow-x: auto; margin-block: var(--s-3); }
+.ds-table-scroll table { margin-block: 0; }
+.page-design-system .m-code-snippet { min-width: 0; max-width: 100%; }
+.page-design-system .m-code-snippet-head { flex-wrap: wrap; }
+.page-design-system [data-ds-tabs] { width: 100%; min-width: 0; max-width: 100%; overflow-x: auto; padding: 4px; }
+.page-design-system [data-ds-tabs] .m-tabs-tab { flex-shrink: 0; min-height: 44px; }
+.page-design-system #v11-tabs [role="tabpanel"] { width: 100%; min-width: 0; overflow-wrap: anywhere; }
+.page-design-system .ds-toc { display: flex; flex-direction: column; overflow: hidden; }
+.page-design-system .ds-toc-nav,
+.page-design-system .ds-context-results { overflow-y: auto; min-height: 0; overscroll-behavior: contain; }
+.page-design-system .ds-toc-head { flex-shrink: 0; }
+.page-design-system .ds-toc-nav { flex: 1 1 auto; }
+.ds-context-search { flex: 0 0 auto; display: flex; flex-direction: column; min-height: 0; margin-bottom: var(--s-4); }
+.ds-context-search:has(.ds-context-results:not([hidden])) { flex: 1 1 auto; overflow: hidden; }
+.ds-context-search > :not(.ds-context-results) { flex-shrink: 0; }
+.ds-context-search label { font-weight: var(--w-medium); margin-bottom: var(--s-2); }
+.ds-context-search .input { min-width: 0; width: 100%; min-height: 44px; font-size: 16px; flex-shrink: 0; }
+.ds-context-search p { color: var(--color-text-muted); line-height: 1.5; margin-top: var(--s-2); }
+.ds-context-search [data-ds-clear] { align-self: start; min-height: 44px; background: transparent; border: 0; cursor: pointer; }
+.ds-context-results { list-style: none; padding: 0; margin: var(--s-2) 0 0; }
+.ds-context-results a { display: grid; gap: 5px; padding: var(--s-3) var(--s-2); border-bottom: 1px solid var(--color-border); text-decoration: none; color: var(--color-text-primary); border-radius: var(--r-1); }
+.ds-context-results a:hover { background: var(--color-bg-tinted); }
+.ds-search-tier { font: var(--t-tiny)/1.5 var(--font-mono); color: var(--color-text-muted); }
+.ds-search-excerpt { display: block; grid-column: 1 / -1; font-size: 12px; line-height: 1.55; color: var(--color-text-muted); font-weight: normal; overflow-wrap: anywhere; }
+.ds-palette-count { padding: var(--s-2) var(--s-5); color: var(--color-text-muted); font-size: 13px; }
+.page-design-system .ds-palette,
+.page-design-system .ds-palette-panel,
+.page-design-system .ds-palette::backdrop { animation: none; transition: none; }
+.page-design-system :where(input, select, textarea, button, summary, a, [tabindex="0"]):focus-visible { outline: 2px solid var(--color-action-text); outline-offset: 2px; box-shadow: none; }
+.page-design-system .input:focus { border: var(--input-border-focus); box-shadow: none; }
+.page-design-system .input:focus-visible { outline: 2px solid var(--color-action-text); outline-offset: 2px; box-shadow: none; }
+.page-design-system :where(article, section)[tabindex="-1"]:focus-visible { outline: 2px solid var(--color-action-text); outline-offset: 5px; }
+.page-design-system .ds-toc-shortcut { display: inline-flex; align-items: center; justify-content: center; min-height: 36px; min-width: 44px; padding: 4px; background: transparent; border: 0; cursor: pointer; }
+.ds-toc-shortcut kbd { font: 12px/1 var(--font-mono); letter-spacing: 0; padding: 5px 7px; border: 1px solid var(--color-control-border); border-radius: var(--r-1); background: var(--color-bg-tinted); color: var(--color-text-primary); white-space: nowrap; }
+.page-design-system .ds-toc { padding-inline: 4px; }
+.ds-context-search .input { padding: 9px 11px; height: 44px; }
+.ds-live-anatomy { margin: 0; padding: var(--s-4); border: 1px solid var(--color-border); border-radius: var(--r-3); background: var(--color-surface); }
+.ds-live-anatomy > figcaption { margin-top: var(--s-4); color: var(--color-text-muted); line-height: 1.6; }
+.ds-live-card { max-width: 32rem; margin-inline: auto; }
+.ds-live-anatomy .o-card-work-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.ds-field-comparison { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4); margin-top: var(--s-4); }
+.ds-field-comparison > div { min-width: 0; padding: var(--s-4); border: 1px solid var(--color-border); border-radius: var(--r-2); }
+.ds-field-comparison .m-field { margin-block: var(--s-3); }
+.ds-field-comparison .input[readonly] { color: var(--color-text-muted); }
+@media (max-width: 650px) { .ds-field-comparison { grid-template-columns: 1fr; } }
+.page-design-system .ds-mobile-jump { color: var(--color-bg); background: var(--color-text-primary); min-height: 44px; }
+.page-design-system .ds-preview-body .m-chip { min-height: 44px; }
+.ds-form-controls { display: grid; gap: var(--s-3); max-width: 36rem; }
+.ds-form-controls .button { min-height: 44px; }
+.ds-form-controls fieldset { margin: 0; padding: var(--s-3); border: 1px solid var(--color-control-border); border-radius: var(--r-2); }
+.ds-form-controls legend { font-weight: var(--w-medium); padding-inline: var(--s-2); }
+.plot-choice { display: flex; align-items: center; gap: var(--s-3); min-height: 44px; width: fit-content; cursor: pointer; color: var(--color-text-primary); }
+.plot-choice input { width: 20px; height: 20px; flex-shrink: 0; accent-color: var(--color-action-text); }
+.plot-choice:has(input:disabled) { cursor: not-allowed; color: var(--color-text-muted); }
+.plot-select, .plot-textarea { width: 100%; min-height: 44px; font: inherit; color: var(--color-text-primary); background: var(--color-surface); padding: var(--s-3); border: 1px solid var(--color-control-border); border-radius: var(--input-radius); }
+.plot-textarea { resize: vertical; min-height: 112px; line-height: 1.6; }
+.plot-select:disabled { color: var(--color-text-muted); cursor: not-allowed; }
+.plot-progress { width: 100%; height: 12px; accent-color: var(--color-action-text); }
+.plot-disclosure { border-block: 1px solid var(--color-border-strong); }
+.plot-disclosure summary { min-height: 44px; padding: var(--s-3); cursor: pointer; font-weight: var(--w-medium); color: var(--color-text-primary); }
+.plot-disclosure > :not(summary) { margin: 0; padding: var(--s-3); }
+.plot-notice { padding: var(--s-4); border: 1px solid var(--color-control-border); border-inline-start: 4px solid var(--color-bad-text); border-radius: var(--r-2); background: var(--color-bad-soft); color: var(--color-text-primary); }
+.plot-field-error { color: var(--color-bad-text); }
+.ds-form-controls [aria-invalid="true"] { border-color: var(--color-bad-text); }
+.ds-specimen { padding: clamp(16px, 3vw, 28px); border: 1px solid var(--color-border); border-radius: var(--r-3); background: var(--color-surface); margin-block: var(--s-4); }
+.ds-part-key { display: flex; flex-wrap: wrap; gap: var(--s-3); list-style: none; padding: var(--s-3) 0 0; margin: 0; color: var(--color-text-muted); font-size: 13px; border-top: 1px solid var(--color-border); }
+.ds-part-key strong { color: var(--color-text-primary); font-family: var(--font-mono); }
+.ds-demo-note { color: var(--color-text-muted); font-size: 13px; line-height: 1.6; margin-bottom: var(--s-3); }
+.ds-template-preview { container-type: inline-size; margin-top: var(--s-5); border: 1px solid var(--color-control-border); border-radius: var(--r-3); overflow: clip; background: var(--color-surface); }
+.ds-preview-label { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-2); padding: var(--s-3) var(--s-4); background: var(--color-bg-tinted); border-bottom: 1px solid var(--color-border); font-size: 13px; color: var(--color-text-muted); }
+.ds-preview-body { display: grid; gap: var(--s-4); padding: clamp(16px, 4cqi, 32px); }
+.ds-preview-body p { max-width: 60ch; }
+.ds-preview-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4); }
+.ds-preview-body .o-feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ds-preview-body :where(.o-card-archetype, .o-feature-card) { padding: var(--s-4); }
+.ds-preview-docs { display: grid; grid-template-columns: 135px minmax(0, 1fr); gap: var(--s-4); }
+.ds-preview-docs nav { border-inline-end: 1px solid var(--color-border); display: flex; flex-direction: column; gap: var(--s-2); padding-inline-end: var(--s-3); }
+.ds-preview-docs nav a { padding-block: var(--s-2); }
+.ds-template-preview :where(h4, h5) { text-wrap: balance; }
+.ds-source { margin-block: var(--s-3); }
+.ds-source summary { cursor: pointer; padding-block: var(--s-3); color: var(--color-text-primary); min-height: 44px; }
+.ds-source code { overflow-wrap: anywhere; }
+.ds-audit-table { overflow-x: auto; margin-block: var(--s-4); }
+.ds-audit-table table { min-width: 620px; }
+.ds-release { border-inline-start: 3px solid var(--color-action-text); padding: var(--s-4); margin-bottom: var(--s-5); background: var(--color-bg-tinted); }
+.ds-release p + p { margin-top: var(--s-3); }
+@container (max-width: 520px) {
+  .ds-preview-grid, .ds-preview-docs, .ds-preview-body .o-feature-grid { grid-template-columns: 1fr; }
+  .ds-preview-docs nav { flex-direction: row; flex-wrap: wrap; border-inline-end: 0; border-bottom: 1px solid var(--color-border); }
+}
+@media (hover: hover) and (pointer: fine) {
+  .page-design-system .ds-specimen .button { transition: transform 140ms var(--ease-out); }
+  .page-design-system .ds-specimen .button:active:not(:focus-visible) { transform: scale(.97); }
+}
+.page-design-system :where(button, a):focus-visible { transition: none; }
+.page-design-system button:active:focus-visible { transform: none; }
+@media (max-width: 1024px) { .page-design-system .ds-toc { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .page-design-system .ds-specimen .button { transition: none; transform: none; }
+  .page-design-system .skeleton, .page-design-system .spinner { animation: none; }
+}
+@media (forced-colors: active) {
+  .plot-choice input { accent-color: auto; }
+  .plot-notice, .ds-template-preview { border: 1px solid CanvasText; }
+}
+@media print { .page-design-system .ds-toc, .page-design-system .ds-mobile-jump { display: none; } .page-design-system .ds-page { display: block; } }
+

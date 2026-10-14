@@ -1,101 +1,79 @@
-# Peter Tak Design System
+# Plot · Peter Tak Design System
 
-A production-grade design system extracted from [takyejun.com](https://takyejun.com) and re-published as a reusable design language. Atomic-design organized, plain CSS, machine-readable tokens, AI-friendly documentation.
+The existing design system, migrated to typed React components and shadcn/Radix interaction primitives. The canonical implementation is now React. The original monochrome/amber visual language, semantic CSS tokens, motion and Vita reference patterns remain part of the same system.
 
-> **Optimized for both humans and AI assistants.** Component specs are written so Claude (or any code-generation agent) can produce on-system markup without seeing the rendered output. See [CLAUDE.md](./CLAUDE.md) for the AI usage guide.
+## Use the package
 
----
+Requires React and React DOM 19. Build or install from this repository; version 2.0.0 is the source package version, not a claim that it has been published to npm.
 
-## What's in this repo
-
-```
-peter-tak-design-system/
-├── CLAUDE.md                 ← AI usage instructions (read first if you're an AI)
-├── README.md                 ← This file
-├── tokens/                   ← Machine-readable design tokens (W3C DTCG-ish)
-│   ├── color.json
-│   ├── typography.json
-│   ├── spacing.json
-│   ├── radius.json
-│   └── motion.json
-├── css/                      ← The actual stylesheets — drop in and use
-│   ├── tokens.css            ← CSS custom properties (must load first)
-│   ├── reset.css
-│   ├── atoms.css
-│   ├── molecules.css
-│   ├── organisms.css
-│   └── motion.css
-├── components/               ← Human + AI readable component specs
-│   ├── atoms/                ← button, chip, eyebrow, status-pill, …
-│   ├── molecules/            ← cta-pair, stat, eyebrow-title, lab-result, range-indicator, progress-bar, confidence-tier, action-trio, …
-│   └── organisms/            ← hero, section, card-work, process, care-plan, recommendation-card, health-snapshot, …
-├── docs/                     ← Static HTML docs site
-│   └── index.html
-└── screens/                  ← Reference screens built entirely from this system
-    └── vita-health/          ← Patient journey & preventative care app
-        ├── index.html
-        ├── onboarding.html         ← Health snapshot (first session)
-        ├── lab-interpretation.html ← Range + trend + plain-language
-        ├── care-plan.html          ← Patient-defined goals
-        ├── progress-framing.html   ← Adherence as progress, never compliance
-        └── recommendation.html     ← Confidence-tiered AI recommendation
+```sh
+npm ci
+npm run check
+npm run test:package
+npm pack
 ```
 
----
+Install the resulting tarball in your application, then:
 
-## Quickstart
+```tsx
+import {
+  Button,
+  ThemeProvider,
+  ThemeToggle,
+  TooltipProvider,
+} from "@peter-tak/design-system";
+import "@peter-tak/design-system/styles.css";
 
-### 1. Drop the CSS into your page
-
-```html
-<link rel="stylesheet" href="css/tokens.css">
-<link rel="stylesheet" href="css/reset.css">
-<link rel="stylesheet" href="css/atoms.css">
-<link rel="stylesheet" href="css/molecules.css">
-<link rel="stylesheet" href="css/organisms.css">
-<link rel="stylesheet" href="css/motion.css">
-```
-
-### 2. Compose with the named classes
-
-```html
-<section class="o-hero o-hero--page">
-  <div class="o-section-inner">
-    <span class="o-hero-page-eyebrow">About</span>
-    <h1 class="o-hero-page-title">Lead product designer.</h1>
-    <p class="o-hero-page-lede">Working in the layer between research and product architecture.</p>
-  </div>
-</section>
-```
-
-### 3. Reference tokens, never raw values
-
-```css
-.my-thing {
-  padding: var(--s-5);          /* not 24px */
-  color: var(--ink);            /* not hsl(0 0% 9%) */
-  border-radius: var(--r-3);    /* not 8px */
+export function Example() {
+  return (
+    <ThemeProvider defaultTheme="system">
+      <TooltipProvider>
+        <Button onClick={() => console.log("Local action")}>Continue</Button>
+        <ThemeToggle />
+      </TooltipProvider>
+    </ThemeProvider>
+  );
 }
 ```
 
----
+React/ReactDOM are external peer dependencies. Built ESM, declarations and CSS are included in the package; the portfolio server, datasets, pages and assets are not.
 
-## Principles
+## Component coverage
 
-1. **No value without interpretation** — health/data display must include context, not raw numbers. See `m-lab-result`.
-2. **Progress framing over compliance framing** — adherence UI shows what's done, never what's missed. See `m-progress-bar`.
-3. **Three-action AI response** — every AI recommendation has Accept · Modify · Dismiss. Modify is first-class. See `m-action-trio`.
-4. **Confidence as language, not number** — never expose raw model scores. See `m-confidence-tier`.
-5. **Tokens are opinionated; pick the closest one.** Don't split the difference.
+- Atoms: typography, buttons, links, tags/chips, fields, checkbox/radio/switch, progress, avatar, tooltip, skeleton, code and layout primitives
+- Molecules: original header/stat/metric/quote/timeline/filter/callout/code/link-card compositions, reading progress and table overflow regions
+- Organisms: navigation/mobile menu/footer, heroes/sections, work/persona/feature/archetype cards, process/outcome, media/lightbox/comparison, dialogs, alerts, toast, command palette and contact/reference compositions
+- Vita: LabResult, RangeIndicator, TrendArrow, ProgressBar, ConfidenceTier, ActionTrio, RecommendationCard, CarePlan and HealthSnapshot, plus accessible appointment selection
+- Templates: reusable composition frames and all ten existing Vita reference routes, rendered from native JSX
 
----
+See [the component migration map](docs/component-map.md) and [API anatomy examples](docs/react-api.md). Root composition components accept standard element props and React children; named anatomy classes and variants remain their styling contract.
+
+## Local preview and tests
+
+```sh
+npm run dev
+npm run check
+npm run test:package
+npx playwright install --with-deps chromium webkit
+npm run test:e2e
+```
+
+The root and `docs/index.html` render the React catalog. Every existing `screens/vita-health/*.html` route is a minimal React mount entry, with JSX source in `demo/vita/`; there is no parallel static HTML implementation or raw-HTML rendering bridge. `npm run build:docs` emits the static preview to `site/`.
+
+CI verifies exports, original CSS families, token handles, behavior, clean package consumption, all ten screen routes, light/dark/mobile layouts, keyboard flows and screenshots. No deployment or npm publication is triggered by this workflow.
+
+## Design and accessibility contracts
+
+The corrected Plot tokens keep supporting text readable in both themes. Icon controls use recognizable glyphs and 44px square targets. Dialogs, radios, tabs, tooltips and disclosure use semantic primitives; metric/reveal/persona/copy motion retains the original timing and reduced-motion fallback. Mobile tables provide overflow-only guidance and keyboard access.
+
+Vita controls expose callbacks. The reference screens simulate local actions and do not send messages, book appointments or save health data. Their values and people are illustrative interface content. Confidence labels are presentation choices, not evidence of calibration, improved decisions or clinical safety; quantitative context may still be necessary. See the existing pattern specifications in `components/` for the retained rationale and limitations.
+
+## Tokens and fonts
+
+`tokens/` retains the machine-readable color, typography, spacing, radius and motion contracts. `css/` is the React components' styling implementation, not an alternate canonical HTML stack. Do not redefine `--muted` as a background: it is foreground text.
+
+No font binaries are bundled. Aeonik and Geist Mono have system fallbacks; configure `--font-display`, `--font-text` and `--font-mono` or supply appropriately licensed fonts yourself. The preview uses the documented system fallbacks.
 
 ## License
 
-MIT. Use, fork, adapt.
-
----
-
-## Origin
-
-This system grew out of three years of UX Lead work at Vita Health / Onlife Health (2019–2022), production work at T-Mobile and Microsoft, and AI product design at Home Depot's Core AI team. The Vita Health patient-journey patterns (interpretation system, progress framing, confidence tiers) are documented here as `screens/vita-health/` — both as a portfolio reference and as a canonical example of the system in use.
+MIT, copyright Peter Tak. See [LICENSE](LICENSE) and [third-party notices](THIRD_PARTY_NOTICES.md).

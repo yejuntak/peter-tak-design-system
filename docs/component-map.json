@@ -1,0 +1,1089 @@
+{
+  "originalCommit": "49e1978259b45452889b78d341e2d37d114cd622",
+  "families": [
+    {
+      "group": "Atoms",
+      "originalFamily": "typography",
+      "exports": ["Typography"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Atoms",
+      "originalFamily": "button",
+      "exports": ["Button"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Atoms",
+      "originalFamily": "tag",
+      "exports": ["Tag", "TagItem"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Atoms",
+      "originalFamily": "input",
+      "exports": ["Input", "Textarea", "NativeSelect"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Atoms",
+      "originalFamily": "link",
+      "exports": ["Link"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Atoms",
+      "originalFamily": "divider",
+      "exports": ["Divider"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Atoms",
+      "originalFamily": "dot",
+      "exports": ["Dot"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Atoms",
+      "originalFamily": "theme-toggle",
+      "exports": ["ThemeProvider", "ThemeToggle"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Atoms",
+      "originalFamily": "stack",
+      "exports": ["Stack"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Atoms",
+      "originalFamily": "cluster",
+      "exports": ["Cluster"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Atoms",
+      "originalFamily": "container",
+      "exports": ["Container"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Atoms",
+      "originalFamily": "kbd",
+      "exports": ["Kbd"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Atoms",
+      "originalFamily": "code",
+      "exports": ["Code", "CodeBlock"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Atoms",
+      "originalFamily": "switch",
+      "exports": ["Switch"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Atoms",
+      "originalFamily": "spinner",
+      "exports": ["Spinner"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Atoms",
+      "originalFamily": "skeleton",
+      "exports": ["Skeleton", "SkeletonText"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Atoms",
+      "originalFamily": "sparkline",
+      "exports": ["Sparkline"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Atoms",
+      "originalFamily": "checkbox",
+      "exports": ["Checkbox"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Atoms",
+      "originalFamily": "radio-group",
+      "exports": ["RadioGroup", "RadioGroupItem"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Atoms",
+      "originalFamily": "progress",
+      "exports": ["Progress"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Molecules",
+      "originalFamily": "m-eyebrow-title",
+      "exports": ["EyebrowTitle"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Molecules",
+      "originalFamily": "m-hero-lede",
+      "exports": ["HeroLedeDiv", "HeroLede"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Molecules",
+      "originalFamily": "m-stat",
+      "exports": ["Stat"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Molecules",
+      "originalFamily": "m-cta-pair",
+      "exports": ["CTAPair"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Molecules",
+      "originalFamily": "m-breadcrumb",
+      "exports": ["Breadcrumb"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Molecules",
+      "originalFamily": "m-card-header",
+      "exports": ["CardHeader"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Molecules",
+      "originalFamily": "m-metric",
+      "exports": ["Metric"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Molecules",
+      "originalFamily": "m-career-entry",
+      "exports": ["TimelineEntry"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Molecules",
+      "originalFamily": "m-timeline",
+      "exports": ["Timeline"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Molecules",
+      "originalFamily": "m-filter-row",
+      "exports": ["FilterRow", "FilterChips"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Molecules",
+      "originalFamily": "m-chip",
+      "exports": ["Chip"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Molecules",
+      "originalFamily": "m-tag-cluster",
+      "exports": ["TagCluster"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Molecules",
+      "originalFamily": "m-field",
+      "exports": ["Field", "FieldMessage"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Molecules",
+      "originalFamily": "m-quote",
+      "exports": ["Quote"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Molecules",
+      "originalFamily": "m-avatar",
+      "exports": ["Avatar", "AvatarImage", "AvatarFallback", "InitialsAvatar"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Molecules",
+      "originalFamily": "m-tooltip",
+      "exports": ["PlotTooltip", "TooltipProvider", "Tooltip"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Molecules",
+      "originalFamily": "m-tabs",
+      "exports": ["Tabs", "TabsList", "TabsTrigger", "TabsContent"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Molecules",
+      "originalFamily": "m-section-divider",
+      "exports": ["SectionDivider"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Molecules",
+      "originalFamily": "m-callout",
+      "exports": ["Callout", "CalloutArticle"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Molecules",
+      "originalFamily": "m-empty-state",
+      "exports": ["EmptyState"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Molecules",
+      "originalFamily": "m-code-snippet",
+      "exports": ["CodeSnippet"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Molecules",
+      "originalFamily": "m-link-card",
+      "exports": ["LinkCard"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Molecules",
+      "originalFamily": "m-progress-indicator",
+      "exports": ["ReadingProgress"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Molecules",
+      "originalFamily": "m-keyboard-hint",
+      "exports": ["KeyboardHint"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-header",
+      "exports": ["Header"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-mobile-menu",
+      "exports": ["MobileMenu"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-footer",
+      "exports": ["Footer"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-section",
+      "exports": ["Section", "SectionInner"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-status-pill",
+      "exports": ["StatusPill"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-hero",
+      "exports": ["Hero", "CaseHero"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-case-meta",
+      "exports": ["CaseMeta"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-work-group-header",
+      "exports": ["WorkGroupHeader"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-card-work",
+      "exports": ["WorkCard", "CardThumbnail"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-card-archetype",
+      "exports": ["ArchetypeCard", "ArchetypeCardA"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-process",
+      "exports": ["ProcessSection"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-outcome",
+      "exports": ["Outcome"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-feature-grid",
+      "exports": ["FeatureGrid"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-feature-card",
+      "exports": ["FeatureCard"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-principle-list",
+      "exports": ["PrincipleList", "Principle"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-cta",
+      "exports": ["ClosingCTA"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-tldr",
+      "exports": ["TLDR"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-summary-grid",
+      "exports": ["CaseSummary"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-notice",
+      "exports": ["Notice"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-metric-grid",
+      "exports": ["MetricGrid"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-artifact-grid",
+      "exports": ["ArtifactGrid", "ArtifactTile"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-inline-media",
+      "exports": ["InlineMedia"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-media-row",
+      "exports": ["MediaRow"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-media-showcase",
+      "exports": ["MediaShowcase"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-media-real",
+      "exports": ["MediaReal"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-media-placeholder",
+      "exports": ["MediaPlaceholder"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-media-lightbox",
+      "exports": ["InlineMedia"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-persona-grid",
+      "exports": ["PersonaGrid"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-persona-card",
+      "exports": ["PersonaCard"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-competitor-table",
+      "exports": ["CompetitorTable", "TableRegion"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-section-refs",
+      "exports": ["SectionRefs", "ReferenceLink"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-clean-list",
+      "exports": ["CleanList"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-platform-tag",
+      "exports": ["PlatformTag"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-toast",
+      "exports": ["Toaster", "toast"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-dialog",
+      "exports": [
+        "Dialog",
+        "DialogContent",
+        "DialogTitle",
+        "DialogDescription",
+        "DialogClose"
+      ],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-comparison",
+      "exports": ["ComparisonSlider"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "o-contact-grid",
+      "exports": ["ContactGrid", "ContactCard"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "hero-motion",
+      "exports": ["HeroMotion"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "accordion",
+      "exports": [
+        "Accordion",
+        "AccordionItem",
+        "AccordionTrigger",
+        "AccordionContent"
+      ],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "alert-dialog",
+      "exports": [
+        "AlertDialog",
+        "AlertDialogContent",
+        "AlertDialogTitle",
+        "AlertDialogDescription"
+      ],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Organisms",
+      "originalFamily": "command-palette",
+      "exports": [
+        "Command",
+        "CommandDialog",
+        "CommandInput",
+        "CommandList",
+        "CommandItem"
+      ],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Vita",
+      "originalFamily": "m-lab-result",
+      "exports": ["LabResult", "LabResultFrame"],
+      "coverage": ["src/test/inventory.test.tsx", "src/test/health.test.tsx"]
+    },
+    {
+      "group": "Vita",
+      "originalFamily": "m-range-indicator",
+      "exports": ["RangeIndicator", "RangeIndicatorFrame"],
+      "coverage": ["src/test/inventory.test.tsx", "src/test/health.test.tsx"]
+    },
+    {
+      "group": "Vita",
+      "originalFamily": "m-trend-arrow",
+      "exports": ["TrendArrow", "TrendArrowFrame"],
+      "coverage": ["src/test/inventory.test.tsx", "src/test/health.test.tsx"]
+    },
+    {
+      "group": "Vita",
+      "originalFamily": "m-progress-bar",
+      "exports": ["ProgressBar", "ProgressBarFrame"],
+      "coverage": ["src/test/inventory.test.tsx", "src/test/health.test.tsx"]
+    },
+    {
+      "group": "Vita",
+      "originalFamily": "m-confidence-tier",
+      "exports": ["ConfidenceTier", "ConfidenceTierFrame"],
+      "coverage": ["src/test/inventory.test.tsx", "src/test/health.test.tsx"]
+    },
+    {
+      "group": "Vita",
+      "originalFamily": "m-action-trio",
+      "exports": ["ActionTrio", "ActionTrioFrame"],
+      "coverage": ["src/test/inventory.test.tsx", "src/test/health.test.tsx"]
+    },
+    {
+      "group": "Vita",
+      "originalFamily": "o-recommendation-card",
+      "exports": ["RecommendationCard", "RecommendationCardFrame"],
+      "coverage": ["src/test/inventory.test.tsx", "src/test/health.test.tsx"]
+    },
+    {
+      "group": "Vita",
+      "originalFamily": "o-care-plan",
+      "exports": ["CarePlan", "CarePlanFrame"],
+      "coverage": ["src/test/inventory.test.tsx", "src/test/health.test.tsx"]
+    },
+    {
+      "group": "Vita",
+      "originalFamily": "o-health-snapshot",
+      "exports": ["HealthSnapshot", "HealthSnapshotFrame"],
+      "coverage": ["src/test/inventory.test.tsx", "src/test/health.test.tsx"]
+    },
+    {
+      "group": "Vita",
+      "originalFamily": "appointment-selection",
+      "exports": ["ScheduleSelector"],
+      "coverage": ["src/test/inventory.test.tsx", "src/test/health.test.tsx"]
+    },
+    {
+      "group": "Templates",
+      "originalFamily": "identity",
+      "exports": ["IdentityTemplate"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Templates",
+      "originalFamily": "case-study",
+      "exports": ["CaseStudyTemplate"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Templates",
+      "originalFamily": "utility",
+      "exports": ["UtilityTemplate"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Templates",
+      "originalFamily": "showcase",
+      "exports": ["ShowcaseTemplate"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    },
+    {
+      "group": "Templates",
+      "originalFamily": "filtered-index",
+      "exports": ["FilteredIndexTemplate"],
+      "coverage": [
+        "src/test/inventory.test.tsx",
+        "src/test/components.test.tsx",
+        "src/test/motion.test.tsx",
+        "src/test/radio.test.tsx"
+      ]
+    }
+  ],
+  "routes": [
+    "screens/vita-health/index.html",
+    "screens/vita-health/onboarding.html",
+    "screens/vita-health/dashboard.html",
+    "screens/vita-health/journey.html",
+    "screens/vita-health/labs.html",
+    "screens/vita-health/lab-interpretation.html",
+    "screens/vita-health/care-plan.html",
+    "screens/vita-health/messages.html",
+    "screens/vita-health/progress-framing.html",
+    "screens/vita-health/recommendation.html"
+  ]
+}

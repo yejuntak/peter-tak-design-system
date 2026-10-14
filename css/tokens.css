@@ -54,46 +54,6 @@
    site.css can eventually be retired.
    ---------------------------------------------------------------------------- */
 
-@font-face {
-  font-family: "Aeonik";
-  src: url("/fonts/Aeonik/Aeonik-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Aeonik";
-  src: url("/fonts/Aeonik/Aeonik-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Aeonik";
-  src: url("/fonts/Aeonik/Aeonik-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Geist Mono";
-  src: url("/fonts/GeistMono/GeistMono-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Geist Mono";
-  src: url("/fonts/GeistMono/GeistMono-Medium.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
 /* ============================================================================
    ROOT — LIGHT MODE (default)
    ============================================================================ */
@@ -146,16 +106,23 @@
   /* Text roles */
   --color-text-primary:         var(--gray-900);
   --color-text-body:            var(--gray-700);
-  --color-text-muted:           var(--gray-500);
-  --color-text-placeholder:     var(--gray-400);
+  --color-text-muted:           hsl(0 0% 40%);
+  --color-text-placeholder:     hsl(0 0% 40%);
 
   /* R7 Rasmus foundation: state-color text tokens. Used for trend
      indicators in tables (↑ +131%), validation labels, and the
      sparkline stroke colors. Pulled from raw HSL values that were
      inlined in 7+ places in design-system.gohtml + atoms.css. */
-  --color-good-text:            hsl(142 70% 35%);   /* up trends, success labels */
-  --color-warn-text:            hsl(43 100% 32%);   /* beta, warning labels */
+  --color-good-text:            hsl(142 70% 27%);   /* up trends, success labels */
+  --color-warn-text:            hsl(43 100% 26%);   /* beta, warning labels */
   --color-neutral-text:         hsl(0 0% 35%);      /* stable / no change */
+
+  /* Feedback surfaces inherit the selected theme. */
+  --color-bad-text:             hsl(0 70% 38%);
+  --color-good-soft:            color-mix(in srgb, var(--color-good-text) 8%, var(--color-surface));
+  --color-warn-soft:            color-mix(in srgb, var(--color-warn-text) 8%, var(--color-surface));
+  --color-bad-soft:             color-mix(in srgb, var(--color-bad-text) 8%, var(--color-surface));
+  --color-control-border:       hsl(0 0% 45%);
 
   /* Border / divider roles */
   --color-border:               hsl(0 0% 0% / var(--alpha-08));
@@ -167,7 +134,7 @@
   --color-action-hover:         var(--amber-600);
   --color-action-text:          var(--amber-700);
   --color-action-text-hover:    var(--amber-800);
-  --color-action-fg:            var(--gray-0);
+  --color-action-fg:            var(--gray-900);
   --color-action-soft:          hsl(38 95% 50% / 0.12);
   --color-action-focus:         hsl(38 95% 50% / 0.4);
 
@@ -439,9 +406,9 @@
   --input-padding-y:            8px;
   --input-padding-x:            12px;
   --input-min-height:           36px;
-  --input-border:               1px solid var(--color-border);
-  --input-border-focus:         1px solid var(--color-action);
-  --input-focus-ring:           0 0 0 3px var(--color-action-focus);
+  --input-border:               1px solid var(--color-control-border);
+  --input-border-focus:         1px solid var(--color-action-text);
+  --input-focus-ring:           0 0 0 3px var(--color-action-text);
 
   /* Tag */
   --tag-radius:                 var(--r-1);
@@ -482,8 +449,10 @@
 
     --color-text-primary:        hsl(0 0% 96%);
     --color-text-body:           hsl(0 0% 76%);
-    --color-text-muted:          hsl(0 0% 56%);
-    --color-text-placeholder:    hsl(0 0% 42%);
+    --color-text-muted:          hsl(0 0% 65%);
+    --color-text-placeholder:    hsl(0 0% 65%);
+    --color-control-border:      hsl(0 0% 55%);
+    --color-bad-text:            hsl(0 80% 75%);
 
     /* R7: state-color tokens lifted for dark — match sparkline pass */
     --color-good-text:           hsl(142 50% 60%);
@@ -534,8 +503,10 @@
 
   --color-text-primary:        hsl(0 0% 96%);
   --color-text-body:           hsl(0 0% 76%);
-  --color-text-muted:          hsl(0 0% 56%);
-  --color-text-placeholder:    hsl(0 0% 42%);
+  --color-text-muted:          hsl(0 0% 65%);
+  --color-text-placeholder:    hsl(0 0% 65%);
+  --color-control-border:      hsl(0 0% 55%);
+  --color-bad-text:            hsl(0 80% 75%);
 
   --color-good-text:           hsl(142 50% 60%);
   --color-warn-text:           hsl(43 80% 62%);
@@ -601,3 +572,4 @@
   background: var(--selection-bg);
   color: var(--selection-fg);
 }
+

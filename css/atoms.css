@@ -396,7 +396,7 @@ body {
 
 @media (hover: hover) and (pointer: fine) {
   .input:hover {
-    border-color: var(--color-border-strong);
+    border-color: var(--color-text-primary);
   }
 }
 
@@ -995,6 +995,9 @@ pre.code-block code,
 /* Vertical stack of full-width children (14 inline patches) */
 .example--column {
   flex-direction: column;
+  /* One full-width column. Inherited wrapping can size the flex line
+     before a nested aspect-ratio grid resolves its stretched width. */
+  flex-wrap: nowrap;
   align-items: stretch;
 }
 
@@ -1041,14 +1044,9 @@ pre.code-block code,
   border-top: 1px solid var(--hairline);
 }
 
-/* Anchor offset — keeps sections clear of the sticky header on jump.
-   Applies to section/component-doc IDs AND to the lighter "cluster header"
-   entry wrappers used by the v1.0 informal documentation pattern
-   (e.g., #m-eyebrow-title, #o-status-pill). */
+/* Anchor offset — keeps sections clear of the sticky header on jump */
 .ds-section[id],
-.ds-component-doc[id],
-[id^="m-"],
-[id^="o-"] {
+.ds-component-doc[id] {
   scroll-margin-top: 80px;
 }
 
@@ -1365,7 +1363,7 @@ pre.code-block code,
   letter-spacing: 0;
 }
 .ds-component-health-value--good { color: var(--color-good-text); }
-.ds-component-health-value--warn { color: hsl(43 100% 32%); }
+.ds-component-health-value--warn { color: var(--color-warn-text); }
 
 /* ─── Anti-pattern visual gallery ───────────────────────────
    Two-column visual ✓/✗ pair. Helps consumers see what wrong looks
@@ -1387,12 +1385,12 @@ pre.code-block code,
   border: 1px solid var(--color-border);
 }
 .ds-antipattern-card--do {
-  border-color: hsl(142 50% 70%);
-  background: hsl(142 50% 98%);
+  border-color: var(--color-good-text);
+  background: var(--color-good-soft);
 }
 .ds-antipattern-card--dont {
-  border-color: hsl(0 60% 80%);
-  background: hsl(0 60% 98%);
+  border-color: var(--color-bad-text);
+  background: var(--color-bad-soft);
 }
 .ds-antipattern-card-head {
   display: flex;
@@ -1404,8 +1402,8 @@ pre.code-block code,
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
-.ds-antipattern-card--do .ds-antipattern-card-head { color: hsl(142 76% 28%); }
-.ds-antipattern-card--dont .ds-antipattern-card-head { color: hsl(0 70% 38%); }
+.ds-antipattern-card--do .ds-antipattern-card-head { color: var(--color-good-text); }
+.ds-antipattern-card--dont .ds-antipattern-card-head { color: var(--color-bad-text); }
 .ds-antipattern-card-preview {
   display: flex;
   flex-wrap: wrap;
@@ -1423,26 +1421,7 @@ pre.code-block code,
   color: var(--color-text-body);
 }
 
-/* Guarded so an explicit user-set light theme suppresses these even
-   when the OS prefers dark. Mirror under [data-theme="dark"] for JS toggle. */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .ds-antipattern-card--do {
-    border-color: hsl(142 30% 30%);
-    background: hsl(142 30% 12%);
-  }
-  :root:not([data-theme="light"]) .ds-antipattern-card--dont {
-    border-color: hsl(0 30% 30%);
-    background: hsl(0 30% 12%);
-  }
-}
-:root[data-theme="dark"] .ds-antipattern-card--do {
-  border-color: hsl(142 30% 30%);
-  background: hsl(142 30% 12%);
-}
-:root[data-theme="dark"] .ds-antipattern-card--dont {
-  border-color: hsl(0 30% 30%);
-  background: hsl(0 30% 12%);
-}
+/* Anti-pattern examples follow the chosen semantic theme. */
 
 /* Body ledes — text-wrap pretty avoids orphaned last words */
 .ds-section-head .t-body-m,
@@ -2109,32 +2088,11 @@ pre.code-block code,
   border-radius: var(--r-1);
   background: var(--color-bg-tinted);
 }
-/* Tier-coded backgrounds — tells the user the structure as they search */
-.ds-palette-item-tier--get-started { color: hsl(38 100% 30%); background: hsl(38 95% 90%); }
-.ds-palette-item-tier--foundation { color: hsl(220 60% 40%); background: hsl(220 70% 96%); }
-.ds-palette-item-tier--atom       { color: hsl(38 100% 30%);  background: hsl(38 95% 95%);  }
-.ds-palette-item-tier--molecule   { color: hsl(280 50% 40%); background: hsl(280 60% 96%); }
-.ds-palette-item-tier--organism   { color: hsl(160 50% 30%); background: hsl(160 60% 95%); }
-.ds-palette-item-tier--template   { color: hsl(340 60% 40%); background: hsl(340 70% 97%); }
-.ds-palette-item-tier--reference  { color: hsl(0 0% 35%); background: hsl(0 0% 95%); }
-.ds-palette-item-tier--governance { color: hsl(0 0% 100%); background: hsl(0 0% 18%); }
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .ds-palette-item-tier--foundation { color: hsl(220 70% 80%); background: hsl(220 50% 15%); }
-  :root:not([data-theme="light"]) .ds-palette-item-tier--atom       { color: hsl(38 100% 75%); background: hsl(38 50% 18%); }
-  :root:not([data-theme="light"]) .ds-palette-item-tier--molecule   { color: hsl(280 70% 80%); background: hsl(280 40% 18%); }
-  :root:not([data-theme="light"]) .ds-palette-item-tier--organism   { color: hsl(160 60% 75%); background: hsl(160 40% 14%); }
-  :root:not([data-theme="light"]) .ds-palette-item-tier--template   { color: hsl(340 70% 80%); background: hsl(340 40% 18%); }
-  :root:not([data-theme="light"]) .ds-palette-item-tier--reference  { color: hsl(0 0% 75%); background: hsl(0 0% 16%); }
-  :root:not([data-theme="light"]) .ds-palette-item-tier--governance { color: hsl(0 0% 95%); background: hsl(0 0% 28%); }
-}
-:root[data-theme="dark"] .ds-palette-item-tier--foundation { color: hsl(220 70% 80%); background: hsl(220 50% 15%); }
-:root[data-theme="dark"] .ds-palette-item-tier--atom       { color: hsl(38 100% 75%); background: hsl(38 50% 18%); }
-:root[data-theme="dark"] .ds-palette-item-tier--molecule   { color: hsl(280 70% 80%); background: hsl(280 40% 18%); }
-:root[data-theme="dark"] .ds-palette-item-tier--organism   { color: hsl(160 60% 75%); background: hsl(160 40% 14%); }
-:root[data-theme="dark"] .ds-palette-item-tier--template   { color: hsl(340 70% 80%); background: hsl(340 40% 18%); }
-:root[data-theme="dark"] .ds-palette-item-tier--reference  { color: hsl(0 0% 75%); background: hsl(0 0% 16%); }
-:root[data-theme="dark"] .ds-palette-item-tier--governance { color: hsl(0 0% 95%); background: hsl(0 0% 28%); }
+/* Tier labels carry meaning in text, with theme-aware neutral surfaces. */
+.ds-palette-item-tier { color: var(--color-text-body); background: var(--color-bg-tinted); }
+.ds-palette-item-tier--get-started,
+.ds-palette-item-tier--atom { color: var(--color-action-text); background: var(--color-action-soft); }
+.ds-palette-item-tier--organism { color: var(--color-good-text); background: var(--color-good-soft); }
 
 .ds-palette-empty {
   padding: var(--s-5);
@@ -2350,20 +2308,20 @@ pre.code-block code,
   flex-shrink: 0;
 }
 .ds-component-status--stable {
-  background: hsl(142 70% 95%);
-  color: hsl(142 76% 28%);
+  background: var(--color-good-soft);
+  color: var(--color-good-text);
 }
 .ds-component-status--beta {
-  background: hsl(48 100% 95%);
-  color: hsl(43 100% 32%);
+  background: var(--color-warn-soft);
+  color: var(--color-warn-text);
 }
 .ds-component-status--experimental {
   background: var(--color-bg-tinted);
   color: var(--color-text-muted);
 }
 .ds-component-status--deprecated {
-  background: hsl(0 80% 96%);
-  color: hsl(0 70% 42%);
+  background: var(--color-bad-soft);
+  color: var(--color-bad-text);
 }
 
 /* Live "stable" pulses gently — the only one that pulses, because it's
@@ -2603,68 +2561,8 @@ pre.code-block code,
 .ds-composition .ds-comp-block { color: var(--color-text-primary); font-weight: var(--w-medium); }
 .ds-composition .ds-comp-slot  { color: var(--color-text-muted); }
 .ds-composition .ds-comp-atom  { color: var(--color-action-text); }
-.ds-composition .ds-comp-mol   { color: hsl(220 70% 45%); }
+.ds-composition .ds-comp-mol   { color: var(--color-text-body); }
 .ds-composition .ds-comp-note  { color: var(--color-text-muted); font-style: italic; }
-
-/* — Template mockup — hand-crafted miniature of each template, rendered
-   with REAL organism / molecule / atom classes from the system at a
-   thumbnail scale. Canvas renders at 1280px logical width (desktop); the
-   transform scale shrinks it to fit the preview frame. NOT a live iframe
-   (those proved fragile at small sizes) and NOT ASCII (which sits next to
-   this in a sibling section). Real components, real typography, real
-   spacing — at preview scale. */
-.ds-template-mockup {
-  position: relative;
-  width: 100%;
-  max-width: 640px;
-  height: 480px;
-  border: 1px solid var(--hairline);
-  border-radius: var(--r-3);
-  background: var(--bg);
-  overflow: hidden;
-  isolation: isolate;
-  margin-inline: auto;
-}
-.ds-template-mockup-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1280px;
-  transform: scale(0.5);
-  transform-origin: top left;
-  pointer-events: none;
-  user-select: none;
-}
-.ds-template-mockup-canvas > * { margin: 0; }
-/* "Open ↗" pill — top-right of every mockup */
-.ds-template-mockup-link {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  z-index: 5;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 10px;
-  background: var(--ink);
-  color: var(--bg);
-  border-radius: var(--r-2);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  text-decoration: none;
-  opacity: 0.85;
-  transition: opacity 0.15s ease;
-}
-.ds-template-mockup-link:hover,
-.ds-template-mockup-link:focus-visible { opacity: 1; }
-
-/* Mockup-internal layout shims — the canvas is fixed at 1280px so we
-   skip the normal section padding scaling and use compact paddings to
-   keep each section visible in the 480px-tall mockup frame. */
-.ds-template-mockup-canvas .o-section { padding-block: 24px; }
-.ds-template-mockup-canvas .o-section--compact { padding-block: 16px; }
-.ds-template-mockup-canvas .o-hero { padding-block: 32px 24px; }
-.ds-template-mockup-canvas .o-section-inner { max-width: 1200px; padding-inline: 48px; }
 
 /* — Do / Don't grid (filled in S6) — */
 .ds-dodont {
@@ -2683,12 +2581,12 @@ pre.code-block code,
   border: 1px solid var(--color-border);
 }
 .ds-dodont-col--do {
-  border-color: hsl(142 50% 80%);
-  background: hsl(142 50% 98%);
+  border-color: var(--color-good-text);
+  background: var(--color-good-soft);
 }
 .ds-dodont-col--dont {
-  border-color: hsl(0 60% 85%);
-  background: hsl(0 60% 98%);
+  border-color: var(--color-bad-text);
+  background: var(--color-bad-soft);
 }
 
 .ds-dodont-col-head {
@@ -2702,8 +2600,8 @@ pre.code-block code,
   text-transform: uppercase;
   margin-bottom: var(--s-3);
 }
-.ds-dodont-col--do .ds-dodont-col-head { color: hsl(142 76% 30%); }
-.ds-dodont-col--dont .ds-dodont-col-head { color: hsl(0 70% 40%); }
+.ds-dodont-col--do .ds-dodont-col-head { color: var(--color-good-text); }
+.ds-dodont-col--dont .ds-dodont-col-head { color: var(--color-bad-text); }
 
 .ds-dodont-list {
   list-style: none;
@@ -2718,52 +2616,25 @@ pre.code-block code,
   color: var(--color-text-body);
 }
 
-/* Dark-mode overrides for status pills + do/don't surfaces.
-   Guard with :root:not([data-theme="light"]) so an explicit user-set
-   light theme correctly suppresses these even when the OS prefers dark.
-   The unguarded earlier version caused Beta/Stable badges to render
-   dark-style in light mode when the OS was dark-set. */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .ds-component-status--stable {
-    background: hsl(142 50% 18%);
-    color: hsl(142 70% 70%);
-  }
-  :root:not([data-theme="light"]) .ds-component-status--beta {
-    background: hsl(43 50% 18%);
-    color: hsl(48 100% 70%);
-  }
-  :root:not([data-theme="light"]) .ds-component-status--deprecated {
-    background: hsl(0 50% 18%);
-    color: hsl(0 80% 75%);
-  }
-  :root:not([data-theme="light"]) .ds-dodont-col--do {
-    border-color: hsl(142 30% 30%);
-    background: hsl(142 30% 12%);
-  }
-  :root:not([data-theme="light"]) .ds-dodont-col--dont {
-    border-color: hsl(0 30% 30%);
-    background: hsl(0 30% 12%);
-  }
-}
-/* Explicit dark theme — same overrides keyed to the data-theme attribute
-   so the JS toggle controls them too. */
-:root[data-theme="dark"] .ds-component-status--stable {
-  background: hsl(142 50% 18%);
-  color: hsl(142 70% 70%);
-}
-:root[data-theme="dark"] .ds-component-status--beta {
-  background: hsl(43 50% 18%);
-  color: hsl(48 100% 70%);
-}
-:root[data-theme="dark"] .ds-component-status--deprecated {
-  background: hsl(0 50% 18%);
-  color: hsl(0 80% 75%);
-}
-:root[data-theme="dark"] .ds-dodont-col--do {
-  border-color: hsl(142 30% 30%);
-  background: hsl(142 30% 12%);
-}
-:root[data-theme="dark"] .ds-dodont-col--dont {
-  border-color: hsl(0 30% 30%);
-  background: hsl(0 30% 12%);
-}
+/* Feedback colors use semantic tokens in both explicit and system themes. */
+
+/* Documentation drawings are native, theme-adaptive SVG, not raster screenshots. */
+.ds-drawing { min-width: 0; margin: 0; }
+.ds-drawing-scroll { overflow-x: auto; border: 1px solid var(--color-border); border-radius: var(--r-3); background: var(--color-bg-tinted); }
+.ds-drawing svg { display: block; width: 100%; min-width: 440px; height: auto; font-family: var(--font-text); }
+.ds-drawing text { fill: var(--color-text-body); font-size: 16px; }
+.ds-drawing .ds-drawing-heading { fill: var(--color-text-primary); font-weight: 500; }
+.ds-drawing .ds-drawing-note { fill: var(--color-text-muted); font-size: 14px; }
+.ds-drawing-box { fill: var(--color-surface); stroke: var(--color-control-border); stroke-width: 1; }
+.ds-drawing-frame { fill: var(--color-bg); stroke: var(--color-border-strong); }
+.ds-drawing-accent { fill: var(--color-action-soft); stroke: var(--color-action-text); }
+.ds-drawing-focus { fill: var(--color-surface); stroke: var(--color-action-text); stroke-width: 3; }
+.ds-drawing-line { fill: none; stroke: var(--color-text-body); stroke-width: 1; }
+.ds-drawing figcaption { padding-top: var(--s-3); max-width: 70ch; }
+.ds-component-entry, .ds-component-doc { scroll-margin-top: 96px; }
+
+.ds-palette { width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; border: 0; color: var(--ink); }
+.ds-palette:not([open]) { display: none; }
+.ds-palette::backdrop { background: transparent; }
+.ds-toc-link[aria-current="location"] { color: var(--color-text-primary); }
+

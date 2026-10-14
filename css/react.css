@@ -1,0 +1,390 @@
+/* Radix bindings preserve the canonical Plot semantic tokens and geometry.
+   Do not redefine global aliases: --muted is foreground text, never a surface. */
+.plot-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: hsl(0 0% 0% / 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: plot-fade-in var(--dur-base) var(--ease-out);
+}
+.plot-overlay[data-state="closed"] {
+  animation-name: plot-fade-out;
+}
+.plot-dialog {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 201;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  max-height: calc(100dvh - var(--s-6));
+  overflow-y: auto;
+  animation: plot-dialog-in var(--dur-base) var(--ease-out);
+}
+.plot-dialog[data-state="closed"] {
+  animation-name: plot-dialog-out;
+}
+.plot-dialog > .o-dialog-title:not(.sr-only) {
+  padding: var(--s-5) 64px var(--s-3) var(--s-5);
+}
+.plot-dialog > .o-dialog-body {
+  margin: 0;
+}
+.plot-dialog .o-dialog-close {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+}
+@keyframes plot-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes plot-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes plot-dialog-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.97);
+  }
+}
+@keyframes plot-dialog-out {
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.97);
+  }
+}
+.plot-overlay--command {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: none;
+}
+.plot-command-dialog {
+  top: calc(
+    var(--plot-viewport-top, 0px) + var(--plot-viewport-height, 100dvh) * 0.12
+  );
+  transform: translateX(-50%);
+  width: min(560px, calc(100vw - 32px));
+  max-height: calc(var(--plot-viewport-height, 100dvh) * 0.82);
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  box-shadow: 0 24px 64px hsl(0 0% 0% / 0.35);
+  animation: none;
+}
+.plot-command-dialog [cmdk-root] {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.plot-command-dialog [cmdk-list] {
+  min-height: 0;
+  max-height: min(50vh, calc(var(--plot-viewport-height, 100dvh) - 200px));
+  overflow-y: auto;
+}
+.plot-command-dialog [cmdk-item][data-selected="true"] {
+  background: var(--color-bg-tinted);
+}
+.plot-command-dialog [cmdk-input] {
+  flex-shrink: 0;
+  padding-right: 60px;
+  border-radius: 0;
+}
+.plot-command-dialog .ds-palette-foot {
+  flex-shrink: 0;
+}
+.plot-command-dialog .ds-palette-item .ds-search-excerpt {
+  grid-column: 1 / -1;
+}
+.plot-checkbox,
+.plot-radio {
+  width: 20px;
+  height: 20px;
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  padding: 0;
+  border: 1px solid var(--color-control-border);
+  border-radius: 4px;
+  background: var(--color-surface);
+  color: var(--color-action-text);
+}
+.plot-checkbox[data-state="checked"],
+.plot-checkbox[data-state="indeterminate"] {
+  background: var(--color-action-text);
+  color: var(--color-bg);
+}
+.plot-checkbox:disabled,
+.plot-radio:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.plot-choice:has(button:disabled) {
+  cursor: not-allowed;
+  color: var(--color-text-muted);
+}
+.plot-choice-indicator {
+  display: grid;
+  place-items: center;
+}
+.plot-radio {
+  border-radius: 50%;
+}
+.plot-radio-indicator {
+  width: 10px;
+  height: 10px;
+  background: var(--color-action-text);
+  border-radius: 50%;
+}
+.plot-radio-group {
+  display: grid;
+  gap: 4px;
+}
+.switch[data-state="checked"] {
+  background: var(--color-action);
+}
+.switch[data-state="checked"]::after {
+  transform: translateX(16px);
+}
+.plot-switch-thumb {
+  display: none;
+}
+.plot-tab-panel {
+  width: 100%;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+.m-tabs {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.m-tabs-tab {
+  min-height: 44px;
+  flex-shrink: 0;
+}
+.plot-tooltip {
+  z-index: 300;
+  max-width: min(220px, calc(100vw - 32px));
+  font-family: var(--font-text);
+  font-size: 12px;
+  font-weight: var(--w-medium);
+  line-height: 1.3;
+  letter-spacing: -0.003em;
+  padding: 6px 12px;
+  background: var(--ink);
+  color: var(--bg);
+  border-radius: var(--r-1);
+  box-shadow: var(--shadow-2);
+  transform-origin: var(--radix-tooltip-content-transform-origin);
+  animation: plot-tooltip-in var(--dur-instant) var(--ease-out);
+}
+.plot-tooltip-arrow {
+  fill: var(--ink);
+}
+.plot-tooltip[data-state="closed"] {
+  animation: plot-fade-out var(--dur-instant) var(--ease-out);
+}
+@keyframes plot-tooltip-in {
+  from {
+    opacity: 0;
+    transform: translateY(2px) scale(0.97);
+  }
+}
+@media (max-width: 480px) {
+  .plot-tooltip {
+    max-width: min(280px, calc(100vw - 24px));
+  }
+}
+.plot-tooltip-trigger {
+  display: inline-flex;
+  align-items: center;
+}
+.plot-accordion-trigger {
+  min-height: 44px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  background: none;
+  border: 0;
+  padding: var(--s-3);
+  text-align: left;
+  color: var(--color-text-primary);
+  font: inherit;
+  cursor: pointer;
+}
+.plot-accordion-content {
+  padding: var(--s-3);
+}
+.plot-progress-root {
+  height: 12px;
+  overflow: hidden;
+  border-radius: var(--r-full);
+  background: var(--color-bg-tinted);
+}
+.plot-progress-indicator {
+  height: 100%;
+  width: 100%;
+  background: var(--color-action-text);
+  transition: transform 150ms;
+}
+.plot-progress-root[data-state="indeterminate"] .plot-progress-indicator {
+  width: 35%;
+  animation: plot-progress 1.4s ease-in-out infinite alternate;
+}
+@keyframes plot-progress {
+  to {
+    transform: translateX(185%);
+  }
+}
+.m-avatar [data-slot="avatar-fallback"] {
+  display: contents;
+}
+.plot-project-fallback {
+  padding: 16px;
+  color: var(--color-text-muted);
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.button-destructive {
+  background: var(--color-bad-text);
+  color: var(--color-bg);
+}
+@media (max-width: 1024px) {
+  .page-design-system .ds-toc {
+    display: none;
+  }
+  .page-design-system input,
+  .page-design-system textarea,
+  .page-design-system select {
+    font-size: 16px;
+  }
+  /* Persist in the existing sticky header instead of covering the examples. */
+  .page-design-system .ds-mobile-jump {
+    position: static;
+    margin: 0;
+    flex-shrink: 0;
+    box-shadow: none;
+  }
+  .ds-table-scroll .ds-matrix {
+    min-width: 640px;
+  }
+  .ds-table-scroll {
+    width: 100%;
+    min-width: 0;
+    overscroll-behavior-x: contain;
+  }
+  .ds-component-doc-section {
+    min-width: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .plot-progress-indicator {
+    animation: none !important;
+  }
+}
+
+/* Sonner feedback keeps Plot's neutral semantic surface in both themes. */
+.plot-toaster {
+  --normal-bg: var(--color-surface);
+  --normal-text: var(--color-text-primary);
+  --normal-border: var(--color-border);
+  --border-radius: var(--r-3);
+  font-family: var(--font-text);
+}
+.plot-toaster [data-sonner-toast] {
+  font-family: var(--font-text);
+  border-radius: var(--r-3);
+}
+.plot-toaster [data-description] {
+  color: var(--color-text-muted);
+}
+.plot-toaster [data-button] {
+  background: var(--color-text-primary);
+  color: var(--color-bg);
+  border-radius: var(--r-2);
+  min-height: 36px;
+}
+.plot-toaster [data-close-button] {
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  border-color: var(--color-border);
+}
+
+/* Icon controls were inheriting the text-button min-width. Keep a square,
+   recognisable control and a 44px touch target without changing text buttons. */
+.button-icon {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+}
+.button-icon svg {
+  flex-shrink: 0;
+}
+.ds-table-scroll:focus-visible {
+  outline: 2px solid var(--color-action-text);
+  outline-offset: 3px;
+}
+
+.button-icon.button-primary {
+  color: var(--bg);
+}
+
+/* Busy already has its own content/spinner treatment; disabled blocks activation. */
+.button[data-loading="true"]:disabled {
+  opacity: 1;
+}
+
+/* The reset's fixed body height constrained sticky navigation to one screen. */
+body.page-design-system {
+  height: auto;
+  min-height: 100%;
+}
+
+.plot-table-region {
+  min-width: 0;
+  max-width: 100%;
+}
+.plot-table-hint {
+  margin-top: var(--s-3);
+  font: 12px/1.5 var(--font-text);
+  color: var(--color-text-muted);
+}
+.plot-table-hint + .ds-table-scroll {
+  margin-top: var(--s-2);
+}
+
+/* Selected count shares the inverse chip foreground. */
+.m-filter-row .m-chip[aria-pressed="true"] .m-chip-count { color: inherit; }
