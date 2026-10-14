@@ -1,3 +1,10 @@
+# 2.0.0 · React component migration
+
+- Replaced canonical HTML examples and all ten reference screen implementations with native React JSX
+- Added typed package exports, shadcn/Radix primitives, ESLint, unit/browser tests and clean consumer verification
+- Retained original visual tokens/motion, existing Vita patterns and MIT history; repaired supporting-text contrast and icon semantics
+- Added a complete component migration map; no portfolio payloads or font binaries are distributed
+
 # Changelog
 
 ## 2026-09-08 - Documentation consistency review

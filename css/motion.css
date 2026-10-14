@@ -169,7 +169,7 @@
    ---------------------------------------------------------------------------- */
 
 @view-transition {
-  navigation: auto;
+  navigation: none; /* Native document navigation: mixed public/gated layouts have no shared transition lifetime. */
 }
 
 .o-header {
@@ -1053,13 +1053,25 @@
    fully rendered — no degradation.
    ---------------------------------------------------------------------------- */
 
-/* Disabled: previously applied `animation-timeline: view()` to every
-   .o-process block to do a scroll-driven fade/lift on entry. The keyframes
-   start at opacity:0 + translateY(36px) and `animation-fill-mode: both`
-   pins that initial state until the timeline engages. In some embedded
-   contexts (iframe previews, certain scroll containers) view() never
-   engages, so whole sections stay invisible. Falling back to no animation
-   — sections render at their natural state, no surprises. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .o-process {
+      animation: o-process-reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 18%;
+    }
+
+    /* Callouts and metrics inside case studies pick up a softer reveal —
+       shorter range, no scale, just a fade. Keeps them from competing
+       with the dominant .o-process motion. */
+    .o-section .m-callout,
+    .o-section .m-metric {
+      animation: o-section-soft-reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 12%;
+    }
+  }
+}
 
 @keyframes o-process-reveal {
   from {
@@ -1082,3 +1094,4 @@
     transform: none;
   }
 }
+

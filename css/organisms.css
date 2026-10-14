@@ -232,7 +232,7 @@ body.mobile-menu-open {
 }
 
 /* Mobile: collapse desktop nav, show mobile trigger */
-@media (max-width: 720px) {
+@media (max-width: 900px) {
   .o-header {
     padding: 10px 16px;
   }
@@ -254,7 +254,7 @@ body.mobile-menu-open {
   }
 }
 
-@media (min-width: 721px) {
+@media (min-width: 901px) {
   /* Ensure mobile menu never shows on desktop even if state lingers */
   .o-mobile-menu,
   .o-mobile-menu.is-open {
@@ -2100,7 +2100,9 @@ p.o-artifact-tile-body {
   align-items: center;
   justify-content: center;
   gap: var(--s-2);
-  flex: 1;
+  /* Size the visual area, then let the caption take its own space. */
+  flex: none;
+  aspect-ratio: var(--media-placeholder-ratio, auto);
   min-height: 200px;
   padding: var(--s-5);
   text-align: center;
@@ -2165,6 +2167,9 @@ p.o-artifact-tile-body {
 .o-media-expand:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+.o-media-expand--link {
+  text-decoration: none;
 }
 
 /* Lightbox modal — full-viewport image viewer */
@@ -2253,12 +2258,63 @@ p.o-artifact-tile-body {
   inset: 0;
 }
 
+/* When an iframe figure has a media-ar class, restructure as flex column so
+   the iframe takes the aspect-ratio box and figcaption flows below it
+   instead of being covered by the absolutely-positioned iframe. */
+.o-media-real[class*="media-ar--"]:has(iframe) {
+  display: flex;
+  flex-direction: column;
+  aspect-ratio: auto;
+  position: static;
+}
+.o-media-real[class*="media-ar--"]:has(iframe) iframe {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  height: auto;
+}
+.o-media-real.media-ar--16x9:has(iframe)  iframe { aspect-ratio: 16/9; }
+.o-media-real.media-ar--16x10:has(iframe) iframe { aspect-ratio: 16/10; }
+.o-media-real.media-ar--4x3:has(iframe)   iframe { aspect-ratio: 4/3; }
+.o-media-real.media-ar--3x2:has(iframe)   iframe { aspect-ratio: 3/2; }
+.o-media-real.media-ar--1x1:has(iframe)   iframe { aspect-ratio: 1/1; }
+.o-media-real.media-ar--21x9:has(iframe)  iframe { aspect-ratio: 21/9; }
+/* Portrait mobile iframe — cap visual width so phone screens render at
+   phone scale even when the figure spans a wide row. The figcaption matches
+   the iframe width so the two visually belong together rather than the
+   caption stretching across the full figure. */
+.o-media-real.media-ar--9x16:has(iframe)  iframe { aspect-ratio: 9/16; max-width: 320px; margin: 0 auto; }
+.o-media-real.media-ar--9x16:has(iframe) figcaption { max-width: 320px; margin: 0 auto; border-top: 0; padding-top: var(--s-2); }
+
 /* aspect-ratio + position:relative needed for iframe embeds */
-.o-media-real.media-ar--16x9 { aspect-ratio: 16/9; position: relative; }
-.o-media-real.media-ar--4x3  { aspect-ratio: 4/3;  position: relative; }
-.o-media-real.media-ar--3x2  { aspect-ratio: 3/2;  position: relative; }
-.o-media-real.media-ar--1x1  { aspect-ratio: 1/1;  position: relative; }
-.o-media-real.media-ar--21x9 { aspect-ratio: 21/9; position: relative; }
+.o-media-real.media-ar--16x9  { aspect-ratio: 16/9;  position: relative; }
+.o-media-real.media-ar--16x10 { aspect-ratio: 16/10; position: relative; }
+.o-media-real.media-ar--4x3   { aspect-ratio: 4/3;   position: relative; }
+.o-media-real.media-ar--3x2   { aspect-ratio: 3/2;   position: relative; }
+.o-media-real.media-ar--1x1   { aspect-ratio: 1/1;   position: relative; }
+.o-media-real.media-ar--21x9  { aspect-ratio: 21/9;  position: relative; }
+.o-media-real.media-ar--5x6   { aspect-ratio: 5/6;   position: relative; }
+.o-media-real.media-ar--11x6  { aspect-ratio: 11/6;  position: relative; }
+.o-media-real.media-ar--44x19 { aspect-ratio: 44/19; position: relative; }
+.o-media-real.media-ar--44x24 { aspect-ratio: 44/24; position: relative; }
+.o-media-real.media-ar--9x16  { aspect-ratio: 9/16;  position: relative; }
+
+/* Same aspect-ratio sizing for .o-inline-media (Layout: "inline-media").
+   Without this, iframes inside inline-media figures collapse to height 0
+   because the iframe element has no intrinsic content size. */
+.o-inline-media.media-ar--16x9  { aspect-ratio: 16/9;  }
+.o-inline-media.media-ar--16x10 { aspect-ratio: 16/10; }
+.o-inline-media.media-ar--4x3   { aspect-ratio: 4/3;   }
+.o-inline-media.media-ar--3x2   { aspect-ratio: 3/2;   }
+.o-inline-media.media-ar--1x1   { aspect-ratio: 1/1;   }
+.o-inline-media.media-ar--21x9  { aspect-ratio: 21/9;  }
+.o-inline-media.media-ar--5x6   { aspect-ratio: 5/6;   }
+.o-inline-media.media-ar--11x6  { aspect-ratio: 11/6;  }
+.o-inline-media.media-ar--44x19 { aspect-ratio: 44/19; }
+.o-inline-media.media-ar--44x24 { aspect-ratio: 44/24; }
+.o-inline-media.media-ar--9x16  { aspect-ratio: 9/16;  }
+/* When the figure has an aspect-ratio, the iframe needs to fill it */
+.o-inline-media[class*="media-ar--"] iframe { height: 100%; }
 
 .o-media-placeholder figcaption,
 .o-media-real figcaption {
@@ -2270,17 +2326,16 @@ p.o-artifact-tile-body {
   background: var(--bg);
 }
 
-/* aspect-ratio variants applied via media-ar--* class.
-   For placeholders, the ratio governs the VISUAL inner area only — caption
-   sits below in its natural height so long captions are never clipped by
-   the aspect box (and overflow:hidden on the figure doesn't truncate them). */
-.o-media-placeholder.media-ar--16x9  .o-media-placeholder-inner { aspect-ratio: 16/9; }
-.o-media-placeholder.media-ar--4x3   .o-media-placeholder-inner { aspect-ratio: 4/3; }
-.o-media-placeholder.media-ar--3x2   .o-media-placeholder-inner { aspect-ratio: 3/2; }
-.o-media-placeholder.media-ar--1x1   .o-media-placeholder-inner { aspect-ratio: 1/1; }
-.o-media-placeholder.media-ar--21x9  .o-media-placeholder-inner { aspect-ratio: 21/9; }
-.o-media-placeholder.media-ar--9x16  .o-media-placeholder-inner { aspect-ratio: 9/16; }
-.o-media-placeholder.media-ar--32x10 .o-media-placeholder-inner { aspect-ratio: 32/10; }
+/* Placeholder ratios belong to the visual area, not the captioned figure.
+   Its minimum content height can exceed the preferred ratio on narrow screens. */
+.o-media-placeholder.media-ar--16x9  { --media-placeholder-ratio: 16/9; }
+.o-media-placeholder.media-ar--4x3   { --media-placeholder-ratio: 4/3; }
+.o-media-placeholder.media-ar--3x2   { --media-placeholder-ratio: 3/2; }
+.o-media-placeholder.media-ar--1x1   { --media-placeholder-ratio: 1/1; }
+.o-media-placeholder.media-ar--21x9  { --media-placeholder-ratio: 21/9; }
+.o-media-placeholder.media-ar--9x16  { --media-placeholder-ratio: 9/16; }
+.o-media-placeholder.media-ar--32x10 { --media-placeholder-ratio: 32/10; }
+.o-media-placeholder figcaption { flex-shrink: 0; }
 .o-media-real.media-ar--32x10        { aspect-ratio: 32/10; }
 
 /* Improved placeholder — dot grid background, wireframe inner frame */
@@ -3288,3 +3343,6 @@ dialog.o-dialog::backdrop,
     opacity: 0.65;
   }
 }
+@media(max-width:700px) {
+}
+

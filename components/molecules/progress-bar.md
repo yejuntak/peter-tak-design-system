@@ -1,19 +1,10 @@
 # `.m-progress-bar`
 
-Adherence display that frames behavior as **progress** — what was done — never as **compliance** — what was missed. Same data, different framing, measurably different patient response.
+A progress display emphasizing completed actions and a target. This is a design intention, not evidence that the framing improves engagement or clinical outcomes. Evaluate its wording and behavior in the intended context.
 
-## The decision
+## React contract
 
-> "4 of 7 completed" produces continued engagement.  
-> "Missed 3 of 7 days" produces shame and abandonment.  
-> Use this component to enforce the first framing across every adherence surface.
-
-This is a behavioral-outcome design decision baked into the component API. The component **does not accept** a "missed" count or a "compliance rate" prop. It accepts only:
-
-- `data-completed` — the count of completed actions
-- `data-target` — the total target
-
-If you find yourself needing to display the missed count, **rephrase the use case**. There is no compliance-framing variant. That is intentional.
+The component accepts `completed`, `target`, optional `unit`, `streak`, and `encouragement`. It does not infer a medical outcome from completion. Invalid or zero targets remain unmeasured; the accessible label states that no target is set.
 
 ## Anatomy
 
@@ -40,19 +31,15 @@ If you find yourself needing to display the missed count, **rephrase the use cas
 - For deadline-driven, all-or-nothing tasks — use `.m-deadline-meter`
 - For multi-metric scoring — use `.m-score-grid`
 
-## HTML
+## React
 
-```html
-<div class="m-progress-bar" data-completed="4" data-target="7">
-  <header class="m-progress-bar-head">
-    <span class="m-progress-bar-count"><strong>4 of 7</strong> completed</span>
-    <span class="m-progress-bar-streak">3-day streak</span>
-  </header>
-  <div class="m-progress-bar-track" role="progressbar" aria-valuenow="4" aria-valuemin="0" aria-valuemax="7" aria-label="4 of 7 activities completed">
-    <div class="m-progress-bar-fill" style="width: calc(4 / 7 * 100%);"></div>
-  </div>
-  <p class="m-progress-bar-encouragement">Tomorrow's a walking day — keep the streak.</p>
-</div>
+```tsx
+<ProgressBar
+  completed={4}
+  target={7}
+  unit="steps"
+  encouragement="Progress describes what is complete."
+/>
 ```
 
 ## Rules

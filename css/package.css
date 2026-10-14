@@ -1,0 +1,118 @@
+/* Reusable component bindings. Named aliases retain the existing token JSON contract. */
+:root {
+  --motion-fast: 120ms;
+  --motion-normal: 240ms;
+  --motion-slow: 480ms;
+  --ease-standard: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-linear: linear;
+}
+body {
+  min-height: 100%;
+  height: auto;
+}
+.plot-choice {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 44px;
+}
+.plot-choice:has(.plot-checkbox),
+.plot-choice:has(.plot-radio) {
+  cursor: pointer;
+}
+.m-lab-result-status--ok {
+  color: var(--color-good-text);
+  background: var(--color-good-soft);
+}
+.m-lab-result-status--attention {
+  color: var(--color-bad-text);
+  background: var(--color-bad-soft);
+}
+.m-range-indicator-marker {
+  left: clamp(0%, var(--range-position, 50%), 100%);
+}
+.m-confidence-tier {
+  text-wrap: balance;
+}
+.plot-health-status {
+  margin-top: var(--s-3);
+  color: var(--muted);
+}
+.plot-media-button {
+  appearance: none;
+  display: block;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  background: none;
+  width: 100%;
+  cursor: zoom-in;
+  min-height: 44px;
+}
+.plot-lightbox {
+  width: min(960px, calc(100vw - 32px));
+  max-width: none;
+  padding: var(--s-5);
+}
+.plot-lightbox img {
+  max-width: 100%;
+  max-height: 70dvh;
+  object-fit: contain;
+}
+.plot-header .o-header-mobile {
+  display: none;
+}
+@media (max-width: 900px) {
+  .plot-header .o-header-nav {
+    display: none;
+  }
+  .plot-header .o-header-mobile {
+    display: inline-flex;
+  }
+}
+
+.m-confidence-tier--high {
+  color: var(--color-good-text);
+  background: var(--color-good-soft);
+}
+.vita-demo-disclaimer {
+  margin: var(--s-5) auto;
+  padding: var(--s-4);
+  max-width: 1120px;
+  color: var(--muted);
+  font: var(--t-body-s)/var(--lh-relaxed) var(--font-text);
+}
+.plot-mobile-menu nav {
+  padding: var(--s-5);
+  display: flex;
+  flex-direction: column;
+}
+
+.plot-mobile-menu {
+  top: 60px;
+  left: 0;
+  right: 0;
+  transform: none;
+  width: 100%;
+  max-width: none;
+  border-radius: 0;
+  animation-name: o-mobile-menu-in;
+}
+.plot-mobile-menu-overlay {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.vita-demo-banner {
+  margin: 0;
+  padding: 8px 16px;
+  background: var(--surface-2);
+  color: var(--ink-soft);
+  font: 12px/1.5 var(--font-text);
+  text-align: center;
+}
+
+/* Grid/flex consumers must not inherit an image’s intrinsic minimum width. */
+.o-inline-media { min-width: 0; width: 100%; }
+.m-code-snippet { min-width: 0; max-width: 100%; }

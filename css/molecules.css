@@ -515,7 +515,7 @@
   position: relative;
 }
 
-.m-filter-row .m-chip {
+.m-chip {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -546,12 +546,12 @@
     transform var(--dur-press) var(--ease-spring);
 }
 
-.m-filter-row .m-chip:active {
+.m-chip:active {
   transform: scale(0.97);
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .m-filter-row .m-chip:hover {
+  .m-chip:hover {
     border-color: var(--hairline-strong);
     color: var(--ink);
   }
@@ -560,8 +560,8 @@
 /* Default (no-JS / pre-enhanced): flat fill on the active chip itself.
    When JS upgrades the row with [data-fr-enhanced], the indicator pill
    becomes the visual fill and slides between chips — see below. */
-.m-filter-row .m-chip[aria-pressed="true"],
-.m-filter-row .m-chip.is-active {
+.m-chip[aria-pressed="true"],
+.m-chip.is-active {
   background: var(--ink);
   color: var(--bg);
   border-color: var(--ink);
@@ -605,7 +605,7 @@
   }
 }
 
-.m-filter-row .m-chip-count {
+.m-chip-count {
   font-family: var(--font-mono);
   font-size: var(--t-micro);
   color: var(--muted);
@@ -1356,3 +1356,4 @@
   font-size: var(--t-tiny);
   padding: 0 4px;
 }
+

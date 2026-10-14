@@ -18,13 +18,10 @@
   margin: 0;
 }
 
-/* Allow the page to fill the viewport vertically — but grow with content.
-   `height: 100%` was locking the body box to viewport height, which broke
-   scroll in some embedded iframes for long case studies. min-height keeps
-   short pages full-bleed while letting long pages extend naturally. */
+/* Allow the page to fill the viewport vertically */
 html,
 body {
-  min-height: 100%;
+  height: 100%;
 }
 
 /* Smooth in-page anchor scrolling, but respect reduced-motion */
@@ -162,7 +159,7 @@ fieldset {
    Rauno detail: 2px outline OUTSIDE the element with 3px offset filled
    by the page bg, so the ring reads as a halo not as a border. */
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--accent-text);
   outline-offset: 3px;
   border-radius: var(--r-1);
 }
@@ -218,3 +215,4 @@ fieldset {
 ::-webkit-scrollbar-corner {
   background: transparent;
 }
+
